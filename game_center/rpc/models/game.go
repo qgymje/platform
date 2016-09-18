@@ -6,6 +6,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+//go:generate gen_columns -tag=bson -path=game.go
+// Game 表示一个游戏基本属性
 type Game struct {
 	GameID      bson.ObjectId `bson:"_id"`
 	Name        string        `bson:"name"`

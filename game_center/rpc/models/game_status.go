@@ -5,6 +5,7 @@ type GameStatus int
 
 const (
 	Unvalid GameStatus = iota
+	Uploaded
 	ValidFailed
 	Published
 	Down

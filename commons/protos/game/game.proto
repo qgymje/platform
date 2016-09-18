@@ -1,0 +1,41 @@
+syntax="proto3";
+
+package game;
+
+service Game{
+  rpc Start( UserID  ) returns ( GameVM ){}
+  rpc List( Page  ) returns (Games) {}
+  rpc Preference (UserID) returns (PreferenceConfig) {}
+  rpc UpdatePreference (UserID ) returns (Status) {}
+}
+
+message Status {
+  bool success = 1;
+}
+
+message PreferenceConfig {
+    string json = 1;
+}
+
+message UserID {
+  string userID = 1;
+}
+
+message GameVM {
+    string IP = 1;
+}
+
+message Games {
+    repeated GameInfo games= 1;
+}
+
+message GameInfo {
+    string gameID = 1;
+    string name = 2;
+    string cover = 3;
+}
+
+message Page {
+    int32 num = 1;
+    int32 size = 2;
+}
