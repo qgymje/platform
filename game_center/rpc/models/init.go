@@ -6,8 +6,8 @@ var mongoSession *mgo.Session
 var ErrNotFound = mgo.ErrNotFound
 
 const DBName = "game_center"
-const ColNameRoom = "games"
-const ColNameRoomAuth = "game_preferences"
+const ColNameGame = "games"
+const ColNameGamePreference = "game_preferences"
 
 // InitMongodb 根据配置初始化mongodb
 func InitMongodb(sess *mgo.Session) {
