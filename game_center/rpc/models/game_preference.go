@@ -22,7 +22,6 @@ func (g *GamePreference) Create() error {
 	session := GetMongo()
 	defer session.Close()
 
-	g.ID = bson.NewObjectId()
 	g.CreatedAt = time.Now()
 	g.UpdatedAt = time.Now()
 
@@ -38,8 +37,8 @@ func (g *GamePreference) update(m bson.M) error {
 	return session.DB(DBName).C(ColNameGamePreference).Update(bson.M{GamePreferenceColumns.GameID: g.GameID, GamePreferenceColumns.UserID: g.UserID}, change)
 }
 
-func (g *Game) Update(change bson.M) error {
-	return update(change)
+func (g *GamePreference) Update(change bson.M) error {
+	return g.update(change)
 }
 
 func findGamePreference(m bson.M) (*GamePreference, error) {

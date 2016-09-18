@@ -8,6 +8,7 @@ var ErrNotFound = mgo.ErrNotFound
 const DBName = "game_center"
 const ColNameGame = "games"
 const ColNameGamePreference = "game_preferences"
+const ColNameCompany = "companies"
 
 // InitMongodb 根据配置初始化mongodb
 func InitMongodb(sess *mgo.Session) {

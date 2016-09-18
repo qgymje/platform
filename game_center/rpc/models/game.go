@@ -29,7 +29,7 @@ func (g *Game) Create() error {
 	session := GetMongo()
 	defer session.Close()
 
-	g.ID = bson.NewObjectId()
+	g.GameID = bson.NewObjectId()
 	g.CreatedAt = time.Now()
 	g.UpdatedAt = time.Now()
 
@@ -42,11 +42,11 @@ func (g *Game) update(m bson.M) error {
 
 	m[GameColumns.UpdatedAt] = time.Now()
 	change := bson.M{"$set": m}
-	return session.DB(DBName).C(ColNameGame).Update(bson.M{GameColumns.GameID: g.ID}, change)
+	return session.DB(DBName).C(ColNameGame).Update(bson.M{GameColumns.GameID: g.GameID}, change)
 }
 
 func (g *Game) Update(change bson.M) error {
-	return update(change)
+	return g.update(change)
 }
 
 func findGame(m bson.M) (*Game, error) {
@@ -64,23 +64,23 @@ func findGame(m bson.M) (*Game, error) {
 	return &game, nil
 }
 
-func findGames(m bson.M) ([]*Games, error) {
+func findGames(m bson.M) ([]*Game, error) {
 	session := GetMongo()
 	defer session.Close()
 
 	var games []*Game
-	err := session.DB(DBName).C(ColNameRoom).Find(m).All(&games)
+	err := session.DB(DBName).C(ColNameGame).Find(m).All(&games)
 	if err != nil {
 		if err == mgo.ErrNotFound {
 			return nil, ErrNotFound
 		}
 		return nil, err
 	}
-	return &games, nil
+	return games, nil
 }
 
 func findGamesByStatus(status GameStatus) ([]*Game, error) {
-	change := bson.M{GameColumns.Status, status}
+	change := bson.M{GameColumns.Status: status}
 	return findGames(change)
 }
 
