@@ -1,0 +1,22 @@
+app:
+    rpc_host: localhost
+    rpc_port: :4000
+
+mongodb:
+    hosts: 127.0.0.1
+    dbname: accountCenter
+    username:
+    password:
+
+log:
+    filename: ./logs/account_center.log
+    enable_func_call_depth: true
+
+auth:
+    secret_key: GO5U9fS8D7WkDay8
+    expires: 2592000
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 127.0.0.1:4161
+

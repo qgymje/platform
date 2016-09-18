@@ -1,0 +1,10 @@
+app:
+    base_url: http://localhost
+    http_port: :3000
+    rpc_host: localhost
+    rpc_port: :4000
+
+log:
+    filename: ./logs/account_center.log
+    enable_func_call_depth: true
+

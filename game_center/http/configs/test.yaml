@@ -1,0 +1,10 @@
+app:
+    base_url: http://localhost
+    http_port: :3002
+    rpc_host: localhost
+    rpc_port: :4002
+
+log:
+    filename: ./logs/game_center.log
+    enable_func_call_depth: true
+

@@ -1,0 +1,662 @@
+{
+	"id": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+	"name": "Cloudzen.Coupon",
+	"description": "",
+	"order": [
+		"88ca2346-a58b-8c00-96a7-9a435f2b57ec",
+		"99ea2f9a-cbec-b916-1a3f-0d4c7220ad8a",
+		"de2b0c50-e633-35d3-52a6-50f329bdf615",
+		"020c5634-db51-f63a-69b5-74f91b026908",
+		"62a2961d-3d4c-cd68-ae58-9c1b5350ac5e"
+	],
+	"folders": [],
+	"timestamp": 1471593326034,
+	"owner": "843684",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "020c5634-db51-f63a-69b5-74f91b026908",
+			"headers": "",
+			"url": "{{url}}/coupon/f/batch/get?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "{{batchId}}",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n  tests[\"batch status\"] = true;\r\n}\r\nelse {\r\n  tests[\"batch status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472540496372,
+			"name": "/coupon/f/batch/get",
+			"description": "",
+			"collectionId": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "5ca08da7-1d3e-15c3-f694-3e2fb8b29f3f",
+					"name": "Test",
+					"request": "1d9b5cae-9d66-4466-3e66-6f4e12131215",
+					"owner": "843684",
+					"requestObject": "{\"url\":\"http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1\",\"headers\":[],\"data\":[{\"key\":\"roomId\",\"value\":\"Okay\",\"type\":\"text\",\"enabled\":true},{\"key\":\"msg\",\"value\":\"{\\\"text\\\": \\\"it is cool~\\\", \\\"color\\\": 999999}\",\"type\":\"text\",\"enabled\":true},{\"key\":\"type\",\"value\":\"0\",\"type\":\"text\",\"enabled\":true},{\"key\":\"ver\",\"value\":\"1\",\"type\":\"text\",\"enabled\":true}],\"method\":\"POST\",\"dataMode\":\"urlencoded\"}",
+					"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd"
+				}
+			]
+		},
+		{
+			"id": "62a2961d-3d4c-cd68-ae58-9c1b5350ac5e",
+			"headers": "",
+			"url": "{{url}}/coupon/f/coupon/list?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "page",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1|| (data.Code ==-20405)) {\r\n    tests[\"coupon list status\"] = true\r\n}\r\nelse {\r\n  tests[\"coupon list status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472714216294,
+			"name": "/coupon/f/coupon/list",
+			"description": "",
+			"collectionId": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 20,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "801",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 31 Aug 2016 08:40:46 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"Code\":1,\"Data\":{\"List\":[{\"BatchId\":\"57bd834174addd1c84f607e7\",\"BatchName\":\"\",\"Channel\":\"\",\"CouponId\":\"57bd834174addd1c84f607e8\",\"Desc\":\"必胜客优惠券描述\",\"EventDrawId\":\"57bd838874addd079ccafcc5\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"Type\":\"美食\"},{\"BatchId\":\"57b6e00a74addd251035cd85\",\"BatchName\":\"\",\"Channel\":\"\",\"CouponId\":\"57b6e00a74addd251035cd8b\",\"Desc\":\"必胜客优惠券描述\",\"EventDrawId\":\"57b6e04974addd1fb016f92c\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"Type\":\"美食\"}],\"PageCount\":1},\"Msg\":\"success\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "35644a18-44aa-7565-849e-a9968c766416",
+					"name": "test",
+					"request": {
+						"url": "{{url}}/coupon/f/coupon/list?token={{token}}",
+						"headers": [],
+						"data": [
+							{
+								"key": "page",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "limit",
+								"value": "10",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					}
+				}
+			]
+		},
+		{
+			"id": "88ca2346-a58b-8c00-96a7-9a435f2b57ec",
+			"headers": "",
+			"url": "{{url}}/user/login",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "{{reg_name}}",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "passwd",
+					"value": "GetThrough",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n    tests[\"login status\"] = true;\r\n    //postman.setEnvironmentVariable(\"token\", data.Data);\r\n    postman.clearEnvironmentVariable(\"token\");\r\n    postman.setGlobalVariable(\"token\", data.Data);\r\n}\r\nelse {\r\n  tests[\"login status\"] = false;\r\n}\r\n\r\n\r\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472548360362,
+			"name": "/user/login",
+			"description": "",
+			"collectionId": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "062f8972-181b-0458-5079-5e975c6a2929",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "99ea2f9a-cbec-b916-1a3f-0d4c7220ad8a",
+			"headers": "",
+			"url": "{{url}}/coupon/b/make?token={{token}}",
+			"preRequestScript": "postman.setGlobalVariable(\"token\",globals[\"token\"]);\npostman.setEnvironmentVariable(\"token\", globals[\"token\"]);",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "type",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "amount",
+					"value": "13",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "name",
+					"value": "必胜客优惠券V",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "desc",
+					"value": "必胜客优惠券描述",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pic",
+					"value": "http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n  tests[\"batch status\"] = true;\r\n}\r\nelse {\r\n  tests[\"batch status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472713917269,
+			"name": "/coupon/b/make",
+			"description": "",
+			"collectionId": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "886645f7-d16e-cee1-31d9-a51b0fb2fa3f",
+					"name": "Test",
+					"request": "99ea2f9a-cbec-b916-1a3f-0d4c7220ad8a",
+					"owner": "843684",
+					"requestObject": "\"99ea2f9a-cbec-b916-1a3f-0d4c7220ad8a\"",
+					"collectionId": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+					"requestId": "99ea2f9a-cbec-b916-1a3f-0d4c7220ad8a"
+				}
+			]
+		},
+		{
+			"id": "de2b0c50-e633-35d3-52a6-50f329bdf615",
+			"headers": "",
+			"url": "{{url}}/coupon/f/batch/list?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "page",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n    tests[\"batch status\"] = true\r\n    row=data.Data.List\r\n    postman.setEnvironmentVariable(\"batchId\", row[0]._id);\r\n}\r\nelse {\r\n  tests[\"batch status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472540760280,
+			"name": "/coupon/f/batch/list",
+			"description": "",
+			"collectionId": "e96ebb60-5b50-9bc0-2c1d-8f687071907a",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 20,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "491",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Fri, 19 Aug 2016 07:24:30 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": "A name for the server"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"Code\":1,\"Data\":{\"List\":[{\"Amount\":5,\"BatchCode\":\"739e883f6b394a3a95178b5387078728\",\"Desc\":\"XXXXX优惠券详细说明\",\"FromTime\":1471589775560,\"MerchantId\":\"57b6ad8f74addd1d587ab9f2\",\"Name\":\"XXXXX优惠券\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475909775560,\"Type\":\"美食\",\"_id\":\"57b6ad8f74addd1d587ab9f3\"}],\"PageCount\":1},\"Msg\":\"success\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "22af933d-e4fe-95cc-5a53-a74ea63e8470",
+					"name": "test",
+					"request": {
+						"url": "http://localhost/gserver/coupon/f/batch/list/u?token=c653e433-71b1-4019-80c6-3059e4cd8183",
+						"headers": [],
+						"data": [
+							{
+								"key": "id",
+								"value": "57b43a4374addd1184263ba1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 30,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Fri, 19 Aug 2016 10:27:18 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": ""
+						},
+						{
+							"name": "Transfer-Encoding",
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"Code\":1,\"Data\":{\"List\":[{\"Amount\":10,\"Desc\":\"必胜客优惠券描述\",\"FromTime\":1471596569694,\"MerchantId\":\"57b6b88574addd2a40106f4f\",\"Name\":\"必胜客优惠券V\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475916569694,\"Type\":\"美食\",\"UndrawnAmount\":10,\"_id\":\"57b6c81974addd1b70650061\"},{\"Amount\":10,\"Desc\":\"必胜客优惠券描述\",\"FromTime\":1471596536632,\"MerchantId\":\"57b6b88574addd2a40106f4f\",\"Name\":\"必胜客优惠券V\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475916536632,\"Type\":\"美食\",\"UndrawnAmount\":10,\"_id\":\"57b6c7f874addd1b70650056\"},{\"Amount\":10,\"Desc\":\"必胜客优惠券描述\",\"FromTime\":1471596508060,\"MerchantId\":\"57b6b88574addd2a40106f4f\",\"Name\":\"必胜客优惠券\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475916508060,\"Type\":\"美食\",\"UndrawnAmount\":10,\"_id\":\"57b6c7dc74addd1b7065004b\"},{\"Amount\":159,\"Desc\":\"$999 for 3 people\",\"FromTime\":1471596151533,\"MerchantId\":\"57b6b88574addd2a40106f4f\",\"Name\":\"The White House Tour\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475916151533,\"Type\":\"美食\",\"UndrawnAmount\":159,\"_id\":\"57b6c67774addd2ed866c305\"},{\"Amount\":10,\"Desc\":\"必胜客优惠券描述\",\"FromTime\":1471593052777,\"MerchantId\":\"57b6b88574addd2a40106f4f\",\"Name\":\"必胜客优惠券\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475913052777,\"Type\":\"美食\",\"UndrawnAmount\":9,\"_id\":\"57b6ba5c74addd1f6ce0c0ca\"},{\"Amount\":10,\"Desc\":\"XXXXX优惠券详细说明\",\"FromTime\":1471592581177,\"MerchantId\":\"57b6b88574addd2a40106f4f\",\"Name\":\"XXXXX优惠券\",\"QrCodeImgUrl\":\"http://pic.58pic.com/58pic/12/13/82/89V58PIC537.jpg\",\"Restrict\":[\"只限徐家汇门店使用\",\"不能与其他优惠项目一起使用\",\"转发他人无效\"],\"ToTime\":1475912581177,\"Type\":\"美食\",\"UndrawnAmount\":5,\"_id\":\"57b6b88574addd2a40106f50\"}],\"PageCount\":1},\"Msg\":\"success\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "16e78f6b-19e4-323f-a26e-c0619c860809",
+					"name": "test",
+					"request": {
+						"url": "http://localhost/gserver/coupon/f/batch/list?token=d4b88577-950d-46c7-af69-fdaef716c5e5",
+						"headers": [],
+						"data": [
+							{
+								"key": "page",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "limit",
+								"value": "10",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					}
+				}
+			]
+		}
+	]
+}

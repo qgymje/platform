@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+service Greeter {
+    rpc Hello(HelloRequest) returns (HelloResponse) {}
+    rpc Count(NonParamRequest) returns (CountResponse) {}
+    rpc Clear(NonParamRequest) returns (NonParamResponse) {}
+}
+
+message HelloRequest {
+    string name = 1;
+    int64 ltime = 3;
+}
+
+message HelloResponse {
+    string greeting = 2;
+    int64 ltime = 4;
+}
+
+message NonParamRequest {}
+message NonParamResponse {}
+
+message CountResponse {
+    int64 num = 5;
+}

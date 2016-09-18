@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package broadcasting;
+
+service Broadcasting{
+    rpc RecentBarrageList( Room  ) returns (Barrages) {}
+    rpc CurrentAudienceNum( Room  ) returns (Num) {}
+}
+
+message Room {
+    string ID = 1;
+}
+
+message Num {
+    string RoomID = 1;
+    uint32 Num = 2;
+}
+
+message Barrages {
+    repeated Barrage barrages = 1;
+}
+
+message Barrage{
+    string userID = 1;
+    string nickname= 2;
+    string content = 3;
+    int64 pubTime = 4;
+}

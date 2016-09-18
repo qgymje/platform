@@ -1,0 +1,1073 @@
+{
+	"id": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+	"name": "Clound.LivePush",
+	"description": "",
+	"order": [
+		"6355cd53-f45f-9328-d0a5-f2624f751667",
+		"54e98bca-1893-0208-e8f1-cf799e893850",
+		"24c37e83-ba9a-ec3b-053b-559647ed2dbc",
+		"7dc0786c-e999-4d4a-eaab-d77f6fe18b4b",
+		"4aefa238-0483-ee88-690b-b0bdb74c8af7",
+		"1d9b5cae-9d66-4466-3e66-6f4e12131215",
+		"27e4bdf8-3a3d-4e6b-1c08-9a2545ad8957",
+		"36fcd62b-b4b9-0636-fc58-3056474f8606",
+		"6ac9ef66-5421-2f0f-7f97-50e11b2eb7ef"
+	],
+	"folders": [],
+	"timestamp": 1469698545188,
+	"owner": "843684",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "1d9b5cae-9d66-4466-3e66-6f4e12131215",
+			"headers": "",
+			"url": "{{url}}/livebroad/vote/do?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57b4457774addd1184263bbc",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "oid",
+					"value": "57b4457774addd1184263bba",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "roomId",
+					"value": "57b1632674addd223cb8a67f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452972635,
+			"name": "/livebroad/vote/do",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "8b88830c-6792-d59e-66df-4a3c0f53017f",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1",
+						"headers": [],
+						"data": [
+							{
+								"key": "roomId",
+								"value": "Okay",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "msg",
+								"value": "{\"text\": \"it is cool~\", \"color\": 999999}",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "type",
+								"value": "0",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "ver",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "24c37e83-ba9a-ec3b-053b-559647ed2dbc",
+			"headers": "",
+			"url": "{{url}}/livebroad/vote/open?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "roomId",
+					"value": "57b1632674addd223cb8a67f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "name",
+					"value": "三三四四",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "option",
+					"value": "选项A,选项B",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "duration",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472532435651,
+			"name": "/livebroad/vote/open",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "f8b360a0-8773-61b1-4a65-ffe092ad32b3",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1",
+						"headers": [],
+						"data": [
+							{
+								"key": "roomId",
+								"value": "Okay",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "msg",
+								"value": "{\"text\": \"it is cool~\", \"color\": 999999}",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "type",
+								"value": "0",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "ver",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "27e4bdf8-3a3d-4e6b-1c08-9a2545ad8957",
+			"headers": "",
+			"url": "{{url}}/livebroad/coupon/event/open?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57c4f43474addd29cc8b17e8",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "roomId",
+					"value": "57b1632674addd223cb8a67f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "amount",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "duration",
+					"value": "0",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472525376408,
+			"name": "/livebroad/coupon/event/open",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "a239fe53-0839-b9b0-9494-3ee7f89d2bde",
+					"name": "Test",
+					"request": "1d9b5cae-9d66-4466-3e66-6f4e12131215",
+					"owner": "843684",
+					"requestObject": "{\"url\":\"http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1\",\"headers\":[],\"data\":[{\"key\":\"roomId\",\"value\":\"Okay\",\"type\":\"text\",\"enabled\":true},{\"key\":\"msg\",\"value\":\"{\\\"text\\\": \\\"it is cool~\\\", \\\"color\\\": 999999}\",\"type\":\"text\",\"enabled\":true},{\"key\":\"type\",\"value\":\"0\",\"type\":\"text\",\"enabled\":true},{\"key\":\"ver\",\"value\":\"1\",\"type\":\"text\",\"enabled\":true}],\"method\":\"POST\",\"dataMode\":\"urlencoded\"}",
+					"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd"
+				}
+			]
+		},
+		{
+			"id": "36fcd62b-b4b9-0636-fc58-3056474f8606",
+			"headers": "",
+			"url": "{{url}}/livebroad/coupon/event/draw?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57bd838874addd079ccafcc5",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "roomId",
+					"value": "57b1632674addd223cb8a67f",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452980300,
+			"name": "livebroad/coupon/event/draw",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "3375e791-e48d-6f77-8541-c596aedfc2fd",
+					"name": "Test",
+					"request": "1d9b5cae-9d66-4466-3e66-6f4e12131215",
+					"owner": "843684",
+					"requestObject": "{\"url\":\"http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1\",\"headers\":[],\"data\":[{\"key\":\"roomId\",\"value\":\"Okay\",\"type\":\"text\",\"enabled\":true},{\"key\":\"msg\",\"value\":\"{\\\"text\\\": \\\"it is cool~\\\", \\\"color\\\": 999999}\",\"type\":\"text\",\"enabled\":true},{\"key\":\"type\",\"value\":\"0\",\"type\":\"text\",\"enabled\":true},{\"key\":\"ver\",\"value\":\"1\",\"type\":\"text\",\"enabled\":true}],\"method\":\"POST\",\"dataMode\":\"urlencoded\"}",
+					"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd"
+				}
+			]
+		},
+		{
+			"id": "4aefa238-0483-ee88-690b-b0bdb74c8af7",
+			"headers": "",
+			"url": "{{url}}/livebroad/vote/close?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57c4e3dd74addd29f4c03dff",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472522317765,
+			"name": "/livebroad/vote/close",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "91d89b74-21ff-dff7-d8f3-808e47bb6c1f",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1",
+						"headers": [],
+						"data": [
+							{
+								"key": "roomId",
+								"value": "Okay",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "msg",
+								"value": "{\"text\": \"it is cool~\", \"color\": 999999}",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "type",
+								"value": "0",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "ver",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "54e98bca-1893-0208-e8f1-cf799e893850",
+			"headers": "",
+			"url": "{{url}}/livebroad/chat/receive?token={{token}}&roomId=yyy",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "roomId",
+					"value": "57b1632674addd223cb8a67f",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472532461369,
+			"name": "livebroad/chat/receive",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "2578950c-1e9f-e921-9f58-ab5188b231bc",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1",
+						"headers": [],
+						"data": [
+							{
+								"key": "roomId",
+								"value": "Okay",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "msg",
+								"value": "{\"text\": \"it is cool~\", \"color\": 999999}",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "type",
+								"value": "0",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "ver",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "6355cd53-f45f-9328-d0a5-f2624f751667",
+			"headers": "",
+			"url": "{{url}}/livebroad/chat/send?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "roomId",
+					"value": "57b1632674addd223cb8a67f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "msg",
+					"value": "{\"text\": \"abc1291\", \"color\": 999999}",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "type",
+					"value": "10001",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "ver",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452946101,
+			"name": "/livebroad/chat/send",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "fd754c1e-9a51-9027-8520-17efd21b4f0b",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1",
+						"headers": [],
+						"data": [
+							{
+								"key": "roomId",
+								"value": "Okay",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "msg",
+								"value": "{\"text\": \"it is cool~\", \"color\": 999999}",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "type",
+								"value": "0",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "ver",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "6ac9ef66-5421-2f0f-7f97-50e11b2eb7ef",
+			"headers": "",
+			"url": "{{url}}/livebroad/coupon/event/close?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57c4e7e874addd2e7c5e56ff",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472522243101,
+			"name": "/livebroad/coupon/event/close",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "cff515c7-9b24-df8a-5b15-c94206f72f24",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1",
+						"headers": [],
+						"data": [
+							{
+								"key": "roomId",
+								"value": "Okay",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "msg",
+								"value": "{\"text\": \"it is cool~\", \"color\": 999999}",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "type",
+								"value": "0",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "ver",
+								"value": "1",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "7dc0786c-e999-4d4a-eaab-d77f6fe18b4b",
+			"headers": "",
+			"url": "{{url}}/livebroad/vote/get?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57b43a4374addd1184263ba1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452964249,
+			"name": "/livebroad/vote/get",
+			"description": "",
+			"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 16,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "32",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 19 Jul 2016 08:13:50 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [
+						{
+							"domain": "192.168.0.234",
+							"hostOnly": true,
+							"httpOnly": true,
+							"name": "GSESSIONID",
+							"path": "/",
+							"sameSite": "no_restriction",
+							"secure": false,
+							"session": true,
+							"storeId": "0",
+							"value": "c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":null,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "1fe8e69d-a5ea-f257-682a-5f8ac23b1a63",
+					"name": "Test",
+					"request": "1d9b5cae-9d66-4466-3e66-6f4e12131215",
+					"owner": "843684",
+					"requestObject": "{\"url\":\"http://192.168.0.234:8787/live-chat/send?token=c3d95e5f-8e6a-4924-86c8-d1d5b1c311e1\",\"headers\":[],\"data\":[{\"key\":\"roomId\",\"value\":\"Okay\",\"type\":\"text\",\"enabled\":true},{\"key\":\"msg\",\"value\":\"{\\\"text\\\": \\\"it is cool~\\\", \\\"color\\\": 999999}\",\"type\":\"text\",\"enabled\":true},{\"key\":\"type\",\"value\":\"0\",\"type\":\"text\",\"enabled\":true},{\"key\":\"ver\",\"value\":\"1\",\"type\":\"text\",\"enabled\":true}],\"method\":\"POST\",\"dataMode\":\"urlencoded\"}",
+					"collectionId": "52b956be-4b5c-afb1-6830-1457da3c2dcd"
+				}
+			]
+		}
+	]
+}

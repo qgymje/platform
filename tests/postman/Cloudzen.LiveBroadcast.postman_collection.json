@@ -1,0 +1,2366 @@
+{
+	"id": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+	"name": "Cloudzen.LiveBroadcast",
+	"description": "",
+	"order": [
+		"c6a77bed-a780-31fb-8df8-1aa853e933dd",
+		"a3cc49e3-7105-f369-b715-1dca009b30fa",
+		"90552390-d4a3-6760-2ba4-71ea99c9aa4b",
+		"c9ca9a4e-ccea-e692-8bb7-470a097cd7a1",
+		"c60a2127-6071-184d-13df-1e8db5fa7e0b",
+		"bbb53460-24d4-9820-f282-2ff7473c681d",
+		"bbd2952f-86dc-7c47-7627-f1d0680a4724",
+		"f19806b8-cf84-3e48-426e-72ceba8edcb1",
+		"88ebda20-293c-b99b-b424-8caeee713e83",
+		"cf86b7e3-4518-b30c-effe-ffabb15bd2a7",
+		"91554a64-61b1-91a1-020d-75b2966b6692",
+		"919222ca-e1b6-831e-3ad2-8a688389f20f",
+		"9e8bb395-75e9-d1ff-5d46-f1c862dfa961",
+		"4026c8cf-f458-ec33-46f5-3fa0fd8b45a0",
+		"ace99000-01e4-5eaa-6ed7-400c11975974",
+		"4db9c4ff-1d22-2892-529b-f4948d3ce0df",
+		"ac6a53ba-9837-f1ed-348b-828315e4dbba",
+		"23eebfd5-0d54-b458-d53a-903a899ff972",
+		"4a11772a-d2c9-929c-d490-e21020b073de",
+		"415a69dc-ed0f-6065-bb04-b9e125b5836d",
+		"1698efe5-7212-56d7-1c57-144657038f41",
+		"b5535142-ed33-ce9b-47ba-d9dbe492e614",
+		"3aca9b13-ad51-6c83-640f-74d02444e17e",
+		"de41a9b8-282a-786f-0bc1-8fdca0d92a2a",
+		"46d28232-febf-2463-8a09-9c5a6981a58a"
+	],
+	"folders": [],
+	"timestamp": 1468823142216,
+	"owner": "843684",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "1698efe5-7212-56d7-1c57-144657038f41",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/end?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a19e9e74addd330c7858ba",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452892308,
+			"name": "/livebroad/room/end",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "0c0c9d2b-0cf7-902c-3b74-4c6bdeec556b",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "23eebfd5-0d54-b458-d53a-903a899ff972",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/block/rmUser?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user",
+					"value": "0ca175b9c0f726a831d895e269332461",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452880639,
+			"name": "/livebroad/roomauth/block/rmUser",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "faae780b-de22-1675-851d-3dddb04ad022",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "3aca9b13-ad51-6c83-640f-74d02444e17e",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/subscribe?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "{{roomId}}",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472710779940,
+			"name": "/livebroad/room/subscribe",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 322,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "50",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 01 Aug 2016 10:19:52 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":-92000,\"data\":null,\"msg\":\"token expired\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "8a11f7b0-b1e4-e1eb-bfb5-8fc6ec44df44",
+					"name": "Subscribe",
+					"request": {
+						"url": "http://localhost/gserver/livebroad/room/subscribe?token=c3b8fb54-93ef-412e-8f0c-cf663ad6a88c1",
+						"headers": [],
+						"data": [
+							{
+								"key": "id",
+								"value": "579af31374addd2a60f1ab9e",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 18,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "39",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Tue, 02 Aug 2016 05:01:30 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": "A name for the server"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":1,\"data\":null,\"msg\":\"success\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "c26d51e3-5369-1122-c5fa-d6a57dc50569",
+					"name": "demo",
+					"request": {
+						"url": "http://localhost/gserver/livebroad/room/subscribe?token=3c47b6a0-ec09-482e-bfa5-c5966498e148",
+						"headers": [],
+						"data": [
+							{
+								"key": "id",
+								"value": "57a028e574addd2634e7358e",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "4026c8cf-f458-ec33-46f5-3fa0fd8b45a0",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/chk?id=579af31374addd2a60f1ab9e",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pwd",
+					"value": "0ca175b9c0f726a831d895e269332461",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452638954,
+			"name": "/livebroad/roomauth/chk",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "e7b8f6f3-9763-406d-bb52-db0360700b5f",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "415a69dc-ed0f-6065-bb04-b9e125b5836d",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/start?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a19e9e74addd330c7858ba",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "orientation",
+					"value": "2",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "cover",
+					"value": "SpaceBase.jpg",
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "name",
+					"value": "我的房间名字25",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": "{}",
+			"time": 1472452887758,
+			"name": "/livebroad/room/start",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "00ed1a2f-1338-f79a-48b0-d535781baf09",
+					"name": "Test",
+					"request": "415a69dc-ed0f-6065-bb04-b9e125b5836d",
+					"owner": "843684",
+					"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+					"requestId": "415a69dc-ed0f-6065-bb04-b9e125b5836d",
+					"requestObject": "\"415a69dc-ed0f-6065-bb04-b9e125b5836d\""
+				}
+			],
+			"folder": null,
+			"folderId": null,
+			"timestamp": null
+		},
+		{
+			"id": "46d28232-febf-2463-8a09-9c5a6981a58a",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/setting?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a7f38774addd1b6c912ad4",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "PostBan",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "ShowDanmu",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "PostMTI",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "PostRegMTI",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "PostLevel",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452906205,
+			"name": "/livebroad/roomauth/setting",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "416e1fcb-faa9-ee77-06d8-302609c17de9",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "4a11772a-d2c9-929c-d490-e21020b073de",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/block/rmIp?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "ip",
+					"value": "127.0.0.1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452883707,
+			"name": "/livebroad/roomauth/block/rmIp",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "e5f0ca09-b5ae-21c2-ec59-478a008a1864",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "4db9c4ff-1d22-2892-529b-f4948d3ce0df",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/block/addUser?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a8005774addd2134c33ac0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user",
+					"value": "57a46ac674addd49f0396876",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "n",
+					"value": "111",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452873806,
+			"name": "/livebroad/roomauth/block/addUser",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "5ffc43ad-8c74-b4a4-901b-ecd495adc3f8",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "88ebda20-293c-b99b-b424-8caeee713e83",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/setChannel?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "channel",
+					"value": "nmdfnmdfmd,34343",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452846835,
+			"name": "/livebroad/room/setChannel",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "d367f236-906f-f3dd-2052-107895fc5e36",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "90552390-d4a3-6760-2ba4-71ea99c9aa4b",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/my?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "",
+					"value": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n  tests[\"apply status\"] = true;\r\n}\r\nelse {\r\n  tests[\"apply status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472610377157,
+			"name": "/livebroad/room/my",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "280eb15c-592c-813b-e76f-54fc8d932f90",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "91554a64-61b1-91a1-020d-75b2966b6692",
+			"headers": "",
+			"url": "{{url}}/livebroad/backstage/room/setScore?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "score",
+					"value": "20000",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452854522,
+			"name": "/livebroad/backstage/room/setScore",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "237f2ce0-cb22-b97f-a325-837b8b872789",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "919222ca-e1b6-831e-3ad2-8a688389f20f",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/setPwd?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pwd",
+					"value": "0ca175b9c0f726a831d895e269332461",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452858173,
+			"name": "/livebroad/roomauth/setPwd",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "72e5ab09-c5b9-9584-cdf9-7e2acd0ab42e",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "9e8bb395-75e9-d1ff-5d46-f1c862dfa961",
+			"headers": "",
+			"url": "{{url}}/livebroad/backstage/roomauth/get?id=579af31374addd2a60f1ab9e",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pwd",
+					"value": "0ca175b9c0f726a831d895e269332461",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452631589,
+			"name": "/livebroad/backstage/roomauth/get",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "98cd99d1-f369-e998-f8da-1cd262a51ec7",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "a3cc49e3-7105-f369-b715-1dca009b30fa",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/apply?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "一人得道鸡犬升天",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "channel",
+					"value": "aa,bb,ccccc,ddddd",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "cover",
+					"value": "",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && (data.Code==1 ||data.Code==-20102  ) ) {\r\n  tests[\"apply status\"] = true;\r\n  postman.setEnvironmentVariable(\"roomId\", data.Data._id);\r\n\r\n}\r\nelse {\r\n  tests[\"apply status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472710751828,
+			"name": "/livebroad/room/apply",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "030ca39a-703a-9a68-f8f1-bfd1f1f1a68e",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "ac6a53ba-9837-f1ed-348b-828315e4dbba",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/block/addIp?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a8005774addd2134c33ac0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "ip",
+					"value": "127.0.0.12",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "n",
+					"value": "100",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452876957,
+			"name": "/livebroad/roomauth/block/addIp",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "5ae15b17-b083-2e11-921b-22189eacd49f",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "ace99000-01e4-5eaa-6ed7-400c11975974",
+			"headers": "",
+			"url": "{{url}}/livebroad/roomauth/entry?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pwd",
+					"value": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452870298,
+			"name": "/livebroad/roomauth/entry",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "1011c86a-73c2-bbe1-657b-bc4de222f8e7",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "b5535142-ed33-ce9b-47ba-d9dbe492e614",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/unsubscribe?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "{{roomId}}",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472713038238,
+			"name": "/livebroad/room/unsubscribe",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "ce06839d-965c-f5d7-5f27-a63bcf167ee8",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "bbb53460-24d4-9820-f282-2ff7473c681d",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/search?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "xian",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452835918,
+			"name": "/livebroad/room/search",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 21,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "928",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 03 Aug 2016 09:40:15 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": "A name for the server"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":1,\"data\":[{\"AdminUser\":[\"5795c4ab74addd1e68c26dbe\"],\"BlockEnd\":\"0001-01-01T00:00:00Z\",\"BlockStart\":\"0001-01-01T00:00:00Z\",\"Channel\":[\"aa\",\"bb\",\"ccccc\"],\"CreatedTime\":\"2016-07-29T14:19:40.046+08:00\",\"Domain\":\"\",\"IsBlock\":-2,\"IsNeedPwd\":false,\"IsSubscribed\":false,\"Name\":\"zhangxiansheng\",\"Orientation\":1,\"Playing\":true,\"Popularity\":0,\"Score\":0,\"Status\":1,\"Subscribed\":0,\"Tag\":[\"tag\"],\"UpdatedTime\":\"2016-07-29T16:01:21.008+08:00\",\"User\":\"5795c4ab74addd1e68c26dbe\",\"_id\":\"579af31374addd2a60f1ab9e\"},{\"AdminUser\":[\"579b060774addd16d81cb809\"],\"Channel\":[\"aa\",\"bb\",\"ccccc\"],\"CreatedTime\":\"2016-07-29T16:21:11.342+08:00\",\"Domain\":\"\",\"IsBlock\":1,\"IsNeedPwd\":false,\"IsSubscribed\":false,\"Name\":\"zhangxiansheng\",\"Orientation\":0,\"Playing\":true,\"Popularity\":0,\"Score\":0,\"Status\":1,\"Subscribed\":1,\"Tag\":[\"tag\"],\"UpdatedTime\":\"0001-01-01T00:00:00Z\",\"User\":\"579b060774addd16d81cb809\",\"_id\":\"579b11f774addd2190a7a51d\"}],\"msg\":\"success\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "dfc9187c-80ee-9b07-0119-9d8f1b68a73c",
+					"name": "demo",
+					"request": {
+						"url": "http://localhost/gserver/livebroad/room/search?token=3eaed0ad-cb58-4906-b207-9077e9c48ec3",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "xian",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "bbd2952f-86dc-7c47-7627-f1d0680a4724",
+			"headers": "",
+			"url": "{{url}}/livebroad/backstage/room/auth",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "579af31374addd2a60f1ab9e",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "status",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452602015,
+			"name": "/livebroad/backstage/room/auth",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "168e021d-f909-14ad-9981-638440586a0d",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "c60a2127-6071-184d-13df-1e8db5fa7e0b",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/get?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "{{roomId}}",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n  tests[\"apply status\"] = true;\r\n}\r\nelse {\r\n  tests[\"apply status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472638543428,
+			"name": "/livebroad/room/get",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "94277875-e626-70a8-f4c5-ceb9caa77968",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "c6a77bed-a780-31fb-8df8-1aa853e933dd",
+			"headers": "",
+			"url": "{{url}}/user/login",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "{{reg_name}}",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "passwd",
+					"value": "GetThrough",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n    tests[\"login status\"] = true;\r\n    //postman.setEnvironmentVariable(\"token\", data.Data);\r\n    postman.clearEnvironmentVariable(\"token\");\r\n    postman.setGlobalVariable(\"token\", data.Data);\r\n}\r\nelse {\r\n  tests[\"login status\"] = false;\r\n}\r\n\r\n\r\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472610360295,
+			"name": "/user/login",
+			"description": "copy from user for newman automate test api",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "1a3155e6-32f2-fd10-456d-355892a2fa9f",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "c9ca9a4e-ccea-e692-8bb7-470a097cd7a1",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/list?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "page",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "10",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n    tests[\"list status\"] = true;\r\n    row=data.Data.List\r\n    postman.setEnvironmentVariable(\"batchId\", row[0]._id);\r\n}\r\nelse {\r\n      tests[\"list status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472637887220,
+			"name": "/livebroad/room/list",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": []
+		},
+		{
+			"id": "cf86b7e3-4518-b30c-effe-ffabb15bd2a7",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/setTag?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "tag",
+					"value": "kjjsdfks,3433,767621021",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452850632,
+			"name": "/livebroad/room/setTag",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "f20052bb-32f9-db4b-2a95-07cf4044b61b",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "de41a9b8-282a-786f-0bc1-8fdca0d92a2a",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/subscribeList?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "page",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "20",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452902476,
+			"name": "/livebroad/room/subscribeList",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 322,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "50",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 01 Aug 2016 10:19:52 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":-92000,\"data\":null,\"msg\":\"token expired\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "f7f8145f-9f49-b9cf-26db-93d98cc2014a",
+					"name": "Subscribe",
+					"request": {
+						"url": "http://localhost/gserver/livebroad/room/subscribe?token=c3b8fb54-93ef-412e-8f0c-cf663ad6a88c1",
+						"headers": [],
+						"data": [
+							{
+								"key": "id",
+								"value": "579af31374addd2a60f1ab9e",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "f19806b8-cf84-3e48-426e-72ceba8edcb1",
+			"headers": "",
+			"url": "{{url}}/livebroad/room/setName?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "5795ce7f74addd277456346f",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "name",
+					"value": "牛逼的人做牛逼的事情",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452842939,
+			"name": "/livebroad/room/setName",
+			"description": "",
+			"collectionId": "c661bb71-dff4-4b12-c488-59ddcd6af4aa",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "08fc19f6-118d-4b08-e54d-3bf517e6b3cc",
+					"name": "Test",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/info",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"owner": 0
+				}
+			]
+		}
+	]
+}

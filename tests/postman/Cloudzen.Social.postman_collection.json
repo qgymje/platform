@@ -1,0 +1,685 @@
+{
+	"id": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+	"name": "Cloudzen.Social",
+	"description": "",
+	"order": [
+		"82819f96-bbaf-378b-40e7-51304c84d933",
+		"17927711-3315-6155-7da0-000d707cc70d",
+		"f16822ab-3140-38f1-589f-75e740ba857e",
+		"86c85186-5c1c-04a9-a934-06d16b95a428",
+		"bd622fec-b650-c179-95c9-275c8f53994b",
+		"3fde3d65-4cea-6487-afa4-cac0faf2d367"
+	],
+	"folders": [],
+	"timestamp": 1470301676293,
+	"owner": "843684",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "17927711-3315-6155-7da0-000d707cc70d",
+			"headers": "",
+			"url": "{{url}}/social/friend/yes?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a30fb074addd2d98d44d61",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452915796,
+			"name": "/social/friend/yes",
+			"description": "",
+			"collectionId": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "17efca26-10ac-9faa-b02d-9109000c83fa",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "3fde3d65-4cea-6487-afa4-cac0faf2d367",
+			"headers": "",
+			"url": "{{url}}/social/friend/testtx?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "222",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user",
+					"value": "11",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452933467,
+			"name": "/social/friend/testtx",
+			"description": "",
+			"collectionId": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "e5f693ee-6bdc-4ecc-40fb-fef87d11140a",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "82819f96-bbaf-378b-40e7-51304c84d933",
+			"headers": "",
+			"url": "{{url}}/social/friend/apply?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a46ac674addd49f0396876",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452912548,
+			"name": "/social/friend/apply",
+			"description": "",
+			"collectionId": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "e8f16d65-6d43-b591-d70a-4d1ae17b605b",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 12,
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "168",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 04 Aug 2016 10:07:39 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.8.1",
+							"description": "A name for the server"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":1,\"data\":{\"ID\":\"57a313eb74addd1e28ba8cd5\",\"User\":\"57a185e774addd3094c859fb\",\"FriendID\":\"57a185e774addd3094c859fb\",\"IP\":\"127.0.0.1\",\"Status\":0},\"msg\":\"success\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "26aec348-705f-7a33-8300-6d7b003ac732",
+					"name": "demo",
+					"request": {
+						"url": "http://localhost/gserver/social/friend/apply?token=b9b84939-7c63-4162-89f7-5188e2a8ac11",
+						"headers": [],
+						"data": [
+							{
+								"key": "id",
+								"value": "57a185e774addd3094c859fb",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					}
+				}
+			]
+		},
+		{
+			"id": "86c85186-5c1c-04a9-a934-06d16b95a428",
+			"headers": "",
+			"url": "{{url}}/social/friend/list?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "page",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452924784,
+			"name": "/social/friend/list",
+			"description": "",
+			"collectionId": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "4360840f-4b6a-662c-941d-7c65bfe5cf2e",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "bd622fec-b650-c179-95c9-275c8f53994b",
+			"headers": "",
+			"url": "{{url}}/social/friend/test?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "222",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user",
+					"value": "11",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452929716,
+			"name": "/social/friend/test",
+			"description": "",
+			"collectionId": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "c2c5e2df-e0c8-54eb-1dbf-3aa934c50589",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "f16822ab-3140-38f1-589f-75e740ba857e",
+			"headers": "",
+			"url": "{{url}}/social/friend/no?token={{token}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "id",
+					"value": "57a30fb074addd2d98d44d61",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472452920237,
+			"name": "/social/friend/no",
+			"description": "",
+			"collectionId": "4028a88f-dd50-c705-a781-d1c89b9e80c5",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "aa4ce605-3797-bb30-6abe-ea1abfdead5b",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		}
+	]
+}

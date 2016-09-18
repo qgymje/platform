@@ -1,0 +1,32 @@
+[
+	{
+		"key": "echo_digest_realm",
+		"type": "text",
+		"value": "Users",
+		"enabled": true
+	},
+	{
+		"key": "echo_digest_nonce",
+		"type": "text",
+		"value": "vm3fvjfs1C9Q1OfGkVhEJmnZ6BXLIceg",
+		"enabled": true
+	},
+	{
+		"key": "reg_nickname",
+		"type": "text",
+		"value": "Nick_Test_etzKW2K2TK",
+		"enabled": true
+	},
+	{
+		"key": "token",
+		"type": "text",
+		"value": "68217f15-46ea-4f79-a258-29dbf810b498",
+		"enabled": true
+	},
+	{
+		"key": "reg_name",
+		"type": "text",
+		"value": "Test_xfPw85jPk8",
+		"enabled": true
+	}
+]

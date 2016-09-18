@@ -1,0 +1,375 @@
+{
+	"id": "ea135011-e7ce-d07f-410d-3815000222c9",
+	"name": "Cloudzen.User",
+	"description": "",
+	"order": [
+		"a3935d97-744d-3590-883f-743e4312b39e",
+		"90b9d477-1197-6c49-131f-eb1e98fa5aff",
+		"2a2ec542-18d2-412c-b726-e6cacd429ae2",
+		"34d3617a-68fe-1b5d-797a-324532cde14d",
+		"1a827971-9465-adad-ac58-b4b47d8bd64a"
+	],
+	"folders": [],
+	"timestamp": 1469698377488,
+	"owner": "843684",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "1a827971-9465-adad-ac58-b4b47d8bd64a",
+			"headers": "",
+			"url": "{{url}}/user/logout",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\nif (data.Code== 1 ) {\r\n  tests[\"logout status\"] = true;\r\n}\r\nelse {\r\n  tests[\"logout status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472441013170,
+			"name": "/user/logout",
+			"description": "",
+			"collectionId": "ea135011-e7ce-d07f-410d-3815000222c9",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 13,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "33",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 06:44:46 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":1,\"data\":false,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "7f523f24-b94b-13fe-0bb7-98dd29bf1cc6",
+					"name": "Demo",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/logout",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "2a2ec542-18d2-412c-b726-e6cacd429ae2",
+			"headers": "",
+			"url": "{{url}}/user/info",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n  tests[\"user status\"] = true;\r\n}\r\nelse {\r\n  tests[\"user status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": "{}",
+			"time": 1472434361837,
+			"name": "/user/info",
+			"description": "",
+			"collectionId": "ea135011-e7ce-d07f-410d-3815000222c9",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 23,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "154",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:16:19 GMT",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":{\"Id_\":\"578c77727ecd943205482263\",\"Name\":\"Fisher\",\"Nickname\":\"Fisher\",\"Passwd\":\"MoppsAMTjuvzwZ9/aukM0YEIyagoFfmuYPQnSMeSShg=\"},\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "00cabd04-fa92-fca2-c9e1-9626377c1d5b",
+					"name": "Test",
+					"request": "2a2ec542-18d2-412c-b726-e6cacd429ae2",
+					"owner": "843684",
+					"collectionId": "ea135011-e7ce-d07f-410d-3815000222c9",
+					"requestId": "2a2ec542-18d2-412c-b726-e6cacd429ae2",
+					"requestObject": "\"2a2ec542-18d2-412c-b726-e6cacd429ae2\""
+				}
+			],
+			"folder": null,
+			"folderId": null,
+			"timestamp": null,
+			"rawModeData": ""
+		},
+		{
+			"id": "34d3617a-68fe-1b5d-797a-324532cde14d",
+			"headers": "",
+			"url": "{{url}}/user/random",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\nif (data.Code== 1 ) {\r\n  tests[\"user status\"] = true;\r\n}\r\nelse {\r\n  tests[\"user status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472441022251,
+			"name": "/user/random",
+			"description": "",
+			"collectionId": "ea135011-e7ce-d07f-410d-3815000222c9",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 13,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "33",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 06:44:46 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":1,\"data\":false,\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "2c22d200-87bb-c3fd-cabe-98701d5475a3",
+					"name": "Demo",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/logout",
+						"headers": [],
+						"data": [],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "90b9d477-1197-6c49-131f-eb1e98fa5aff",
+			"headers": "",
+			"url": "{{url}}/user/login",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "{{reg_name}}",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "passwd",
+					"value": "GetThrough",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif (data.Data  && data.Code== 1 ) {\r\n    tests[\"login status\"] = true;\r\n    //postman.setEnvironmentVariable(\"token\", data.Data);\r\n    postman.clearEnvironmentVariable(\"token\");\r\n    postman.setGlobalVariable(\"token\", data.Data);\r\n}\r\nelse {\r\n  tests[\"login status\"] = false;\r\n}\r\n\r\n\r\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472546469478,
+			"name": "/user/login",
+			"description": "",
+			"collectionId": "ea135011-e7ce-d07f-410d-3815000222c9",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 313,
+					"headers": [
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "66",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Mon, 18 Jul 2016 07:15:47 GMT",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"code\":0,\"data\":\"faf9e76b-01f5-42e3-bf2f-3483517cea4e\",\"msg\":\"\"}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"previewType": "html",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"state": {
+						"size": "normal"
+					},
+					"id": "397d941a-ee24-4ca7-a19d-83a8f162cc4c",
+					"name": "Demo1",
+					"request": {
+						"url": "http://192.168.0.234:8585/user/login",
+						"headers": [],
+						"data": [
+							{
+								"key": "name",
+								"value": "Fisher",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "passwd",
+								"value": "GetThough",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "urlencoded"
+					},
+					"owner": 0
+				}
+			]
+		},
+		{
+			"id": "a3935d97-744d-3590-883f-743e4312b39e",
+			"headers": "",
+			"url": "{{url}}/user/register",
+			"preRequestScript": "function randomString(len) {\r\n　　len = len || 32;\r\n　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/\r\n　　var maxPos = $chars.length;\r\n　　var pwd = '';\r\n　　for (i = 0; i < len; i++) {\r\n　　　　pwd += $chars.charAt(Math.floor(Math.random() * maxPos));\r\n　　}\r\n　　return pwd;\r\n}\r\n\r\nvar reg_name=\"Test_\"\r\nvar reg_nickname = \"Nick_Test_\"\r\nreg_name=reg_name+ randomString(10)\r\nreg_nickname=reg_nickname+ randomString(10)\r\npostman.setEnvironmentVariable(\"reg_name\", reg_name);\r\npostman.setEnvironmentVariable(\"reg_nickname\", reg_nickname);\r\n//postman.setGlobalVariable(\"reg_name\", reg_name);\r\n//postman.setGlobalVariable(\"reg_nickname\", reg_nickname);\r\n/*\r\nvar a = environment[\"a\"] \r\nvar b = globals[\"b\"]\r\n*/\r\n\r\n",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "{{reg_name}}",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "passwd",
+					"value": "GetThrough",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nickname",
+					"value": "{{reg_nickname}}",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "var data = JSON.parse(responseBody);\r\n\r\nif ( data.Code== 1 ) {\r\n  tests[\"reg status\"] = true;\r\n}\r\nelse {\r\n  tests[\"reg status\"] = false;\r\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1472606212788,
+			"name": "/user/register",
+			"description": "",
+			"collectionId": "ea135011-e7ce-d07f-410d-3815000222c9",
+			"responses": []
+		}
+	]
+}

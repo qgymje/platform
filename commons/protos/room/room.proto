@@ -1,0 +1,40 @@
+syntax="proto3";
+
+package room;
+
+service Room {
+    rpc Create( RoomRequest ) returns ( RoomResponse ){}
+    rpc Start( User ) returns ( Status ){}
+    rpc End ( User ) returns ( EndResponse ){}
+}
+
+message EndResponse {
+    int64 broadcastingDuration = 1;
+    int64 audienceNum = 2;
+}
+
+message RoomRequest {
+    string userID = 1;
+    string name = 2;
+    string channel = 3;
+    string subChannel = 4;
+    string cover = 5;
+}
+
+
+message RoomResponse {
+    string roomID = 1;
+    string name = 2;
+    string channel = 3;
+    string subChannel = 4;
+    string cover = 5;
+}
+
+message User {
+    string userID  = 1;
+}
+
+message Status {
+    string roomID = 1;
+    bool success = 2;
+}

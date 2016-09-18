@@ -1,0 +1,128 @@
+<html>
+<head>
+    <title>WebSocket Demo</title>
+</head>
+<body>
+<div id="valueLabel"></div>
+userId:<input name="userId"  id="userId" value="fisher0"   size="30"/>
+pwd:<input name="pwd"  id="pwd" value="GetThrough"   size="30"/>
+<input name="token"  id="token"  type="hidden" value=""   size="30"/>
+roomId:<input name="roomId" id="roomId" value=""   size="50"/>
+<button id="btnConnect" onClick="javascript:login()" >Connect</button>
+<button id="btnGuestConnect" onClick="javascript:conn()" >Guest Anonymous Connect</button>
+<br>
+connect url:<input name="connUrl" id="connUrl" value="" size="150"/>
+<textarea rows="15" cols="160" id="contentId" wrap="hard"></textarea>
+<br/>
+<input name="message" id="message" size="100" />
+<button id="sendButton" onClick="javascript:ajaxSendMessage()" >Send</button>
+</body>
+
+<script type="text/javascript" src="jquery-3.0.0.min.js"></script>
+<script type="text/javascript">
+
+    var token= "29f7f4bb-329e-4d0b-a9c2-b737bb07dfd7"
+    var roomId= "57b1632674addd223cb8a67f"
+
+    //console.log(window.location.pathname)
+    //console.log(window.location.href)
+    //console.log(window.location.hash)
+    //console.log(window.location.host)
+
+    var host =  window.location.host
+
+    //验证浏览器是否支持WebSocket协议
+    if (!window.WebSocket) {
+        alert("WebSocket not supported by this browser!");
+    }
+    var ws;
+    function conn(token) {
+        var webSocketUrl= "ws://"+host+"/gserver/livebroad/chat/receive?token="+token+"&roomId="+$("#roomId").val()
+        $("#connUrl").val(webSocketUrl)
+        ws=new WebSocket(webSocketUrl);
+        //监听消息
+        ws.onmessage = function(event) {
+            show(event.data);
+        };
+        // 打开WebSocket
+        ws.onclose = function(event) {
+            //WebSocket Status:: Socket Closed
+        };
+        // 打开WebSocket
+        ws.onopen = function(event) {
+            //WebSocket Status:: Socket Open
+            //// 发送一个初始化消息
+            ws.send("Hello, Server!");
+        };
+        ws.onerror =function(event){
+            //WebSocket Status:: Error was reported
+        };
+    }
+    var show = function(s) {
+        if (document.readyState !== "complete") {
+            log.buffer.push(s);
+        } else {
+            document.getElementById("contentId").innerHTML += (s + "\n");
+        }
+
+        //滚动到底部
+        var d = document.getElementById("contentId").scrollHeight;
+        document.getElementById("contentId").scrollTop = d;
+
+    }
+    $(document).ready(function () {
+        $("#roomId").val(roomId)
+        $("#token").val(token)
+        $("#message").val('{"text": "exampleA", "color": 999999}')
+    });
+
+    function login() {
+        $.get("http://"+host+"/gserver/user/login", { name: $("#userId").val(), passwd: $("#pwd").val() } , function(data){
+            console.log("user login get data: " + data);
+            var code= data["Code"]
+            if(code==1){
+                $("#token").val(data["Data"])
+                conn($("#token").val())
+            }else if(code==-10100){
+                if(confirm(data["Msg"]+"|注册一个帐号，确定吗？")==true){
+                    ajaxRegister()
+                }
+                return
+            }else{
+                alert(data["Msg"])
+                return
+            }
+        });
+    }
+    function ajaxRegister() {
+        $.post(
+                "http://"+host+"/gserver/user/register",
+                { name: $("#userId").val(), passwd:$("#pwd").val(),nickname: "NickName_"+$("#userId").val() },
+                function(data){
+                    console.log("ajaxSendMessage get data: " + data);
+                    if(data["Code"]!=1){
+                        alert(data["Msg"])
+                    }else{
+                        alert("注册成功，请重新connect！")
+                    }
+                }
+        );
+
+    }
+    function ajaxSendMessage() {
+        $.post(
+                "http://"+host+"/gserver/livebroad/chat/send?token="+ $("#token").val(),
+                { roomId: $("#roomId").val(), msg:$("#message").val(),type:"10001",ver:"1" },
+                function(data){
+                    console.log("ajaxSendMessage get data: " + data);
+                    if(data["Code"]!=1){
+                       alert(data["Msg"])
+                    }
+                }
+        );
+
+    }
+
+ 
+</script>
+</html>

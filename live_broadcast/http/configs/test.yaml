@@ -1,0 +1,13 @@
+app:
+    base_url: http://localhost
+    http_port: :3003
+    rpc_host: localhost
+    rpc_port: :4003
+
+log:
+    filename: /logs/live_broadcast.log
+    enable_func_call_depth: true
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 127.0.0.1:4161
