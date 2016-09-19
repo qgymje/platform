@@ -36,7 +36,7 @@ func Publish(notifier Notifier) error {
 
 	err := producer.Publish(notifier.Topic(), msg)
 	if err != nil {
-		utils.GetLog().Error("publish error: %v, msg: %s", err, string(msg))
+		utils.GetLog().Error("publish error: %v", err)
 	}
 	return err
 }

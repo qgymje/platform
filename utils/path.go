@@ -8,7 +8,7 @@ func EnsurePath(path string) (err error) {
 		err = os.MkdirAll(path, 0744)
 	}
 	if err != nil {
-		GetLog().Error("helpers.MakeSurePath: MkdirAll error=%v, path=%v", err, path)
+		GetLog().Error("helpers.MakeSurePath: MkdirAll error=%v", err)
 	}
 
 	return

@@ -38,14 +38,13 @@ func main() {
 	r.Use(middlewares.APIVersion())
 	r.Use(middlewares.RecordRequestBegin())
 
-	u := r.Group("/user")
+	g := r.Group("/game")
 	{
-		user := new(controllers.User)
-		u.POST("/register", user.Register)
-		u.GET("/auth/:token", user.Auth)
-		u.PUT("/login", user.Login)
-		u.DELETE("/logout", user.Logout)
-		u.GET("/info/:user_id", user.Info)
+		game := new(controllers.Game)
+		g.GET("", game.List)
+		g.PUT("/preference", game.UpdatePreference)
+		g.GET("/preference", game.Preference)
+		g.POST("/start", game.Start)
 	}
 
 	port := utils.GetConf().GetString("app.http_port")

@@ -18,14 +18,15 @@ import (
 
 var defaultPageSize = 20
 
-const HEADER_TOKEN_KEY = "Authorization"
-const VERSION = "version"
+const headerTokenKey = "Authorization"
+const versionKey = "version"
 
+// Base controller do common things
 type Base struct {
 }
 
 func (b *Base) apiVersion(c *gin.Context) int {
-	v, _ := c.Get(VERSION)
+	v, _ := c.Get(versionKey)
 	vi, _ := strconv.Atoi(v.(string))
 	return vi
 }
@@ -47,7 +48,8 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 	return authHeaderParts[1], codes.ErrorCodeSuccess
 }
 
-type responseFormat struct {
+// ResponseFormat  response format object
+type ResponseFormat struct {
 	Code codes.ErrorCode        `json:"code"`
 	Msg  string                 `json:"msg"`
 	Data interface{}            `json:"data"`
@@ -60,16 +62,17 @@ func rpcErrorFormat(code string) codes.ErrorCode {
 	return codes.ErrorCode(codePart[len(codePart)-1])
 }
 
-func (b *Base) codeWithMsg(code codes.ErrorCode) *responseFormat {
+func (b *Base) codeWithMsg(code codes.ErrorCode) *ResponseFormat {
 	msg := codes.GetErrorMsgByCode(code)
-	return &responseFormat{
+	return &ResponseFormat{
 		Code: code,
 		Msg:  msg,
 		Meta: make(map[string]interface{}),
 	}
 }
 
-func (b *Base) Response(c *gin.Context, code codes.ErrorCode, data interface{}) *responseFormat {
+// Response response formatted json
+func (b *Base) Response(c *gin.Context, code codes.ErrorCode, data interface{}) *ResponseFormat {
 	respformat := b.codeWithMsg(code)
 	respformat.Data = data
 	if !utils.IsProd() {
@@ -87,22 +90,25 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 		"header":    c.Request.Header,
 	}
 
-	request_begin, _ := c.Get("request_begin")
-	response_time := fmt.Sprintf("%.2fms", time.Since(request_begin.(time.Time)).Seconds()*1000)
+	requestBegin, _ := c.Get("request_begin")
+	responseTime := fmt.Sprintf("%.2fms", time.Since(requestBegin.(time.Time)).Seconds()*1000)
 	meta["response_time"] = response_time
 
 	return meta
 }
 
+// GetUserID  get user_id
 func (b *Base) GetUserID(c *gin.Context) string {
 	return c.Param("user_id")
 }
 
+// GetPageNum get page num
 func (b *Base) GetPageNum(c *gin.Context) (page int) {
 	page, _ = strconv.Atoi(c.Param("page"))
 	return int(math.Max(float64(page-1), 0.0))
 }
 
+// GetPageSize get page size
 func (b *Base) GetPageSize(c *gin.Context) (num int) {
 	num, err := strconv.Atoi(c.Param("page_num"))
 	if err != nil {
@@ -111,6 +117,7 @@ func (b *Base) GetPageSize(c *gin.Context) (num int) {
 	return
 }
 
+// RemovePBUserInfoToken remove protobuf token info
 func (b *Base) RemovePBUserInfoToken(u *pb.UserInfo) {
 	u.Token = ""
 }

@@ -15,7 +15,7 @@ const headerTokenKey = "Authorization"
 
 // Base controller do common things
 type Base struct {
-	roomRPCAddress string
+	gameRPCAddress string
 }
 
 // ResponseFormat  response format object
@@ -60,7 +60,7 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 	}
 }
 
-func (b *Base) getRoomRPCAddress() string {
+func (b *Base) getGameRPCAddress() string {
 	if b.roomRPCAddress != "" {
 		return b.roomRPCAddress
 	}
@@ -72,7 +72,7 @@ func (b *Base) getRoomRPCAddress() string {
 }
 
 func (b *Base) getUserRPCAddress() string {
-	// TODO: how to get rpc services address???????
+	// TODO: how to get rpc services address
 	return "localhost:4000"
 }
 

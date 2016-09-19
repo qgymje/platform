@@ -1,21 +1,28 @@
-// Package models 表示数据操作层, 不涉及任何具体的业务逻辑, 只做数据操作, 保持功能唯一
+// Package models  data access layer
 package models
 
 import mgo "gopkg.in/mgo.v2"
 
 var mongoSession *mgo.Session
+
+// ErrNotFound not found error
 var ErrNotFound = mgo.ErrNotFound
 
+// DBName db name
 const DBName = "accountCenter"
+
+// ColNameUser collection name
 const ColNameUser = "users"
+
+// ColNameUserLogin collection name
 const ColNameUserLogin = "userLogins"
 
-// InitMongodb 根据配置初始化mongodb
+// InitMongodb init mongodb
 func InitMongodb(sess *mgo.Session) {
 	mongoSession = sess
 }
 
-// GetMongo 封装一个session, 在使用后需要Close()
+// GetMongo generate  a session copy
 func GetMongo() *mgo.Session {
 	return mongoSession.Copy()
 }
