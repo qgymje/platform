@@ -111,19 +111,19 @@ func findBroadcastRoom(m bson.M) (*BroadcastRoom, error) {
 
 }
 
-func findBroadcastRooms(m bson.M) (*BroadcastRoom, error) {
+func findBroadcastRooms(m bson.M) ([]*BroadcastRoom, error) {
 	session := GetMongo()
 	defer session.Close()
 
-	var room BroadcastRoom
-	err := session.DB(DBName).C(ColNameRoom).Find(m).All(&room)
+	var rooms []*BroadcastRoom
+	err := session.DB(DBName).C(ColNameRoom).Find(m).All(&rooms)
 	if err != nil {
 		if err == mgo.ErrNotFound {
 			return nil, ErrNotFound
 		}
 		return nil, err
 	}
-	return &room, nil
+	return rooms, nil
 }
 
 func FindBroadcastRoomByUserID(userID string) (*BroadcastRoom, error) {

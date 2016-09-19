@@ -18,13 +18,13 @@ type Company struct {
 }
 
 // Create 插入一个用户数据
-func (g *Company) Create() error {
+func (c *Company) Create() error {
 	session := GetMongo()
 	defer session.Close()
 
-	g.ID = bson.NewObjectId()
-	g.CreatedAt = time.Now()
-	g.UpdatedAt = time.Now()
+	c.ID = bson.NewObjectId()
+	c.CreatedAt = time.Now()
+	c.UpdatedAt = time.Now()
 
-	return session.DB(DBName).C(ColNameGame).Insert(&g)
+	return session.DB(DBName).C(ColNameCompany).Insert(&c)
 }
