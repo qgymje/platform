@@ -11,6 +11,7 @@ type _GameColumn struct {
 	UpdatedAt   string
 }
 
+// GameColumns game columns name
 var GameColumns _GameColumn
 
 func init() {

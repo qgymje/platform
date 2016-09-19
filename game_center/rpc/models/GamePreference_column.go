@@ -8,6 +8,7 @@ type _GamePreferenceColumn struct {
 	UserID     string
 }
 
+// GamePreferenceColumns gamepreference columns name
 var GamePreferenceColumns _GamePreferenceColumn
 
 func init() {

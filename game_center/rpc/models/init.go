@@ -3,19 +3,28 @@ package models
 import mgo "gopkg.in/mgo.v2"
 
 var mongoSession *mgo.Session
+
+// ErrNotFound not found error
 var ErrNotFound = mgo.ErrNotFound
 
+// DBName db name
 const DBName = "game_center"
+
+// ColNameGame collection name
 const ColNameGame = "games"
+
+// ColNameGamePreference collection name
 const ColNameGamePreference = "game_preferences"
+
+// ColNameCompany collection name
 const ColNameCompany = "companies"
 
-// InitMongodb 根据配置初始化mongodb
+// InitMongodb init mongodb
 func InitMongodb(sess *mgo.Session) {
 	mongoSession = sess
 }
 
-// GetMongo 封装一个session, 在使用后需要Close()
+// GetMongo generate  a session copy
 func GetMongo() *mgo.Session {
 	return mongoSession.Copy()
 }

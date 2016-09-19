@@ -10,6 +10,7 @@ type _CompanyColumn struct {
 	Valid     string
 }
 
+// CompanyColumns company columns name
 var CompanyColumns _CompanyColumn
 
 func init() {

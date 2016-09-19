@@ -11,13 +11,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const HEADER_TOKEN_KEY = "Authorization"
+const headerTokenKey = "Authorization"
 
+// Base controller do common things
 type Base struct {
-	roomRPCAddress string
+	gameRPCAddress string
 }
 
-type responseFormat struct {
+// ResponseFormat  response format object
+type ResponseFormat struct {
 	Code codes.ErrorCode        `json:"code"`
 	Data interface{}            `json:"data"`
 	Msg  string                 `json:"msg"`
@@ -30,16 +32,17 @@ func rpcErrorFormat(code string) codes.ErrorCode {
 	return codes.ErrorCode(codePart[len(codePart)-1])
 }
 
-func (b *Base) codeWithMsg(code codes.ErrorCode) *responseFormat {
+func (b *Base) codeWithMsg(code codes.ErrorCode) *ResponseFormat {
 	msg := codes.GetErrorMsgByCode(code)
-	return &responseFormat{
+	return &ResponseFormat{
 		Code: code,
 		Msg:  msg,
 		Meta: make(map[string]interface{}),
 	}
 }
 
-func (b *Base) Response(c *gin.Context, code codes.ErrorCode, data interface{}) *responseFormat {
+// Response response formatted json
+func (b *Base) Response(c *gin.Context, code codes.ErrorCode, data interface{}) *ResponseFormat {
 	respformat := b.codeWithMsg(code)
 	respformat.Data = data
 	if !utils.IsProd() {
@@ -57,7 +60,7 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 	}
 }
 
-func (b *Base) getRoomRPCAddress() string {
+func (b *Base) getGameRPCAddress() string {
 	if b.roomRPCAddress != "" {
 		return b.roomRPCAddress
 	}
@@ -69,7 +72,7 @@ func (b *Base) getRoomRPCAddress() string {
 }
 
 func (b *Base) getUserRPCAddress() string {
-	// TODO: how to get rpc services address???????
+	// TODO: how to get rpc services address
 	return "localhost:4000"
 }
 
@@ -78,7 +81,7 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return c.Param("token"), codes.ErrorCodeSuccess
 	}
 
-	token := c.Request.Header.Get(HEADER_TOKEN_KEY)
+	token := c.Request.Header.Get(headerTokenKey)
 	if token == "" {
 		return "", codes.ErrorCodeTokenNotFound
 	}

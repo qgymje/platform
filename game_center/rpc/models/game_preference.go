@@ -7,8 +7,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// GamePreference 每个玩家保存的游戏配置信息
 //go:generate gen_columns -tag=bson -path=game_preference.go
-// 每个玩家保存的游戏配置信息
 type GamePreference struct {
 	UserID     bson.ObjectId          `bson:"userID"`
 	GameID     bson.ObjectId          `bson:"gameID"`
@@ -17,7 +17,7 @@ type GamePreference struct {
 	UpdatedAt  time.Time              `bson:"updated_at"`
 }
 
-// Create 插入一个用户数据
+// Create create a game preference each game each user
 func (g *GamePreference) Create() error {
 	session := GetMongo()
 	defer session.Close()
@@ -37,6 +37,7 @@ func (g *GamePreference) update(m bson.M) error {
 	return session.DB(DBName).C(ColNameGamePreference).Update(bson.M{GamePreferenceColumns.GameID: g.GameID, GamePreferenceColumns.UserID: g.UserID}, change)
 }
 
+// Update game preference
 func (g *GamePreference) Update(change bson.M) error {
 	return g.update(change)
 }
