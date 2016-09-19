@@ -7,7 +7,12 @@ import (
 	"path/filepath"
 
 	"github.com/astaxie/beego/logs"
+	"github.com/pkg/errors"
 )
+
+type Logger struct {
+	*logs.BeeLogger
+}
 
 var logger *logs.BeeLogger
 
@@ -47,6 +52,13 @@ func getLogLevel() int {
 	}
 }
 
-func GetLog() *logs.BeeLogger {
-	return logger
+func GetLog() *Logger {
+	return &Logger{
+		logger,
+	}
+}
+
+func (l *Logger) Error(fmt string, err error) {
+	err = errors.Wrap(err, "")
+	l.BeeLogger.Error(fmt, err)
 }
