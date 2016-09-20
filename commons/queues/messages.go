@@ -2,7 +2,14 @@ package queues
 
 import "time"
 
-// MessageUserLogin nsq消息结构
+// MessageRegisterSMS nsq message for ssending sms service
+type MessageRegisterSMS struct {
+	Phone     string    `json:"phone"`
+	Code      string    `json:"code"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+// MessageUserLogin nsq message for user login notification
 type MessageUserLogin struct {
 	UserID   string    `json:"userID"`
 	Name     string    `json:"name"`
@@ -11,21 +18,22 @@ type MessageUserLogin struct {
 	RegTime  time.Time `json:"regTime"`
 }
 
-// MessageBroadcastStart 表示开始直播的消息结构
+// MessageBroadcastStart  nsq message for host start to broadcast
 type MessageBroadcastStart struct {
 	RoomID    string    `json:"roomID"`
 	StartTime time.Time `json:"startTime"`
 }
 
-// MessageBroadcastEnd 表示结束直播的消息结构
+// MessageBroadcastEnd  nsq message for host end broadcast
 type MessageBroadcastEnd struct {
 	RoomID  string    `json:"roomID"`
 	EndTime time.Time `json:"endTime"`
 }
 
+// BroadcastMessageType message type, like Gift Vote Coupon
 type BroadcastMessageType int
 
-// MessageBarrage 直播过程的弹幕消息结构
+// MessageBarrage  nsq message for barrage
 type MessageBarrage struct {
 	UserID   string    `json:"userID"`
 	UserName string    `json:"nickname"`
@@ -33,6 +41,7 @@ type MessageBarrage struct {
 	PubTime  time.Time `json:"pubTime"`
 }
 
+// MessageGift nsq message for gift
 type MessageGift struct {
 	GiftID     string    `json:"giftID"`
 	GiftName   string    `json:"giftName"`
