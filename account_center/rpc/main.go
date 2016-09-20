@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"platform/account_center/rpc/models"
-	"platform/account_center/rpc/services/users"
+	"platform/account_center/rpc/services"
 	pb "platform/commons/protos/user"
 	"platform/utils"
 
@@ -41,7 +41,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUserServer(s, &users.UserServer{})
+	pb.RegisterUserServer(s, &servers.UserServer{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
