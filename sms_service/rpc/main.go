@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	"platform/account_center/rpc/services/users"
-	pb "platform/commons/protos/user"
+	pb "platform/commons/protos/sms"
 	"platform/sms_service/rpc/models"
+	"platform/sms_service/rpc/services/sms"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -20,13 +20,13 @@ var (
 )
 
 func initEnv() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
-	flag.Parse()
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	log.Println("current env is: ", *env)
 	utils.SetEnv(*env)
 }
 
 func init() {
+	flag.Parse()
 	initEnv()
 	utils.InitConfig(*configPath)
 	utils.InitLogger()
@@ -35,14 +35,22 @@ func init() {
 	models.InitMongodb(session)
 }
 
+func getPort() string {
+	if *port == "" {
+		return utils.GetConf().GetString("app.rpc_port")
+	}
+	return *port
+}
+
 func main() {
-	port := utils.GetConf().GetString("app.rpc_port")
-	lis, err := net.Listen("tcp", port)
+	lis, err := net.Listen("tcp", getPort())
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
 	s := grpc.NewServer()
-	pb.RegisterUserServer(s, &users.UserServer{})
+	pb.RegisterSMSServer(s, &sms.Server{})
+	sms.ListenRegisterSMS()
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)

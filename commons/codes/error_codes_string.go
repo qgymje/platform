@@ -21,6 +21,7 @@ func init() {
 		ErrorCodeRegisterNotify:       "register notify failed",
 		ErrorCodeInvalidPhone:         "invalid phone number",
 		ErrorCodeSMSCodeNotify:        "sms code notify failed",
+		ErrorCodeSMSCreate:            "sms code create failed",
 
 		// login 登录系列以3xx开始
 		ErrorCodeLoginFailed:     "login failed",

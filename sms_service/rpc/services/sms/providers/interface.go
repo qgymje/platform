@@ -1,4 +1,4 @@
-package sms
+package providers
 
 type Provider interface {
 	Phone() string
