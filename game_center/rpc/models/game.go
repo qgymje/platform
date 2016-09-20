@@ -20,6 +20,7 @@ type Game struct {
 	PublishedAt time.Time     `bson:"published_at"`
 }
 
+// GetID get a game id
 func (g *Game) GetID() string {
 	return g.GameID.Hex()
 }
@@ -45,6 +46,7 @@ func (g *Game) update(m bson.M) error {
 	return session.DB(DBName).C(ColNameGame).Update(bson.M{GameColumns.GameID: g.GameID}, change)
 }
 
+// Update update a game config
 func (g *Game) Update(change bson.M) error {
 	return g.update(change)
 }
@@ -84,26 +86,32 @@ func findGamesByStatus(status GameStatus) ([]*Game, error) {
 	return findGames(change)
 }
 
+// FindGamesUnvalid just game info, no game itself
 func FindGamesUnvalid() ([]*Game, error) {
 	return findGamesByStatus(Unvalid)
 }
 
+// FindGamesUploaded uploaded but not valied games
 func FindGamesUploaded() ([]*Game, error) {
 	return findGamesByStatus(Uploaded)
 }
 
+// FindGamesValidFailed valied games
 func FindGamesValidFailed() ([]*Game, error) {
 	return findGamesByStatus(ValidFailed)
 }
 
+// FindGamesPublished published games
 func FindGamesPublished() ([]*Game, error) {
 	return findGamesByStatus(Published)
 }
 
+// FindGamesDown down games
 func FindGamesDown() ([]*Game, error) {
 	return findGamesByStatus(Down)
 }
 
-func FindGamesAvailale() ([]*Game, error) {
+// FindGamesAvailable available games
+func FindGamesAvailable() ([]*Game, error) {
 	return findGamesByStatus(Available)
 }

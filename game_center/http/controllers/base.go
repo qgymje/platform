@@ -61,14 +61,14 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 }
 
 func (b *Base) getGameRPCAddress() string {
-	if b.roomRPCAddress != "" {
-		return b.roomRPCAddress
+	if b.gameRPCAddress != "" {
+		return b.gameRPCAddress
 	}
 
 	host := utils.GetConf().GetString("app.rpc_host")
 	port := utils.GetConf().GetString("app.rpc_port")
-	b.roomRPCAddress = host + port
-	return b.roomRPCAddress
+	b.gameRPCAddress = host + port
+	return b.gameRPCAddress
 }
 
 func (b *Base) getUserRPCAddress() string {

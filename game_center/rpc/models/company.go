@@ -3,10 +3,11 @@ package models
 import (
 	"time"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
-// Company 开发商信息管理
+// Company  company info
 type Company struct {
 	ID        bson.ObjectId `bson:"_id"`
 	UserID    bson.ObjectId `bson:"userID"`
@@ -17,7 +18,7 @@ type Company struct {
 	UpdatedAt time.Time     `bson:"updated_at"`
 }
 
-// Create 插入一个用户数据
+// Create  create a company info
 func (c *Company) Create() error {
 	session := GetMongo()
 	defer session.Close()
@@ -27,4 +28,34 @@ func (c *Company) Create() error {
 	c.UpdatedAt = time.Now()
 
 	return session.DB(DBName).C(ColNameCompany).Insert(&c)
+}
+
+func findCompanies(m bson.M) ([]*Company, error) {
+	session := GetMongo()
+	defer session.Close()
+
+	var companies []*Comapny
+	err := session.DB(DBName).C(ColNameCompany).Find(m).All(&companies)
+	if err != nil {
+		if err == mgo.ErrNotFound {
+			return nil, ErrNotFound
+		}
+		return nil, err
+	}
+	return companies, nil
+}
+
+func findCompany(m bson.M) (*Company, error) {
+	session := GetMongo()
+	defer session.Close()
+
+	var company Comapny
+	err := session.DB(DBName).C(ColNameCompany).Find(m).All(&company)
+	if err != nil {
+		if err == mgo.ErrNotFound {
+			return nil, ErrNotFound
+		}
+		return nil, err
+	}
+	return &company, nil
 }
