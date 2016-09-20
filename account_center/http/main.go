@@ -46,6 +46,14 @@ func main() {
 		u.PUT("/login", user.Login)
 		u.DELETE("/logout", user.Logout)
 		u.GET("/info/:user_id", user.Info)
+
+		sms := new(controllers.SMS)
+		u.POST("/register/sms", sms.RegisterCode)
+		u.PUT("/register/sms", sms.VerifyRegisterCode)
+
+		email := new(controllers.Email)
+		u.POST("/register/email", email.RegisterCode)
+		u.PUT("/register/email", email.VerifyRegisterCode)
 	}
 
 	port := utils.GetConf().GetString("app.http_port")

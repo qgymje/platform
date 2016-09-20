@@ -4,11 +4,20 @@ package user;
 
 
 service User{
-  rpc Login( LoginInfo ) returns (UserInfo){} 
+  rpc ValidCode( Phone ) returns ( Code ) {}
   rpc Register( RegisterInfo ) returns (UserInfo){}
+  rpc Login( LoginInfo ) returns (UserInfo){} 
   rpc Logout( Token ) returns (Status){}
   rpc Auth( Token ) returns (UserInfo){}
   rpc Info( UserID  ) returns (UserInfo){}
+}
+
+message Phone {
+    string phone = 1;
+}
+
+message Code {
+    string code = 1;
 }
 
 message UserID {

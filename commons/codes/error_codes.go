@@ -21,27 +21,32 @@ const (
 	ErrorCodeMissParameters ErrorCode = "USR400101"
 
 	// token 错误系列以1xx开始
-	ErrorCodeTokenNotFound ErrorCode = "USR403101"
-	ErrorCodeInvalidToken  ErrorCode = "USR403102"
-	ErrorCodeUnauthorized  ErrorCode = "USR403103"
-	ErrorCodeAuthFormat    ErrorCode = "USR403104"
-	ErrorCodeGenerateToekn ErrorCode = "USR500101"
+	ErrorCodeTokenNotFound ErrorCode = "TOK403101"
+	ErrorCodeInvalidToken  ErrorCode = "TOK403102"
+	ErrorCodeUnauthorized  ErrorCode = "TOK403103"
+	ErrorCodeAuthFormat    ErrorCode = "TOK403104"
+	ErrorCodeGenerateToekn ErrorCode = "TOK500101"
 
 	// register 注册系统以2xx开始
-	ErrorCodeNameAlreadyExist     ErrorCode = "USR400201"
-	ErrorCodePasswordTooShort     ErrorCode = "USR400202"
-	ErrorCodeNickNameAlreadyExist ErrorCode = "USR400203"
-	ErrorCodeCreateUserFail       ErrorCode = "USR500201"
-	ErrorCodeRegisterNotify       ErrorCode = "USR500202"
+	ErrorCodeNameAlreadyExist     ErrorCode = "REG400201"
+	ErrorCodePasswordTooShort     ErrorCode = "REG400202"
+	ErrorCodeNickNameAlreadyExist ErrorCode = "REG400203"
+	ErrorCodeInvalidPhone         ErrorCode = "REG400204"
+	ErrorCodeCreateUserFail       ErrorCode = "REG500201"
+	ErrorCodeRegisterNotify       ErrorCode = "REG500202"
+
+	// SMS  errorcode
+	ErrorCodeSMSCodeNotify ErrorCode = "SMS500302"
+	ErrorCodeSMSCreate     ErrorCode = "SMS500303"
 
 	// login 登录系列以3xx开始
-	ErrorCodeLoginFailed     ErrorCode = "USR400301"
-	ErrorCodeUserNotFound    ErrorCode = "USR400302"
-	ErrorCodeUpdateTokenFail ErrorCode = "USR500303"
-	ErrorCodeLoginNotify     ErrorCode = "USR500304"
+	ErrorCodeLoginFailed     ErrorCode = "LGN400301"
+	ErrorCodeUserNotFound    ErrorCode = "LGN400302"
+	ErrorCodeUpdateTokenFail ErrorCode = "LGN500303"
+	ErrorCodeLoginNotify     ErrorCode = "LGN500304"
 
 	// info 系列错误
-	ErrorCodeInvalidUserID ErrorCode = "USR400402"
+	ErrorCodeInvalidUserID ErrorCode = "INF400402"
 
 	// broadcasting 系列错误
 	ErrorCodeBroadcastNotify          ErrorCode = "BRO500101"

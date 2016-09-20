@@ -23,6 +23,8 @@ const versionKey = "version"
 
 // Base controller do common things
 type Base struct {
+	userRPCAddress string
+	smsRPCAddress  string
 }
 
 func (b *Base) apiVersion(c *gin.Context) int {
@@ -36,7 +38,7 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return c.Param("token"), codes.ErrorCodeSuccess
 	}
 
-	token := c.Request.Header.Get(HEADER_TOKEN_KEY)
+	token := c.Request.Header.Get(headerTokenKey)
 	if token == "" {
 		return "", codes.ErrorCodeTokenNotFound
 	}
@@ -92,7 +94,7 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 
 	requestBegin, _ := c.Get("request_begin")
 	responseTime := fmt.Sprintf("%.2fms", time.Since(requestBegin.(time.Time)).Seconds()*1000)
-	meta["response_time"] = response_time
+	meta["response_time"] = responseTime
 
 	return meta
 }
@@ -117,7 +119,27 @@ func (b *Base) GetPageSize(c *gin.Context) (num int) {
 	return
 }
 
+// GetPhone get the request phone number
+func (b *Base) GetPhone(c *gin.Context) (num string) {
+	return c.PostForm("phone")
+}
+
 // RemovePBUserInfoToken remove protobuf token info
 func (b *Base) RemovePBUserInfoToken(u *pb.UserInfo) {
 	u.Token = ""
+}
+
+func (b *Base) getUserRPCAddress() string {
+	if b.userRPCAddress != "" {
+		return b.userRPCAddress
+	}
+
+	host := utils.GetConf().GetString("app.rpc_host")
+	port := utils.GetConf().GetString("app.rpc_port")
+	b.userRPCAddress = host + port
+	return b.userRPCAddress
+}
+
+func (b *Base) getSMSRPCAddress() string {
+	return "1270.0.0.1:4004"
 }

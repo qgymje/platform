@@ -1,20 +1,22 @@
-package sms
+package receiver
 
 import (
 	"log"
 	"sync"
 
-	"tech.cloudzen/utils"
+	"platform/utils"
 
 	nsq "github.com/nsqio/go-nsq"
 )
 
+// Receiver infterface
 type Receiver interface {
 	Topic() string
 	Channel() string
 	Handler(<-chan []byte)
 }
 
+// Receive represent a abstrat nsq consumer object
 type Receive struct {
 	consumer *nsq.Consumer
 	receiver Receiver
@@ -28,6 +30,7 @@ func getNSQLookupdAddr() {
 	nsqLookupdAddr = utils.GetConf().GetString("nsq.nsqlookupd")
 }
 
+// NewReceive NSQ consumer object
 func NewReceive(receiver Receiver) *Receive {
 	receive := &Receive{
 		receiver: receiver,
@@ -52,6 +55,7 @@ func NewReceive(receiver Receiver) *Receive {
 	return receive
 }
 
+// Do start to consume
 func (r *Receive) Do() (err error) {
 	r.receiver.Handler(r.msg)
 	return

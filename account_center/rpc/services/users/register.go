@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"platform/account_center/rpc/models"
+	"platform/account_center/rpc/services/notifier"
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"
@@ -99,5 +100,5 @@ func (s *Register) Message() []byte {
 }
 
 func (s *Register) notify() error {
-	return Publish(s)
+	return notifier.Publish(s)
 }

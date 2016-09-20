@@ -3,13 +3,14 @@ package sms
 import (
 	"encoding/json"
 	"platform/commons/queues"
+	"platform/sms_service/rpc/services/sms/receiver"
 	"platform/utils"
 )
 
 // ListenRegisterSMS start a go routine to listen register sms message
 func ListenRegisterSMS() {
 	go func() {
-		(&RegisterWork{}).receive()
+		(&RegisterWorker{}).receive()
 	}()
 }
 
@@ -42,7 +43,12 @@ func (s *RegisterWorker) Handler(msgs <-chan []byte) {
 		if err != nil {
 			utils.GetLog().Error("parse register sms msg error: %v", err)
 		} else {
-			registerCode := NewRegisterCode(msgSMS.Phone)
+			config := &RegisterCodeConfig{
+				Phone:     msgSMS.Phone,
+				Code:      msgSMS.Code,
+				CreatedAt: msgSMS.CreatedAt,
+			}
+			registerCode := NewRegisterCode(config)
 			if err := registerCode.Create(); err != nil {
 				utils.GetLog().Error("create register code error: %v", err)
 			}
@@ -51,5 +57,5 @@ func (s *RegisterWorker) Handler(msgs <-chan []byte) {
 }
 
 func (s *RegisterWorker) receive() error {
-	return NewReceive(s).Do()
+	return receiver.NewReceive(s).Do()
 }
