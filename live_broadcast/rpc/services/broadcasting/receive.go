@@ -4,7 +4,7 @@ import (
 	"log"
 	"sync"
 
-	"tech.cloudzen/utils"
+	"platform/utils"
 
 	nsq "github.com/nsqio/go-nsq"
 )

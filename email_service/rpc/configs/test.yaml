@@ -1,0 +1,17 @@
+app:
+    rpc_host: localhost
+    rpc_port: :4005
+
+mongodb:
+    hosts: 127.0.0.1
+    dbname: email_service
+    username:
+    password:
+
+log:
+    filename: ./logs/email_service.log
+    enable_func_call_depth: true
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 127.0.0.1:4161

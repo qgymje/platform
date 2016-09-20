@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 
-	"platform/account_center/http/controllers"
 	"platform/commons/middlewares"
+	"platform/game_center/http/controllers"
 	"platform/utils"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +14,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
+	port       = flag.String("port", ":3002", "game center http port")
 )
 
 func initEnv() {

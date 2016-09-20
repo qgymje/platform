@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"tech.cloudzen/commons"
-	"tech.cloudzen/live_broadcast/rpc/models"
-	"tech.cloudzen/utils"
+	"platform/commons/queues"
+	"platform/live_broadcast/rpc/models"
+	"platform/utils"
 )
 
 const MaxListLenToSave = 100
@@ -30,15 +30,15 @@ func (b *Barrage) Save() (err error) {
 }
 
 func (b *Barrage) Topic() string {
-	return fmt.Sprintf(commons.TopicBroadcastRoomFormat.String(), b.roomID)
+	return fmt.Sprintf(queues.TopicBroadcastRoomFormat.String(), b.roomID)
 }
 
 func (b *Barrage) Channel() string {
-	return commons.ChannelBroadcastBarrage.String()
+	return queues.ChannelBroadcastBarrage.String()
 }
 
 func (b *Barrage) handleMessage(msg []byte) (*models.Barrage, error) {
-	barrageMsg := commons.MessageBarrage{}
+	barrageMsg := queues.MessageBarrage{}
 	if err := json.Unmarshal(msg, &barrageMsg); err != nil {
 		return nil, err
 	}

@@ -7,7 +7,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// GamePreference 每个玩家保存的游戏配置信息
+// GamePreference  game preference of each user each game
 //go:generate gen_columns -tag=bson -path=game_preference.go
 type GamePreference struct {
 	UserID     bson.ObjectId          `bson:"userID"`

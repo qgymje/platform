@@ -3,10 +3,10 @@ syntax="proto3";
 package game;
 
 service Game{
-  rpc Start( UserID  ) returns ( GameVM ){}
+  rpc Start( UserGame  ) returns ( GameVM ){}
   rpc List( Page  ) returns (Games) {}
-  rpc Preference (UserID) returns (PreferenceConfig) {}
-  rpc UpdatePreference (UserID ) returns (Status) {}
+  rpc Preference (UserGame) returns (PreferenceConfig) {}
+  rpc UpdatePreference (UserGame ) returns (Status) {}
 }
 
 message Status {
@@ -17,8 +17,9 @@ message PreferenceConfig {
     string json = 1;
 }
 
-message UserID {
+message UserGame {
   string userID = 1;
+  string gameID = 2;
 }
 
 message GameVM {

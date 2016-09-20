@@ -3,28 +3,29 @@ package broadcastings
 import (
 	"encoding/json"
 
-	"tech.cloudzen/commons"
-	"tech.cloudzen/utils"
+	"platform/commons/queues"
+	"platform/utils"
 )
 
 func StartToReceive() {
-	room := &RoomStart{}
-	room.receive()
+	go func() {
+		(&RoomStart{}).receive()
+	}()
 }
 
 // RoomStart 弹幕服务
 type RoomStart struct{}
 
 func (s *RoomStart) Topic() string {
-	return commons.TopicBroadcastStart.String()
+	return queues.TopicBroadcastStart.String()
 }
 
 func (s *RoomStart) Channel() string {
-	return commons.ChannelBroadcastStart.String()
+	return queues.ChannelBroadcastStart.String()
 }
 
-func (s *RoomStart) handleMessage(msg []byte) (*commons.MessageBroadcastStart, error) {
-	var msgBroStart commons.MessageBroadcastStart
+func (s *RoomStart) handleMessage(msg []byte) (*queues.MessageBroadcastStart, error) {
+	var msgBroStart queues.MessageBroadcastStart
 	if err := json.Unmarshal(msg, &msgBroStart); err != nil {
 		return nil, err
 	}

@@ -15,3 +15,7 @@ log:
 nsq:
     nsqd: 127.0.0.1:4150
     nsqlookupd: 127.0.0.1:4161
+
+gamevm:
+    ip: 127.0.0.1
+    port: 4100

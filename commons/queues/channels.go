@@ -1,5 +1,6 @@
 package queues
 
+// Channel nsq channel type
 type Channel string
 
 func (c Channel) String() string {
@@ -7,7 +8,12 @@ func (c Channel) String() string {
 }
 
 const (
-	ChannelBroadcastStart   Channel = "broadcast_start"
-	ChannelBroadcastEnd     Channel = "broadcast_end"
+	// ChannelDefault default channel
+	ChannelDefault = "default"
+	// ChannelBroadcastStart broadcast start
+	ChannelBroadcastStart Channel = "broadcast_start"
+	// ChannelBroadcastEnd broadcast end
+	ChannelBroadcastEnd Channel = "broadcast_end"
+	// ChannelBroadcastBarrage barrage channel name
 	ChannelBroadcastBarrage Channel = "default"
 )

@@ -3,17 +3,17 @@ package broadcastings
 import (
 	"log"
 
-	"tech.cloudzen/commons"
+	"platform/commons/queues"
 )
 
 type RoomEnd struct{}
 
 func (s *RoomEnd) Topic() string {
-	return commons.TopicBroadcastEnd.String()
+	return queues.TopicBroadcastEnd.String()
 }
 
 func (s *RoomEnd) Channel() string {
-	return commons.ChannelBroadcastEnd.String()
+	return queues.ChannelBroadcastEnd.String()
 }
 
 func (s *RoomEnd) Handler(msgs <-chan []byte) {
