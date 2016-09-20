@@ -1,9 +1,10 @@
 package broadcastings
 
 import (
+	pb "platform/commons/protos/broadcasting"
+	"platform/utils"
+
 	"golang.org/x/net/context"
-	pb "tech.cloudzen/protos/broadcasting"
-	"tech.cloudzen/utils"
 )
 
 type BroadcastingServer struct{}
@@ -12,7 +13,7 @@ func (b *BroadcastingServer) RecentBarrageList(ctx context.Context, room *pb.Roo
 	var err error
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("broadcasting.RecentBarrageList error: ", err.Error())
+			utils.GetLog().Error("broadcasting.RecentBarrageList error: %v", err)
 		}
 	}()
 
@@ -23,7 +24,7 @@ func (b *BroadcastingServer) CurrentAudienceNum(ctx context.Context, in *pb.Room
 	var err error
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("broadcasting.CurrentAudienceNum error: ", err.Error())
+			utils.GetLog().Error("broadcasting.CurrentAudienceNum error: %v", err)
 		}
 	}()
 

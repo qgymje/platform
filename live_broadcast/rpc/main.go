@@ -42,6 +42,6 @@ func main() {
 	}
 	s := grpc.NewServer()
 	pb.RegisterBroadcastingServer(s, &broadcastings.BroadcastingServer{})
-	go broadcastings.StartToReceive()
+	broadcastings.StartToReceive()
 	s.Serve(lis)
 }
