@@ -31,8 +31,10 @@ const (
 	ErrorCodeNameAlreadyExist     ErrorCode = "USR400201"
 	ErrorCodePasswordTooShort     ErrorCode = "USR400202"
 	ErrorCodeNickNameAlreadyExist ErrorCode = "USR400203"
+	ErrorCodeInvalidPhone         ErrorCode = "USR400204"
 	ErrorCodeCreateUserFail       ErrorCode = "USR500201"
 	ErrorCodeRegisterNotify       ErrorCode = "USR500202"
+	ErrorCodeSMSCodeNotify        ErrorCode = "USR500302"
 
 	// login 登录系列以3xx开始
 	ErrorCodeLoginFailed     ErrorCode = "USR400301"

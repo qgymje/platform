@@ -9,7 +9,7 @@ func (c Channel) String() string {
 
 const (
 	// ChannelDefault default channel
-	ChannelDefault = "default"
+	ChannelDefault Channel = "default"
 	// ChannelBroadcastStart broadcast start
 	ChannelBroadcastStart Channel = "broadcast_start"
 	// ChannelBroadcastEnd broadcast end

@@ -19,6 +19,8 @@ func init() {
 		ErrorCodeNickNameAlreadyExist: "nickname already exist",
 		ErrorCodeCreateUserFail:       "create user fail",
 		ErrorCodeRegisterNotify:       "register notify failed",
+		ErrorCodeInvalidPhone:         "invalid phone number",
+		ErrorCodeSMSCodeNotify:        "sms code notify failed",
 
 		// login 登录系列以3xx开始
 		ErrorCodeLoginFailed:     "login failed",
