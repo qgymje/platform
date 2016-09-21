@@ -13,7 +13,8 @@ service User{
 }
 
 message Phone {
-    string phone = 1;
+    string country = 1;
+    string phone = 2;
 }
 
 message Code {
@@ -33,22 +34,24 @@ message Token {
 }
 
 message LoginInfo {
-  string name = 1;
+  string account = 1;
   string password = 2;
 }
 
 message RegisterInfo {
-  string name = 1;
+  string account = 1;
   string password = 2;
-  string nickname = 3;
+  string passwordConfirm = 3;
+  string nickname = 4;
 }
 
 message UserInfo {
   string userID = 1;
-  string name = 2;
-  string nickname = 3; 
-  string token = 4;
-  string headImg = 5;
-  int64 regTime = 6;
-  string errorCode = 7;
+  string phone = 2;
+  string email = 3;
+  string nickname = 4; 
+  string token = 5;
+  string avatar = 6;
+  int64 createdAt = 7;
+  string errorCode = 8;
 }

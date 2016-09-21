@@ -11,6 +11,8 @@ type Server struct {
 }
 
 // Verify a sms code
-func (s *Server) Verify(context.Context, *pb.PhoneCode) (*pb.Status, error) {
+func (s *Server) Verify(ctx context.Context, in *pb.PhoneCode) (*pb.Status, error) {
+	code := NewRegisterCode()
+	code.Verify(in.Country, in.Phone, in.Code)
 	return &pb.Status{Success: true}, nil
 }

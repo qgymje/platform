@@ -29,6 +29,7 @@ const (
 // it's will be a standalone services when etcd is ready
 type SMS struct {
 	Phone     string    `bson:"phone"`
+	Country   string    `bson:"country"`
 	Content   string    `bson:"content"`
 	Type      int       `bson:"type"`
 	Provider  int       `bson:"provider"`

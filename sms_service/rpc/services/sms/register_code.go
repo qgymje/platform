@@ -18,6 +18,7 @@ type RegisterCode struct {
 // RegisterCodeConfig register code config
 type RegisterCodeConfig struct {
 	Phone     string
+	Country   string
 	Code      string
 	CreatedAt time.Time
 }
@@ -27,6 +28,7 @@ func NewRegisterCode(config *RegisterCodeConfig) *RegisterCode {
 	c := new(RegisterCode)
 	c.smsModel = &models.SMS{
 		Phone:     config.Phone,
+		Country:   config.Country,
 		Content:   config.Code,
 		Type:      int(models.RegisterCode),
 		CreatedAt: config.CreatedAt,
@@ -64,7 +66,8 @@ func (r *RegisterCode) determinProvider() models.SMSProvider {
 }
 
 // Verify verify code is correct
-func (r *RegisterCode) Verify(phone, code string) (err error) {
+func (r *RegisterCode) Verify(country, phone, code string) (err error) {
+	//
 	return
 }
 

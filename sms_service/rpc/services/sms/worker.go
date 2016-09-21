@@ -45,6 +45,7 @@ func (s *RegisterWorker) Handler(msgs <-chan []byte) {
 		} else {
 			config := &RegisterCodeConfig{
 				Phone:     msgSMS.Phone,
+				Country:   msgSMS.Country,
 				Code:      msgSMS.Code,
 				CreatedAt: msgSMS.CreatedAt,
 			}

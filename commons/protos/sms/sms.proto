@@ -6,17 +6,10 @@ service SMS{
     rpc Verify( PhoneCode) returns ( Status ){}
 }
 
-message Phone{
-    string phone = 1;
-}
-
-message Code {
-    string code = 1;
-}
-
 message PhoneCode {
-    string phone = 1;
-    string code = 2;
+    string country = 1;
+    string phone = 2;
+    string code = 3;
 }
 
 message Status {
