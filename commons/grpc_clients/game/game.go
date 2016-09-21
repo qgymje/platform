@@ -37,25 +37,25 @@ func (g *Game) Close() error {
 }
 
 // Start start a game
-func (g *Game) Start(ctx context.Context, in *pb.UserGame) (*pb.GameVM, error) {
+func (g *Game) Start(in *pb.UserGame) (*pb.GameVM, error) {
 	defer g.Close()
 	return g.client.Start(context.Background(), in)
 }
 
 // List list available games
-func (g *Game) List(ctx context.Context, in *pb.Page) (*pb.Games, error) {
+func (g *Game) List(in *pb.Page) (*pb.Games, error) {
 	defer g.Close()
 	return g.client.List(context.Background(), in)
 }
 
 // Preference fetch a game preference
-func (g *Game) Preference(ctx context.Context, in *pb.UserGame) (*pb.PreferenceConfig, error) {
+func (g *Game) Preference(in *pb.UserGame) (*pb.PreferenceConfig, error) {
 	defer g.Close()
 	return g.client.Preference(context.Background(), in)
 }
 
 // UpdatePreference update a game preference
-func (g *Game) UpdatePreference(ctx context.Context, in *pb.UserGame) (*pb.Status, error) {
+func (g *Game) UpdatePreference(in *pb.UserGame) (*pb.Status, error) {
 	defer g.Close()
 	return g.client.UpdatePreference(context.Background(), in)
 }

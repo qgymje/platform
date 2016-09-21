@@ -8,13 +8,14 @@ import (
 )
 
 type UserInfo struct {
-	ID       string    `json:"id"`
-	Name     string    `json:"name"`
-	Nickname string    `json:"nickname"`
-	Password string    `json:"-"`
-	Token    string    `json:"token"`
-	HeadImg  string    `json:"headImg"`
-	RegTime  time.Time `json:"regTime"`
+	ID        string    `json:"user_id"`
+	Phone     string    `json:"phone"`
+	Email     string    `json:"email"`
+	Nickname  string    `json:"nickname"`
+	Password  string    `json:"-"`
+	Token     string    `json:"token"`
+	Avatar    string    `json:"avatar"`
+	CreatedAt time.Time `json:"created_at"`
 
 	errorCode codes.ErrorCode
 }
@@ -29,10 +30,11 @@ func (u *UserInfo) ErrorCode() codes.ErrorCode {
 
 func (u *UserInfo) formatUserInfo(user *models.User) {
 	u.ID = user.GetID()
-	u.Name = user.Name
+	u.Phone = user.Phone
+	u.Email = user.Email
 	u.Token = user.Token
 	u.Nickname = user.Nickname
-	u.RegTime = user.RegTime
+	u.CreatedAt = user.CreatedAt
 	u.errorCode = codes.ErrorCodeSuccess
 }
 

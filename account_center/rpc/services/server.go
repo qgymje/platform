@@ -15,31 +15,27 @@ type UserServer struct {
 
 func (s *UserServer) getUserInfo(u *users.UserInfo) *pb.UserInfo {
 	userInfo := pb.UserInfo{
-		UserID:   u.ID,
-		Name:     u.Name,
-		Nickname: u.Nickname,
-		Token:    u.Token,
-		HeadImg:  u.HeadImg,
-		RegTime:  u.RegTime.Unix(),
+		UserID:    u.ID,
+		Phone:     u.Phone,
+		Email:     u.Email,
+		Nickname:  u.Nickname,
+		Token:     u.Token,
+		Avatar:    u.Avatar,
+		CreatedAt: u.CreatedAt.Unix(),
 	}
 	return &userInfo
 }
 
 // Register provider register rpc call
 func (s *UserServer) Register(ctx context.Context, regInfo *pb.RegisterInfo) (*pb.UserInfo, error) {
-	var err error
-
-	loginConfig := users.LoginConfig{
-		Name:     regInfo.Name,
-		Password: regInfo.Password,
+	config := &users.RegisterConfig{
+		Account:         regInfo.Account,
+		Password:        regInfo.Password,
+		PasswordConfirm: regInfo.PasswordConfirm,
+		Nickname:        regInfo.Nickname,
 	}
-	config := users.RegisterConfig{
-		Nickname: regInfo.Nickname,
-	}
-	config.LoginConfig = loginConfig
-
-	r := users.NewRegister(&config)
-	if err = r.Do(); err != nil {
+	r := users.NewRegister(config)
+	if err := r.Do(); err != nil {
 		return nil, errors.New(r.ErrorCode().String())
 	}
 
@@ -65,13 +61,11 @@ func (s *UserServer) Auth(ctx context.Context, token *pb.Token) (*pb.UserInfo, e
 
 // Login provider login rpc call
 func (s *UserServer) Login(ctx context.Context, in *pb.LoginInfo) (*pb.UserInfo, error) {
-
-	config := users.LoginConfig{
-		Name:     in.Name,
+	config := &users.LoginConfig{
+		Account:  in.Account,
 		Password: in.Password,
 	}
-
-	login := users.NewLogin(&config)
+	login := users.NewLogin(config)
 	if err := login.Do(); err != nil {
 		return nil, errors.New(login.ErrorCode().String())
 	}
@@ -101,7 +95,7 @@ func (s *UserServer) Info(ctx context.Context, userID *pb.UserID) (*pb.UserInfo,
 
 // ValidCode request a sms code before register
 func (s *UserServer) ValidCode(ctx context.Context, in *pb.Phone) (*pb.Code, error) {
-	code := sms.NewCode(in.Phone)
+	code := sms.NewCode(in.Phone, in.Country)
 	if err := code.Do(); err != nil {
 		return nil, errors.New(code.ErrorCode().String())
 	}

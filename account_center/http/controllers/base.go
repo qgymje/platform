@@ -99,19 +99,16 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 	return meta
 }
 
-// GetUserID  get user_id
-func (b *Base) GetUserID(c *gin.Context) string {
+func (b *Base) getUserID(c *gin.Context) string {
 	return c.Param("user_id")
 }
 
-// GetPageNum get page num
-func (b *Base) GetPageNum(c *gin.Context) (page int) {
+func (b *Base) getPageNum(c *gin.Context) (page int) {
 	page, _ = strconv.Atoi(c.Param("page"))
 	return int(math.Max(float64(page-1), 0.0))
 }
 
-// GetPageSize get page size
-func (b *Base) GetPageSize(c *gin.Context) (num int) {
+func (b *Base) getPageSize(c *gin.Context) (num int) {
 	num, err := strconv.Atoi(c.Param("page_num"))
 	if err != nil {
 		num = defaultPageSize
@@ -119,14 +116,48 @@ func (b *Base) GetPageSize(c *gin.Context) (num int) {
 	return
 }
 
-// GetPhone get the request phone number
-func (b *Base) GetPhone(c *gin.Context) (num string) {
+func (b *Base) getEmailAddress(c *gin.Context) string {
+	return c.PostForm("email")
+}
+
+func (b *Base) getPhone(c *gin.Context) string {
 	return c.PostForm("phone")
 }
 
-// RemovePBUserInfoToken remove protobuf token info
-func (b *Base) RemovePBUserInfoToken(u *pb.UserInfo) {
+func (b *Base) getCountry(c *gin.Context) string {
+	return c.PostForm("country")
+}
+
+func (b *Base) getCode(c *gin.Context) string {
+	return c.PostForm("code")
+}
+
+func (b *Base) getAccount(c *gin.Context) string {
+	return c.PostForm("account")
+}
+
+func (b *Base) getNickname(c *gin.Context) string {
+	return c.PostForm("nickname")
+}
+
+func (b *Base) getPassword(c *gin.Context) string {
+	return c.PostForm("password")
+}
+
+func (b *Base) getPasswordConfirm(c *gin.Context) string {
+	return c.PostForm("password_confirm")
+}
+
+func (b *Base) removePBUserInfoToken(u *pb.UserInfo) {
 	u.Token = ""
+}
+
+func (b *Base) removePBUserInfoPhone(u *pb.UserInfo) {
+	u.Phone = ""
+}
+
+func (b *Base) removePBUserInfoEmail(u *pb.UserInfo) {
+	u.Email = ""
 }
 
 func (b *Base) getUserRPCAddress() string {
@@ -141,5 +172,9 @@ func (b *Base) getUserRPCAddress() string {
 }
 
 func (b *Base) getSMSRPCAddress() string {
-	return "1270.0.0.1:4004"
+	return "127.0.0.1:4004"
+}
+
+func (b *Base) getEmailRPCAddress() string {
+	return "127.0.0.1:4005"
 }

@@ -28,7 +28,8 @@ const (
 	ErrorCodeGenerateToekn ErrorCode = "TOK500101"
 
 	// register 注册系统以2xx开始
-	ErrorCodeNameAlreadyExist     ErrorCode = "REG400201"
+	ErrorCodePhoneAlreadyExist    ErrorCode = "REG400200"
+	ErrorCodeEmailAlreadyExist    ErrorCode = "REG400201"
 	ErrorCodePasswordTooShort     ErrorCode = "REG400202"
 	ErrorCodeNickNameAlreadyExist ErrorCode = "REG400203"
 	ErrorCodeInvalidPhone         ErrorCode = "REG400204"

@@ -1,27 +1,29 @@
 package models
 
-type userColumn struct {
-	ID       string
-	Name     string
-	Nickname string
-	Password string
-	Salt     string
-	Token    string
-	HeadImg  string
-	RegTime  string
+type _UserColumn struct {
+	Avatar    string
+	CreatedAt string
+	Email     string
+	ID        string
+	Nickname  string
+	Password  string
+	Phone     string
+	Salt      string
+	Token     string
 }
 
-var UserColumns userColumn
+// UserColumns user columns name
+var UserColumns _UserColumn
 
 func init() {
-	UserColumns = userColumn{
-		ID:       "_id",
-		Name:     "name",
-		Nickname: "nickname",
-		Password: "password",
-		Salt:     "salt",
-		Token:    "token",
-		HeadImg:  "headImg",
-		RegTime:  "regTime",
-	}
+	UserColumns.Avatar = "avatar"
+	UserColumns.CreatedAt = "created_at"
+	UserColumns.Email = "email"
+	UserColumns.ID = "_id"
+	UserColumns.Nickname = "nickname"
+	UserColumns.Password = "password"
+	UserColumns.Phone = "phone"
+	UserColumns.Salt = "salt"
+	UserColumns.Token = "token"
+
 }

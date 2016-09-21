@@ -17,21 +17,24 @@ type Register struct {
 	Nickname string
 }
 
+// RegisterConfig register info
 type RegisterConfig struct {
-	LoginConfig
-	Nickname string
+	Account         string
+	Password        string
+	PasswordConfirm string
+	Nickname        string
 }
 
-// NewRegister 生成一个注册用户对象
+// NewRegister new register object
 func NewRegister(config *RegisterConfig) *Register {
 	s := new(Register)
-	s.Login = newLoginByRawData(config.Name, config.Password)
+	s.Login = newLoginByRawData(config.Account, config.Password)
 	s.Nickname = config.Nickname
 
 	return s
 }
 
-// Do 做具体注册的操作
+// Do do the actual register job
 func (s *Register) Do() (err error) {
 	defer func() {
 		if err != nil {
@@ -40,7 +43,6 @@ func (s *Register) Do() (err error) {
 	}()
 
 	if err = s.findUser(); err != nil {
-		s.errorCode = codes.ErrorCodeNameAlreadyExist
 		return
 	}
 
@@ -63,19 +65,35 @@ func (s *Register) Do() (err error) {
 }
 
 func (s *Register) findUser() (err error) {
-	if models.IsNameUsed(s.name) {
-		return fmt.Errorf("username is used: %s", s.name)
+	s.determinLoginType()
+	switch s.loginType {
+	case email:
+		if models.IsEmailUsed(s.account) {
+			s.errorCode = codes.ErrorCodeEmailAlreadyExist
+			return fmt.Errorf("email is used: %s", s.account)
+		}
+	case phone:
+		if models.IsPhoneUsed(s.account) {
+			s.errorCode = codes.ErrorCodePhoneAlreadyExist
+			return fmt.Errorf("phone is used: %s", s.account)
+		}
 	}
 	return nil
 }
 
-// save 将数据保存到db
 func (s *Register) saveUser() (err error) {
 	if err = s.password.Valid(); err != nil {
 		return
 	}
+	s.determinLoginType()
 
-	s.userModel.Name = s.name
+	switch s.loginType {
+	case email:
+		s.userModel.Email = s.account
+	case phone:
+		s.userModel.Phone = s.account
+	}
+
 	s.userModel.Salt = s.password.GenSalt()
 	s.userModel.Password = s.password.GenPwd()
 	s.userModel.Nickname = s.Nickname
@@ -83,17 +101,20 @@ func (s *Register) saveUser() (err error) {
 	return s.userModel.Create()
 }
 
+// Topic implement notifier
 func (s *Register) Topic() string {
 	return queues.TopicUserRegister.String()
 }
 
+// Message implement notifier
 func (s *Register) Message() []byte {
 	message := queues.MessageUserLogin{
-		UserID:   s.userModel.GetID(),
-		Name:     s.userModel.Name,
-		Nickname: s.userModel.Nickname,
-		HeadImg:  s.userModel.HeadImg,
-		RegTime:  s.userModel.RegTime,
+		UserID:    s.userModel.GetID(),
+		Phone:     s.userModel.Phone,
+		Email:     s.userModel.Email,
+		Nickname:  s.userModel.Nickname,
+		Avatar:    s.userModel.Avatar,
+		CreatedAt: s.userModel.CreatedAt,
 	}
 	msg, _ := json.Marshal(&message)
 	return msg

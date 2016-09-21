@@ -14,7 +14,8 @@ func init() {
 		ErrorCodeGenerateToekn: "generate token error",
 
 		// register 注册系统以2xx开始
-		ErrorCodeNameAlreadyExist:     "name already exist",
+		ErrorCodePhoneAlreadyExist:    "phone already exist",
+		ErrorCodeEmailAlreadyExist:    "email already exist",
 		ErrorCodePasswordTooShort:     "password too short",
 		ErrorCodeNickNameAlreadyExist: "nickname already exist",
 		ErrorCodeCreateUserFail:       "create user fail",

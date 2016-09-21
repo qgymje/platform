@@ -8,9 +8,10 @@ import (
 )
 
 var (
-	ErrLogout       = errors.New("退出失败")
+	// ErrTokenUnvalid unvalid tokne
 	ErrTokenUnvalid = errors.New("token不正确")
-	ErrToeknUpdate  = errors.New("token更新出错")
+	// ErrTokenUpdate update token failed
+	ErrTokenUpdate = errors.New("token更新出错")
 )
 
 // Logout 登出操作
@@ -29,10 +30,12 @@ func NewLogout(token string) *Logout {
 	return s
 }
 
+// ErrorCode implement ErrorCoder
 func (s *Logout) ErrorCode() codes.ErrorCode {
 	return s.errorCode
 }
 
+// Do the logout job
 func (s *Logout) Do() (err error) {
 	defer func() {
 		if err != nil {
@@ -47,15 +50,16 @@ func (s *Logout) Do() (err error) {
 
 	if err = s.removeToken(); err != nil {
 		s.errorCode = codes.ErrorCodeUpdateTokenFail
-		return
+		return ErrTokenUpdate
 	}
+
 	return
 }
 
 func (s *Logout) findUserByToken() (err error) {
 	s.userModel, err = models.FindUserByToken(s.token)
 	if err != nil {
-		return ErrLogout
+		return
 	}
 	s.ensureDidFindUser = true
 	return nil
