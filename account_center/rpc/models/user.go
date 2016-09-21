@@ -8,18 +8,20 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// User 表示一个用户对象
+// User  a user model object
 type User struct {
-	ID       bson.ObjectId `bson:"_id"`
-	Name     string        `bson:"name"`
-	Nickname string        `bson:"nickname"`
-	Password string        `bson:"password" json:"-"`
-	Salt     string        `bson:"salt" json:"-"`
-	Token    string        `bson:"token" json:"-"`
-	HeadImg  string        `bson:"headImg"`
-	RegTime  time.Time     `bson:"regTime"`
+	ID        bson.ObjectId `bson:"_id"`
+	Phone     string        `bson:"phone"`
+	Email     string        `bson:"email"`
+	Nickname  string        `bson:"nickname"`
+	Password  string        `bson:"password" json:"-"`
+	Salt      string        `bson:"salt" json:"-"`
+	Token     string        `bson:"token" json:"-"`
+	Avatar    string        `bson:"avatar"`
+	CreatedAt time.Time     `bson:"created_at"`
 }
 
+// GetID get hexed user_id
 func (u *User) GetID() string {
 	return u.ID.Hex()
 }
@@ -30,7 +32,7 @@ func (u *User) Create() error {
 	defer session.Close()
 
 	u.ID = bson.NewObjectId()
-	u.RegTime = time.Now()
+	u.CreatedAt = time.Now()
 
 	return session.DB(DBName).C(ColNameUser).Insert(&u)
 }
@@ -80,9 +82,15 @@ func FindUserByID(id string) (*User, error) {
 	return findUser(config)
 }
 
-// FindUserByName 根据用户名查用户信息
-func FindUserByName(name string) (*User, error) {
-	config := bson.M{UserColumns.Name: name}
+// FindUserByPhone find by phone
+func FindUserByPhone(phone string) (*User, error) {
+	config := bson.M{UserColumns.Phone: phone}
+	return findUser(config)
+}
+
+// FindUserByEmail find by email
+func FindUserByEmail(email string) (*User, error) {
+	config := bson.M{UserColumns.Email: email}
 	return findUser(config)
 }
 
@@ -92,8 +100,14 @@ func FindUserByToken(token string) (*User, error) {
 	return findUser(config)
 }
 
-// IsNameUsed 判断Name是否已经被使用
-func IsNameUsed(name string) bool {
-	_, err := FindUserByName(name)
+// IsPhoneUsed is phone used
+func IsPhoneUsed(phone string) bool {
+	_, err := FindUserByPhone(phone)
+	return err != ErrNotFound
+}
+
+// IsEmailUsed is email used
+func IsEmailUsed(email string) bool {
+	_, err := FindUserByEmail(email)
 	return err != ErrNotFound
 }

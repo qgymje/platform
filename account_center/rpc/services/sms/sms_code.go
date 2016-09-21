@@ -19,14 +19,16 @@ const (
 // Code sms code object
 type Code struct {
 	phone     *Phone
+	country   string
 	code      string
 	errorCode codes.ErrorCode
 }
 
 // NewCode returns a Code object
-func NewCode(phone string) *Code {
+func NewCode(phone, country string) *Code {
 	s := new(Code)
 	s.phone = NewPhone(phone)
+	s.country = country
 	return s
 }
 
@@ -76,6 +78,7 @@ func (s *Code) Topic() string {
 func (s *Code) Message() []byte {
 	message := queues.MessageRegisterSMS{
 		Phone:     s.phone.String(),
+		Country:   s.country,
 		Code:      s.GetCode(),
 		CreatedAt: time.Now(),
 	}

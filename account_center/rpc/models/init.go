@@ -9,13 +9,13 @@ var mongoSession *mgo.Session
 var ErrNotFound = mgo.ErrNotFound
 
 // DBName db name
-const DBName = "accountCenter"
+const DBName = "account_center"
 
 // ColNameUser collection name
 const ColNameUser = "users"
 
 // ColNameUserLogin collection name
-const ColNameUserLogin = "userLogins"
+const ColNameUserLogin = "user_logins"
 
 // InitMongodb init mongodb
 func InitMongodb(sess *mgo.Session) {

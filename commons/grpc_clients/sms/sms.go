@@ -35,7 +35,7 @@ func (s *SMS) Close() error {
 }
 
 // Verify SMS object verify
-func (s *SMS) Verify(ctx context.Context, in *pb.PhoneCode, opts ...grpc.CallOption) (*pb.Status, error) {
+func (s *SMS) Verify(in *pb.PhoneCode) (*pb.Status, error) {
 	defer s.Close()
-	return s.client.Verify(context.Background(), in, opts...)
+	return s.client.Verify(context.Background(), in)
 }

@@ -7,8 +7,8 @@ import (
 )
 
 type UserLogin struct {
-	UserID    bson.ObjectId `bson:"userID"`
-	CreatedAt time.Time     `bson:"createdAt"`
+	UserID    bson.ObjectId `bson:"user_id"`
+	CreatedAt time.Time     `bson:"created_at"`
 }
 
 func (ul *UserLogin) Create() error {

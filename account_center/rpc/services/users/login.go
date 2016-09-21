@@ -8,53 +8,91 @@ import (
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"
+
+	"github.com/astaxie/beego/validation"
 )
 
 var (
-	// ErrLogin 登录失败
+	// ErrLogin  login failed
 	ErrLogin = errors.New("login fail, password error")
 )
 
-// Login 用于登录操作
+//go:generate stringer -type=loginType
+type loginType int
+
+const (
+	phone loginType = iota + 1
+	email
+)
+
+// Login  login object
 type Login struct {
-	name      string
+	account   string
 	password  *Password
 	userModel *models.User
 
+	loginType loginType
+
+	valid     *validation.Validation
 	errorCode codes.ErrorCode
 }
 
-// LoginConfig 定义登录需要的数据
+// LoginConfig  login configuration
 type LoginConfig struct {
-	Name     string
+	Account  string
 	Password string
 }
 
-// NewLogin 用于创建Login的业务对象
+// NewLogin new a login object by config
 func NewLogin(config *LoginConfig) *Login {
 	l := new(Login)
-	l.name = config.Name
+	l.account = config.Account
 	l.password = NewPassword(config.Password)
 	l.userModel = &models.User{}
+	l.valid = &validation.Validation{}
 	l.errorCode = codes.ErrorCodeSuccess
 	return l
 }
 
-// NewLoginByRawData 用于内部创建对象
-func newLoginByRawData(name, password string) *Login {
+// NewLoginByRawData new login object by raw data
+func newLoginByRawData(account, password string) *Login {
 	config := LoginConfig{
-		Name:     name,
+		Account:  account,
 		Password: password,
 	}
 	return NewLogin(&config)
 }
 
-// ErrorCode 统一的错误码处理
+// ErrorCode  implement ErrorCoder
 func (s *Login) ErrorCode() codes.ErrorCode {
 	return s.errorCode
 }
 
-// Do 用于处理登录操作业务流程
+func (s *Login) determinLoginType() {
+	if s.isEmail() {
+		s.loginType = email
+	}
+
+	if s.isPhone() {
+		s.loginType = phone
+	}
+}
+
+func (s *Login) isEmail() bool {
+	if v := s.valid.Email(s.account, "email"); v.Ok {
+		return true
+	}
+	return false
+}
+
+func (s *Login) isPhone() bool {
+	if v := s.valid.Mobile(s.account, "phone"); v.Ok {
+		return true
+	}
+	return false
+}
+
+// Do do the login logic
 func (s *Login) Do() (err error) {
 	defer func() {
 		if err != nil {
@@ -88,7 +126,13 @@ func (s *Login) Do() (err error) {
 }
 
 func (s *Login) findUser() (err error) {
-	s.userModel, err = models.FindUserByName(s.name)
+	s.determinLoginType()
+	switch s.loginType {
+	case email:
+		s.userModel, err = models.FindUserByEmail(s.account)
+	case phone:
+		s.userModel, err = models.FindUserByPhone(s.account)
+	}
 	return
 }
 
@@ -120,33 +164,35 @@ func (s *Login) logLogin() {
 	_ = userLogin.Create()
 }
 
-// GetUserInfo 获取用户信息
+// GetUserInfo  get user info
 func (s *Login) GetUserInfo() (*UserInfo, error) {
 	u := &UserInfo{
 		ID:        s.userModel.GetID(),
-		Name:      s.userModel.Name,
+		Phone:     s.userModel.Phone,
+		Email:     s.userModel.Email,
 		Nickname:  s.userModel.Nickname,
-		HeadImg:   s.userModel.HeadImg,
+		Avatar:    s.userModel.Avatar,
 		Token:     s.userModel.Token,
-		RegTime:   s.userModel.RegTime,
+		CreatedAt: s.userModel.CreatedAt,
 		errorCode: s.ErrorCode(),
 	}
 	return u, nil
 }
 
-// Topic 发送给NSQ的话题
+// Topic implement notifier
 func (s *Login) Topic() string {
 	return queues.TopicUserLogin.String()
 }
 
-// Message 发送给NSQ的消息内容
+// Message implement notifier
 func (s *Login) Message() []byte {
 	message := queues.MessageUserLogin{
-		UserID:   s.userModel.GetID(),
-		Name:     s.userModel.Name,
-		Nickname: s.userModel.Nickname,
-		HeadImg:  s.userModel.HeadImg,
-		RegTime:  s.userModel.RegTime,
+		UserID:    s.userModel.GetID(),
+		Phone:     s.userModel.Phone,
+		Email:     s.userModel.Email,
+		Nickname:  s.userModel.Nickname,
+		Avatar:    s.userModel.Avatar,
+		CreatedAt: s.userModel.CreatedAt,
 	}
 
 	msg, _ := json.Marshal(&message)

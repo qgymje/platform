@@ -38,14 +38,15 @@ func (u *User) Auth(c *gin.Context) {
 
 // Register  register action
 func (u *User) Register(c *gin.Context) {
-	form, err := NewRegisterBinding(c)
-	if err != nil {
-		respformat := u.Response(c, form.ErrorCode(), nil)
-		c.JSON(http.StatusOK, respformat)
-		return
+	regInfo := &pb.RegisterInfo{
+		Account:         u.getAccount(c),
+		Password:        u.getPassword(c),
+		PasswordConfirm: u.getPasswordConfirm(c),
+		Nickname:        u.getNickname(c),
 	}
+
 	uc := userClient.NewUser(u.getUserRPCAddress())
-	reply, err := uc.Register(form.Config())
+	reply, err := uc.Register(regInfo)
 	if err != nil {
 		respformat := u.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
@@ -59,20 +60,20 @@ func (u *User) Register(c *gin.Context) {
 
 // Login user login
 func (u *User) Login(c *gin.Context) {
-	form, err := NewLoginBinding(c)
-	if err != nil {
-		respformat := u.Response(c, form.ErrorCode(), nil)
-		c.JSON(http.StatusOK, respformat)
-		return
+	loginInfo := &pb.LoginInfo{
+		Account:  u.getAccount(c),
+		Password: u.getPassword(c),
 	}
 
 	ul := userClient.NewUser(u.getUserRPCAddress())
-	var reply *pb.UserInfo
-	if reply, err = ul.Login(form.Config()); err != nil {
+
+	reply, err := ul.Login(loginInfo)
+	if err != nil {
 		respformat := u.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
+
 	respformat := u.Response(c, codes.ErrorCodeSuccess, reply)
 	c.JSON(http.StatusOK, respformat)
 	return
@@ -86,9 +87,11 @@ func (u *User) Logout(c *gin.Context) {
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
+
 	pbToken := pb.Token{Token: token}
 	lo := userClient.NewUser(u.getUserRPCAddress())
-	if _, err := lo.Logout(&pbToken); err != nil {
+	_, err := lo.Logout(&pbToken)
+	if err != nil {
 		respformat := u.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
 		return
@@ -101,16 +104,19 @@ func (u *User) Logout(c *gin.Context) {
 
 // Info user info
 func (u *User) Info(c *gin.Context) {
-	userID := u.GetUserID(c)
+	userID := u.getUserID(c)
 	info := userClient.NewUser(u.getUserRPCAddress())
-	var reply *pb.UserInfo
-	var err error
-	if reply, err = info.Info(&pb.UserID{UserID: userID}); err != nil {
+
+	reply, err := info.Info(&pb.UserID{UserID: userID})
+	if err != nil {
 		respformat := u.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
-	u.RemovePBUserInfoToken(reply)
+
+	u.removePBUserInfoToken(reply)
+	u.removePBUserInfoPhone(reply)
+	u.removePBUserInfoEmail(reply)
 	respformat := u.Response(c, codes.ErrorCodeSuccess, reply)
 	c.JSON(http.StatusOK, respformat)
 	return

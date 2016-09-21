@@ -4,22 +4,27 @@
 
 接口名称|接口描述|开发情况
 ---|---|---
-register|[用户注册](#register)|[YES]
-login|[用户登录](#login)|[YES]
-auth|[根据token查询用户信息](#auth)|[ YES ]
-logout|[用户退出](#logout)|[YES]
-info|[用户信息查询](#nfo)|[ YES ]
+/user/register/sms | [获取注册码](#register_sms) | [YES]
+/user/register/sms | [验证注册码](#varify_register_sms)| [YES]
+/user/register/email| [获取注册码](#register_email) | [YES]
+/user/register/email| [验证注册码](#varify_register_email)| [YES]
+/user/register|[用户注册](#register)|[YES]
+/user/login|[用户登录](#login)|[YES]
+/user/auth|[根据token查询用户信息](#auth)|[ YES ]
+/user/logout|[用户退出](#logout)|[YES]
+/user/info|[用户信息查询](#nfo)|[ YES ]
 
-
-### [错误码](#error_code)
 
 ---
 
-<div id="register"></div>
+<div id="register_sms"></div>
 
-## 用户注册(register)
+## 获取验证码
 
-URL: /user/register
+URL: /user/register/sms
+
+AUTH: NO
+> AUTH based on JWT
 
 METHOD: POST
 
@@ -27,41 +32,28 @@ PARAMETERS:
 
 字段名称|类型|必须|描述
 ---|---|---|---
-name|string| 是| 用户名
-password|string|是|密码
-nickname|string|否|昵称
+country|string| 是| 电话国际码, 如中国: +86
+phone|string|是| 手机号
 
-<div id="user_info"></div>
 RETURN:
-
 ```json
 {
   "code": "200",
+  "msg": "success",
   "data": {
-    "userID": "57cf8925c86ab4291ad33f3a",
-    "name": "helloworld5",
-    "nickname": "hello",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzU4MTA4NTMsImlkIjoiNTdjZjg5MjVjODZhYjQyOTFhZDMzZjNhIn0.9GIy6J8-gIUf-qggS1ICqM6UiO4qYSgkCbNtXqkMkp8",
-    "regTime": 1473218853
-  },
-  "msg": "success"
+    "code": "692992"
+  }
 }
 ```
-
-字段名称|类型|必须|描述
----|---|---|---
-code|int|是|1,正确; 其它[错误码](#error_code)
-msg|string|是|错误信息描述
-data| any | 是 | null 或者 object or array
-
-
 ---
 
-<div id="login"></div>
+<div id="varify_register_sms"></div>
 
-## 用户登录(login)
+## 验证注册码
 
-URL: /user/login 
+URL: /user/register/sms
+
+AUTH: NO
 
 METHOD: PUT
 
@@ -69,21 +61,160 @@ PARAMETERS:
 
 字段名称|类型|必须|描述
 ---|---|---|---
-name|string|是|用户名
+country|string| 是| 电话国际码, 如中国: +86
+phone|string|是| 手机号
+code|string|是| 用户输入的验证码
+
+
+RETURN:
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "success": true
+  },
+}
+```
+---
+<div id="register_email"></div>
+
+## 获取验证码
+
+URL: /user/register/email
+
+AUTH: NO
+> AUTH based on JWT
+
+METHOD: POST
+
+PARAMETERS:
+
+字段名称|类型|必须|描述
+---|---|---|---
+email|string|是| 邮箱
+
+RETURN:
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "code": "692992"
+  }
+}
+```
+---
+
+<div id="varify_register_email"></div>
+
+## 验证注册码
+
+URL: /user/register/email
+
+AUTH: NO
+
+METHOD: PUT
+
+PARAMETERS:
+
+字段名称|类型|必须|描述
+---|---|---|---
+email|string|是| 邮箱
+code|string|是| 用户输入的验证码
+
+
+RETURN:
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "success": true
+  },
+}
+```
+
+---
+
+<div id="register"></div>
+
+## 用户注册
+
+URL: /user/register
+
+AUTH: NO
+
+METHOD: POST
+
+PARAMETERS:
+
+字段名称|类型|必须|描述
+---|---|---|---
+account |string| 是| 手机号码或者邮箱
+password|string|是|密码
+password_confirm|string|是|密码重复
+nickname|string|否|昵称
+
+RETURN:
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "userID": "57e226dac86ab45af3d14807",
+    "phone": "13817782406",
+    "nickname": "hello",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzcwMzA4NzQsImlkIjoiNTdlMjI2ZGFjODZhYjQ1YWYzZDE0ODA3In0.yDNkF_CL57gEmYfo5phqyzgTjYZmDZ7S_V0j_DNPqe8",
+    "createdAt": 1474438874
+  }
+}
+```
+---
+
+<div id="login"></div>
+
+## 用户登录
+
+URL: /user/login
+
+AUTH: NO
+
+METHOD: PUT
+
+PARAMETERS:
+
+字段名称|类型|必须|描述
+---|---|---|---
+account|string|是|手机号或者邮箱
 password|string|是|登录密码
 
 
 RETURN:
-
-[同用户登录](#user_info)
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "userID": "57e2267ec86ab45af3d14806",
+    "phone": "13817782405",
+    "nickname": "hello",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzcwMzExNTcsImlkIjoiNTdlMjI2N2VjODZhYjQ1YWYzZDE0ODA2In0.u1yhcg86Imd8yuGjcvqGwUN3yVJO8y4wWnSz9RNydTU",
+    "createdAt": 1474438782
+  }
+}
+```
 
 ----
 
-<div id="auth"></div>
+<div id="info"></div>
 
-### 根据token获取用户信息(auth)
+### 获取用户信息
+> 无法获取用户的手机, 邮箱等敏感信息
 
-URL: /user/auth/:token
+URL: /user/info/:user_id
+
+AUTH: YES
 
 METHOD: GET
 
@@ -91,40 +222,67 @@ PARAMETERS:
 
 字段名称|类型|必须|描述
 ---|---|---|---
-token|string|是|用户jwt
-
-
-RETURN:
-
-[同用户登录](#user_info)
-
-
-<div id="info"></div>
-
-### 获取个人资料(info)
-
-URL: /user/info/:user_id
-
-METHOD: GET
-
-PARAMETER:
-
-字段名称|类型|必须|描述
----|---|---|---
 user_id|string|是|用户id
 
 
 RETURN:
-
-[同用户登录](#user_info)
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "userID": "57e2267ec86ab45af3d14806",
+    "nickname": "hello",
+    "avatar": "http://www.example.com/avatar.jpg",
+    "createdAt": 1474438782
+  }
+}
+```
 
 ----
 
+<div id="auth"></div>
+
+### 根据token获取用户信息
+> 优先通过header里的Authorization字段获取用户本人信息
+
+URL: /user/auth/:token
+
+AUTH: YES
+
+METHOD: GET
+
+PARAMETERS:
+
+字段名称|类型|必须|描述
+---|---|---|---
+token|string|否|用户jwt
+
+
+RETURN:
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+    "userID": "57e226dac86ab45af3d14807",
+    "phone": "13817782406",
+    "nickname": "hello",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzcwMzA4NzQsImlkIjoiNTdlMjI2ZGFjODZhYjQ1YWYzZDE0ODA3In0.yDNkF_CL57gEmYfo5phqyzgTjYZmDZ7S_V0j_DNPqe8",
+    "createdAt": 1474438874
+  }
+}
+```
+
+---
+
 <div id="logout"></div>
 
-### 退出登入(logout)
+### 退出登入
 
 URL: /user/logout
+
+AUTH: YES
 
 METHOD: DELETE
 
@@ -137,7 +295,7 @@ Authorization | string(在header里)| 是 | bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I
 返回样例:
 ```json
 {
-  "code": 1,
+  "code": "200",
   "msg": "success",
   "data": null
 }
@@ -149,28 +307,6 @@ Authorization | string(在header里)| 是 | bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I
 
 ## 错误码
 
-```
+```json
 ErrorCodeSuccess ErrorCode = "200"
-
-ErrorCodeMissParameters ErrorCode = "USR400101"
-
-// token 错误系列以1xx开始
-ErrorCodeTokenNotFound ErrorCode = "USR403101"
-ErrorCodeInvalidToken  ErrorCode = "USR403102"
-ErrorCodeUnauthorized  ErrorCode = "USR403103"
-ErrorCodeAuthFormat    ErrorCode = "USR403104"
-
-// register 注册系统以2xx开始
-ErrorCodeNameAlreadyExist     ErrorCode = "USR400201"
-ErrorCodePasswordTooShort     ErrorCode = "USR400202"
-ErrorCodeNickNameAlreadyExist ErrorCode = "USR400203"
-ErrorCodeCreateUserFail       ErrorCode = "USR500201"
-
-// login 登录系列以3xx开始
-ErrorCodeLoginFailed     ErrorCode = "USR400301"
-ErrorCodeUserNotFound    ErrorCode = "USR400302"
-ErrorCodeUpdateTokenFail ErrorCode = "USR500303"
-
-// info 系列错误
-ErrorCodeInvalidUserID ErrorCode = "USR400402"
 ```

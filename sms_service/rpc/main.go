@@ -51,6 +51,7 @@ func main() {
 	s := grpc.NewServer()
 	pb.RegisterSMSServer(s, &sms.Server{})
 	sms.ListenRegisterSMS()
+	log.Println("start to server")
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
