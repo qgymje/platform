@@ -19,14 +19,13 @@ type SMS struct {
 
 // RegisterCode create a register code
 func (s *SMS) RegisterCode(c *gin.Context) {
-	user := userClient.NewUser(s.getUserRPCAddress())
-
 	phone := &pbuser.Phone{
 		Phone:   s.getPhone(c),
 		Country: s.getCountry(c),
 	}
 
-	reply, err := user.ValidCode(phone)
+	user := userClient.NewUser(s.getUserRPCAddress())
+	reply, err := user.SMSCode(phone)
 	if err != nil {
 		respformat := s.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
