@@ -33,12 +33,17 @@ const (
 	ErrorCodePasswordTooShort     ErrorCode = "REG400202"
 	ErrorCodeNickNameAlreadyExist ErrorCode = "REG400203"
 	ErrorCodeInvalidPhone         ErrorCode = "REG400204"
+	ErrorCodeInvalidEmail         ErrorCode = "REG400205"
 	ErrorCodeCreateUserFail       ErrorCode = "REG500201"
 	ErrorCodeRegisterNotify       ErrorCode = "REG500202"
 
 	// SMS  errorcode
 	ErrorCodeSMSCodeNotify ErrorCode = "SMS500302"
 	ErrorCodeSMSCreate     ErrorCode = "SMS500303"
+
+	// Email errorcode
+	ErrorCodeEmailCodeNotify ErrorCode = "SMS500402"
+	ErrorCodeEmailCreate     ErrorCode = "SMS500403"
 
 	// login 登录系列以3xx开始
 	ErrorCodeLoginFailed     ErrorCode = "LGN400301"

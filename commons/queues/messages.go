@@ -10,6 +10,13 @@ type MessageRegisterSMS struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+// MessageRegisterEmail nsq message for ssending email service
+type MessageRegisterEmail struct {
+	Email     string    `json:"email"`
+	Code      string    `json:"code"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 // MessageUserLogin nsq message for user login notification
 type MessageUserLogin struct {
 	UserID    string    `json:"user_id"`

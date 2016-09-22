@@ -32,9 +32,14 @@ func (u *User) Close() error {
 	return u.conn.Close()
 }
 
-func (u *User) ValidCode(in *pb.Phone) (*pb.Code, error) {
+func (u *User) EmailCode(in *pb.Email) (*pb.Code, error) {
 	defer u.Close()
-	return u.client.ValidCode(context.Background(), in)
+	return u.client.EmailCode(context.Background(), in)
+}
+
+func (u *User) SMSCode(in *pb.Phone) (*pb.Code, error) {
+	defer u.Close()
+	return u.client.SMSCode(context.Background(), in)
 }
 
 func (u *User) Register(in *pb.RegisterInfo) (*pb.UserInfo, error) {
