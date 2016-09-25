@@ -7,8 +7,7 @@
 list|[可玩游戏列表](#list)|[YES]
 start|[开始玩一个游戏](#start)|[ YES ]
 preference|[获取一个游戏的配置信息](#preference)|[YES]
-update_preference|[更新某个游戏的配置](#update_preference)|[YES]
-
+update_preference|[更新某个游戏的配置](#update_preference)|[YES] 
 
 ### [错误码](#error_code)
 
