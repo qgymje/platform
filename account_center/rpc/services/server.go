@@ -2,6 +2,7 @@ package servers
 
 import (
 	"errors"
+	"platform/account_center/rpc/services/email"
 	"platform/account_center/rpc/services/sms"
 	"platform/account_center/rpc/services/users"
 	pb "platform/commons/protos/user"
@@ -93,9 +94,18 @@ func (s *UserServer) Info(ctx context.Context, userID *pb.UserID) (*pb.UserInfo,
 	return s.getUserInfo(ui), nil
 }
 
-// ValidCode request a sms code before register
-func (s *UserServer) ValidCode(ctx context.Context, in *pb.Phone) (*pb.Code, error) {
+// SMSCode request a sms code before register
+func (s *UserServer) SMSCode(ctx context.Context, in *pb.Phone) (*pb.Code, error) {
 	code := sms.NewCode(in.Phone, in.Country)
+	if err := code.Do(); err != nil {
+		return nil, errors.New(code.ErrorCode().String())
+	}
+	return &pb.Code{Code: code.GetCode()}, nil
+}
+
+// EmailCode request a sms code before register
+func (s *UserServer) EmailCode(ctx context.Context, in *pb.Email) (*pb.Code, error) {
+	code := email.NewCode(in.Email)
 	if err := code.Do(); err != nil {
 		return nil, errors.New(code.ErrorCode().String())
 	}

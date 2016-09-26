@@ -26,7 +26,7 @@ const (
 // Email represents sms sender data struct
 // it's will be a standalone services when etcd is ready
 type Email struct {
-	Address   string    `bson:"address"`
+	Email     string    `bson:"email"`
 	Content   string    `bson:"content"`
 	Type      int       `bson:"type"`
 	Provider  int       `bson:"provider"`
@@ -51,7 +51,7 @@ func (e *Email) update(condition, m bson.M) error {
 }
 
 func (e *Email) condition() bson.M {
-	return bson.M{EmailColumns.Address: e.Address}
+	return bson.M{EmailColumns.Email: e.Email}
 }
 
 // Use use register code
@@ -79,6 +79,6 @@ func findEmail(m bson.M) (*Email, error) {
 
 // FindEmailByAddress find sms code by address
 func FindEmailByAddress(address string) (*Email, error) {
-	m := bson.M{EmailColumns.Address: address}
+	m := bson.M{EmailColumns.Email: address}
 	return findEmail(m)
 }

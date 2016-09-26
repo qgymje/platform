@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	"platform/account_center/rpc/services/users"
-	pb "platform/commons/protos/user"
-	"platform/sms_service/rpc/models"
+	pb "platform/commons/protos/email"
+	"platform/email_service/rpc/models"
+	"platform/email_service/rpc/services/email"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -42,7 +42,8 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUserServer(s, &users.UserServer{})
+	email.ListenRegisterEmail()
+	pb.RegisterEmailServer(s, &email.Server{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)

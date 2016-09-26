@@ -116,7 +116,7 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
-func (b *Base) getEmailAddress(c *gin.Context) string {
+func (b *Base) getEmail(c *gin.Context) string {
 	return c.PostForm("email")
 }
 

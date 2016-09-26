@@ -1,7 +1,7 @@
 package models
 
 type _EmailColumn struct {
-	Address   string
+	Email     string
 	Content   string
 	CreatedAt string
 	Provider  string
@@ -13,7 +13,7 @@ type _EmailColumn struct {
 var EmailColumns _EmailColumn
 
 func init() {
-	EmailColumns.Address = "address"
+	EmailColumns.Email = "email"
 	EmailColumns.Content = "content"
 	EmailColumns.CreatedAt = "created_at"
 	EmailColumns.Provider = "provider"

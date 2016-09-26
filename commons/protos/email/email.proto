@@ -8,6 +8,7 @@ service Email{
 
 message EmailCode{
     string email = 1;
+    string code = 2;
 }
 
 message Status{

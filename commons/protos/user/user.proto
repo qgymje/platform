@@ -4,7 +4,8 @@ package user;
 
 
 service User{
-  rpc ValidCode( Phone ) returns ( Code ) {}
+  rpc SMSCode( Phone ) returns ( Code ) {}
+  rpc EmailCode( Email ) returns ( Code ) {}
   rpc Register( RegisterInfo ) returns (UserInfo){}
   rpc Login( LoginInfo ) returns (UserInfo){} 
   rpc Logout( Token ) returns (Status){}
@@ -15,6 +16,10 @@ service User{
 message Phone {
     string country = 1;
     string phone = 2;
+}
+
+message  Email {
+    string email = 1;
 }
 
 message Code {

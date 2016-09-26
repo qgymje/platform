@@ -10,6 +10,8 @@ func (t Topic) String() string {
 const (
 	// TopicRegisterSMS sms code topic name
 	TopicRegisterSMS Topic = "register_sms"
+	// TopicRegisterEmail register code topic name
+	TopicRegisterEmail Topic = "register_email"
 	// TopicUserRegister user register topic name
 	TopicUserRegister Topic = "user_register"
 	// TopicUserLogin user login topic name
