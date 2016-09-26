@@ -6,8 +6,8 @@ import (
 	"net"
 
 	"platform/account_center/rpc/models"
-	"platform/account_center/rpc/services/users"
-	pb "platform/commons/protos/user"
+	pb "platform/commons/protos/game"
+	"platform/game_center/rpc/services/games"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -41,7 +41,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUserServer(s, &users.UserServer{})
+	pb.RegisterGameServer(s, &games.GameServer{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)

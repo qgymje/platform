@@ -21,6 +21,7 @@ func (g *GameServer) Start(context.Context, *pb.UserGame) (*pb.GameVM, error) {
 			utils.GetLog().Error("rpc.games.Start error: %v", err)
 		}
 	}()
+	return &pb.GameVM{}, nil
 }
 
 // List all available games
@@ -31,7 +32,7 @@ func (g *GameServer) List(context.Context, *pb.Page) (*pb.Games, error) {
 			utils.GetLog().Error("rpc.games.List error: %v", err)
 		}
 	}()
-
+	return &pb.Games{Games: []*pb.GameInfo{}}, nil
 }
 
 // Preference fetch a user's preference of a game
@@ -42,7 +43,7 @@ func (g *GameServer) Preference(context.Context, *pb.UserGame) (*pb.PreferenceCo
 			utils.GetLog().Error("rpc.games.Preference error: %v", err)
 		}
 	}()
-
+	return &pb.PreferenceConfig{Json: ""}, nil
 }
 
 // UpdatePreference update a preference of a game for one user
@@ -53,5 +54,5 @@ func (g *GameServer) UpdatePreference(context.Context, *pb.UserGame) (*pb.Status
 			utils.GetLog().Error("rpc.games.UpdatePreference error: %v", err)
 		}
 	}()
-
+	return &pb.Status{Success: true}, nil
 }
