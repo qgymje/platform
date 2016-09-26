@@ -3,7 +3,8 @@
 ## 接口列表：
 
 接口名称|接口描述|开发情况
----|---|--- types|[game type list](#types) | [NO]
+---|---|--- 
+types|[game type list](#types) | [NO]
 list|[可玩游戏列表](#list)|[NO]
 search|[搜索游戏](#search)|[NO]
 start|[开始玩一个游戏](#start)|[NO]
@@ -16,8 +17,7 @@ update_preference|[更新某个游戏的配置](#update_preference)|[NO]
 
 URL: /game/types
 
-METHOD: GET
-
+METHOD: GET 
 Authorization: NO
 
 RETURN:
@@ -124,7 +124,7 @@ RETURN:
       {
         "gameID": "123456789",
         "name": "world of warcraft",
-        "gameType": 12,
+        "gameTypeID": 12,
         "gameTypeName": "角色扮演",
         "description": "Wow is a grate game in history",
         "cover": "http://img4.imgtn.bdimg.com/it/u=2977877931,2204864369&fm=21&gp=0.jpg",
@@ -132,6 +132,7 @@ RETURN:
           "http://img2.imgtn.bdimg.com/it/u=1803873670,2284693330&fm=11&gp=0.jpg",
           "http://img0.imgtn.bdimg.com/it/u=3951912182,2498656724&fm=11&gp=0.jpg"
         ],
+        "playTimes": 10000,
         "playerNum": 1,
         "isFree": false,
         "payStatus": true
@@ -139,7 +140,7 @@ RETURN:
       {
         "gameID": "123456788",
         "name": "league of legends",
-        "gameType": 1,
+        "gameTypeID": 1,
         "gameTypeName": "动作游戏",
         "description": "Lol is a grate game in history",
         "cover": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT9FXQ0uqQXlxFsd16A3YKLxCxJkDSqwLZWTBoh6psWjVR-KHkL",
@@ -147,6 +148,7 @@ RETURN:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJYt-xRPgp1JlWG0NzHHVDCetE-CWJfIAiW97NJ3WUamOT3QR2",
           "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTZq5K7qq9zyjvyabULU9gkREaXl85CHTA-qAmnlaWnbvHmaj6g"
         ],
+        "playTimes": 20000,
         "playerNum": 10,
         "isFree": true,
         "payStatus": false

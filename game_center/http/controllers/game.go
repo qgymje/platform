@@ -23,11 +23,12 @@ func (g *Game) Types(c *gin.Context) {
 type GameInfo struct {
 	GameID       string   `json:"gameID"`
 	Name         string   `json:"name"`
-	GameType     int      `json:"gameType"`
+	GameTypeID   int      `json:"gameTypeID"`
 	GameTypeName string   `json:"gameTypeName"`
 	Description  string   `json:"description"`
 	Cover        string   `json:"cover"`
 	Screenshots  []string `json:"screenshots"`
+	PlayTimes    int      `json:"playTimes"`
 	PlayerNum    int      `json:"playerNum"`
 	IsFree       bool     `json:"isFree"`
 	PayStatus    bool     `json:"payStatus"`
@@ -66,7 +67,7 @@ func init() {
 		{
 			GameID:       "123456789",
 			Name:         "world of warcraft",
-			GameType:     12,
+			GameTypeID:   12,
 			GameTypeName: "角色扮演",
 			Description:  "Wow is a grate game in history",
 			Cover:        "http://img4.imgtn.bdimg.com/it/u=2977877931,2204864369&fm=21&gp=0.jpg",
@@ -75,13 +76,14 @@ func init() {
 				"http://img0.imgtn.bdimg.com/it/u=3951912182,2498656724&fm=11&gp=0.jpg",
 			},
 			PlayerNum: 1,
+			PlayTimes: 10000,
 			IsFree:    false,
 			PayStatus: true,
 		},
 		{
 			GameID:       "123456788",
 			Name:         "league of legends",
-			GameType:     1,
+			GameTypeID:   1,
 			GameTypeName: "动作游戏",
 			Description:  "Lol is a grate game in history",
 			Cover:        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT9FXQ0uqQXlxFsd16A3YKLxCxJkDSqwLZWTBoh6psWjVR-KHkL",
@@ -90,6 +92,7 @@ func init() {
 				"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTZq5K7qq9zyjvyabULU9gkREaXl85CHTA-qAmnlaWnbvHmaj6g",
 			},
 			PlayerNum: 10,
+			PlayTimes: 20000,
 			IsFree:    true,
 			PayStatus: false,
 		},
