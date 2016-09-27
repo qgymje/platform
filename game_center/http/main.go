@@ -31,6 +31,13 @@ func init() {
 	utils.InitRander()
 }
 
+func getPort() string {
+	if *port == "" {
+		return utils.GetConf().GetString("app.rpc_port")
+	}
+	return *port
+}
+
 func main() {
 	r := gin.New()
 
@@ -51,8 +58,7 @@ func main() {
 		g.PUT("/preference", game.UpdatePreference)
 	}
 
-	port := utils.GetConf().GetString("app.http_port")
-	if err := r.Run(port); err != nil {
+	if err := r.Run(getPort()); err != nil {
 		log.Fatal(err)
 	}
 }

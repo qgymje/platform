@@ -13,6 +13,7 @@ import (
 var (
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
 	configPath = flag.String("conf", "./configs/", "set config path")
+	port       = flag.String("port", ":3003", "game center http port")
 )
 
 func initEnv() {
@@ -28,6 +29,13 @@ func init() {
 	utils.InitLogger()
 	utils.InitRander()
 }
+func getPort() string {
+	if *port == "" {
+		return utils.GetConf().GetString("app.rpc_port")
+	}
+	return *port
+
+}
 
 func main() {
 	r := gin.New()
@@ -42,8 +50,7 @@ func main() {
 		bro.GET("/leave/:id", b.Leave)
 	}
 
-	port := utils.GetConf().GetString("app.http_port")
-	if err := r.Run(port); err != nil {
+	if err := r.Run(getPort()); err != nil {
 		log.Fatal(err)
 	}
 }

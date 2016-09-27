@@ -16,6 +16,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
+	port       = flag.String("port", ":4001", "service port")
 )
 
 func initEnv() {
@@ -34,9 +35,15 @@ func init() {
 	models.InitMongodb(session)
 }
 
+func getPort() string {
+	if *port == "" {
+		return utils.GetConf().GetString("app.rpc_port")
+	}
+	return *port
+}
+
 func main() {
-	port := utils.GetConf().GetString("app.rpc_port")
-	lis, err := net.Listen("tcp", port)
+	lis, err := net.Listen("tcp", getPort())
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
