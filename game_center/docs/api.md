@@ -1,16 +1,16 @@
 # Game Center
 
-## 接口列表：
+## API lists：
 
-接口名称|接口描述|开发情况
+name|desc|dev status
 ---|---|--- 
 types|[game type list](#types) | [NO]
-list|[可玩游戏列表](#list)|[NO]
-search|[搜索游戏](#search)|[NO]
-start|[开始玩一个游戏](#start)|[NO]
-end|[结束玩一个游戏](#end)|[NO]
-preference|[获取一个游戏的配置信息](#preference)|[NO]
-update_preference|[更新某个游戏的配置](#update_preference)|[NO] 
+list|[available games list](#list)|[NO]
+search|[game search](#search)|[NO]
+start|[start a game](#start)|[NO]
+end|[end a game](#end)|[NO]
+preference|[get a preference of a game](#preference)|[NO]
+update_preference|[update a preference of a game](#update_preference)|[NO] 
 
 ---
 ## game type list(types)
@@ -18,6 +18,7 @@ update_preference|[更新某个游戏的配置](#update_preference)|[NO]
 URL: /game/types
 
 METHOD: GET 
+
 Authorization: NO
 
 RETURN:
@@ -98,7 +99,7 @@ RETURN:
 
 <div id="list"></div>
 
-## 获取可玩游戏列表 (list)
+## available game list(list)
 
 URL: /game
 
@@ -108,11 +109,11 @@ Authorization: NO
 
 PARAMETERS:
 
-字段名称|类型|必须|描述
+name|type|must|desc
 ---|---|---|---
-game_type | int | 是 | 游戏类型
-page | int | 是 | 当前页, 默认第一页
-page_num| int | 否 | 每页数目， 默认20
+game_type | int |yes |  game type
+page | int | yes | current page
+page_size| int | no | size per page, default value is 20
 
 RETURN:
 
@@ -162,14 +163,14 @@ RETURN:
 }
 ```
 
-字段名称|类型|描述
+name|type|desc
 ---|---|---|---
-isFree| bool| 表示游戏是否免费
-payStatus| bool|true表示已经购买， false表示未购买
+isFree| bool| weather a game is free
+payStatus| bool|true: payed， false: unpayed
 
 ---
 
-## 搜索游戏（search)
+## game serach （search)
 
 URL: /game/search/:query
 
@@ -179,19 +180,20 @@ Authorization: NO
 
 PARAMETERS:
 
-字段名称|类型|必须|描述
+name|type|must|desc
 ---|---|---|---
-game_type | int | 否 | 游戏类型
-page | int | 是 | 当前页, 默认第一页
-page_num| int | 否 | 每页数目， 默认20
+query | string | yes | query keyword, need *urlencode*
+game_type | int | no |  game type
+page | int | yes | current page
+page_size| int | no | page size per page, default value is 20
 
 
 RETURN:
-同 游戏列表
+same as /game
 
 ---
 
-## 开始玩游戏 (start)
+## start a game (start)
 
 URL: /game/start
 
@@ -201,9 +203,9 @@ Authorization: YES
 
 PARAMETERS:
 
-字段名称|类型|必须|描述
+name|type|must|desc
 ---|---|---|---
-game_id | 游戏id | string | yes | 游戏id
+game_id | game id | string | yes | game id
 
 <div id="start"></div>
 RETURN:
@@ -219,7 +221,7 @@ RETURN:
 
 ---
 
-## 结束游戏 (end)
+## end a game(end)
 
 URL: /game/end
 
@@ -229,9 +231,9 @@ Authorization: YES
 
 PARAMETERS:
 
-字段名称|类型|必须|描述
+name|type|must|desc
 ---|---|---|---
-game_id | 游戏id | string | yes | 游戏id
+game_id | game id | string | yes |  game id
 
 <div id="start"></div>
 RETURN:
