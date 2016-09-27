@@ -1,0 +1,16 @@
+syntax="proto3";
+
+package upload;
+
+service Upload {
+    rpc Send(stream File) returns ( Status ){};
+}
+
+message File {
+  string fileName = 1;
+  bytes content = 2;
+}
+
+message Status {
+  bool success = 1;
+}

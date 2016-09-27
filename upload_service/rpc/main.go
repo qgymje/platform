@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	"platform/account_center/rpc/models"
-	pb "platform/commons/protos/game"
-	"platform/game_center/rpc/services/games"
+	pb "platform/commons/protos/upload"
+	"platform/upload_service/rpc/models"
+	upload "platform/upload_service/rpc/services/uploads"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -16,7 +16,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
-	port       = flag.String("port", ":4002", "service port")
+	port       = flag.String("port", ":4006", "service port")
 )
 
 func initEnv() {
@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGameServer(s, &games.GameServer{})
+	pb.RegisterUploadServer(s, &upload.Server{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)

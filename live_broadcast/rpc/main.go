@@ -5,16 +5,19 @@ import (
 	"log"
 	"net"
 
+	pb "platform/commons/protos/broadcasting"
+	"platform/live_broadcast/rpc/models"
+	"platform/live_broadcast/rpc/services/broadcasting"
+
+	"platform/utils"
+
 	"google.golang.org/grpc"
-	"tech.cloudzen/live_broadcast/rpc/models"
-	"tech.cloudzen/live_broadcast/rpc/services/broadcasting"
-	pb "tech.cloudzen/protos/broadcasting"
-	"tech.cloudzen/utils"
 )
 
 var (
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
 	configPath = flag.String("conf", "./configs/", "set config path")
+	port       = flag.String("port", ":4003", "game center http port")
 )
 
 func initEnv() {
@@ -34,14 +37,22 @@ func init() {
 	models.InitMongodb(session)
 }
 
+func getPort() string {
+	if *port == "" {
+		return utils.GetConf().GetString("app.rpc_port")
+	}
+	return *port
+}
+
 func main() {
-	port := utils.GetConf().GetString("app.rpc_port")
-	lis, err := net.Listen("tcp", port)
+	lis, err := net.Listen("tcp", getPort())
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 	pb.RegisterBroadcastingServer(s, &broadcastings.BroadcastingServer{})
 	broadcastings.StartToReceive()
-	s.Serve(lis)
+	if err = s.Serve(lis); err != nil {
+		log.Fatal(err)
+	}
 }

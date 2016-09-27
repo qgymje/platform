@@ -14,6 +14,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
+	port       = flag.String("port", ":3000", "service port")
 )
 
 func initEnv() {
@@ -28,6 +29,13 @@ func init() {
 	utils.InitConfig(*configPath)
 	utils.InitLogger()
 	utils.InitRander()
+}
+
+func getPort() string {
+	if *port == "" {
+		return utils.GetConf().GetString("app.rpc_port")
+	}
+	return *port
 }
 
 func main() {
@@ -56,8 +64,7 @@ func main() {
 		u.PUT("/register/email", email.VerifyRegisterCode)
 	}
 
-	port := utils.GetConf().GetString("app.http_port")
-	if err := r.Run(port); err != nil {
+	if err := r.Run(getPort()); err != nil {
 		log.Fatal(err)
 	}
 }

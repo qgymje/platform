@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"log"
+	"math"
+	"strconv"
 	"strings"
 	"time"
 
@@ -12,6 +14,7 @@ import (
 )
 
 const headerTokenKey = "Authorization"
+const defaultPageSize = 20
 
 // Base controller do common things
 type Base struct {
@@ -91,4 +94,29 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return "", codes.ErrorCodeInvalidToken
 	}
 	return authHeaderParts[1], codes.ErrorCodeSuccess
+}
+
+func (b *Base) getPageNum(c *gin.Context) (page int) {
+	page, _ = strconv.Atoi(c.Query("page"))
+	return int(math.Max(float64(page-1), 0.0))
+}
+
+func (b *Base) getPageSize(c *gin.Context) (num int) {
+	num, err := strconv.Atoi(c.Query("page_num"))
+	if err != nil {
+		num = defaultPageSize
+	}
+	return
+}
+
+func (b *Base) getGameType(c *gin.Context) string {
+	return c.Query("game_type")
+}
+
+func (b *Base) getQuery(c *gin.Context) string {
+	return c.Param("query")
+}
+
+func (b *Base) getGameID(c *gin.Context) string {
+	return c.Param("query")
 }
