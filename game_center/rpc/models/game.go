@@ -11,9 +11,14 @@ import (
 //go:generate gen_columns -tag=bson -path=game.go
 type Game struct {
 	GameID      bson.ObjectId `bson:"_id"`
+	GameTypeID  int           `bson:"game_type_id"`
 	Name        string        `bson:"name"`
 	Cover       string        `bson:"cover"`
+	Screenshots []string      `bson:"screenshots"`
 	Description string        `bson:"description"`
+	PlayTimes   int           `bson:"play_times"`
+	PlayerNum   int           `bson:"player_num"`
+	IsFree      bool          `bson:"is_free"`
 	Status      int           `bson:"status"`
 	CreatedAt   time.Time     `bson:"created_at"`
 	UpdatedAt   time.Time     `bson:"updated_at"`
