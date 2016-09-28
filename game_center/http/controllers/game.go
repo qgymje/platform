@@ -14,7 +14,10 @@ type Game struct {
 
 // Types game types
 func (g *Game) Types(c *gin.Context) {
-	respformat := g.Response(c, codes.ErrorCodeSuccess, gameTypes)
+	data := map[string]interface{}{
+		"list": gameTypes,
+	}
+	respformat := g.Response(c, codes.ErrorCodeSuccess, data)
 	c.JSON(http.StatusOK, respformat)
 	return
 }
