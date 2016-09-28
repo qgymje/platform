@@ -46,6 +46,11 @@ func main() {
 	r.Use(middlewares.APIVersion())
 	r.Use(middlewares.RecordRequestBegin())
 
+	uploadPath := "./uploads"
+	utils.EnsurePath(uploadPath)
+	controllers.SetUploadPath(uploadPath)
+	r.Static("/uploads", uploadPath)
+
 	u := r.Group("/user")
 	{
 		user := new(controllers.User)
@@ -62,6 +67,9 @@ func main() {
 		email := new(controllers.Email)
 		u.POST("/register/email", email.RegisterCode)
 		u.PUT("/register/email", email.VerifyRegisterCode)
+
+		profile := new(controllers.Profile)
+		u.PUT("/avatar", profile.Avatar)
 	}
 
 	if err := r.Run(getPort()); err != nil {

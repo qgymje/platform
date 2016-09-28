@@ -7,6 +7,11 @@ func init() {
 		ErrorCodeSuccess:        "success",
 		ErrorCodeMissParameters: "missing parameters",
 
+		// upload
+		ErrorCodeUpload:       "upload failed",
+		ErrorCodeUploadCreate: "upload create failed",
+		ErrorCodeUploadSend:   "upload send failed",
+
 		// token 错误系列以1xx开始
 		ErrorCodeInvalidToken:  "invalid token",
 		ErrorCodeUnauthorized:  "unauthroized",

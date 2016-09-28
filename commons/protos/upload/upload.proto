@@ -3,12 +3,12 @@ syntax="proto3";
 package upload;
 
 service Upload {
-    rpc Send(stream File) returns ( Status ){};
+    rpc Send( FileInfo ) returns ( Status ){}
 }
 
-message File {
-  string fileName = 1;
-  bytes content = 2;
+message FileInfo {
+  string filename = 1;
+  string filePath = 2;
 }
 
 message Status {
