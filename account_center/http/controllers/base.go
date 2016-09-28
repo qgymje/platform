@@ -23,8 +23,21 @@ const versionKey = "version"
 
 // Base controller do common things
 type Base struct {
-	userRPCAddress string
-	smsRPCAddress  string
+	userRPCAddress   string
+	smsRPCAddress    string
+	emailRPCAddress  string
+	uploadRPCAddress string
+}
+
+var uploadPath string
+
+// SetUploadPath upload path
+func SetUploadPath(p string) {
+	uploadPath = strings.TrimRight(p, "/") + "/"
+}
+
+func getUploadPath() string {
+	return uploadPath
 }
 
 func (b *Base) apiVersion(c *gin.Context) int {
@@ -161,14 +174,7 @@ func (b *Base) removePBUserInfoEmail(u *pb.UserInfo) {
 }
 
 func (b *Base) getUserRPCAddress() string {
-	if b.userRPCAddress != "" {
-		return b.userRPCAddress
-	}
-
-	host := utils.GetConf().GetString("app.rpc_host")
-	port := utils.GetConf().GetString("app.rpc_port")
-	b.userRPCAddress = host + port
-	return b.userRPCAddress
+	return "127.0.0.1:4000"
 }
 
 func (b *Base) getSMSRPCAddress() string {
@@ -177,4 +183,8 @@ func (b *Base) getSMSRPCAddress() string {
 
 func (b *Base) getEmailRPCAddress() string {
 	return "127.0.0.1:4005"
+}
+
+func (b *Base) getUploadRPCAddress() string {
+	return "127.0.0.1:4006"
 }

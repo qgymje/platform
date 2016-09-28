@@ -18,7 +18,7 @@ func BaseURL() string {
 	baseURL := GetConf().GetString("app.base_url")
 	httpport := GetConf().GetString("app.http_port")
 	if httpport != "80" {
-		baseURL += ":" + httpport
+		baseURL += httpport
 	}
 	return baseURL
 }

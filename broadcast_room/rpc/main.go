@@ -49,6 +49,5 @@ func main() {
 	}
 	s := grpc.NewServer()
 	pb.RegisterRoomServer(s, &rooms.RoomServer{})
-	log.Println("broadcast room rpc server running on ", port)
 	s.Serve(lis)
 }

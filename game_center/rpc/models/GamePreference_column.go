@@ -13,9 +13,9 @@ var GamePreferenceColumns _GamePreferenceColumn
 
 func init() {
 	GamePreferenceColumns.CreatedAt = "created_at"
-	GamePreferenceColumns.GameID = "gameID"
+	GamePreferenceColumns.GameID = "game_id"
 	GamePreferenceColumns.Preference = "preference"
 	GamePreferenceColumns.UpdatedAt = "updated_at"
-	GamePreferenceColumns.UserID = "userID"
+	GamePreferenceColumns.UserID = "user_id"
 
 }

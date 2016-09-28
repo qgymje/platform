@@ -19,6 +19,9 @@ const (
 	ErrorCodeSuccess ErrorCode = "200"
 
 	ErrorCodeMissParameters ErrorCode = "USR400101"
+	ErrorCodeUpload         ErrorCode = "UPL400101"
+	ErrorCodeUploadCreate   ErrorCode = "UPL500101"
+	ErrorCodeUploadSend     ErrorCode = "UPL500102"
 
 	// token 错误系列以1xx开始
 	ErrorCodeTokenNotFound ErrorCode = "TOK403101"

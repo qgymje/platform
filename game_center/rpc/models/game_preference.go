@@ -10,8 +10,8 @@ import (
 // GamePreference  game preference of each user each game
 //go:generate gen_columns -tag=bson -path=game_preference.go
 type GamePreference struct {
-	UserID     bson.ObjectId          `bson:"userID"`
-	GameID     bson.ObjectId          `bson:"gameID"`
+	UserID     bson.ObjectId          `bson:"user_id"`
+	GameID     bson.ObjectId          `bson:"game_id"`
 	Preference map[string]interface{} `bson:"preference"`
 	CreatedAt  time.Time              `bson:"created_at"`
 	UpdatedAt  time.Time              `bson:"updated_at"`
