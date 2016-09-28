@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package email;
+
+service Email{
+    rpc Verify( EmailCode ) returns ( Status ){}
+}
+
+message EmailCode{
+    string email = 1;
+    string code = 2;
+}
+
+message Status{
+    bool success= 1;
+}
+
+

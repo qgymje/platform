@@ -1,0 +1,19 @@
+syntax="proto3";
+
+package sms;
+
+service SMS{
+    rpc Verify( PhoneCode) returns ( Status ){}
+}
+
+message PhoneCode {
+    string country = 1;
+    string phone = 2;
+    string code = 3;
+}
+
+message Status {
+    bool success  = 1;
+}
+
+
