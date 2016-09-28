@@ -15,7 +15,7 @@ type QiniuProvider struct {
 
 // NewQiniuProvider qiniu upload service
 func NewQiniuProvider(provider Provider) *QiniuProvider {
-	p = new(QiniuProvider)
+	p := new(QiniuProvider)
 	p.provider = provider
 	p.accessKey = "iUAPz2ApOeuqBGnGLVrWi6qWFESGuLFt9BCrH9pD"
 	p.secretKey = "0hdfvXGr-FisuMr-O6DpEylcfdfY4ZneWQiPkY7O"
@@ -46,5 +46,5 @@ func (p *QiniuProvider) Do() (err error) {
 
 // RemoteURL get the uploaded file remote url
 func (p *QiniuProvider) RemoteURL() string {
-	return p.RemoteURL + p.provider.Filename()
+	return p.urlPrefix + p.provider.Filename()
 }

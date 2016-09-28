@@ -1,8 +1,10 @@
 package uploads
 
 import (
-	"io"
 	pb "platform/commons/protos/upload"
+	"platform/utils"
+
+	"golang.org/x/net/context"
 )
 
 // Server server is an grpc server object
@@ -10,17 +12,18 @@ type Server struct {
 }
 
 // Send implement the Send rpc
-func (s *Server) Send(stream pb.Upload_SendServer) error {
-	for {
-		buf, err := stream.Recv()
-		if err == io.EOF {
-			return stream.SendAndClose(&pb.Status{
-				Success: true,
-			})
-		}
+func (s *Server) Send(ctx context.Context, in *pb.FileInfo) (*pb.Status, error) {
+	var err error
+	defer func() {
 		if err != nil {
-			return err
+			utils.GetLog().Error("upload service server send error: ", err)
 		}
-
-	}
+	}()
+	/*
+		u := NewUploader(in.Filename, in.Content)
+		if err := u.Do(); err != nil {
+			return nil, errors.New(u.ErrorCode().String())
+		}
+	*/
+	return &pb.Status{Success: true}, nil
 }

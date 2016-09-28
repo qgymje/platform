@@ -12,10 +12,9 @@ const (
 
 // Upload uploaded file record
 type Upload struct {
-	FilePath       string    `bson:"file_path"`
-	FileRemotePath string    `bson:"file_remote_path"`
-	Provider       int       `bson:"provider"`
-	CreatedAt      time.Time `bson:"created_At"`
+	FilePath  string    `bson:"file_path"`
+	Provider  int       `bson:"provider"`
+	CreatedAt time.Time `bson:"created_at"`
 }
 
 // Create create a file upload record

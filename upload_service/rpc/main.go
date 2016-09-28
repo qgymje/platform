@@ -7,7 +7,7 @@ import (
 
 	pb "platform/commons/protos/upload"
 	"platform/upload_service/rpc/models"
-	upload "platform/upload_service/rpc/services/uploads"
+	"platform/upload_service/rpc/services/uploads"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUploadServer(s, &upload.Server{})
+	pb.RegisterUploadServer(s, &uploads.Server{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
