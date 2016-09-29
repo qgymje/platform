@@ -20,6 +20,7 @@ type Game struct {
 	PlayTimes   int           `bson:"play_times"`
 	PlayerNum   int           `bson:"player_num"`
 	IsFree      bool          `bson:"is_free"`
+	Charge      float64       `bson:"charge"`
 	Status      int           `bson:"status"`
 	CreatedAt   time.Time     `bson:"created_at"`
 	UpdatedAt   time.Time     `bson:"updated_at"`

@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"log"
-	"math"
 	"strconv"
 	"strings"
 	"time"
@@ -91,11 +90,12 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 
 func (b *Base) getPageNum(c *gin.Context) (page int) {
 	page, _ = strconv.Atoi(c.Query("page"))
-	return int(math.Max(float64(page-1), 0.0))
+	//return int(math.Max(float64(page-1), 0.0))
+	return page
 }
 
 func (b *Base) getPageSize(c *gin.Context) (num int) {
-	num, err := strconv.Atoi(c.Query("page_num"))
+	num, err := strconv.Atoi(c.Query("page_size"))
 	if err != nil {
 		num = defaultPageSize
 	}
