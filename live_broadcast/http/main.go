@@ -43,7 +43,7 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	bro := r.Group("/broadcasting")
+	bro := r.Group("/live")
 	{
 		b := new(controllers.Broadcasting)
 		bro.GET("/join/:id", b.Join)

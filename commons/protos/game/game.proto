@@ -4,6 +4,7 @@ package game;
 
 service Game{
   rpc Start( UserGame  ) returns ( GameVM ){}
+  rpc End ( UserGame  ) returns ( Status ){}
   rpc List( Page  ) returns (Games) {}
   rpc Preference (UserGame) returns (PreferenceConfig) {}
   rpc UpdatePreference (UserGame ) returns (Status) {}
@@ -24,6 +25,7 @@ message UserGame {
 
 message GameVM {
     string IP = 1;
+    string port = 2;
 }
 
 message Games {

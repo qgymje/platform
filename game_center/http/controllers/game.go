@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"math"
 	"net/http"
 	"platform/commons/codes"
 
@@ -66,49 +67,67 @@ func init() {
 		{16, "文字游戏"},
 	}
 
-	games = []GameInfo{
-		{
-			GameID:       "123456789",
-			Name:         "world of warcraft",
-			GameTypeID:   12,
-			GameTypeName: "角色扮演",
-			Description:  "Wow is a grate game in history",
-			Cover:        "http://img4.imgtn.bdimg.com/it/u=2977877931,2204864369&fm=21&gp=0.jpg",
-			Screenshots: []string{
-				"http://img2.imgtn.bdimg.com/it/u=1803873670,2284693330&fm=11&gp=0.jpg",
-				"http://img0.imgtn.bdimg.com/it/u=3951912182,2498656724&fm=11&gp=0.jpg",
-			},
-			PlayerNum: 1,
-			PlayTimes: 10000,
-			IsFree:    false,
-			PayStatus: true,
+	wow := GameInfo{
+		GameID:       "123456789",
+		Name:         "world of warcraft",
+		GameTypeID:   12,
+		GameTypeName: "角色扮演",
+		Description:  "Wow is a grate game in history",
+		Cover:        "http://img4.imgtn.bdimg.com/it/u=2977877931,2204864369&fm=21&gp=0.jpg",
+		Screenshots: []string{
+			"http://img2.imgtn.bdimg.com/it/u=1803873670,2284693330&fm=11&gp=0.jpg",
+			"http://img0.imgtn.bdimg.com/it/u=3951912182,2498656724&fm=11&gp=0.jpg",
 		},
-		{
-			GameID:       "123456788",
-			Name:         "league of legends",
-			GameTypeID:   1,
-			GameTypeName: "动作游戏",
-			Description:  "Lol is a grate game in history",
-			Cover:        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT9FXQ0uqQXlxFsd16A3YKLxCxJkDSqwLZWTBoh6psWjVR-KHkL",
-			Screenshots: []string{
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJYt-xRPgp1JlWG0NzHHVDCetE-CWJfIAiW97NJ3WUamOT3QR2",
-				"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTZq5K7qq9zyjvyabULU9gkREaXl85CHTA-qAmnlaWnbvHmaj6g",
-			},
-			PlayerNum: 10,
-			PlayTimes: 20000,
-			IsFree:    true,
-			PayStatus: false,
-		},
+		PlayerNum: 1,
+		PlayTimes: 10000,
+		IsFree:    false,
+		PayStatus: true,
 	}
+
+	lol := GameInfo{
+		GameID:       "123456788",
+		Name:         "league of legends",
+		GameTypeID:   1,
+		GameTypeName: "动作游戏",
+		Description:  "Lol is a grate game in history",
+		Cover:        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT9FXQ0uqQXlxFsd16A3YKLxCxJkDSqwLZWTBoh6psWjVR-KHkL",
+		Screenshots: []string{
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJYt-xRPgp1JlWG0NzHHVDCetE-CWJfIAiW97NJ3WUamOT3QR2",
+			"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTZq5K7qq9zyjvyabULU9gkREaXl85CHTA-qAmnlaWnbvHmaj6g",
+		},
+		PlayerNum: 10,
+		PlayTimes: 20000,
+		IsFree:    true,
+		PayStatus: false,
+	}
+
+	games = []GameInfo{wow, lol, wow}
+}
+
+func backToFirstPage(start, totalNum, pageNum, totalPage int) bool {
+	return start > totalNum || pageNum > totalPage
 }
 
 // List game list
 func (g *Game) List(c *gin.Context) {
+	totalNum := len(games)
+	pageNum := g.getPageNum(c)
+	pageSize := g.getPageSize(c)
+
+	start := int(math.Max(0, float64(pageNum-1))) * pageSize
+	end := int(math.Min(float64(totalNum), float64((start*pageSize)+pageSize)))
+
+	totalPage := int(math.Floor(float64(totalNum) / float64(pageSize)))
+
+	if backToFirstPage(start, totalNum, pageNum, totalPage) {
+		start = 0
+	}
+
 	data := map[string]interface{}{
-		"list":      games,
-		"pageNum":   1,
-		"pageSize":  20,
-		"totalPage": 5,
+		"list":      games[start:end],
+		"page":      pageNum,
+		"pageSize":  pageSize,
+		"totalPage": totalPage,
 	}
 
 	respformat := g.Response(c, codes.ErrorCodeSuccess, data)

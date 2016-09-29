@@ -19,6 +19,9 @@ const ColNameGamePreference = "game_preferences"
 // ColNameCompany collection name
 const ColNameCompany = "companies"
 
+// ColNamePlayerGame collection name
+const ColNamePlayerGame = "player_games"
+
 // InitMongodb init mongodb
 func InitMongodb(sess *mgo.Session) {
 	mongoSession = sess

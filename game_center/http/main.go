@@ -44,12 +44,13 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middlewares.APIVersion())
+	r.Use(middlewares.APILang())
 	r.Use(middlewares.RecordRequestBegin())
 
 	g := r.Group("/game")
 	{
 		game := new(controllers.Game)
-		g.GET("", game.List)
+		g.GET("/", game.List)
 		g.GET("/search/:query", game.Search)
 		g.GET("/types", game.Types)
 		g.POST("/start", game.Start)

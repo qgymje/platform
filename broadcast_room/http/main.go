@@ -51,7 +51,7 @@ func main() {
 	rr := r.Group("/room")
 	{
 		room := new(controllers.Room)
-		rr.POST("", room.Create)
+		rr.POST("/create", room.Create)
 		rr.PUT("/start", room.Start)
 		rr.PUT("/end", room.End)
 		rr.POST("/barrage", room.Barrage)

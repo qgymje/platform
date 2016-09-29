@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	"platform/account_center/rpc/models"
 	pb "platform/commons/protos/game"
+	"platform/game_center/rpc/models"
 	"platform/game_center/rpc/services/games"
 	"platform/utils"
 

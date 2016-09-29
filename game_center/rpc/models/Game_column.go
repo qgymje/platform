@@ -1,6 +1,7 @@
 package models
 
 type _GameColumn struct {
+	CompanyID   string
 	Cover       string
 	CreatedAt   string
 	Description string
@@ -20,6 +21,7 @@ type _GameColumn struct {
 var GameColumns _GameColumn
 
 func init() {
+	GameColumns.CompanyID = "company_id"
 	GameColumns.Cover = "cover"
 	GameColumns.CreatedAt = "created_at"
 	GameColumns.Description = "description"

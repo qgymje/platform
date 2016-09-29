@@ -8,6 +8,7 @@ import (
 )
 
 // Company  company info
+//go:generate gen_columns -tag=bson -path=./company.go
 type Company struct {
 	ID        bson.ObjectId `bson:"_id"`
 	UserID    bson.ObjectId `bson:"userID"`
@@ -34,7 +35,7 @@ func findCompanies(m bson.M) ([]*Company, error) {
 	session := GetMongo()
 	defer session.Close()
 
-	var companies []*Comapny
+	var companies []*Company
 	err := session.DB(DBName).C(ColNameCompany).Find(m).All(&companies)
 	if err != nil {
 		if err == mgo.ErrNotFound {
@@ -49,7 +50,7 @@ func findCompany(m bson.M) (*Company, error) {
 	session := GetMongo()
 	defer session.Close()
 
-	var company Comapny
+	var company Company
 	err := session.DB(DBName).C(ColNameCompany).Find(m).All(&company)
 	if err != nil {
 		if err == mgo.ErrNotFound {
