@@ -8,9 +8,10 @@ import (
 )
 
 // Game 表示一个游戏基本属性
-//go:generate gen_columns -tag=bson -path=game.go
+//go:generate gen_columns -tag=bson -path=./game.go
 type Game struct {
 	GameID      bson.ObjectId `bson:"_id"`
+	CompanyID   bson.ObjectId `bson:"company_id"`
 	GameTypeID  int           `bson:"game_type_id"`
 	Name        string        `bson:"name"`
 	Cover       string        `bson:"cover"`

@@ -44,6 +44,7 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middlewares.APIVersion())
+	r.Use(middlewares.APILang())
 	r.Use(middlewares.RecordRequestBegin())
 
 	g := r.Group("/game")

@@ -60,22 +60,15 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 		"url":       "http://" + c.Request.Host + c.Request.URL.String(),
 		"method":    c.Request.Method,
 		"timestamp": time.Now(),
+		"header":    c.Request.Header,
 	}
 }
 
 func (b *Base) getGameRPCAddress() string {
-	if b.gameRPCAddress != "" {
-		return b.gameRPCAddress
-	}
-
-	host := utils.GetConf().GetString("app.rpc_host")
-	port := utils.GetConf().GetString("app.rpc_port")
-	b.gameRPCAddress = host + port
-	return b.gameRPCAddress
+	return "localhost:4002"
 }
 
 func (b *Base) getUserRPCAddress() string {
-	// TODO: how to get rpc services address
 	return "localhost:4000"
 }
 
@@ -118,5 +111,5 @@ func (b *Base) getQuery(c *gin.Context) string {
 }
 
 func (b *Base) getGameID(c *gin.Context) string {
-	return c.Param("query")
+	return c.Param("game_id")
 }

@@ -24,6 +24,17 @@ func (g *GameServer) Start(context.Context, *pb.UserGame) (*pb.GameVM, error) {
 	return &pb.GameVM{}, nil
 }
 
+// End end the game
+func (g *GameServer) End(context.Context, *pb.UserGame) (*pb.Status, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("rpc.games.End error: %v", err)
+		}
+	}()
+	return &pb.Status{Success: true}, nil
+}
+
 // List all available games
 func (g *GameServer) List(context.Context, *pb.Page) (*pb.Games, error) {
 	var err error
