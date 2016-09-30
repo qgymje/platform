@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"log"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -103,7 +104,8 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 }
 
 func (b *Base) getGameType(c *gin.Context) string {
-	return c.Query("game_type")
+	q, _ := url.QueryUnescape(c.Query("game_type"))
+	return q
 }
 
 func (b *Base) getQuery(c *gin.Context) string {

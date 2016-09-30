@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"math"
 	"net/http"
 	"platform/commons/codes"
@@ -137,6 +138,8 @@ func (g *Game) List(c *gin.Context) {
 
 // Search search games
 func (g *Game) Search(c *gin.Context) {
+	query := g.getQuery(c)
+	log.Println(query)
 	data := map[string]interface{}{
 		"list":      games,
 		"query":     g.getQuery(c),
