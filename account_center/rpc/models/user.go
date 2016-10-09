@@ -4,21 +4,26 @@ import (
 	"errors"
 	"time"
 
+	"platform/utils"
+
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
 // User  a user model object
 type User struct {
-	ID        bson.ObjectId `bson:"_id"`
-	Phone     string        `bson:"phone"`
-	Email     string        `bson:"email"`
-	Nickname  string        `bson:"nickname"`
-	Password  string        `bson:"password" json:"-"`
-	Salt      string        `bson:"salt" json:"-"`
-	Token     string        `bson:"token" json:"-"`
-	Avatar    string        `bson:"avatar"`
-	CreatedAt time.Time     `bson:"created_at"`
+	ID         bson.ObjectId `bson:"_id"`
+	Phone      string        `bson:"phone"`
+	Email      string        `bson:"email"`
+	Nickname   string        `bson:"nickname"`
+	Password   string        `bson:"password" json:"-"`
+	Salt       string        `bson:"salt" json:"-"`
+	Token      string        `bson:"token" json:"-"`
+	Avatar     string        `bson:"avatar"`
+	Level      int           `bson:"level"`      // 等级
+	FollowNum  int           `bson:"follow_num"` // 关注数
+	Popularity int           `bson:"popularity"` // 人气
+	CreatedAt  time.Time     `bson:"created_at"`
 }
 
 // GetID get hexed user_id
@@ -31,6 +36,9 @@ func (u *User) Create() error {
 	session := GetMongo()
 	defer session.Close()
 
+	u.Level = utils.RandomInt(1, 10)
+	u.FollowNum = utils.RandomInt(1, 1000)
+	u.Popularity = utils.RandomInt(1, 1000)
 	u.ID = bson.NewObjectId()
 	u.CreatedAt = time.Now()
 
