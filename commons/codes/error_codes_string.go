@@ -7,18 +7,18 @@ func init() {
 		ErrorCodeSuccess:        "success",
 		ErrorCodeMissParameters: "missing parameters",
 
-		// upload
+		// upload errors
 		ErrorCodeUpload:       "upload failed",
 		ErrorCodeUploadCreate: "upload create failed",
 		ErrorCodeUploadSend:   "upload send failed",
 
-		// token 错误系列以1xx开始
+		// token errors
 		ErrorCodeInvalidToken:  "invalid token",
 		ErrorCodeUnauthorized:  "unauthroized",
 		ErrorCodeAuthFormat:    "auth format error",
 		ErrorCodeGenerateToekn: "generate token error",
 
-		// register 注册系统以2xx开始
+		// register errors
 		ErrorCodePhoneAlreadyExist:    "phone already exist",
 		ErrorCodeEmailAlreadyExist:    "email already exist",
 		ErrorCodePasswordTooShort:     "password too short",
@@ -32,21 +32,26 @@ func init() {
 		ErrorCodeEmailCodeNotify:      "email notify failed",
 		ErrorCodeEmailCreate:          "email create failed",
 
-		// login 登录系列以3xx开始
+		// login errors
 		ErrorCodeLoginFailed:     "login failed",
 		ErrorCodeUserNotFound:    "user not found",
 		ErrorCodeUpdateTokenFail: "update token fail",
 		ErrorCodeLoginNotify:     "login notify failed",
 
-		// info 系列错误
+		// info errors
 		ErrorCodeInvalidUserID: "invalid user id",
 
-		// broadcasting 系列错误
+		// broadcasting  errors
 		ErrorCodeBroadcastNotify:          "broadcasting notify failed",
 		ErrorCodeBroadcastRoomUpdate:      "broadcast room update failed",
 		ErrorCodeInvalidBroadcastringUser: "invalid broadcasting user",
 		ErrorCodeAgreement:                "agreement false",
 		ErrorCodeRoomAlreadyCreated:       "broadcast room already created",
 		ErrorCodeRoomCreate:               "broadcast room create failed",
+
+		// game errors
+		ErrorCodeGameCreate:   "game create failed",
+		ErrorCodeGameNotFound: "game not found",
+		ErrorCodeGameFinder:   "game find error",
 	}
 }

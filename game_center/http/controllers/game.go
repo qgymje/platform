@@ -4,6 +4,8 @@ import (
 	"math"
 	"net/http"
 	"platform/commons/codes"
+	"platform/commons/grpc_clients/game"
+	pb "platform/commons/protos/game"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +13,32 @@ import (
 // Game game controller
 type Game struct {
 	Base
+}
+
+// Create create a game
+func (g *Game) Create(c *gin.Context) {
+	client := gameClient.NewGame(g.getGameRPCAddress())
+	gameInfo := &pb.GameInfo{
+		CompanyID:   g.getCompayID(c),
+		Name:        g.getName(c),
+		GameTypeID:  int32(g.getGameType(c)),
+		Cover:       g.getCover(c),
+		Screenshots: g.getScreenshots(c),
+		Description: g.getDescription(c),
+		PlayerNum:   int64(g.getPlayerNum(c)),
+		IsFree:      g.getIsFree(c),
+		Charge:      g.getCharge(c),
+	}
+	status, err := client.Create(gameInfo)
+	if err != nil {
+		respformat := g.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := g.Response(c, codes.ErrorCodeSuccess, status)
+	c.JSON(http.StatusOK, respformat)
+	return
 }
 
 // Types game types
@@ -104,27 +132,30 @@ func init() {
 	games = []GameInfo{wow, lol, wow}
 }
 
-func backToFirstPage(start, totalNum, pageNum, totalPage int) bool {
-	return start > totalNum || pageNum > totalPage
-}
-
 // List game list
 func (g *Game) List(c *gin.Context) {
-	totalNum := len(games)
-	pageNum := g.getPageNum(c)
+	pageNum := g.getPageNum(c) // start with  0
 	pageSize := g.getPageSize(c)
+	gameTypeID := g.getGameType(c)
+	search := g.getSearch(c)
 
-	start := int(math.Max(0, float64(pageNum-1))) * pageSize
-	end := int(math.Min(float64(totalNum), float64((start*pageSize)+pageSize)))
-
-	totalPage := int(math.Floor(float64(totalNum) / float64(pageSize)))
-
-	if backToFirstPage(start, totalNum, pageNum, totalPage) {
-		start = 0
+	client := gameClient.NewGame(g.getGameRPCAddress())
+	page := &pb.Page{
+		GameTypeID: int32(gameTypeID),
+		Num:        int32(pageNum),
+		Size:       int32(pageSize),
+		Search:     search,
+	}
+	gameLists, err := client.List(page)
+	if err != nil {
+		respformat := g.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
 	}
 
+	totalPage := int(math.Floor(float64(gameLists.TotalNum) / float64(pageSize)))
 	data := map[string]interface{}{
-		"list":      games[start:end],
+		"list":      gameLists.Games,
 		"page":      pageNum,
 		"pageSize":  pageSize,
 		"totalPage": totalPage,
@@ -133,22 +164,6 @@ func (g *Game) List(c *gin.Context) {
 	respformat := g.Response(c, codes.ErrorCodeSuccess, data)
 	c.JSON(http.StatusOK, respformat)
 	return
-}
-
-// Search search games
-func (g *Game) Search(c *gin.Context) {
-	data := map[string]interface{}{
-		"list":      games,
-		"query":     g.getQuery(c),
-		"pageNum":   1,
-		"pageSize":  20,
-		"totalPage": 5,
-	}
-
-	respformat := g.Response(c, codes.ErrorCodeSuccess, data)
-	c.JSON(http.StatusOK, respformat)
-	return
-
 }
 
 // GameVM game vm info

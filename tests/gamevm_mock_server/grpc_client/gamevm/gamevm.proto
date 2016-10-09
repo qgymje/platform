@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package czs;
+
+//Agent keep connected with czs
+service HeartBeat {
+  rpc NotifyAlive (AgentRequest) returns (CzsReply) { }
+}
+
+message AgentRequest {
+  string key = 1;
+}
+
+message CzsReply {
+  string key = 1;
+  string result = 2;
+}

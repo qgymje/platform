@@ -3,11 +3,12 @@ syntax="proto3";
 package game;
 
 service Game{
-  rpc Start( UserGame  ) returns ( GameVM ){}
-  rpc End ( UserGame  ) returns ( Status ){}
-  rpc List( Page  ) returns (Games) {}
-  rpc Preference (UserGame) returns (PreferenceConfig) {}
-  rpc UpdatePreference (UserGame ) returns (Status) {}
+  rpc Create(GameInfo) returns (Status) {}
+  rpc Start(UserGame) returns (GameVM){}
+  rpc End(UserGame) returns (Status){}
+  rpc List(Page) returns (Games) {}
+  rpc Preference(UserGame) returns (PreferenceConfig) {}
+  rpc UpdatePreference(UserGame ) returns (Status) {}
 }
 
 message Status {
@@ -30,15 +31,28 @@ message GameVM {
 
 message Games {
     repeated GameInfo games= 1;
+    int64 totalNum = 2;
 }
 
 message GameInfo {
     string gameID = 1;
-    string name = 2;
-    string cover = 3;
+    string companyID = 2;
+    string name = 3;
+    int32 gameTypeID = 4;
+    string gameTypeName = 5;
+    string description = 6;
+    string cover = 7;
+    repeated string screenshots = 8;
+    int64 playTimes = 9;
+    int64 playerNum = 10;
+    bool isFree = 11;
+    double charge = 12;
+    bool payStatus = 13;
 }
 
 message Page {
     int32 num = 1;
     int32 size = 2;
+    int32 gameTypeID = 3;
+    string search = 4;
 }

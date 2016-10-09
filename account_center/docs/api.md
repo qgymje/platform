@@ -10,7 +10,6 @@
 /user/register/email| [验证注册码](#varify_register_email)| [YES]
 /user/register|[用户注册](#register)|[YES]
 /user/login|[用户登录](#login)|[YES]
-/user/auth|[根据token查询用户信息](#auth)|[ YES ]
 /user/logout|[用户退出](#logout)|[YES]
 /user/info|[用户信息查询](#nfo)|[ YES ]
 
@@ -235,41 +234,6 @@ RETURN:
     "nickname": "hello",
     "avatar": "http://www.example.com/avatar.jpg",
     "createdAt": 1474438782
-  }
-}
-```
-
-----
-
-<div id="auth"></div>
-
-### 根据token获取用户信息
-> 优先通过header里的Authorization字段获取用户本人信息
-
-URL: /user/auth/:token
-
-AUTH: YES
-
-METHOD: GET
-
-PARAMETERS:
-
-字段名称|类型|必须|描述
----|---|---|---
-token|string|否|用户jwt
-
-
-RETURN:
-```json
-{
-  "code": "200",
-  "msg": "success",
-  "data": {
-    "userID": "57e226dac86ab45af3d14807",
-    "phone": "13817782406",
-    "nickname": "hello",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzcwMzA4NzQsImlkIjoiNTdlMjI2ZGFjODZhYjQ1YWYzZDE0ODA3In0.yDNkF_CL57gEmYfo5phqyzgTjYZmDZ7S_V0j_DNPqe8",
-    "createdAt": 1474438874
   }
 }
 ```

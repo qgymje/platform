@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"log"
+	"math"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -90,8 +92,7 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 
 func (b *Base) getPageNum(c *gin.Context) (page int) {
 	page, _ = strconv.Atoi(c.Query("page"))
-	//return int(math.Max(float64(page-1), 0.0))
-	return page
+	return int(math.Max(float64(page-1), 0.0))
 }
 
 func (b *Base) getPageSize(c *gin.Context) (num int) {
@@ -102,14 +103,60 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
-func (b *Base) getGameType(c *gin.Context) string {
-	return c.Query("game_type")
+func (b *Base) getSearch(c *gin.Context) string {
+	q, _ := url.QueryUnescape(c.Param("search"))
+	return q
 }
 
-func (b *Base) getQuery(c *gin.Context) string {
-	return c.Param("query")
+func (b *Base) getGameType(c *gin.Context) int {
+	param := "game_type"
+	id := c.Query(param)
+	if id == "" {
+		id = c.PostForm(param)
+	}
+	intid, _ := strconv.Atoi(id)
+	return intid
 }
 
 func (b *Base) getGameID(c *gin.Context) string {
 	return c.Param("game_id")
+}
+
+func (b *Base) getCompayID(c *gin.Context) string {
+	return c.PostForm("company_id")
+}
+
+func (b *Base) getName(c *gin.Context) string {
+	return c.PostForm("name")
+}
+
+func (b *Base) getCover(c *gin.Context) string {
+	return c.PostForm("cover")
+}
+
+func (b *Base) getScreenshots(c *gin.Context) []string {
+	s := c.Request.MultipartForm.Value["screenshots[]"]
+	return s
+}
+
+func (b *Base) getDescription(c *gin.Context) string {
+	return c.PostForm("description")
+}
+
+func (b *Base) getPlayerNum(c *gin.Context) int {
+	p := c.PostForm("player_num")
+	intp, _ := strconv.Atoi(p)
+	return intp
+}
+
+func (b *Base) getIsFree(c *gin.Context) bool {
+	f := c.PostForm("is_free")
+	boolf, _ := strconv.ParseBool(f)
+	return boolf
+}
+
+func (b *Base) getCharge(c *gin.Context) float64 {
+	charge := c.PostForm("charge")
+	floatCharge, _ := strconv.ParseFloat(charge, 64)
+	return floatCharge
 }

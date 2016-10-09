@@ -50,8 +50,9 @@ func main() {
 	g := r.Group("/game")
 	{
 		game := new(controllers.Game)
+		g.POST("/", game.Create)
 		g.GET("/", game.List)
-		g.GET("/search/:query", game.Search)
+		g.GET("/search/:search", game.List)
 		g.GET("/types", game.Types)
 		g.POST("/start", game.Start)
 		g.POST("/end", game.End)

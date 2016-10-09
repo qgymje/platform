@@ -17,8 +17,8 @@ type Game struct {
 	Cover       string        `bson:"cover"`
 	Screenshots []string      `bson:"screenshots"`
 	Description string        `bson:"description"`
-	PlayTimes   int           `bson:"play_times"`
-	PlayerNum   int           `bson:"player_num"`
+	PlayTimes   int64         `bson:"play_times"`
+	PlayerNum   int64         `bson:"player_num"`
 	IsFree      bool          `bson:"is_free"`
 	Charge      float64       `bson:"charge"`
 	Status      int           `bson:"status"`
@@ -30,6 +30,11 @@ type Game struct {
 // GetID get a game id
 func (g *Game) GetID() string {
 	return g.GameID.Hex()
+}
+
+// GetCompanyID company id
+func (g *Game) GetCompanyID() string {
+	return g.CompanyID.Hex()
 }
 
 // Create 插入一个用户数据
@@ -55,6 +60,15 @@ func (g *Game) update(m bson.M) error {
 
 // Update update a game config
 func (g *Game) Update(change bson.M) error {
+	return g.update(change)
+}
+
+// Valid pass the validation
+func (g *Game) Valid() error {
+	change := bson.M{
+		GameColumns.Status:      int(Published),
+		GameColumns.PublishedAt: time.Now(),
+	}
 	return g.update(change)
 }
 
