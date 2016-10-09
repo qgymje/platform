@@ -77,7 +77,6 @@ func srvGameToPbGame(g *Game) *pb.GameInfo {
 		IsFree:       g.IsFree,
 		PayStatus:    g.PayStatus,
 	}
-
 }
 
 // List all available games
