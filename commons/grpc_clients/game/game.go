@@ -9,8 +9,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-var _ pb.GameClient = (*Game)(nil)
-
 // Game grpc game client
 type Game struct {
 	conn   *grpc.ClientConn
@@ -34,6 +32,12 @@ func NewGame(address string) *Game {
 // Close close the connection
 func (g *Game) Close() error {
 	return g.conn.Close()
+}
+
+// Create create a game
+func (g *Game) Create(in *pb.GameInfo) (*pb.Status, error) {
+	defer g.Close()
+	return g.client.Create(context.Background(), in)
 }
 
 // Start start a game

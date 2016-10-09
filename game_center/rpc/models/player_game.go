@@ -11,6 +11,6 @@ import (
 type PlayerGame struct {
 	UserID    bson.ObjectId `bson:"user_id"`
 	GameID    bson.ObjectId `bson:"game_id"`
-	StartTime time.Time     `bson:"start_time`
+	StartTime time.Time     `bson:"start_time"`
 	EndTime   time.Time     `bson:"end_time"`
 }

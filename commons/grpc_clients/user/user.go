@@ -29,7 +29,7 @@ func NewUser(address string) *User {
 	return u
 }
 
-// CLose close the client
+// Close close the client
 func (u *User) Close() error {
 	return u.conn.Close()
 }

@@ -64,4 +64,9 @@ const (
 	ErrorCodeAgreement                ErrorCode = "BRO400301"
 	ErrorCodeRoomAlreadyCreated       ErrorCode = "BRO400302"
 	ErrorCodeRoomCreate               ErrorCode = "BRO500303"
+
+	// game errors
+	ErrorCodeGameCreate   ErrorCode = "GAM500101"
+	ErrorCodeGameNotFound ErrorCode = "GAM400101"
+	ErrorCodeGameFinder   ErrorCode = "GAM500102"
 )
