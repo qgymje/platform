@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUserServer(s, &servers.UserServer{})
+	pb.RegisterUserServer(s, &services.UserServer{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
