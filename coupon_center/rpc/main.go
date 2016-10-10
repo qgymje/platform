@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	"platform/account_center/rpc/models"
-	"platform/account_center/rpc/services"
-	pb "platform/commons/protos/user"
+	pb "platform/commons/protos/coupon"
+	"platform/coupon_center/rpc/models"
+	"platform/coupon_center/rpc/services"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -16,7 +16,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
-	port       = flag.String("port", ":4000", "service port")
+	port       = flag.String("port", ":4004", "service port")
 )
 
 func initEnv() {
@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUserServer(s, &services.UserServer{})
+	pb.RegisterCouponServer(s, &services.Server{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
