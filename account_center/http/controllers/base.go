@@ -161,6 +161,11 @@ func (b *Base) getPasswordConfirm(c *gin.Context) string {
 	return c.PostForm("password_confirm")
 }
 
+func (b *Base) getIDs(c *gin.Context) []string {
+	ids := c.Query("ids")
+	return strings.Split(ids, ",")
+}
+
 func (b *Base) removePBUserInfoToken(u *pb.UserInfo) {
 	u.Token = ""
 }

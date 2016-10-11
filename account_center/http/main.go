@@ -52,9 +52,10 @@ func main() {
 	controllers.SetUploadPath(uploadPath)
 	r.Static("/uploads", uploadPath)
 
-	u := r.Group("/user")
+	u := r.Group("/v1/user")
 	{
 		user := new(controllers.User)
+		u.GET("/", user.List)
 		u.POST("/register", user.Register)
 		u.GET("/auth/:token", user.Auth)
 		u.PUT("/login", user.Login)

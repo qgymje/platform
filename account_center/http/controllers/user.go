@@ -121,3 +121,28 @@ func (u *User) Info(c *gin.Context) {
 	c.JSON(http.StatusOK, respformat)
 	return
 }
+
+// List user list
+func (u *User) List(c *gin.Context) {
+	client := userClient.NewUser(u.getUserRPCAddress())
+	query := &pb.UserQuery{
+		IDs: u.getIDs(c),
+	}
+	reply, err := client.List(query)
+	if err != nil {
+		respformat := u.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	for i := range reply.Users {
+		u.removePBUserInfoToken(reply.Users[i])
+	}
+
+	data := map[string]interface{}{
+		"list": reply.Users,
+	}
+	respformat := u.Response(c, codes.ErrorCodeSuccess, data)
+	c.JSON(http.StatusOK, respformat)
+	return
+}
