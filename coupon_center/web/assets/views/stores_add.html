@@ -1,0 +1,96 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'stores' | translate ">
+                门店管理
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li>
+                    <a class="btn btn-default" data-ui-sref="stores"><i class="si si-action-undo"></i> <span data-ng-bind=" 'cancel' | translate ">取消</span></a>
+                </li>
+                <li>
+                    <a class="btn btn-default" href="javascript:void(0)" data-ng-click="saveStore()"><i class="si si-check"></i> <span data-ng-bind=" 'save' | translate ">保存</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <form class="js-validation-store form-horizontal" novalidate="novalidate">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="storeid" data-ng-bind=" 'storeid' | translate ">门店编号</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="storemodel.storeid" id="storeid" name="storeid" aria-required="true" aria-describedby="storeid-error" aria-invalid="false" placeholder="{{ 'storeid' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="storename" data-ng-bind=" 'storeName' | translate ">门店名</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="storemodel.storename" id="storename" name="storename" aria-required="true" aria-describedby="storename-error" aria-invalid="false" placeholder="{{ 'storeName' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="province" data-ng-bind=" 'province' | translate ">省</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-change="provinceChange(storemodel.province)" data-ng-model="storemodel.province" id="province" name="province" aria-required="true" aria-describedby="province-error" aria-invalid="false" data-ng-options="m.name as m.name for m in provinces" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="city" data-ng-bind=" 'city' | translate ">市</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-model="storemodel.city" id="city" name="city" aria-required="true" aria-describedby="city-error" aria-invalid="false" data-ng-options="m.name as m.name for m in bindcitys" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="address" data-ng-bind=" 'address' | translate ">门店地址</label>
+                        <div class="col-xs-12 col-md-9">
+                            <div>
+                                <input class="form-control valid" type="text" data-ng-model="storemodel.address" id="address" name="address" aria-required="true" aria-describedby="address-error" aria-invalid="false" placeholder="{{ 'address' | translate }}">
+                            </div>
+                            <div class="row push-5-t">
+                                <div class="col-xs-12 col-md-4 push-5">
+                                    <div class="push-5 push-5-t">
+                                        <button class="btn btn-default" type="button" data-ng-click="setMap()" data-ng-bind=" 'setmap' | translate ">在地图上标注</button>
+                                        <input type="hidden" name="lng" ng-value="storemodel.lng" id="lng"/> 
+                                        <input type="hidden" name="lat" ng-value="storemodel.lat"  id="lat"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-8">
+                                    <div class="block-map">
+                                        <div bmap class="block-map-marker" id="bmap">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content

@@ -1,0 +1,15 @@
+{
+	"state": "success",
+	"msg": "注册成功！",
+	"user": {
+		"id": "sessionId",
+		"userId": "userId",
+		"userRole": "admin",
+		"userPermission": [
+			{"stats": "View"},
+			{"stores": "Edit"},
+			{"campaigns": "Edit"},
+			{"account": "NoEntry"}
+		]
+	}
+}

@@ -41,6 +41,10 @@ func init() {
 		// info errors
 		ErrorCodeInvalidUserID: "invalid user id",
 
+		// user list errors
+		ErrorCodeUsersNotFound: "user list not found",
+		ErrorCodeUserFinder:    "user finder error",
+
 		// broadcasting  errors
 		ErrorCodeBroadcastNotify:          "broadcasting notify failed",
 		ErrorCodeBroadcastRoomUpdate:      "broadcast room update failed",

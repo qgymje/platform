@@ -1,0 +1,17 @@
+{
+	"campaignid": 1,
+	"promotionid": 1,
+	"promotiontype": "coupon",
+	"gameuser": true,
+	"liveuser": true,
+	"voduser": true,
+	"gameuser": true,
+	"couponname": "黄金鸡",
+	"couponpicture": "http://d1.lashouimg.com/cms/M00/00/AB/CqgBVFKWsQWAZ4lIAADSzY9dfDI858.jpg",
+	"coupondescription": "优惠黄金鸡8折优惠限时抢购",
+	"couponvalue": "36",
+	"couponcount": "100",
+	"unitpriceforpromotion": "10",
+	"isstart": true,
+	"selectedstores": [2,3]
+}

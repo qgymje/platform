@@ -48,7 +48,7 @@ func main() {
 		r.Use(middlewares.FakedLogin())
 	}
 
-	rr := r.Group("/room")
+	rr := r.Group("/v1/room")
 	{
 		room := new(controllers.Room)
 		rr.POST("/create", room.Create)

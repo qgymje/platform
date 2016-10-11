@@ -1,0 +1,63 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'campaigns' | translate ">
+                活动管理
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li  js-option permission="campaigns" data-ng-show="permissionEdit">
+                    <a class="btn btn-default" data-ui-sref="campaigns.add"><i class="si si-plus"></i> <span data-ng-bind=" 'addcampaign' | translate ">创建新活动</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <table class="table table-bordered table-striped js-dataTable-full">
+                <thead>
+                    <tr>
+                        <th class="text-center" data-ng-bind=" 'campaignid' | translate ">活动编号</th>
+                        <th class="text-center" data-ng-bind=" 'campaignname' | translate ">活动名称</th>
+                        <th class="text-center" data-ng-bind=" 'description' | translate ">活动描述</th>
+                        <th class="text-center" data-ng-bind=" 'startdate' | translate ">开始时间</th>
+                        <th class="text-center" data-ng-bind=" 'enddate' | translate ">结束时间</th>
+                        <th class="text-center" data-ng-bind=" 'status' | translate ">状态</th>
+                        <th class="text-center" data-ng-bind=" 'option' | translate ">选项</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  data-ng-repeat="x in list">
+                        <td class="text-center" data-ng-bind="x.campaignid"></td>
+                        <td class="text-center" data-ng-bind="x.campaignname"></td>
+                        <td class="text-center" data-ng-bind="x.description"></td>
+                        <td class="text-center" data-ng-bind="x.startdate"></td>
+                        <td class="text-center" data-ng-bind="x.enddate"></td>
+                        <td class="text-center" data-ng-bind=" x.status | translate "></td>
+                        <td class="text-center">
+                            <div js-option permission="campaigns" class="btn-group">
+                                <a data-ng-show="permissionEdit && x.status == 'ongoing'" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="pause(x.campaignid)" title="" data-ng-bind=" 'btnpause' | translate ">暂停</a>
+                                <a data-ng-show="permissionEdit && x.status == 'paused'" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="resume(x.campaignid)" title="" data-ng-bind=" 'btnresume' | translate ">恢复</a>
+                                <a data-ng-show="permissionView" class="btn btn-xs btn-default" data-ui-sref="campaigns.show({campaignId:x.campaignid})" title="" data-ng-bind=" 'btnview' | translate ">查看</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="block-content text-right">            
+            <nav data-js-pagging pagesize="10" method="loadData"></nav>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content

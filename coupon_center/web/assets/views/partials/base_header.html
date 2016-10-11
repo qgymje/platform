@@ -1,0 +1,45 @@
+<!-- Header Navigation Right -->
+<ul class="nav-header pull-right">
+    <li>
+        <label>
+            <select data-ng-controller="LanguageSwitchingCtrl" class="form-control" ng-model="cur_lang" ng-change="switching(cur_lang)">
+                <option value="zh-CN">中文</option>
+                <option value="en">English</option>
+            </select>
+        </label>
+    </li>
+    <li>
+        <a class="btn btn-default" ng-bind=" 'help' | translate ">帮助中心</a>
+    </li>
+    <li>
+        <div class="btn-group" data-on-toggle="toggled(open)" data-uib-dropdown>
+            <button class="btn btn-default btn-image" type="button" data-uib-dropdown-toggle>
+                <img src="assets/img/avatars/avatar10.jpg" alt="Avatar">fdgfdf
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu-right" data-uib-dropdown-menu>
+                <li>
+                    <a tabindex="-1"  data-ui-sref="logout">
+                        <i class="si si-logout pull-right"></i><span ng-bind=" 'logout' | translate ">退出</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
+<!-- END Header Navigation Right -->
+
+<!-- Header Navigation Left -->
+<ul class="nav-header pull-left">
+    <li class="hidden-md hidden-lg">
+        <button class="btn btn-default" type="button" data-ng-click="oneui.settings.sidebarOpenXs = ! oneui.settings.sidebarOpenXs" data-js-blur>
+            <i class="fa fa-navicon"></i>
+        </button>
+    </li>
+    <li class="hidden-xs hidden-sm">
+        <button class="btn btn-default" type="button" data-ng-click="oneui.settings.sidebarMini = ! oneui.settings.sidebarMini" data-js-blur>
+            <i class="fa fa-ellipsis-v"></i>
+        </button>
+    </li>
+</ul>
+<!-- END Header Navigation Left -->

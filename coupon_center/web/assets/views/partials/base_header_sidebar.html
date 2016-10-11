@@ -1,0 +1,28 @@
+<!-- Header Navigation Right -->
+<ul class="nav-header pull-right">
+    <li>
+        <label>
+            <select data-ng-controller="LanguageSwitchingCtrl" class="form-control" ng-model="cur_lang" ng-change="switching(cur_lang)">
+                <option value="zh-CN">中文</option>
+                <option value="en">English</option>
+            </select>
+        </label>
+    </li>
+    <li>
+        <a class="btn btn-default" ng-bind=" 'help' | translate ">帮助中心</a>
+    </li>
+    <li>
+        <a class="btn btn-default" data-ui-sref="login" ng-bind=" 'login' | translate ">登录</a>
+    </li>
+</ul>
+<!-- END Header Navigation Right -->
+
+<!-- Header Navigation Left -->
+<ul class="nav-header pull-left">
+    <li>
+        <a class="h5 text-black" data-ui-sref="index">
+            <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600" ng-bind=" 'system' | translate ">推广系统</span>
+        </a>
+    </li>
+</ul>
+<!-- END Header Navigation Left -->

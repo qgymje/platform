@@ -1,0 +1,251 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading">
+                {{ 'campaigns' | translate }} &gt; {{ campaignmodel.campaignname }} &gt; {{ 'addpromotionhead' | translate }}
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li>
+                    <a class="btn btn-default" data-ui-sref="campaigns.show({campaignId:campaignmodel.campaignid})"><i class="si si-action-undo"></i> <span data-ng-bind=" 'cancel' | translate ">取消</span></a>
+                </li>
+                <li>
+                    <a class="btn btn-default" href="javascript:void(0)" data-ng-click="savePromotion()"><i class="si si-check"></i> <span data-ng-bind=" 'save' | translate ">保存</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <form class="js-validation-promotion form-horizontal" novalidate="novalidate">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="promotionid" data-ng-bind=" 'promotionid' | translate ">推广编号</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="promotionmodel.promotionid" id="promotionid" name="promotionid" aria-required="true" aria-describedby="promotionid-error" aria-invalid="false" placeholder="{{ 'promotionid' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="promotiontype" data-ng-bind=" 'promotiontype' | translate ">推广类型</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-change="promotionTypeChange(promotionmodel.promotiontype)" data-ng-model="promotionmodel.promotiontype" id="promotiontype" name="promotiontype" aria-required="true" aria-describedby="promotiontype-error" aria-invalid="false" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                                <option value="coupon" data-ng-bind=" 'coupon' | translate ">优惠券</option>
+                                <option value="video" data-ng-bind=" 'video' | translate ">视频</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="coupon" data-ng-show="promotionmodel.promotiontype == 'coupon'">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" data-ng-bind=" 'target' | translate ">推广目标</label>
+                            <div class="col-xs-12 col-md-9">
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" data-ng-model="couponmodel.gameuser" id="example-checkbox1" name="example-checkbox1">{{ 'gameuser' | translate }}
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label for="example-checkbox2">
+                                        <input type="checkbox" data-ng-model="couponmodel.liveuser" id="example-checkbox2" name="example-checkbox2">{{ 'liveuser' | translate }}
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label for="example-checkbox3">
+                                        <input type="checkbox" data-ng-model="couponmodel.voduser" id="example-checkbox3" name="example-checkbox3">{{ 'voduser' | translate }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="couponname" data-ng-bind=" 'couponname' | translate ">优惠券名称</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="couponmodel.couponname" id="couponname" name="couponname" aria-required="true" aria-describedby="couponname-error" aria-invalid="false" placeholder="{{ 'couponname' | translate }}">
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" data-ng-bind=" 'couponpicture' | translate ">优惠券图片</label>
+                            <div class="col-xs-12 col-md-9">
+                                <img style="max-width:300px; max-height:300px; display:block; margin:0;" ngf-thumbnail=" couponmodel.couponpicture || 'assets/img/photos/default.jpg'">
+                                <div class="progress" id="couponpictureprogress" style="display:none;">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%">5%</div>
+                                </div>
+                                <a class="btn btn-default" href="javasrcipt:void(0)" ngf-select="uploadImg($file)" data-ng-bind=" 'uploadpicture' | translate ">上传优惠券图片</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="coupondescription" data-ng-bind=" 'coupondescription' | translate ">优惠券描述</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="couponmodel.coupondescription" id="coupondescription" name="coupondescription" aria-required="true" aria-describedby="coupondescription-error" aria-invalid="false" placeholder="{{ 'coupondescription' | translate }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="couponavailablestore" data-ng-bind=" 'couponavailablestore' | translate ">可用门店</label>
+                            <div class="col-xs-12 col-md-9">
+                                <div class="checkbox">
+                                    <label for="selectall">
+                                        <input type="checkbox" id="selectall" data-ng-checked="isSelectedAll()" data-ng-click="selectAll($event)">{{ 'selectall' | translate }}
+                                    </label>
+                                </div>
+                                <table class="table table-bordered table-striped table-condensed js-dataTable-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" data-ng-bind=" 'storeid' | translate ">门店编号</th>
+                                            <th class="text-center" data-ng-bind=" 'storeName' | translate ">门店名</th>
+                                            <th class="text-center" data-ng-bind=" 'option' | translate ">选项</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr  data-ng-repeat="x in storesmodel">
+                                            <td class="text-center" data-ng-bind="x.storeid"></td>
+                                            <td class="text-center" data-ng-bind="x.storename"></td>
+                                            <td class="text-center">
+                                                <label>
+                                                    <input type="checkbox" name="couponavailablestore" data-ng-checked="isSelected(x.storeid)" data-ng-click="updateSelection($event, x.storeid)" value="{{x.storeid}}">
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="couponvalue" data-ng-bind=" 'couponvalue' | translate ">优惠券价值</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="couponmodel.couponvalue" id="couponvalue" name="couponvalue" aria-required="true" aria-describedby="couponvalue-error" aria-invalid="false" placeholder="{{ 'couponvalue' | translate }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="couponcount" data-ng-bind=" 'couponcount' | translate ">优惠券数量</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="couponmodel.couponcount" id="couponcount" name="couponcount" aria-required="true" aria-describedby="couponcount-error" aria-invalid="false" placeholder="{{ 'couponcount' | translate }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="couponunitpriceforpromotion" data-ng-bind=" 'unitpriceforpromotion' | translate ">优惠券推广单价</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="couponmodel.unitpriceforpromotion" id="couponunitpriceforpromotion" name="couponunitpriceforpromotion" aria-required="true" aria-describedby="couponunitpriceforpromotion-error" aria-invalid="false" placeholder="{{ 'unitpriceforpromotion' | translate }}">
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <div class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" ></div>
+                            <div class="col-xs-12 col-md-9">
+                                <label class="css-input css-checkbox css-checkbox-primary" for="couponisstart">
+                                    <input type="checkbox" id="couponisstart" name="couponisstart" data-ng-model="couponmodel.isstart"><span></span> <span data-ng-bind=" 'isstartcreated' | translate ">是否在创建后立即开始推广</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="video" data-ng-show="promotionmodel.promotiontype == 'video'">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" data-ng-bind=" 'target' | translate ">推广目标</label>
+                            <div class="col-xs-12 col-md-9">
+                                <div class="checkbox">
+                                    <label for="example-checkbox4">
+                                        <input type="checkbox" data-ng-model="videmodel.gameuser" id="example-checkbox4" name="example-checkbox1">{{ 'gameuser' | translate }}
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label for="example-checkbox5">
+                                        <input type="checkbox" data-ng-model="videmodel.liveuser" id="example-checkbox5" name="example-checkbox2">{{ 'liveuser' | translate }}
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label for="example-checkbox6">
+                                        <input type="checkbox" data-ng-model="videmodel.voduser" id="example-checkbox6" name="example-checkbox3">{{ 'voduser' | translate }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="videoname" data-ng-bind=" 'videoname' | translate ">视频名称</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="videmodel.videoname" id="videoname" name="videoname" aria-required="true" aria-describedby="videoname-error" aria-invalid="false" placeholder="{{ 'videoname' | translate }}">
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" data-ng-bind=" 'uploadvideo' | translate ">上传视频</label>
+                            <div class="col-xs-12 col-md-9">
+                                <video controls ngf-src="videmodel.uploadvideo"></video>
+                                <div class="progress" id="videoprogress" style="display:none;">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%">5%</div>
+                                </div>
+                                <a class="btn btn-default" href="javasrcipt:void(0)" ngf-select="uploadVideo($file)" data-ng-bind=" 'uploadvideo' | translate ">上传视频</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="bouncelink" data-ng-bind=" 'bouncelink' | translate ">视频跳转链接</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="videmodel.bouncelink" id="bouncelink" name="bouncelink" aria-required="true" aria-describedby="bouncelink-error" aria-invalid="false" placeholder="{{ 'bouncelink' | translate }}">
+                            </div>
+                        </div>
+                    </div>     
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="videocount" data-ng-bind=" 'videocount2' | translate ">视频播放次数预期</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="videmodel.videocount" id="videocount" name="videocount" aria-required="true" aria-describedby="videocount-error" aria-invalid="false" placeholder="{{ 'videocount2' | translate }}">
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="videounitpriceforpromotion" data-ng-bind=" 'unitpriceforpromotion2' | translate ">视频播放单价</label>
+                            <div class="col-xs-12 col-md-9">
+                                <input class="form-control valid" type="text" data-ng-model="videmodel.unitpriceforpromotion" id="videounitpriceforpromotion" name="videounitpriceforpromotion" aria-required="true" aria-describedby="videounitpriceforpromotion-error" aria-invalid="false" placeholder="{{ 'unitpriceforpromotion2' | translate }}">
+                            </div>
+                        </div>
+                    </div>                  
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                            <div class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" ></div>
+                            <div class="col-xs-12 col-md-9">
+                                <label class="css-input css-checkbox css-checkbox-primary" for="videoisstart">
+                                    <input type="checkbox" id="videoisstart" name="videoisstart" data-ng-model="videmodel.isstart"><span></span> <span data-ng-bind=" 'isstartcreated' | translate ">是否在创建后立即开始推广</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content

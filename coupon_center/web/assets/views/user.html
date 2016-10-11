@@ -1,0 +1,14 @@
+<!-- Page Container -->
+        <!-- You can update template settings or enable local storage feature in js/app.js -> 'AppCtrl' controller () -->
+        <div id="page-container" class="remove-padding-l header-navbar-fixed">
+
+            <!-- Header -->
+            <header data-ng-include="'assets/views/partials/base_header_sidebar.html'" data-ng-controller="HeaderCtrl" id="header-navbar" class="content-mini content-mini-full"></header>
+
+            <!-- Main Container -->
+            <main id="main-container" class="overflow-hidden" data-autoscroll="true" data-ui-view="main"></main>
+
+            <!-- Footer -->
+            <footer data-ng-include="'assets/views/partials/base_footer.html'" id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix"></footer>
+        </div>
+        <!-- END Page Container -->

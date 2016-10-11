@@ -1,0 +1,63 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'stores' | translate ">
+                门店管理
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li>
+                    <a class="btn btn-default" data-ui-sref="stores.map" data-ng-bind=" 'mapmode' | translate ">地图模式</a>
+                </li>
+                <li js-option permission="stores" data-ng-show="permissionEdit">
+                    <a class="btn btn-default" data-ui-sref="stores.add"><i class="si si-plus"></i> <span data-ng-bind=" 'addstore' | translate ">添加门店</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <table class="table table-bordered table-striped js-dataTable-full">
+                <thead>
+                    <tr>
+                        <th class="text-center" data-ng-bind=" 'storeid' | translate ">门店编号</th>
+                        <th class="text-center" data-ng-bind=" 'storeName' | translate ">门店名</th>
+                        <th class="text-center" data-ng-bind=" 'province' | translate ">省</th>
+                        <th class="text-center" data-ng-bind=" 'city' | translate ">市</th>
+                        <th class="text-center" data-ng-bind=" 'address' | translate ">门店地址</th>
+                        <th class="text-center" data-ng-bind=" 'option' | translate ">选项</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  data-ng-repeat="x in list">
+                        <td class="text-center" data-ng-bind="x.storeid"></td>
+                        <td class="text-center" data-ng-bind="x.storename"></td>
+                        <td class="text-center" data-ng-bind="x.province"></td>
+                        <td class="text-center" data-ng-bind="x.city"></td>
+                        <td class="text-center" data-ng-bind="x.address"></td>
+                        <td class="text-center">
+                            <div js-option permission="stores" data-ng-show="permissionEdit" class="btn-group">
+                                <a class="btn btn-xs btn-default" data-ui-sref="stores.edit({storeId:x.storeid})" title=""><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="delete(x.storeid)" title=""><i class="fa fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="block-content text-right">            
+            <nav data-js-pagging pagesize="10" method="loadData"></nav>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content -->

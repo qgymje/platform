@@ -1,0 +1,130 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading">
+                {{ 'campaigns' | translate }} &gt; {{ campaignmodel.campaignname }}
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li  js-option permission="campaigns" data-ng-show="permissionEdit">
+                    <a class="btn btn-default" data-ui-sref="campaigns.edit({campaignId:campaignmodel.campaignid})"><i class="si si-pencil"></i> <span data-ng-bind=" 'editcampaign' | translate ">编辑活动信息</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<div class="content">
+    <div class="block">
+        <div class="block-content">
+            <p>{{ 'description' | translate }}：{{ campaignmodel.description }}</p>
+            <p>{{ 'startdate' | translate }}：{{ campaignmodel.startdate }}</p>
+            <p>{{ 'enddate' | translate }}：{{ campaignmodel.enddate }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-header">
+            <h3 class="block-title" data-ng-bind=" 'promotioninfo' | translate ">推广列表</h3>
+        </div>
+        <div class="block-content"> 
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <div class="row" data-ng-repeat="x in list">
+                <div class="col-xs-8 col-md-8">
+                    <div class="pull-left push-15-r">
+                        <div class="font-w600 push-5" data-ng-bind=" 'promotionid' | translate ">推广编号</div>
+                        <div class="text-muted push-10" data-ng-bind=" 'promotiontype' | translate ">推广类型</div>
+                    </div>
+                    <div>
+                        <div class="font-w600 push-5" data-ng-bind="x.promotionid"></div>
+                        <div class="text-muted push-10" data-ng-bind=" x.promotiontype | translate "></div>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-md-4 text-right">
+                    <ul class="nav-header pull-right ng-scope">
+                        <li  js-option permission="campaigns" data-ng-show="permissionEdit">
+                            <a class="btn btn-default" data-ui-sref="campaigns.editpromotions({campaignId:campaignmodel.campaignid,promotionId:x.promotionid})"><i class="si si-pencil"></i> <span data-ng-bind=" 'editpromotion' | translate ">编辑推广信息</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <table class="table table-bordered table-striped js-dataTable-full" data-ng-show=" x.promotiontype == 'coupon' ">
+                    <thead>
+                        <tr>
+                            <th class="text-center" data-ng-bind=" 'couponname' | translate ">优惠券名称</th>
+                            <th class="text-center" data-ng-bind=" 'coupondescription' | translate ">优惠券描述</th>
+                            <th class="text-center" data-ng-bind=" 'couponcount' | translate ">优惠券数量</th>
+                            <th class="text-center" data-ng-bind=" 'couponclaimed' | translate ">已领取</th>
+                            <th class="text-center" data-ng-bind=" 'couponused' | translate ">已使用</th>
+                            <th class="text-center" data-ng-bind=" 'couponunitprice' | translate ">优惠券单价</th>
+                            <th class="text-center" data-ng-bind=" 'status' | translate ">状态</th>
+                            <th class="text-center" data-ng-bind=" 'option' | translate ">选项</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center" data-ng-bind="x.couponname"></td>
+                            <td class="text-center" data-ng-bind="x.description"></td>
+                            <td class="text-center" data-ng-bind="x.count"></td>
+                            <td class="text-center" data-ng-bind="x.claimed"></td>
+                            <td class="text-center" data-ng-bind="x.used"></td>
+                            <td class="text-center" data-ng-bind="x.unitprice"></td>
+                            <td class="text-center" data-ng-bind=" x.status | translate "></td>
+                            <td class="text-center">
+                                <div js-option permission="campaigns" class="btn-group">
+                                    <a data-ng-show="permissionEdit && x.status == 'ongoing'" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="pause(x.promotionid)" title="" data-ng-bind=" 'btnpause2' | translate ">暂停</a>
+                                    <a data-ng-show="permissionEdit && x.status == 'paused'" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="resume(x.promotionid)" title="" data-ng-bind=" 'btnresume2' | translate ">恢复</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped js-dataTable-full" data-ng-show=" x.promotiontype == 'video' ">
+                    <thead>
+                        <tr>
+                            <th class="text-center" data-ng-bind=" 'videoname' | translate ">视频名称</th>
+                            <th class="text-center" data-ng-bind=" 'videocount' | translate ">视频预计播放量</th>
+                            <th class="text-center" data-ng-bind=" 'videoplayed' | translate ">已播放</th>
+                            <th class="text-center" data-ng-bind=" 'videounitprice' | translate ">视频价</th>
+                            <th class="text-center" data-ng-bind=" 'status' | translate ">状态</th>
+                            <th class="text-center" data-ng-bind=" 'option' | translate ">选项</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center" data-ng-bind="x.videoname"></td>
+                            <td class="text-center" data-ng-bind="x.count"></td>
+                            <td class="text-center" data-ng-bind="x.played"></td>
+                            <td class="text-center" data-ng-bind="x.unitprice"></td>
+                            <td class="text-center" data-ng-bind=" x.status | translate "></td>
+                            <td class="text-center">
+                                <div js-option permission="campaigns" class="btn-group">
+                                    <a data-ng-show="permissionEdit && x.status == 'ongoing'" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="pause(x.promotionid)" title="" data-ng-bind=" 'btnpause2' | translate ">暂停</a>
+                                    <a data-ng-show="permissionEdit && x.status == 'paused'" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="resume(x.promotionid)" title="" data-ng-bind=" 'btnresume2' | translate ">恢复</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="block-content text-right">            
+            <nav data-js-pagging pagesize="10" method="loadData"></nav>
+        </div>
+        <div class="block-content">            
+            <ul class="nav-header ng-scope push-15">
+                <li  js-option permission="campaigns" data-ng-show="permissionEdit">
+                    <a class="btn btn-default" data-ui-sref="campaigns.addpromotions({campaignId:campaignmodel.campaignid})"><i class="si si-plus"></i> <span data-ng-bind=" 'addpromotion' | translate ">添加新的推广项目</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content

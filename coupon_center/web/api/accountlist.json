@@ -1,0 +1,37 @@
+{
+	"count": "100",
+	"list": [
+		{
+			"accountid": 1,
+			"accountname": "username1",
+			"accountstats": "noentry",
+			"accountstores": "view",
+			"accountcampaign": "edit",
+			"accountaccount": "edit"
+		},
+		{
+			"accountid": 2,
+			"accountname": "username2",
+			"accountstats": "view",
+			"accountstores": "view",
+			"accountcampaign": "edit",
+			"accountaccount": "view"
+		},
+		{
+			"accountid": 3,
+			"accountname": "username3",
+			"accountstats": "view",
+			"accountstores": "edit",
+			"accountcampaign": "view",
+			"accountaccount": "edit"
+		},
+		{
+			"accountid": 4,
+			"accountname": "username4",
+			"accountstats": "noentry",
+			"accountstores": "view",
+			"accountcampaign": "edit",
+			"accountaccount": "edit"
+		}
+	]
+}

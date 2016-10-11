@@ -1,0 +1,35 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'stores' | translate ">
+                门店管理
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li>
+                    <a class="btn btn-default" data-ui-sref="stores" data-ng-bind=" 'listmode' | translate ">列表模式</a>
+                </li>
+                <li js-option permission="stores" data-ng-show="permissionEdit">
+                    <a class="btn btn-default" data-ui-sref="stores.add"><i class="si si-plus"></i> <span data-ng-bind=" 'addstore' | translate ">添加门店</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <div class="embed-responsive embed-responsive-16by9">
+                <div bmap class="embed-responsive-item" id="bmap"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content -->

@@ -1,0 +1,26 @@
+{
+	"count": "100",
+	"campaignid": 1,
+	"list": [
+		{
+			"promotionid": 1,
+			"promotiontype": "coupon",
+			"couponname": "黄金鸡",
+			"description": "优惠黄金鸡8折优惠限时抢购",
+			"count": 900,
+			"claimed": 500,
+			"used": 100,
+			"unitprice": 0.1,
+			"status": "ongoing"
+		},
+		{
+			"promotionid": 2,
+			"promotiontype": "video",
+			"videoname": "黄金鸡",
+			"count": 900,
+			"played": 500,
+			"unitprice": 0.1,
+			"status": "paused"
+		}
+	]
+}

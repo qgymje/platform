@@ -1,0 +1,25 @@
+<nav data-ng-show="totalPage>1">
+    <ul class="pagination">
+        <li data-ng-hide="currentPage==1">
+            <a href="javascript:void(0)" data-ng-click="prev()" ng-bind=" 'prev' | translate ">上一页</a>
+        </li>
+        <li data-ng-show="showStartLink">
+            <a href="javascript:void(0)" data-ng-click="getData(1)">1</a>
+        </li>
+        <li data-ng-show="showStartLink">
+            ...
+        </li>
+        <li data-ng-repeat="page in pages" data-ng-class="{true:'active',false:''}[currentPage==page]">
+            <a href="javascript:void(0)" data-ng-click="getData(page)" data-ng-bind="page"></a>
+        </li>        
+        <li data-ng-show="showEndLink">
+            ...
+        </li>
+        <li data-ng-show="showEndLink">
+            <a href="javascript:void(0)" data-ng-click="getData(totalPage)" data-ng-bind="totalPage"></a>
+        </li>
+        <li data-ng-hide="currentPage==totalPage">
+            <a href="javascript:void(0)" data-ng-click="next()" ng-bind=" 'next' | translate ">下一页</a>
+        </li>
+    </ul>
+</nav>
