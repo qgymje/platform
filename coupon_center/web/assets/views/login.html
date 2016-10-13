@@ -1,0 +1,45 @@
+<div class="bg-white pulldown">
+    <div class="content content-boxed">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+                <div class="push-30-t push-50 animated fadeIn">
+
+                    <!-- Login Form -->
+                    <!-- jQuery Validation (.js-validation-login class is initialized in js/pages/base_pages_login.js) -->
+                    <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
+                    <form class="js-validation-login form-horizontal push-30-t" data-ng-submit="login()" novalidate="novalidate">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-material form-material-primary floating open">
+                                    <input class="form-control valid" type="text" data-ng-model="user.userName" id="login-username" name="login-username" aria-required="true" aria-describedby="login-username-error" aria-invalid="false">
+                                    <label for="login-username" ng-bind=" 'username' | translate ">用户名</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-material form-material-primary floating open">
+                                    <input class="form-control valid" type="password"  data-ng-model="user.userPwd" id="login-password" name="login-password" aria-required="true" aria-describedby="login-password-error" aria-invalid="false">
+                                    <label for="login-password" ng-bind=" 'password' | translate ">密码</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group push-30-t">
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                                <button class="btn btn-sm btn-block btn-primary" type="submit" ng-bind=" 'login' | translate ">登录</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6 col-xs-offset-6">
+                                <div class="font-s13 text-right push-5-t">
+                                    <a href="#/register" ng-bind=" 'unregistered' | translate ">没有注册</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END Login Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

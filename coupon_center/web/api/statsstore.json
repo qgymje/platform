@@ -1,0 +1,54 @@
+{
+    "storeritems": [
+        {
+            "storerank": 1,
+            "storename": "KFC1店",
+            "couponused": 100
+        },
+        {
+            "storerank": 2,
+            "storename": "KFC2店",
+            "couponused": 100
+        },
+        {
+            "storerank": 3,
+            "storename": "KFC3店",
+            "couponused": 100
+        },
+        {
+            "storerank": 4,
+            "storename": "KFC4店",
+            "couponused": 100
+        },
+        {
+            "storerank": 5,
+            "storename": "KFC5店",
+            "couponused": 100
+        },
+        {
+            "storerank": 6,
+            "storename": "KFC6店",
+            "couponused": 100
+        },
+        {
+            "storerank": 7,
+            "storename": "KFC7店",
+            "couponused": 100
+        },
+        {
+            "storerank": 8,
+            "storename": "KFC8店",
+            "couponused": 100
+        },
+        {
+            "storerank": 9,
+            "storename": "KFC9店",
+            "couponused": 100
+        },
+        {
+            "storerank": 10,
+            "storename": "KFC10店",
+            "couponused": 100
+        }
+    ]
+}

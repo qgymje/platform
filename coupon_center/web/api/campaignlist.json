@@ -1,0 +1,45 @@
+{
+	"count": "100",
+	"list": [
+		{
+			"campaignid": 1,
+			"campaignname": "秋季优惠",
+			"description": "优惠黄金鸡8折优惠限时抢购",
+			"startdate": "2016/9/23",
+			"enddate": "2016/12/31",
+			"status": "waiting"
+		},
+		{
+			"campaignid": 2,
+			"campaignname": "秋季优惠2",
+			"description": "优惠黄金鸡8折优惠限时抢购",
+			"startdate": "2016/9/23",
+			"enddate": "2016/12/31",
+			"status": "ready"
+		},
+		{
+			"campaignid": 3,
+			"campaignname": "秋季优惠3",
+			"description": "优惠黄金鸡8折优惠限时抢购",
+			"startdate": "2016/9/23",
+			"enddate": "2016/12/31",
+			"status": "paused"
+		},
+		{
+			"campaignid": 4,
+			"campaignname": "秋季优惠4",
+			"description": "优惠黄金鸡8折优惠限时抢购",
+			"startdate": "2016/9/23",
+			"enddate": "2016/12/31",
+			"status": "ongoing"
+		},
+		{
+			"campaignid": 5,
+			"campaignname": "秋季优惠5",
+			"description": "优惠黄金鸡8折优惠限时抢购",
+			"startdate": "2016/9/23",
+			"enddate": "2016/12/31",
+			"status": "expired"
+		}
+	]
+}

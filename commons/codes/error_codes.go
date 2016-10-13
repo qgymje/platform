@@ -57,6 +57,10 @@ const (
 	// info 系列错误
 	ErrorCodeInvalidUserID ErrorCode = "INF400402"
 
+	// user list errors
+	ErrorCodeUsersNotFound ErrorCode = "USL400101"
+	ErrorCodeUserFinder    ErrorCode = "USL400102"
+
 	// broadcasting 系列错误
 	ErrorCodeBroadcastNotify          ErrorCode = "BRO500101"
 	ErrorCodeBroadcastRoomUpdate      ErrorCode = "BRO500102"

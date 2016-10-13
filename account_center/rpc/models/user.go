@@ -11,6 +11,7 @@ import (
 )
 
 // User  a user model object
+//go:generate gen_columns -tag=bson -path=./user.go
 type User struct {
 	ID         bson.ObjectId `bson:"_id"`
 	Phone      string        `bson:"phone"`
@@ -20,10 +21,12 @@ type User struct {
 	Salt       string        `bson:"salt" json:"-"`
 	Token      string        `bson:"token" json:"-"`
 	Avatar     string        `bson:"avatar"`
-	Level      int           `bson:"level"`      // 等级
-	FollowNum  int           `bson:"follow_num"` // 关注数
-	Popularity int           `bson:"popularity"` // 人气
+	Level      int64         `bson:"level"`      // 等级
+	FollowNum  int64         `bson:"follow_num"` // 关注数
+	Popularity int64         `bson:"popularity"` // 人气
 	CreatedAt  time.Time     `bson:"created_at"`
+	UpdatedAt  time.Time     `bson:"updated_at"`
+	DeletedAt  time.Time     `bson:"deleted_at"`
 }
 
 // GetID get hexed user_id
@@ -36,9 +39,9 @@ func (u *User) Create() error {
 	session := GetMongo()
 	defer session.Close()
 
-	u.Level = utils.RandomInt(1, 10)
-	u.FollowNum = utils.RandomInt(1, 1000)
-	u.Popularity = utils.RandomInt(1, 1000)
+	u.Level = int64(utils.RandomInt(1, 10))
+	u.FollowNum = int64(utils.RandomInt(1, 1000))
+	u.Popularity = int64(utils.RandomInt(1, 1000))
 	u.ID = bson.NewObjectId()
 	u.CreatedAt = time.Now()
 

@@ -10,5 +10,10 @@ http:
 rpc:
 	fswatch
 
-build:
-		env GOOS=linux GOARCH=amd64 go build -o account_center_rpc
+build: clean
+	rm -rf ./rpc
+	env GOOS=linux GOARCH=amd64 go build -o rpc 
+
+docker: build
+	docker build -t coupon_center/rpc .
+

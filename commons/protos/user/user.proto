@@ -11,6 +11,7 @@ service User{
   rpc Logout( Token ) returns (Status){}
   rpc Auth( Token ) returns (UserInfo){}
   rpc Info( UserID  ) returns (UserInfo){}
+  rpc List( UserQuery ) returns (UsersInfo) {}
 }
 
 message Phone {
@@ -50,6 +51,13 @@ message RegisterInfo {
   string nickname = 4;
 }
 
+message UserQuery {
+    int32 num = 1;
+    int32 size = 2;
+    string search = 3;
+    repeated string IDs = 4;
+}
+
 message UserInfo {
   string userID = 1;
   string phone = 2;
@@ -57,6 +65,13 @@ message UserInfo {
   string nickname = 4; 
   string token = 5;
   string avatar = 6;
-  int64 createdAt = 7;
-  string errorCode = 8;
+  int64 level = 7;
+  int64 followNum = 8;
+  int64 popularity = 9;
+  int64 createdAt = 10;
+}
+
+message UsersInfo {
+    repeated UserInfo users = 1;
+    int64 totalNum = 2;
 }

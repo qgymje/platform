@@ -1,0 +1,11 @@
+{
+	"id": "sessionId",
+	"userId": "userId",
+	"userRole": "admin",
+	"userPermission": [
+		{"stats": "View"},
+		{"stores": "Edit"},
+		{"campaigns": "Edit"},
+		{"account": "Edit"}
+	]
+}

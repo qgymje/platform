@@ -1,0 +1,75 @@
+{
+ "count": "100",
+ "list": [
+ {
+ "storeid": "1",
+ "storename": "KFC1店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "2",
+ "storename": "KFC2店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "3",
+ "storename": "KFC3店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "4",
+ "storename": "KFC4店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "15",
+ "storename": "KFC5店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "6",
+ "storename": "KFC6店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "7",
+ "storename": "KFC7店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "8",
+ "storename": "KFC8店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "9",
+ "storename": "KFC9店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ },
+ {
+ "storeid": "10",
+ "storename": "KFC10店",
+ "province": "上海市",
+ "city": "上海市",
+ "address": "xx路xx号3楼"
+ }
+ ]
+}

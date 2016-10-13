@@ -1,0 +1,54 @@
+{
+    "couponitems": [
+        {
+            "couponrank": 1,
+            "couponname": "黄金鸡1",
+            "couponused": 100
+        },
+        {
+            "couponrank": 2,
+            "couponname": "黄金鸡2",
+            "couponused": 100
+        },
+        {
+            "couponrank": 3,
+            "couponname": "黄金鸡3",
+            "couponused": 100
+        },
+        {
+            "couponrank": 4,
+            "couponname": "黄金鸡4",
+            "couponused": 100
+        },
+        {
+            "couponrank": 5,
+            "couponname": "黄金鸡5",
+            "couponused": 100
+        },
+        {
+            "couponrank": 6,
+            "couponname": "黄金鸡6",
+            "couponused": 100
+        },
+        {
+            "couponrank": 7,
+            "couponname": "黄金鸡7",
+            "couponused": 100
+        },
+        {
+            "couponrank": 8,
+            "couponname": "黄金鸡8",
+            "couponused": 100
+        },
+        {
+            "couponrank": 9,
+            "couponname": "黄金鸡9",
+            "couponused": 100
+        },
+        {
+            "couponrank": 10,
+            "couponname": "黄金鸡10",
+            "couponused": 100
+        }
+    ]
+}

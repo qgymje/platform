@@ -75,3 +75,9 @@ func (u *User) Info(in *pb.UserID) (*pb.UserInfo, error) {
 	defer u.Close()
 	return u.client.Info(context.Background(), in)
 }
+
+// List query a buntch of users
+func (u *User) List(in *pb.UserQuery) (*pb.UsersInfo, error) {
+	defer u.Close()
+	return u.client.List(context.Background(), in)
+}

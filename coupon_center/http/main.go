@@ -52,7 +52,7 @@ func main() {
 	controllers.SetUploadPath(uploadPath)
 	r.Static("/uploads", uploadPath)
 
-	c := r.Group("/coupon")
+	c := r.Group("/v1/coupon")
 	{
 		// web api
 		account := new(controllers.Account)

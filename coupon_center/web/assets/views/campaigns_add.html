@@ -1,0 +1,85 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'campaigns' | translate ">
+                活动管理
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li>
+                    <a class="btn btn-default" data-ui-sref="campaigns"><i class="si si-action-undo"></i> <span data-ng-bind=" 'cancel' | translate ">取消</span></a>
+                </li>
+                <li>
+                    <a class="btn btn-default" href="javascript:void(0)" data-ng-click="saveCampaign()"><i class="si si-check"></i> <span data-ng-bind=" 'save' | translate ">保存</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <form class="js-validation-campaign form-horizontal" novalidate="novalidate">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="campaignid" data-ng-bind=" 'campaignid' | translate ">活动编号</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="campaignmodel.campaignid" id="campaignid" name="campaignid" aria-required="true" aria-describedby="campaignid-error" aria-invalid="false" placeholder="{{ 'campaignid' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="campaignname" data-ng-bind=" 'campaignname' | translate ">活动名称</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="campaignmodel.campaignname" id="campaignname" name="campaignname" aria-required="true" aria-describedby="campaignname-error" aria-invalid="false" placeholder="{{ 'campaignname' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="description" data-ng-bind=" 'description' | translate ">活动描述</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="campaignmodel.description" id="description" name="description" aria-required="true" aria-describedby="description-error" aria-invalid="false" placeholder="{{ 'description' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="startdate" data-ng-bind=" 'startdate' | translate ">开始时间</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input data-js-datepicker class="form-control valid" type="text" data-ng-model="campaignmodel.startdate" id="startdate" name="startdate" aria-required="true" aria-describedby="startdate-error" aria-invalid="false" placeholder="{{ 'startdate' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="enddate" data-ng-bind=" 'enddate' | translate ">结束时间</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input data-js-datepicker class="form-control valid" type="text" data-ng-model="campaignmodel.enddate" id="enddate" name="enddate" aria-required="true" aria-describedby="enddate-error" aria-invalid="false" placeholder="{{ 'enddate' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <div class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" ></div>
+                        <div class="col-xs-12 col-md-9">
+                            <label class="css-input css-checkbox css-checkbox-primary" for="isstart">
+                                <input type="checkbox" id="isstart" name="isstart" data-ng-model="campaignmodel.isstart"><span></span> <span data-ng-bind=" 'isstart' | translate ">审核通过后立即激活该活动</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content

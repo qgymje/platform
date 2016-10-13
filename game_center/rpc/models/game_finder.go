@@ -15,14 +15,13 @@ type GameFinder struct {
 	skip, limit int
 	order       string
 
-	query *mgo.Query
-	games *[]Game
+	games []*Game
 }
 
 // NewGameFinder create a new GameFinder
 func NewGameFinder() *GameFinder {
 	f := new(GameFinder)
-	f.games = &[]Game{}
+	f.games = []*Game{}
 	return f
 }
 
@@ -77,7 +76,7 @@ func (g *GameFinder) Do() (err error) {
 	session := GetMongo()
 	defer session.Close()
 
-	err = session.DB(DBName).C(ColNameGame).Find(g.condition()).Skip(g.skip).Limit(g.limit).All(g.games)
+	err = session.DB(DBName).C(ColNameGame).Find(g.condition()).Skip(g.skip).Limit(g.limit).All(&g.games)
 	if err != nil {
 		if err == mgo.ErrNotFound {
 			return ErrNotFound
@@ -88,7 +87,7 @@ func (g *GameFinder) Do() (err error) {
 }
 
 // Result return the games that found
-func (g *GameFinder) Result() *[]Game {
+func (g *GameFinder) Result() []*Game {
 	return g.games
 }
 

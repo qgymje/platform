@@ -1,0 +1,130 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'stats' | translate ">
+                数据分析
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <div data-js-stats-datepicker class="input-daterange input-group" data-date-format="mm/dd/yyyy">
+                <input class="form-control" type="text" id="example-daterange1" name="example-daterange1" placeholder="From">
+                <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                <input class="form-control" type="text" id="example-daterange2" name="example-daterange2" placeholder="To">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<div class="content">
+    <!-- Chart.js Charts (initialized in js/controllers.js -> CompChartsCtrl Controller), for more examples you can check out http://www.chartjs.org/docs/ -->
+    <div class="row text-uppercase">
+        <div class="col-xs-4">
+            <div class="block text-center">
+                <div class="block-content block-content-full">
+                    <div class="h1 font-w700 text-primary" id="stats-count1" data-toggle="countTo" data-to="0">0</div>
+                </div>
+                <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600" ng-bind=" 'countcreated' | translate ">张券被创建</div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="block text-center">
+                <div class="block-content block-content-full">
+                    <div class="h1 font-w700 text-primary" id="stats-count2" data-toggle="countTo" data-to="0">0</div>
+                </div>
+                <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600" ng-bind=" 'countclaimed' | translate ">张券被发出</div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="block text-center">
+                <div class="block-content block-content-full">
+                    <div class="h1 font-w700 text-primary" id="stats-count3" data-toggle="countTo" data-to="0">0</div>
+                </div>
+                <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600" ng-bind=" 'countused' | translate ">张券被使用</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Lines Chart -->
+            <div class="block">
+                <div class="block-content block-content-full text-center">
+                    <!-- Lines Chart Container -->
+                    <div style="height: 330px;"><canvas class="js-chartjs-lines"></canvas></div>
+                </div>
+                <div class="block-content text-center">
+                    <div class="row items-push text-center">
+                        <div class="col-xs-4">
+                            <div><i class="fa fa-stop text-info"></i> <span ng-bind=" 'colorcreated' | translate ">创建的券</span></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div><i class="fa fa-stop text-danger"></i> <span ng-bind=" 'colorclaimed' | translate ">创建的券</span></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div><i class="fa fa-stop text-warning"></i> <span ng-bind=" 'colorused' | translate ">创建的券</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Lines Chart -->
+        </div>
+    </div>
+    <!-- END Chart.js Charts -->
+</div>
+<!-- Page Content -->
+<div class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-6"> 
+            <!-- Dynamic Table Full -->
+            <div class="block">
+                <div class="block-content">
+                    <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+                    <table class="table table-bordered table-striped js-dataTable-full">
+                        <thead>
+                            <tr>
+                                <th class="text-center" ng-bind=" 'couponrank' | translate ">优惠券排名</th>
+                                <th class="text-center" ng-bind=" 'couponname' | translate ">优惠券名称</th>
+                                <th class="text-center" ng-bind=" 'couponused' | translate ">优惠券使用数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  data-ng-repeat="x in storeItems">
+                                <td class="text-center" data-ng-bind="x.storerank"></td>
+                                <td class="text-center" data-ng-bind="x.storename"></td>
+                                <td class="text-center" data-ng-bind="x.couponused"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END Dynamic Table Full -->
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <!-- Dynamic Table Full -->
+            <div class="block">
+                <div class="block-content">
+                    <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+                    <table class="table table-bordered table-striped js-dataTable-full">
+                        <thead>
+                            <tr>
+                                <th class="text-center" ng-bind=" 'storerank' | translate ">门店</th>
+                                <th class="text-center" ng-bind=" 'storename' | translate ">门店名</th>
+                                <th class="text-center" ng-bind=" 'couponused' | translate ">门店使用券数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  data-ng-repeat="x in couponItems">
+                                <td class="text-center" data-ng-bind="x.couponrank"></td>
+                                <td class="text-center" data-ng-bind="x.couponname"></td>
+                                <td class="text-center" data-ng-bind="x.couponused"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END Dynamic Table Full -->
+        </div>
+    </div>
+</div>
+<!-- END Page Content -->

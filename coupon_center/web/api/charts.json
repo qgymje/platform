@@ -1,0 +1,42 @@
+{
+	"counts": {
+	    "createdCount": 1000,
+	    "claimedCount": 800,
+	    "usedCount": 500
+	},
+	"charts": {
+	    "labels": ["周一 2016年9月26日", "周二 2016年9月27日", "周三 2016年9月28日", "周四 2016年9月29日", "周五 2016年9月30日", "周六 2016年10月1日", "周日 2016年10月2日"],
+	    "datasets": [
+	        {
+	            "label": "创建的券",
+	            "fillColor": "rgba(112, 185, 235,.1)",
+	            "strokeColor": "rgba(112, 185, 235,1)",
+	            "pointColor": "rgba(112, 185, 235,1)",
+	            "pointStrokeColor": "#fff",
+	            "pointHighlightFill": "#fff",
+	            "pointHighlightStroke": "rgba(112, 185, 235,1)",
+	            "data": [30, 32, 40, 45, 43, 38, 95]
+	        },
+	        {
+	            "label": "被领取的券",
+	            "fillColor": "rgba(210, 106, 92, .1)",
+	            "strokeColor": "rgba(210, 106, 92, 1)",
+	            "pointColor": "rgba(210, 106, 92, 1)",
+	            "pointStrokeColor": "#fff",
+	            "pointHighlightFill": "#fff",
+	            "pointHighlightStroke": "rgba(210, 106, 92, 1)",
+	            "data": [15, 16, 20, 25, 23, 25, 32]
+	        },
+	        {
+	            "label": "被使用的券",
+	            "fillColor": "rgba(243, 183, 96, .1)",
+	            "strokeColor": "rgba(243, 183, 96, 1)",
+	            "pointColor": "rgba(243, 183, 96, 1)",
+	            "pointStrokeColor": "#fff",
+	            "pointHighlightFill": "#fff",
+	            "pointHighlightStroke": "rgba(243, 183, 96, 1)",
+	            "data": [10, 6, 17, 15, 13, 15, 23]
+	        }
+	    ]
+    }
+}

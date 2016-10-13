@@ -84,7 +84,7 @@ func StringToObjectID(id string) (bson.ObjectId, error) {
 	return bson.ObjectIdHex(id), nil
 }
 
-func StringToObjectIDs(ids string) ([]bson.ObjectId, error) {
+func StringToObjectIDs(ids []string) ([]bson.ObjectId, error) {
 	IDHexs := []bson.ObjectId{}
 	for _, id := range ids {
 		if !bson.IsObjectIdHex(string(id)) {

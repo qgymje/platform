@@ -1,0 +1,16 @@
+{
+	"list": [
+		{
+			"storeid": 1,
+			"storename": "KFC1店"
+		},
+		{
+			"storeid": 2,
+			"storename": "KFC2店"
+		},
+		{
+			"storeid": 3,
+			"storename": "KFC3店"
+		}
+	]
+}

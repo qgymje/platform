@@ -47,7 +47,7 @@ func main() {
 	r.Use(middlewares.APILang())
 	r.Use(middlewares.RecordRequestBegin())
 
-	g := r.Group("/game")
+	g := r.Group("/v1/game")
 	{
 		game := new(controllers.Game)
 		g.POST("/", game.Create)

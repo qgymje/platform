@@ -84,7 +84,7 @@ func (g *Games) find() error {
 func (g *Games) Games() []*Game {
 	modelGames := g.gameFinder.Result()
 	srvGames := []*Game{}
-	for _, mGame := range *modelGames {
+	for _, mGame := range modelGames {
 		g.gameids = append(g.gameids, mGame.GetID())
 		srvGame := &Game{
 			GameID:       mGame.GetID(),

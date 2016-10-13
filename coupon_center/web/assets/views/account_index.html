@@ -1,0 +1,83 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading" ng-bind=" 'account' | translate ">
+                账户管理
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li  js-option permission="account" data-ng-show="permissionEdit">
+                    <a class="btn btn-default" data-ui-sref="account.add"><i class="si si-plus"></i> <span data-ng-bind=" 'addaccount' | translate ">创建新活动</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <table class="table table-bordered table-striped js-dataTable-full">
+                <thead>
+                    <tr>
+                        <th class="text-center" data-ng-bind=" 'accountname' | translate ">账户用户名</th>
+                        <th class="text-center" data-ng-bind=" 'accountstats' | translate ">数据功能</th>
+                        <th class="text-center" data-ng-bind=" 'accountstores' | translate ">门店功能</th>
+                        <th class="text-center" data-ng-bind=" 'accountcampaign' | translate ">活动功能</th>
+                        <th class="text-center" data-ng-bind=" 'accountaccount' | translate ">账户管理</th>
+                        <th class="text-center" data-ng-bind=" 'option' | translate ">选项</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  data-ng-repeat="x in list">
+                        <td class="text-center" data-ng-bind="x.accountname"></td>
+                        <td class="text-center">
+                            <select data-ng-change="selectChange(x.accountid,'stats',x.accountstats)" data-ng-model="x.accountstats">
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <select data-ng-change="selectChange(x.accountid,'stores',x.accountstores)" data-ng-model="x.accountstores">
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <select data-ng-change="selectChange(x.accountid,'campaign',x.accountcampaign)" data-ng-model="x.accountcampaign">
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <select data-ng-change="selectChange(x.accountid,'account',x.accountaccount)" data-ng-model="x.accountaccount">
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <div js-option permission="account" class="btn-group">
+                                <a data-ng-show="permissionEdit" class="btn btn-xs btn-default" href="javascript:void(0)" data-ng-click="delete(x.accountid)" title="" data-ng-bind=" 'remove' | translate ">删除</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="block-content text-right">            
+            <nav data-js-pagging pagesize="10" method="loadData"></nav>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content

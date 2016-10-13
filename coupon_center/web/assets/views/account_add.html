@@ -1,0 +1,111 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-xs-12 col-sm-8">
+            <h1 class="page-heading">
+                {{ 'account' | translate }}
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <ul class="nav-header pull-right ng-scope">
+                <li>
+                    <a class="btn btn-default" data-ui-sref="account"><i class="si si-action-undo"></i> <span data-ng-bind=" 'cancel' | translate ">取消</span></a>
+                </li>
+                <li>
+                    <a class="btn btn-default" href="javascript:void(0)" data-ng-click="saveAccount()"><i class="si si-check"></i> <span data-ng-bind=" 'save' | translate ">保存</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block">
+        <div class="block-content">
+            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/controllers.js -> TablesDatatablesCtrl Controller-->
+            <form class="js-validation-account form-horizontal" novalidate="novalidate">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountid" data-ng-bind=" 'accountid' | translate ">账户编号</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="accountmodel.accountid" id="accountid" name="accountid" aria-required="true" aria-describedby="accountid-error" aria-invalid="false" placeholder="{{ 'accountid' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountname" data-ng-bind=" 'accountname' | translate ">账户用户名</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="text" data-ng-model="accountmodel.accountname" id="accountname" name="accountname" aria-required="true" aria-describedby="accountname-error" aria-invalid="false" placeholder="{{ 'accountname' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountpwd" data-ng-bind=" 'accountpwd' | translate ">账户密码</label>
+                        <div class="col-xs-12 col-md-9">
+                            <input class="form-control valid" type="password" data-ng-model="accountmodel.accountpwd" id="accountpwd" name="accountpwd" aria-required="true" aria-describedby="accountpwd-error" aria-invalid="false" placeholder="{{ 'accountpwd' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountstats" data-ng-bind=" 'accountstats' | translate ">数据功能</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-model="accountmodel.accountstats" id="accountstats" name="accountstats" aria-required="true" aria-describedby="accountstats-error" aria-invalid="false" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountstores" data-ng-bind=" 'accountstores' | translate ">门店功能</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-model="accountmodel.accountstores" id="accountstores" name="accountstores" aria-required="true" aria-describedby="accountstores-error" aria-invalid="false" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountcampaign" data-ng-bind=" 'accountcampaign' | translate ">活动功能</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-model="accountmodel.accountcampaign" id="accountcampaign" name="accountcampaign" aria-required="true" aria-describedby="accountcampaign-error" aria-invalid="false" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-md-offset-2">
+                        <label class="col-xs-12 col-md-3 control-label hidden-xs hidden-sm" for="accountaccount" data-ng-bind=" 'accountaccount' | translate ">账户管理</label>
+                        <div class="col-xs-12 col-md-9">
+                            <select class="form-control valid" data-ng-model="accountmodel.accountaccount" id="accountaccount" name="accountaccount" aria-required="true" aria-describedby="accountaccount-error" aria-invalid="false" placeholder="{{ 'choose' | translate }}">
+                                <option value="" data-ng-bind=" 'choose' | translate ">--请选择--</option>
+                                <option value="noentry" data-ng-bind=" 'noentry' | translate ">无权限</option>
+                                <option value="view" data-ng-bind=" 'view' | translate ">可查看</option>
+                                <option value="edit" data-ng-bind=" 'edit' | translate ">可修改</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content
