@@ -43,7 +43,7 @@ func main() {
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
-	r.Use(middlewares.APIVersion())
+	r.Use(middlewares.APILang())
 	if utils.IsDev() {
 		r.Use(middlewares.FakedLogin())
 	}
@@ -51,10 +51,12 @@ func main() {
 	rr := r.Group("/v1/room")
 	{
 		room := new(controllers.Room)
-		rr.POST("/create", room.Create)
-		rr.PUT("/start", room.Start)
-		rr.PUT("/end", room.End)
-		rr.POST("/barrage", room.Barrage)
+		rr.GET("/", room.List)
+		rr.GET("/:room_id", room.Show)
+		rr.POST("/", room.Create)
+		rr.PUT("/", room.Update)
+
+		bro := new(controllers.Broadcast)
 	}
 
 	if err := r.Run(getPort()); err != nil {

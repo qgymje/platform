@@ -1,4 +1,4 @@
-package broadcasts2
+package broadcasts
 
 import (
 	"crypto/sha1"
@@ -8,9 +8,10 @@ import (
 	nsq "github.com/nsqio/go-nsq"
 )
 
-type message []byte
+// Message message is b byte slice
+type Message []byte
 
-func (s message) String() string {
+func (s Message) String() string {
 	return string(s)
 }
 
@@ -20,7 +21,7 @@ type NSQSession struct {
 	consumer *nsq.Consumer
 	topic    string
 	channel  string
-	receive  chan message
+	receive  chan Message
 }
 
 // NewNSQSession 创建一个基于NSQ的pubsub对象
@@ -31,7 +32,7 @@ func NewNSQSession(nsqlookupdAddr string, nsqdAddr string, topic, channel string
 		consumer: &nsq.Consumer{},
 		topic:    topic,
 		channel:  channel,
-		receive:  make(chan message),
+		receive:  make(chan Message),
 	}
 	config := nsq.NewConfig()
 	var err error
@@ -60,12 +61,12 @@ func (s *NSQSession) Close() {
 }
 
 // Publish 发布一条消息
-func (s *NSQSession) Publish(msg <-chan message) {
+func (s *NSQSession) Publish(msg <-chan Message) {
 	go func() {
 		for m := range msg {
 			err := s.producer.Publish(s.topic, []byte(m))
 			if err != nil {
-				log.Println("publish error: %s", m.String())
+				log.Printf("publish error: %s\n", m.String())
 			}
 		}
 	}()
@@ -80,7 +81,7 @@ func (s *NSQSession) addHanler() {
 }
 
 // Consume 用于收消息
-func (s *NSQSession) Consume() <-chan message {
+func (s *NSQSession) Consume() <-chan Message {
 	return s.receive
 }
 

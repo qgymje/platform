@@ -1,4 +1,4 @@
-package broadcasts2
+package broadcasts
 
 import (
 	"bytes"
@@ -29,20 +29,22 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
+// Client represent a broadcast client
 type Client struct {
 	conn     *websocket.Conn
-	send     chan message
+	send     chan Message
 	producer *NSQSession
 	consumer *NSQSession
 }
 
+// NewClient create a new client
 func NewClient(conn *websocket.Conn, nsqlookupdAddr, nsqdAddr, topic, channel string) *Client {
 	producer := NewNSQSession(nsqlookupdAddr, nsqdAddr, topic, channel)
 	consumer := NewNSQSession(nsqlookupdAddr, nsqdAddr, topic, channel)
 
 	return &Client{
 		conn:     conn,
-		send:     make(chan message, 256),
+		send:     make(chan Message, 256),
 		producer: producer,
 		consumer: consumer,
 	}
@@ -118,6 +120,7 @@ func (c *Client) writePump() {
 	}
 }
 
+// ServeWS upgrade websocket
 func ServeWS(c *gin.Context) {
 	upgrader.CheckOrigin = func(r *http.Request) bool {
 		// 正式环境下需根据配置文件读取url来做判断

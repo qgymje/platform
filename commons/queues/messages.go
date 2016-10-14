@@ -29,18 +29,17 @@ type MessageUserLogin struct {
 
 // MessageBroadcastStart  nsq message for host start to broadcast
 type MessageBroadcastStart struct {
-	RoomID    string    `json:"room_id"`
-	StartTime time.Time `json:"start_time"`
+	RoomID      string    `json:"room_id"`
+	BroadcastID string    `json:"broadcast_id"`
+	StartTime   time.Time `json:"start_time"`
 }
 
 // MessageBroadcastEnd  nsq message for host end broadcast
 type MessageBroadcastEnd struct {
-	RoomID  string    `json:"room_id"`
-	EndTime time.Time `json:"end_time"`
+	RoomID      string    `json:"room_id"`
+	BroadcastID string    `json:"broadcast_id"`
+	EndTime     time.Time `json:"end_time"`
 }
-
-// BroadcastMessageType message type, like Gift Vote Coupon
-type BroadcastMessageType int
 
 // MessageBarrage  nsq message for barrage
 type MessageBarrage struct {

@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"platform/broadcast_room/rpc/models"
-	"platform/broadcast_room/rpc/services/room"
+	"platform/broadcast_room/rpc/services"
 	pb "platform/commons/protos/room"
 	"platform/utils"
 
@@ -48,6 +48,6 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterRoomServer(s, &rooms.RoomServer{})
+	pb.RegisterRoomServer(s, &services.Server{})
 	s.Serve(lis)
 }

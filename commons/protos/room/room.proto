@@ -3,31 +3,44 @@ syntax="proto3";
 package room;
 
 service Room {
-    rpc Create( RoomRequest ) returns ( RoomResponse ){}
-    rpc Start( User ) returns ( Status ){}
-    rpc End ( User ) returns ( EndResponse ){}
+    rpc Create(CreateRequest) returns (Status){}
+    rpc List(ListRequest) returns(Rooms){}
+    rpc Start(User) returns (BroadcastInfo){}
+    rpc End (User) returns (BroadcastInfo){}
+    rpc CurrentAudienceNum(Broadcast) returns (Num) {}
 }
 
-message EndResponse {
-    int64 broadcastingDuration = 1;
-    int64 audienceNum = 2;
+message Broadcast {
+    string ID = 1;
 }
 
-message RoomRequest {
+message Num {
+    string BroadcastID = 1;
+    uint32 Num = 2;
+}
+
+message CreateRequest {
     string userID = 1;
-    string name = 2;
-    string channel = 3;
-    string subChannel = 4;
-    string cover = 5;
+    string userName = 2;
+    string name = 3;
+    string cover = 4;
 }
 
+message ListRequest {
+    int32 num = 1;
+    int32 size = 2;
+    string search = 3;
+}
 
-message RoomResponse {
+message RoomInfo {
     string roomID = 1;
     string name = 2;
-    string channel = 3;
-    string subChannel = 4;
-    string cover = 5;
+    string cover = 3;
+}
+
+message Rooms {
+    repeated RoomInfo rooms = 1;
+    int64 totalNum = 2;
 }
 
 message User {
@@ -37,4 +50,12 @@ message User {
 message Status {
     string roomID = 1;
     bool success = 2;
+}
+
+message BroadcastInfo {
+    string broadcastID = 1;
+    string name = 2;
+    string startTime = 3;
+    int64 totalAudience = 4;
+    int64 duration = 5;
 }

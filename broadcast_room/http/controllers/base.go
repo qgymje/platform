@@ -72,7 +72,6 @@ func (b *Base) getRoomRPCAddress() string {
 }
 
 func (b *Base) getUserRPCAddress() string {
-	// TODO: how to get rpc services address???????
 	return "localhost:4000"
 }
 
@@ -91,4 +90,28 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return "", codes.ErrorCodeInvalidToken
 	}
 	return authHeaderParts[1], codes.ErrorCodeSuccess
+}
+
+func (b *Base) getName(c *gin.Context) string {
+	return c.PostForm("name")
+}
+
+func (b *Base) getChannel(c *gin.Context) string {
+	return c.PostForm("channel")
+}
+
+func (b *Base) getSubChannel(c *gin.Context) string {
+	return c.PostForm("sub_channel")
+}
+
+func (b *Base) getCover(c *gin.Context) string {
+	return c.PostForm("cover")
+}
+
+func (b *Base) getAgreement(c *gin.Context) string {
+	return c.PostForm("agreement")
+}
+
+func (b *Base) getBarrage(c *gin.Context) string {
+	return c.PostForm("barrage")
 }

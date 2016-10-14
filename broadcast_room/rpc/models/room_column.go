@@ -1,31 +1,31 @@
 package models
 
-type BroadcastRoomColumn struct {
-	Channel     string
-	SubChannel  string
-	Cover       string
-	CreatedAt   string
-	ID          string
-	IsPlaying   string
-	Name        string
-	Orientation string
-	Score       string
-	UpdatedAt   string
-	UserID      string
+type _RoomColumn struct {
+	Cover     string
+	CreatedAt string
+	DeletedAt string
+	FollowNum string
+	IsPlaying string
+	Name      string
+	RoomID    string
+	UpdatedAt string
+	UserID    string
+	UserName  string
 }
 
-var BroadcastRoomColumns BroadcastRoomColumn
+// RoomColumns room columns name
+var RoomColumns _RoomColumn
 
 func init() {
-	BroadcastRoomColumns.Channel = "channel"
-	BroadcastRoomColumns.SubChannel = "subChannel"
-	BroadcastRoomColumns.Cover = "cover"
-	BroadcastRoomColumns.CreatedAt = "createdAt"
-	BroadcastRoomColumns.ID = "_id"
-	BroadcastRoomColumns.IsPlaying = "isPlaying"
-	BroadcastRoomColumns.Name = "name"
-	BroadcastRoomColumns.Orientation = "orientation"
-	BroadcastRoomColumns.Score = "score"
-	BroadcastRoomColumns.UpdatedAt = "updatedAt"
-	BroadcastRoomColumns.UserID = "userID"
+	RoomColumns.Cover = "cover"
+	RoomColumns.CreatedAt = "created_at"
+	RoomColumns.DeletedAt = "deleted_at"
+	RoomColumns.FollowNum = "follow_num"
+	RoomColumns.IsPlaying = "is_playing"
+	RoomColumns.Name = "name"
+	RoomColumns.RoomID = "_id"
+	RoomColumns.UpdatedAt = "updated_at"
+	RoomColumns.UserID = "user_id"
+	RoomColumns.UserName = "user_name"
+
 }
