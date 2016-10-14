@@ -9,11 +9,13 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Room room grpc client
 type Room struct {
 	conn   *grpc.ClientConn
 	client pb.RoomClient
 }
 
+// NewRoom create a new grpc room client
 func NewRoom(address string) *Room {
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
@@ -27,24 +29,32 @@ func NewRoom(address string) *Room {
 	return r
 }
 
+// Close close grpc client
 func (r *Room) Close() error {
 	return r.conn.Close()
 }
 
+// Create create a room
+func (r *Room) Create(in *pb.CreateRequest) (*pb.Status, error) {
+	defer r.Close()
+	return r.client.Create(context.Background(), in)
+}
+
+// Start broadcast
 func (r *Room) Start(in *pb.User) (*pb.Status, error) {
 	defer r.Close()
 	rpb, err := r.client.Start(context.Background(), in)
 	return rpb, err
 }
 
-func (r *Room) Create(in *pb.RoomRequest) (*pb.RoomResponse, error) {
-	defer r.Close()
-	rpb, err := r.client.Create(context.Background(), in)
-	return rpb, err
-}
-
+// End end broadcast
 func (r *Room) End(in *pb.User) (*pb.EndResponse, error) {
 	defer r.Close()
-	rpb, err := r.client.End(context.Background(), in)
-	return rpb, err
+	return r.client.End(context.Background(), in)
+}
+
+// CurrentAudienceNum current audience number
+func (r *Room) CurrentAudienceNum(in *pb.Broadcast) (*pb.Num, error) {
+	defer r.Close()
+	return r.client.CurrentAudienceNum(context.Background(), in)
 }

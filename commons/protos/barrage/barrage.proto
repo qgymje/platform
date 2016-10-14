@@ -1,0 +1,28 @@
+syntax="proto3";
+
+package barrage;
+
+service Barrage{
+    rpc Send(Content) returns (Status) {}
+    rpc RecentList(Broadcast) returns (Barrages) {}
+}
+
+
+message Broadcast{
+    string ID = 1;
+}
+
+message Content{
+    string userID = 1;
+    string nickname= 2;
+    string text = 3;
+    int64 pubTime = 4;
+}
+
+message Barrages {
+    repeated Content list = 1;
+}
+
+message Status {
+    bool success = 1;
+}

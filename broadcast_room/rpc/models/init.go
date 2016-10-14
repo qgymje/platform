@@ -1,7 +1,12 @@
 // Package models  data access  layer
 package models
 
-import mgo "gopkg.in/mgo.v2"
+import (
+	"platform/utils"
+
+	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+)
 
 var mongoSession *mgo.Session
 
@@ -9,26 +14,54 @@ var mongoSession *mgo.Session
 var ErrNotFound = mgo.ErrNotFound
 
 // DBName db name
-const DBName = "broadcastRoom"
-
-// ColIDs collection name
-const ColIDs = "ids"
+const DBName = "broadcast_room"
 
 // ColNameRoom collection name
-const ColNameRoom = "room"
+const ColNameRoom = "rooms"
 
-// ColNameRoomAuth collection name
-const ColNameRoomAuth = "roomAuth"
+// ColNameBroadcast collection name
+const ColNameBroadcast = "broadcasts"
 
-// ColNameRoomStatistices collection name
-const ColNameRoomStatistices = "roomStatistics"
+// ColNameAudience audience collection name
+const ColNameAudience = "audiences"
+
+func ensureIndex() {
+	c := mongoSession.DB(DBName).C(ColNameRoom)
+	index := mgo.Index{
+		Key: []string{"$text:" + RoomColumns.Name, "$text:" + RoomColumns.UserName},
+	}
+	err := c.EnsureIndex(index)
+	if err != nil {
+		utils.GetLog().Error("endureIndex error: %v", err)
+	}
+}
 
 // InitMongodb init mongodb
 func InitMongodb(sess *mgo.Session) {
 	mongoSession = sess
+	ensureIndex()
 }
 
 // GetMongo generate  a session copy
 func GetMongo() *mgo.Session {
 	return mongoSession.Copy()
+}
+
+// StringToObjectID string to bson objectId
+func StringToObjectID(id string) (bson.ObjectId, error) {
+	if !bson.IsObjectIdHex(string(id)) {
+		return bson.ObjectId(""), ErrObjectID
+	}
+	return bson.ObjectIdHex(id), nil
+}
+
+func stringsToObjectIDs(ids []string) ([]bson.ObjectId, error) {
+	IDHexs := []bson.ObjectId{}
+	for _, id := range ids {
+		if !bson.IsObjectIdHex(string(id)) {
+			return nil, ErrObjectID
+		}
+		IDHexs = append(IDHexs, bson.ObjectIdHex(string(id)))
+	}
+	return IDHexs, nil
 }

@@ -50,8 +50,12 @@ func init() {
 		ErrorCodeBroadcastRoomUpdate:      "broadcast room update failed",
 		ErrorCodeInvalidBroadcastringUser: "invalid broadcasting user",
 		ErrorCodeAgreement:                "agreement false",
-		ErrorCodeRoomAlreadyCreated:       "broadcast room already created",
-		ErrorCodeRoomCreate:               "broadcast room create failed",
+
+		// room errors
+		ErrorCodeRoomAlreadyCreated: "room already created",
+		ErrorCodeRoomCreate:         "room create failed",
+		ErrorCodeRoomNotFound:       "room not found",
+		ErrorCodeRoomFinder:         "room finder error",
 
 		// game errors
 		ErrorCodeGameCreate:   "game create failed",

@@ -4,9 +4,9 @@
 
 name|desc|dev status
 ---|---|--- 
-types|[game type list](#types) | [NO]
-list|[available games list](#list)|[NO]
-search|[game search](#search)|[NO]
+types|[game type list](#types) | [YES]
+list|[available games list](#list)|[YES]
+search|[game search](#search)|[YES]
 start|[start a game](#start)|[NO]
 end|[end a game](#end)|[NO]
 preference|[get a preference of a game](#preference)|[NO]

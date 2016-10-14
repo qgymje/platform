@@ -34,7 +34,6 @@ func getPort() string {
 		return utils.GetConf().GetString("app.rpc_port")
 	}
 	return *port
-
 }
 
 func main() {
@@ -45,9 +44,11 @@ func main() {
 
 	bro := r.Group("/v1/live")
 	{
-		b := new(controllers.Broadcasting)
-		bro.GET("/join/:id", b.Join)
-		bro.GET("/leave/:id", b.Leave)
+		l := new(controllers.Live)
+		bro.POST("/start", l.Start)
+		bro.PUT("/end", l.End)
+		bro.POST("/join/:room_id", l.Join)
+		bro.POST("/leave/:room_id", l.Leave)
 	}
 
 	if err := r.Run(getPort()); err != nil {

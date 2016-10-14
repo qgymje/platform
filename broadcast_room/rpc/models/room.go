@@ -9,97 +9,76 @@ import (
 )
 
 var (
+	// ErrObjectID error object id
 	ErrObjectID = errors.New("not a valid objectID")
 )
 
-type BroadcastRoom struct {
-	ID          bson.ObjectId `bson:"_id"`
-	UserID      bson.ObjectId `json:"userID" bson:"userID"`           //用户ID
-	Name        string        `json:"name" bson:"name"`               //标题
-	Cover       string        `json:"cover" bson:"cover"`             //封面图片地址
-	Channel     string        `json:"channel" bson:"channel"`         //领域
-	SubChannel  string        `json:"subChannel" bson:"subChannel"`   // 子领域
-	IsPlaying   bool          `json:"isPlaying" bson:"isPlaying"`     //是否正在直播
-	Orientation int8          `json:"orientation" bson:"orientation"` //横竖屏 0 未设置 1 横屏 2 竖屏
-
-	CreatedAt time.Time `json:"createdAt" bson:"createdAt"` //创建时间
-	UpdatedAt time.Time `json:"updatedAt" bson:"updatedAt"` //更新时间
+// Room room model object
+//go:generate gen_columns -tag=bson -path=./room.go
+type Room struct {
+	RoomID    bson.ObjectId `bson:"_id"`
+	UserID    bson.ObjectId `bson:"user_id"`
+	UserName  string        `bson:"user_name"`
+	Name      string        `bson:"name"`
+	Cover     string        `bson:"cover"`
+	IsPlaying bool          `bson:"is_playing"`
+	FollowNum int64         `bson:"follow_num"`
+	CreatedAt time.Time     `bson:"created_at"`
+	UpdatedAt time.Time     `bson:"updated_at"`
+	DeletedAt time.Time     `bson:"deleted_at"`
 }
 
-func (r *BroadcastRoom) GetID() string {
-	return r.ID.Hex()
+// GetID get room id
+func (r *Room) GetID() string {
+	return r.RoomID.Hex()
 }
 
-func (r *BroadcastRoom) Create() error {
+// Create create a room
+func (r *Room) Create() error {
 	session := GetMongo()
 	defer session.Close()
 
-	r.ID = bson.NewObjectId()
+	r.RoomID = bson.NewObjectId()
 	r.CreatedAt = time.Now()
 
 	return session.DB(DBName).C(ColNameRoom).Insert(&r)
 }
 
-func (r *BroadcastRoom) update(m bson.M) error {
+func (r *Room) update(m bson.M) error {
 	session := GetMongo()
 	defer session.Close()
 
-	m[BroadcastRoomColumns.UpdatedAt] = time.Now()
+	m[RoomColumns.UpdatedAt] = time.Now()
 	change := bson.M{"$set": m}
-	return session.DB(DBName).C(ColNameRoom).Update(bson.M{BroadcastRoomColumns.ID: r.ID}, change)
+	return session.DB(DBName).C(ColNameRoom).Update(bson.M{RoomColumns.RoomID: r.RoomID}, change)
 }
 
-func (r *BroadcastRoom) playing(flag bool) error {
-	change := bson.M{BroadcastRoomColumns.IsPlaying: flag}
+func (r *Room) playing(flag bool) error {
+	change := bson.M{RoomColumns.IsPlaying: flag}
 	return r.update(change)
 }
 
-func (r *BroadcastRoom) Start() error {
+// StartPlaying update IsPlaying to true
+func (r *Room) StartPlaying() error {
 	return r.playing(true)
 }
 
-func (r *BroadcastRoom) End() error {
+// EndPlaying update IsPlaying to false
+func (r *Room) EndPlaying() error {
 	return r.playing(false)
 }
 
-func (r *BroadcastRoom) UpdateName(name string) error {
-	change := bson.M{BroadcastRoomColumns.Name: name}
+// Update udpate a room info
+func (r *Room) Update(name string, cover string) error {
+	change := bson.M{RoomColumns.Name: name, RoomColumns.Cover: cover}
 	return r.update(change)
 }
 
-func (r *BroadcastRoom) UpdateCover(cover string) error {
-	change := bson.M{BroadcastRoomColumns.Cover: cover}
-	return r.update(change)
-}
-
-func (r *BroadcastRoom) UpdateChannel(channel, subChannel string) error {
-	change := bson.M{BroadcastRoomColumns.Channel: channel, BroadcastRoomColumns.SubChannel: subChannel}
-	return r.update(change)
-}
-
-func StringToObjectID(id string) (bson.ObjectId, error) {
-	if !bson.IsObjectIdHex(string(id)) {
-		return bson.ObjectId(""), ErrObjectID
-	}
-	return bson.ObjectIdHex(id), nil
-}
-
-func StringToObjectIDs(ids []string) ([]bson.ObjectId, error) {
-	IDHexs := []bson.ObjectId{}
-	for _, id := range ids {
-		if !bson.IsObjectIdHex(string(id)) {
-			return nil, ErrObjectID
-		}
-		IDHexs = append(IDHexs, bson.ObjectIdHex(string(id)))
-	}
-	return IDHexs, nil
-}
-
-func findBroadcastRoom(m bson.M) (*BroadcastRoom, error) {
+func findRoom(m bson.M) (*Room, error) {
 	session := GetMongo()
 	defer session.Close()
 
-	var room BroadcastRoom
+	var room Room
 	err := session.DB(DBName).C(ColNameRoom).Find(m).One(&room)
 	if err != nil {
 		if err == mgo.ErrNotFound {
@@ -108,14 +87,13 @@ func findBroadcastRoom(m bson.M) (*BroadcastRoom, error) {
 		return nil, err
 	}
 	return &room, nil
-
 }
 
-func findBroadcastRooms(m bson.M) ([]*BroadcastRoom, error) {
+func findRooms(m bson.M) ([]*Room, error) {
 	session := GetMongo()
 	defer session.Close()
 
-	var rooms []*BroadcastRoom
+	var rooms []*Room
 	err := session.DB(DBName).C(ColNameRoom).Find(m).All(&rooms)
 	if err != nil {
 		if err == mgo.ErrNotFound {
@@ -126,10 +104,13 @@ func findBroadcastRooms(m bson.M) ([]*BroadcastRoom, error) {
 	return rooms, nil
 }
 
-func FindBroadcastRoomByUserID(userID string) (*BroadcastRoom, error) {
+// FindRoomByUserID find room by user_id
+func FindRoomByUserID(userID string) (*Room, error) {
 	if !bson.IsObjectIdHex(userID) {
 		return nil, ErrObjectID
+
 	}
-	m := bson.M{BroadcastRoomColumns.UserID: bson.ObjectIdHex(userID)}
-	return findBroadcastRoom(m)
+	m := bson.M{RoomColumns.UserID: bson.ObjectIdHex(userID)}
+	return findRoom(m)
+
 }

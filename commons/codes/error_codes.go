@@ -66,8 +66,12 @@ const (
 	ErrorCodeBroadcastRoomUpdate      ErrorCode = "BRO500102"
 	ErrorCodeInvalidBroadcastringUser ErrorCode = "BRO400202"
 	ErrorCodeAgreement                ErrorCode = "BRO400301"
-	ErrorCodeRoomAlreadyCreated       ErrorCode = "BRO400302"
-	ErrorCodeRoomCreate               ErrorCode = "BRO500303"
+
+	// Room errror
+	ErrorCodeRoomAlreadyCreated ErrorCode = "ROM400302"
+	ErrorCodeRoomCreate         ErrorCode = "ROM500303"
+	ErrorCodeRoomNotFound       ErrorCode = "ROM400101"
+	ErrorCodeRoomFinder         ErrorCode = "ROM400102"
 
 	// game errors
 	ErrorCodeGameCreate   ErrorCode = "GAM500101"
