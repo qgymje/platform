@@ -13,3 +13,13 @@ type RoomFollow struct {
 	UserID    bson.ObjectId `bson:"user_id"`
 	CreatedAt time.Time     `bson:"created_at"`
 }
+
+// Create create a room
+func (r *RoomFollow) Create() error {
+	session := GetMongo()
+	defer session.Close()
+
+	r.CreatedAt = time.Now()
+
+	return session.DB(DBName).C(ColNameRoom).Insert(&r)
+}

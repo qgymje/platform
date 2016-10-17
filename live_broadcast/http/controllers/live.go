@@ -1,7 +1,12 @@
 package controllers
 
 import (
+	"net/http"
+	"platform/commons/codes"
 	"platform/live_broadcast/http/services/broadcasts"
+
+	"platform/commons/grpc_clients/room"
+	pbroom "platform/commons/protos/room"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,23 +16,61 @@ type Live struct {
 	Base
 }
 
-// Start start to broadcast
-func (r *Live) Start(c *gin.Context) {
-	broadcasts.ServeWS(c)
+// Start create a broadcast
+func (l *Live) Start(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	l.userInfo, errorCode = l.validUserInfo(c)
+	if l.userInfo == nil {
+		respformat := l.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	roomClient := roomClient.NewRoom(l.getRoomRPCAddress())
+	userInfo := pbroom.User{UserID: l.userInfo.UserID}
+	reply, err := roomClient.Start(&userInfo)
+	if err != nil {
+		respformat := l.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := l.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
 }
 
-// End end broadcast
-func (r *Live) End(c *gin.Context) {
+// End  end a broadcast
+func (l *Live) End(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	l.userInfo, errorCode = l.validUserInfo(c)
+	if l.userInfo == nil {
+		respformat := l.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
 
+	roomClient := roomClient.NewRoom(l.getRoomRPCAddress())
+	userInfo := pbroom.User{UserID: l.userInfo.UserID}
+	reply, err := roomClient.End(&userInfo)
+	if err != nil {
+		respformat := l.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := l.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
 }
 
 // Join 表示一个用户进入了直播间
-func (r *Live) Join(c *gin.Context) {
+func (l *Live) Join(c *gin.Context) {
 	broadcasts.ServeWS(c)
 }
 
 // Leave leave live room
-func (r *Live) Leave(c *gin.Context) {
+func (l *Live) Leave(c *gin.Context) {
 	// stop ws
 	// remove consumer channel of room topic
 }

@@ -54,6 +54,7 @@ func init() {
 		// room errors
 		ErrorCodeRoomAlreadyCreated: "room already created",
 		ErrorCodeRoomCreate:         "room create failed",
+		ErrorCodeRoomUpdate:         "room update failed",
 		ErrorCodeRoomNotFound:       "room not found",
 		ErrorCodeRoomFinder:         "room finder error",
 

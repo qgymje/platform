@@ -40,21 +40,27 @@ func (r *Room) Create(in *pb.CreateRequest) (*pb.Status, error) {
 	return r.client.Create(context.Background(), in)
 }
 
+// List list the rooms
+func (r *Room) List(in *pb.ListRequest) (*pb.Rooms, error) {
+	defer r.Close()
+	return r.client.List(context.Background(), in)
+}
+
+// Info user's room info
+func (r *Room) Info(in *pb.User) (*pb.RoomInfo, error) {
+	defer r.Close()
+	return r.client.Info(context.Background(), in)
+}
+
 // Start broadcast
-func (r *Room) Start(in *pb.User) (*pb.Status, error) {
+func (r *Room) Start(in *pb.User) (*pb.BroadcastInfo, error) {
 	defer r.Close()
 	rpb, err := r.client.Start(context.Background(), in)
 	return rpb, err
 }
 
 // End end broadcast
-func (r *Room) End(in *pb.User) (*pb.EndResponse, error) {
+func (r *Room) End(in *pb.User) (*pb.BroadcastInfo, error) {
 	defer r.Close()
 	return r.client.End(context.Background(), in)
-}
-
-// CurrentAudienceNum current audience number
-func (r *Room) CurrentAudienceNum(in *pb.Broadcast) (*pb.Num, error) {
-	defer r.Close()
-	return r.client.CurrentAudienceNum(context.Background(), in)
 }

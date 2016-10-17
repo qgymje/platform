@@ -10,18 +10,39 @@ import (
 // RoomFinder is a room finder
 type RoomFinder struct {
 	skip, limit int
-	search      string
 	order       string
-
-	rooms []*Room
+	where       bson.M
+	rooms       []*Room
+	err         error
 }
 
 // NewRoomFinder create a new RoomFinder
 func NewRoomFinder() *RoomFinder {
 	f := new(RoomFinder)
+	f.where = bson.M{}
 	f.rooms = []*Room{}
 
 	return f
+}
+
+// RoomID find by room id
+func (r *RoomFinder) RoomID(roomID string) *RoomFinder {
+	var roomObjID bson.ObjectId
+	roomObjID, r.err = StringToObjectID(roomID)
+	if roomObjID != "" {
+		r.where[RoomColumns.RoomID] = roomObjID
+	}
+	return r
+}
+
+// UserID find by user id
+func (r *RoomFinder) UserID(userID string) *RoomFinder {
+	var userObjID bson.ObjectId
+	userObjID, r.err = StringToObjectID(userID)
+	if userObjID != "" {
+		r.where[RoomColumns.UserID] = userObjID
+	}
+	return r
 }
 
 // Limit limit
@@ -39,17 +60,10 @@ func (r *RoomFinder) Order(o string) *RoomFinder {
 
 // Search search
 func (r *RoomFinder) Search(search string) *RoomFinder {
-	r.search = search
-	return r
-}
-
-func (r *RoomFinder) condition() bson.M {
-	where := bson.M{}
-
-	if r.search != "" {
-		where["$text"] = bson.M{"$search": r.search}
+	if search != "" {
+		r.where["$text"] = bson.M{"$search": search}
 	}
-	return where
+	return r
 }
 
 // Do do the search job
@@ -57,7 +71,7 @@ func (r *RoomFinder) Do() (err error) {
 	session := GetMongo()
 	defer session.Close()
 
-	err = session.DB(DBName).C(ColNameRoom).Find(r.condition()).Skip(r.skip).Limit(r.limit).All(&r.rooms)
+	err = session.DB(DBName).C(ColNameRoom).Find(r.where).Skip(r.skip).Limit(r.limit).All(&r.rooms)
 	if err != nil {
 		if err == mgo.ErrNotFound {
 			return ErrNotFound
@@ -65,6 +79,11 @@ func (r *RoomFinder) Do() (err error) {
 		return err
 	}
 	return nil
+}
+
+// One get only one result
+func (r *RoomFinder) One() *Room {
+	return r.rooms[0]
 }
 
 // Result return the games that found
@@ -77,7 +96,7 @@ func (r *RoomFinder) Count() int64 {
 	session := GetMongo()
 	defer session.Close()
 
-	n, err := session.DB(DBName).C(ColNameRoom).Find(r.condition()).Count()
+	n, err := session.DB(DBName).C(ColNameRoom).Find(r.where).Count()
 	if err != nil {
 		return 0
 	}

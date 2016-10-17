@@ -6,16 +6,6 @@ import (
 	"platform/utils"
 )
 
-// Room  service level room info
-type Room struct {
-	RoomID    string
-	UserName  string
-	Name      string
-	Cover     string
-	IsPlaying bool
-	FollowNum int64
-}
-
 // Config for Rooms
 type Config struct {
 	PageNum  int
@@ -25,15 +15,17 @@ type Config struct {
 
 // Rooms rooms finder
 type Rooms struct {
+	config     *Config
 	roomFinder *models.RoomFinder
 
 	errorCode codes.ErrorCode
 }
 
 // NewRooms create a new Rooms object
-func NewRooms(config *Config) *Rooms {
+func NewRooms(c *Config) *Rooms {
 	r := new(Rooms)
-	r.roomFinder = models.NewRoomFinder().Limit(config.PageNum, config.PageSize).Search(config.Search)
+	r.config = c
+	r.roomFinder = models.NewRoomFinder().Limit(c.PageNum, c.PageSize).Search(c.Search)
 	return r
 }
 

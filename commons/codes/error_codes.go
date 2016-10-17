@@ -70,6 +70,7 @@ const (
 	// Room errror
 	ErrorCodeRoomAlreadyCreated ErrorCode = "ROM400302"
 	ErrorCodeRoomCreate         ErrorCode = "ROM500303"
+	ErrorCodeRoomUpdate         ErrorCode = "ROM500304"
 	ErrorCodeRoomNotFound       ErrorCode = "ROM400101"
 	ErrorCodeRoomFinder         ErrorCode = "ROM400102"
 

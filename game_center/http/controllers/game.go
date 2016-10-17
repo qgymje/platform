@@ -146,16 +146,16 @@ func (g *Game) List(c *gin.Context) {
 		Size:       int32(pageSize),
 		Search:     search,
 	}
-	gameLists, err := client.List(page)
+	gameList, err := client.List(page)
 	if err != nil {
 		respformat := g.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
 
-	totalPage := int(math.Floor(float64(gameLists.TotalNum) / float64(pageSize)))
+	totalPage := int(math.Floor(float64(gameList.TotalNum) / float64(pageSize)))
 	data := map[string]interface{}{
-		"list":      gameLists.Games,
+		"list":      gameList.Games,
 		"page":      pageNum,
 		"pageSize":  pageSize,
 		"totalPage": totalPage,

@@ -47,8 +47,8 @@ func main() {
 		l := new(controllers.Live)
 		bro.POST("/start", l.Start)
 		bro.PUT("/end", l.End)
-		bro.POST("/join/:room_id", l.Join)
-		bro.POST("/leave/:room_id", l.Leave)
+		bro.POST("/join", l.Join)
+		bro.POST("/leave", l.Leave)
 	}
 
 	if err := r.Run(getPort()); err != nil {
