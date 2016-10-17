@@ -3,9 +3,9 @@ package controllers
 import (
 	"net/http"
 	"platform/commons/codes"
-
 	pbroom "platform/commons/protos/room"
-	pbuser "platform/commons/protos/user"
+
+	"platform/commons/grpc_clients/room"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +13,6 @@ import (
 // Broadcast broadcasting
 type Broadcast struct {
 	Base
-	userInfo *pbuser.UserInfo
 }
 
 // Start create a broadcast
@@ -26,7 +25,7 @@ func (r *Broadcast) Start(c *gin.Context) {
 		return
 	}
 
-	roomClient := roomClient.NewBroadcast(r.getBroadcastRPCAddress())
+	roomClient := roomClient.NewRoom(r.getRoomRPCAddress())
 	userInfo := pbroom.User{UserID: r.userInfo.UserID}
 	reply, err := roomClient.Start(&userInfo)
 	if err != nil {
@@ -50,7 +49,7 @@ func (r *Broadcast) End(c *gin.Context) {
 		return
 	}
 
-	roomClient := roomClient.NewBroadcast(r.getBroadcastRPCAddress())
+	roomClient := roomClient.NewRoom(r.getRoomRPCAddress())
 	userInfo := pbroom.User{UserID: r.userInfo.UserID}
 	reply, err := roomClient.End(&userInfo)
 	if err != nil {

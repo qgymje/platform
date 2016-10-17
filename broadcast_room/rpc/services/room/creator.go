@@ -14,27 +14,31 @@ var (
 
 // CreatorConfig config of Creator
 type CreatorConfig struct {
-	UserID string
-	Name   string
-	Cover  string // already uploaded?
+	UserID   string
+	UserName string
+	Name     string
+	Cover    string // already uploaded?
 }
 
 // Creator create a room
 type Creator struct {
-	room   *models.Room
-	userID string
+	config    *CreatorConfig
+	roomModel *models.Room
+	userID    string
 
 	errorCode codes.ErrorCode
 }
 
 // NewCreator create a Creator object
-func NewCreator(config *CreatorConfig) *Creator {
+func NewCreator(c *CreatorConfig) *Creator {
 	return &Creator{
-		room: &models.Room{
-			Name:  config.Name,
-			Cover: config.Cover,
+		config: c,
+		roomModel: &models.Room{
+			UserName: c.UserName,
+			Name:     c.Name,
+			Cover:    c.Cover,
 		},
-		userID: config.UserID,
+		userID: c.UserID,
 	}
 }
 
@@ -51,25 +55,34 @@ func (c *Creator) Do() (err error) {
 		}
 	}()
 
+	foundRoom := false
 	if err = c.findRoomByUser(); err != nil {
 		c.errorCode = codes.ErrorCodeRoomAlreadyCreated
-		return
+		foundRoom = true
 	}
 
-	if err = c.save(); err != nil {
-		c.errorCode = codes.ErrorCodeRoomCreate
-		return
+	if foundRoom {
+		if err = c.update(); err != nil {
+			c.errorCode = codes.ErrorCodeRoomUpdate
+			return
+		}
+	} else {
+		if err = c.save(); err != nil {
+			c.errorCode = codes.ErrorCodeRoomCreate
+			return
+		}
 	}
+
 	return
 }
 
 // GetRoomID room id
 func (c *Creator) GetRoomID() string {
-	return c.room.GetID()
+	return c.roomModel.GetID()
 }
 
 func (c *Creator) findRoomByUser() (err error) {
-	_, err = models.FindRoomByUserID(c.userID)
+	c.roomModel, err = models.FindRoomByUserID(c.userID)
 	if err != models.ErrNotFound {
 		return ErrAlreadyCreated
 	}
@@ -77,12 +90,24 @@ func (c *Creator) findRoomByUser() (err error) {
 }
 
 func (c *Creator) save() (err error) {
-	c.room.UserID, err = models.StringToObjectID(c.userID)
+	c.roomModel.UserID, err = models.StringToObjectID(c.userID)
 	if err != nil {
 		return err
 	}
-	if err = c.room.Create(); err != nil {
+	if err = c.roomModel.Create(); err != nil {
 		return
 	}
 	return
+}
+
+func (c *Creator) update() (err error) {
+	c.roomModel.UserID, err = models.StringToObjectID(c.userID)
+	if err != nil {
+		return err
+	}
+	if err = c.roomModel.Update(c.config.Name, c.config.Cover); err != nil {
+		return
+	}
+	return
+
 }

@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"platform/utils"
 	"time"
 
 	mgo "gopkg.in/mgo.v2"
@@ -39,7 +40,9 @@ func (r *Room) Create() error {
 	defer session.Close()
 
 	r.RoomID = bson.NewObjectId()
+	r.FollowNum = int64(utils.RandomInt(1, 100))
 	r.CreatedAt = time.Now()
+	r.UpdatedAt = time.Now()
 
 	return session.DB(DBName).C(ColNameRoom).Insert(&r)
 }
@@ -74,43 +77,26 @@ func (r *Room) Update(name string, cover string) error {
 	return r.update(change)
 }
 
-func findRoom(m bson.M) (*Room, error) {
-	session := GetMongo()
-	defer session.Close()
-
-	var room Room
-	err := session.DB(DBName).C(ColNameRoom).Find(m).One(&room)
-	if err != nil {
-		if err == mgo.ErrNotFound {
-			return nil, ErrNotFound
-		}
-		return nil, err
-	}
-	return &room, nil
-}
-
-func findRooms(m bson.M) ([]*Room, error) {
-	session := GetMongo()
-	defer session.Close()
-
-	var rooms []*Room
-	err := session.DB(DBName).C(ColNameRoom).Find(m).All(&rooms)
-	if err != nil {
-		if err == mgo.ErrNotFound {
-			return nil, ErrNotFound
-		}
-		return nil, err
-	}
-	return rooms, nil
-}
-
 // FindRoomByUserID find room by user_id
 func FindRoomByUserID(userID string) (*Room, error) {
-	if !bson.IsObjectIdHex(userID) {
-		return nil, ErrObjectID
-
+	finder := NewRoomFinder().UserID(userID)
+	if err := finder.Do(); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil, ErrNotFound
+		}
+		return nil, err
 	}
-	m := bson.M{RoomColumns.UserID: bson.ObjectIdHex(userID)}
-	return findRoom(m)
+	return finder.One(), nil
+}
 
+// FindRoomByID find room by room_id
+func FindRoomByID(roomID string) (*Room, error) {
+	finder := NewRoomFinder().RoomID(roomID)
+	if err := finder.Do(); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil, ErrNotFound
+		}
+		return nil, err
+	}
+	return finder.One(), nil
 }

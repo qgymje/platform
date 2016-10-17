@@ -11,8 +11,8 @@
 name|desc|dev status
 ---|---|---
 /room/ | [room list](#room_list) | [NO]
+/room/info| [room info](#room_info) | [NO]
 /room/ | [create/update room](#create_room) | [NO]
-/room/:room_id | [room info](#room_info) | [NO]
 /room/follow | [room_follow](#room_follow) | [NO]
 /room/unfollow | [room_unfollow](#room_unfollow) | [NO]
 /live/start | [start to broadcast](#broadcast_start) | [NO]
@@ -29,7 +29,7 @@ name|desc|dev status
 
 URL: /room/
 
-AUTH: NO
+AUTH: YES
 
 METHOD: GET
 
@@ -48,11 +48,12 @@ RETURN:
   "data": {
       "list": [
             { 
-             "roomID":"57e2267ec86ab45af3d14806",
-             "name":"come on, baby",
-             "cover":"http://example.com/img/fabd12adfe0cdf.jpg"
+             "roomID": "58043dc4c86ab47026f6e04c",
+             "name": "hello world",
+             "userName": "hello world",
+             "cover": "http://oaa75dzf2.bkt.clouddn.com/hellscreen.jpg",
              "isPlaying": true,
-             "audience": 110
+             "followNum": 17
             }
         ],
        "page":1,
@@ -87,7 +88,40 @@ RETURN:
   "code": "200",
   "msg": "success",
   "data": {
-    "roomID": "57e2267ec86ab45af3d14806"
+    "success": true,
+    "roomID": "58043dc4c86ab47026f6e04c"
+  }
+}
+```
+---
+
+<div id="room_info"></div>
+
+## room info
+
+URL: /room/info
+
+AUTH: YES
+
+METHOD: GET
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+
+RETURN:
+```json
+{
+  "code": "200",
+  "msg": "success",
+  "data": {
+        "roomID": "58043d36c86ab46e7557177c",
+        "name": "hello world",
+        "userName": "hello world",
+        "cover": "http://oaa75dzf2.bkt.clouddn.com/hellscreen.jpg",
+        "isPlaying": true,
+        "followNum": 12
   }
 }
 ```

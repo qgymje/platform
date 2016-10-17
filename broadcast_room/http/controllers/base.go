@@ -2,20 +2,28 @@ package controllers
 
 import (
 	"log"
+	"math"
+	"strconv"
 	"strings"
 	"time"
 
 	"platform/commons/codes"
 	"platform/utils"
 
+	"platform/commons/grpc_clients/user"
+	pbuser "platform/commons/protos/user"
+
 	"github.com/gin-gonic/gin"
 )
 
-const headerTokenKey = "Authorization"
+const (
+	headerTokenKey  = "Authorization"
+	defaultPageSize = 20
+)
 
 // Base controller do common things
 type Base struct {
-	roomRPCAddress string
+	userInfo *pbuser.UserInfo
 }
 
 // ResponseFormat  response format object
@@ -59,22 +67,6 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 		"timestamp": time.Now(),
 	}
 }
-
-func (b *Base) getRoomRPCAddress() string {
-	if b.roomRPCAddress != "" {
-		return b.roomRPCAddress
-	}
-
-	host := utils.GetConf().GetString("app.rpc_host")
-	port := utils.GetConf().GetString("app.rpc_port")
-	b.roomRPCAddress = host + port
-	return b.roomRPCAddress
-}
-
-func (b *Base) getUserRPCAddress() string {
-	return "localhost:4000"
-}
-
 func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 	if c.Param("token") != "" {
 		return c.Param("token"), codes.ErrorCodeSuccess
@@ -90,6 +82,39 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return "", codes.ErrorCodeInvalidToken
 	}
 	return authHeaderParts[1], codes.ErrorCodeSuccess
+}
+
+func (b *Base) validUserInfo(c *gin.Context) (*pbuser.UserInfo, codes.ErrorCode) {
+	token, errorCode := b.getToken(c)
+	if errorCode != codes.ErrorCodeSuccess {
+		return nil, errorCode
+	}
+	pbToken := pbuser.Token{Token: token}
+	auth := userClient.NewUser(b.getUserRPCAddress())
+
+	var err error
+	var userInfo *pbuser.UserInfo
+	if userInfo, err = auth.Auth(&pbToken); err != nil {
+		return nil, rpcErrorFormat(err.Error())
+	}
+	return userInfo, codes.ErrorCodeSuccess
+}
+
+func (b *Base) getPageNum(c *gin.Context) (page int) {
+	page, _ = strconv.Atoi(c.Query("page"))
+	return int(math.Max(float64(page-1), 0.0))
+}
+
+func (b *Base) getPageSize(c *gin.Context) (num int) {
+	num, err := strconv.Atoi(c.Query("page_size"))
+	if err != nil {
+		num = defaultPageSize
+	}
+	return
+}
+
+func (b *Base) getSearch(c *gin.Context) string {
+	return c.Query("search")
 }
 
 func (b *Base) getName(c *gin.Context) string {
@@ -114,4 +139,12 @@ func (b *Base) getAgreement(c *gin.Context) string {
 
 func (b *Base) getBarrage(c *gin.Context) string {
 	return c.PostForm("barrage")
+}
+
+func (b *Base) getRoomRPCAddress() string {
+	return "localhost:4001"
+}
+
+func (b *Base) getUserRPCAddress() string {
+	return "localhost:4000"
 }

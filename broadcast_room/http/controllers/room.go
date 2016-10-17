@@ -1,14 +1,12 @@
 package controllers
 
 import (
+	"math"
 	"net/http"
 
 	"platform/commons/codes"
-	pbroom "platform/commons/protos/room"
-	pbuser "platform/commons/protos/user"
-
 	"platform/commons/grpc_clients/room"
-	"platform/commons/grpc_clients/user"
+	pbroom "platform/commons/protos/room"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,23 +14,6 @@ import (
 // Room room controller
 type Room struct {
 	Base
-	userInfo *pbuser.UserInfo
-}
-
-func (r *Room) validUserInfo(c *gin.Context) (*pbuser.UserInfo, codes.ErrorCode) {
-	token, errorCode := r.getToken(c)
-	if errorCode != codes.ErrorCodeSuccess {
-		return nil, errorCode
-	}
-	pbToken := pbuser.Token{Token: token}
-	auth := userClient.NewUser(r.getUserRPCAddress())
-
-	var err error
-	var userInfo *pbuser.UserInfo
-	if userInfo, err = auth.Auth(&pbToken); err != nil {
-		return nil, rpcErrorFormat(err.Error())
-	}
-	return userInfo, codes.ErrorCodeSuccess
 }
 
 // Create create a broadcast room
@@ -45,15 +26,14 @@ func (r *Room) Create(c *gin.Context) {
 		return
 	}
 
-	roomClient := roomClient.NewRoom(r.getRoomRPCAddress())
-	roomRequest := &pbroom.RoomRequest{
-		UserID:     r.userInfo.UserID,
-		Name:       r.getName(c),
-		Channel:    r.getChannel(c),
-		SubChannel: r.getSubChannel(c),
-		Cover:      r.getCover(c),
+	rc := roomClient.NewRoom(r.getRoomRPCAddress())
+	roomRequest := &pbroom.CreateRequest{
+		UserID:   r.userInfo.UserID,
+		UserName: r.userInfo.Nickname,
+		Name:     r.getName(c),
+		Cover:    r.getCover(c),
 	}
-	reply, err := roomClient.Create(roomRequest)
+	reply, err := rc.Create(roomRequest)
 	if err != nil {
 		respformat := r.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
@@ -67,10 +47,68 @@ func (r *Room) Create(c *gin.Context) {
 
 // List list the rooms
 func (r *Room) List(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	r.userInfo, errorCode = r.validUserInfo(c)
+	if r.userInfo == nil {
+		respformat := r.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
 
+	pageNum := r.getPageNum(c)
+	pageSize := r.getPageSize(c)
+
+	rc := roomClient.NewRoom(r.getRoomRPCAddress())
+	listRequest := &pbroom.ListRequest{
+		Num:    int32(pageNum),
+		Size:   int32(pageSize),
+		Search: r.getSearch(c),
+	}
+
+	roomList, err := rc.List(listRequest)
+	if err != nil {
+		respformat := r.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	totalPage := int(math.Floor(float64(roomList.TotalNum) / float64(pageSize)))
+	data := map[string]interface{}{
+		"list":      roomList.Rooms,
+		"page":      pageNum,
+		"pageSize":  pageSize,
+		"totalPage": totalPage,
+	}
+
+	respformat := r.Response(c, codes.ErrorCodeSuccess, data)
+	c.JSON(http.StatusOK, respformat)
+	return
 }
 
-// Update update a room info
-func (r *Room) Update(c *gin.Context) {
+// Show show user's room info
+func (r *Room) Show(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	r.userInfo, errorCode = r.validUserInfo(c)
+	if r.userInfo == nil {
+		respformat := r.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	rc := roomClient.NewRoom(r.getRoomRPCAddress())
+	info, err := rc.Info(&pbroom.User{UserID: r.userInfo.UserID})
+	if err != nil {
+		respformat := r.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := r.Response(c, codes.ErrorCodeSuccess, info)
+	c.JSON(http.StatusOK, respformat)
+	return
+}
+
+// Follow follow the room
+func (r *Room) Follow(c *gin.Context) {
 
 }
