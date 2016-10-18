@@ -95,7 +95,13 @@ func (s *Server) Info(ctx context.Context, in *pb.UserRoom) (*pb.RoomInfo, error
 	}()
 
 	r := rooms.NewRoom()
-	info, err := r.GetByUserID(in.UserID)
+	var info *rooms.Room
+
+	if in.RoomID != "" {
+		info, err = r.GetByID(in.RoomID)
+	} else {
+		info, err = r.GetByUserID(in.UserID)
+	}
 	if err != nil {
 		return nil, errors.New(r.ErrorCode().String())
 	}
@@ -167,7 +173,7 @@ func (s *Server) Follow(ctx context.Context, in *pb.UserRoom) (*pb.Status, error
 
 	config := &rooms.FollowConfig{
 		UserID: in.UserID,
-		RoomID: in.UserID,
+		RoomID: in.RoomID,
 	}
 	follow := rooms.NewFollow(config)
 	if err = follow.Do(); err != nil {
@@ -187,7 +193,7 @@ func (s *Server) Unfollow(ctx context.Context, in *pb.UserRoom) (*pb.Status, err
 
 	config := &rooms.FollowConfig{
 		UserID: in.UserID,
-		RoomID: in.UserID,
+		RoomID: in.RoomID,
 	}
 	follow := rooms.NewFollow(config)
 	if err = follow.Undo(); err != nil {

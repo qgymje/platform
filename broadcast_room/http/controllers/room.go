@@ -85,8 +85,8 @@ func (r *Room) List(c *gin.Context) {
 	return
 }
 
-// Show show user's room info
-func (r *Room) Show(c *gin.Context) {
+// Info show user's room info
+func (r *Room) Info(c *gin.Context) {
 	var errorCode codes.ErrorCode
 	r.userInfo, errorCode = r.validUserInfo(c)
 	if r.userInfo == nil {
@@ -137,7 +137,6 @@ func (r *Room) Follow(c *gin.Context) {
 	respformat := r.Response(c, codes.ErrorCodeSuccess, reply)
 	c.JSON(http.StatusOK, respformat)
 	return
-
 }
 
 // Unfollow unfollow the room

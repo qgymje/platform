@@ -41,6 +41,20 @@ func (b *Broadcast) update(m bson.M) error {
 	return session.DB(DBName).C(ColNameBroadcast).Update(bson.M{BroadcastColumns.BroadcastID: b.BroadcastID}, change)
 }
 
+// AddAudience add total audience number
+func (b *Broadcast) AddAudience(n int) error {
+	session := GetMongo()
+	defer session.Close()
+
+	change := mgo.Change{
+		Update:    bson.M{"$inc": bson.M{BroadcastColumns.TotalAudience: n}},
+		ReturnNew: true,
+	}
+	_, err := session.DB(DBName).C(ColNameRoom).Find(bson.M{BroadcastColumns.BroadcastID: b.BroadcastID}).Apply(change, &b)
+	return err
+
+}
+
 // End end the broadcast
 func (b *Broadcast) End() error {
 	m := bson.M{BroadcastColumns.EndTime: time.Now()}

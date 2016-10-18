@@ -40,6 +40,18 @@ func modelRoomToSrvRoom(r *models.Room) *Room {
 	return srvRoom
 }
 
+// GetByID get by room id
+func (r *Room) GetByID(roomID string) (*Room, error) {
+	mRoom, err := models.FindRoomByID(roomID)
+	if err != nil {
+		r.errorCode = codes.ErrorCodeRoomNotFound
+		return nil, err
+	}
+	srvRoom := modelRoomToSrvRoom(mRoom)
+	return srvRoom, nil
+
+}
+
 // GetByUserID room by  user_id
 func (r *Room) GetByUserID(userID string) (*Room, error) {
 	mRoom, err := models.FindRoomByUserID(userID)

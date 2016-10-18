@@ -26,6 +26,9 @@ func (r *RoomFollow) Follow() error {
 	change := bson.M{"$set": m}
 
 	_, err := session.DB(DBName).C(ColNameRoomFollow).Upsert(bson.M{RoomFollowColumns.UserID: r.UserID, RoomFollowColumns.RoomID: r.RoomID}, change)
+
+	room := &Room{RoomID: r.RoomID}
+	room.AddFollowNum(1)
 	return err
 }
 
@@ -38,5 +41,8 @@ func (r *RoomFollow) Unfollow() error {
 	m[RoomFollowColumns.DeletedAt] = time.Now()
 	change := bson.M{"$set": m}
 	_, err := session.DB(DBName).C(ColNameRoomFollow).Upsert(bson.M{RoomFollowColumns.UserID: r.UserID, RoomFollowColumns.RoomID: r.RoomID}, change)
+
+	room := &Room{RoomID: r.RoomID}
+	room.AddFollowNum(-1)
 	return err
 }
