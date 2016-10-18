@@ -62,8 +62,10 @@ const (
 	ErrorCodeUserFinder    ErrorCode = "USL400102"
 
 	// broadcasting 系列错误
+	ErrorCodeBroadcastTooShort        ErrorCode = "BRO200101"
 	ErrorCodeBroadcastNotify          ErrorCode = "BRO500101"
-	ErrorCodeBroadcastRoomUpdate      ErrorCode = "BRO500102"
+	ErrorCodeBroadcastUpdate          ErrorCode = "BRO500102"
+	ErrorCodeBroadcastCreate          ErrorCode = "BRO500103"
 	ErrorCodeInvalidBroadcastringUser ErrorCode = "BRO400202"
 	ErrorCodeAgreement                ErrorCode = "BRO400301"
 
@@ -73,6 +75,9 @@ const (
 	ErrorCodeRoomUpdate         ErrorCode = "ROM500304"
 	ErrorCodeRoomNotFound       ErrorCode = "ROM400101"
 	ErrorCodeRoomFinder         ErrorCode = "ROM400102"
+
+	ErrorCodeFollow   ErrorCode = "ROM500401"
+	ErrorCodeUnfollow ErrorCode = "ROM500402"
 
 	// game errors
 	ErrorCodeGameCreate   ErrorCode = "GAM500101"

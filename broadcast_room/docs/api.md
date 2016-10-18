@@ -1,20 +1,29 @@
 # room API list
 
 ## release notes
-1. v1.0.0 
+1. v0.0.1 
     1. 2016.10.13
     2. mock api data
+
+1. v0.0.2 
+    1. 2016.10.18
+    2. add types API
+
+1. v0.0.3 
+    1. 2016.10.18
+    2. add fullow/unfollw APIs
 
 
 ## list
 
 name|desc|dev status
 ---|---|---
-/room/ | [room list](#room_list) | [NO]
-/room/info| [room info](#room_info) | [NO]
-/room/ | [create/update room](#create_room) | [NO]
-/room/follow | [room_follow](#room_follow) | [NO]
-/room/unfollow | [room_unfollow](#room_unfollow) | [NO]
+/room/ | [room list](#room_list) | [YES]
+/room/types | [room types](#room_types) | [YES]
+/room/info| [room info](#room_info) | [YES]
+/room/ | [create/update room](#create_room) | [YES]
+/room/follow | [room_follow](#room_follow) | [YES]
+/room/unfollow | [room_unfollow](#room_unfollow) | [YES]
 /live/start | [start to broadcast](#broadcast_start) | [NO]
 /live/end | [end broadcast](#broadcast_end) | [NO]
 /live/enter | [enter a room](#broadcast_enter) | [NO]
@@ -127,4 +136,109 @@ RETURN:
 ```
 ---
 
+<div id="room_types"></div>
 
+## room types
+
+URL: /room/types
+
+AUTH: YES
+
+METHOD: GET
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "name": "英雄联盟"
+      },
+      {
+        "id": 2,
+        "name": "守望先锋"
+      },
+      {
+        "id": 3,
+        "name": "炉石传说"
+      },
+      {
+        "id": 4,
+        "name": "DOTA2"
+      },
+      {
+        "id": 5,
+        "name": "魔兽世界"
+      }
+    ]
+  },
+  "msg": "success"
+}
+```
+---
+
+<div id="follow"></div>
+
+## follow
+
+URL: /room/follow
+
+AUTH: YES
+
+METHOD: POST
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+room_id | string | yes | room id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true,
+    "roomID": "58043d36c86ab46e7557177c"
+  },
+  "msg": "success"
+}
+```
+---
+
+
+<div id="unfollow"></div>
+
+## unfollow
+
+URL: /room/unfollow
+
+AUTH: YES
+
+METHOD: POST
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+room_id | string | yes | room id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true,
+    "roomID": "58043d36c86ab46e7557177c"
+  },
+  "msg": "success"
+}
+```
+---

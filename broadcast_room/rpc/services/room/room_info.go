@@ -7,12 +7,13 @@ import (
 
 // Room  service level room info
 type Room struct {
-	RoomID    string
-	UserName  string
-	Name      string
-	Cover     string
-	IsPlaying bool
-	FollowNum int64
+	RoomID      string
+	UserName    string
+	Name        string
+	Cover       string
+	IsPlaying   bool
+	FollowNum   int64
+	AudienceNum int64
 
 	errorCode codes.ErrorCode
 }

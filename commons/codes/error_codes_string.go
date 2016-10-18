@@ -46,9 +46,11 @@ func init() {
 		ErrorCodeUserFinder:    "user finder error",
 
 		// broadcasting  errors
-		ErrorCodeBroadcastNotify:          "broadcasting notify failed",
-		ErrorCodeBroadcastRoomUpdate:      "broadcast room update failed",
-		ErrorCodeInvalidBroadcastringUser: "invalid broadcasting user",
+		ErrorCodeBroadcastTooShort:        "broadcast too short",
+		ErrorCodeBroadcastNotify:          "broadcast notify failed",
+		ErrorCodeBroadcastUpdate:          "broadcast update failed",
+		ErrorCodeBroadcastCreate:          "broadcast create failed",
+		ErrorCodeInvalidBroadcastringUser: "invalid broadcast user",
 		ErrorCodeAgreement:                "agreement false",
 
 		// room errors
@@ -57,6 +59,9 @@ func init() {
 		ErrorCodeRoomUpdate:         "room update failed",
 		ErrorCodeRoomNotFound:       "room not found",
 		ErrorCodeRoomFinder:         "room finder error",
+
+		ErrorCodeFollow:   "follow room failed",
+		ErrorCodeUnfollow: "unfollow room failed",
 
 		// game errors
 		ErrorCodeGameCreate:   "game create failed",

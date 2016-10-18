@@ -5,7 +5,7 @@ package room;
 service Room {
     rpc Create(CreateRequest) returns (Status){}
     rpc List(ListRequest) returns (Rooms){}
-    rpc Info(User) returns (RoomInfo){}
+    rpc Info(UserRoom) returns (RoomInfo){}
     rpc Start(User) returns (BroadcastInfo){}
     rpc End(User) returns (BroadcastInfo){}
     rpc Enter(UserRoom) returns  (Status) {}
@@ -43,6 +43,7 @@ message RoomInfo {
     string cover = 4;
     bool isPlaying = 5;
     int64 followNum = 6; 
+    int64 audienceNum = 7;
 }
 
 message Rooms {
@@ -68,8 +69,7 @@ message Status {
 
 message BroadcastInfo {
     string broadcastID = 1;
-    string name = 2;
-    string startTime = 3;
-    int64 totalAudience = 4;
-    int64 duration = 5;
+    string startTime = 2;
+    int64 audienceNum = 3;
+    int64 duration = 4;
 }

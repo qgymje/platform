@@ -53,9 +53,10 @@ func main() {
 		room := new(controllers.Room)
 		rr.GET("/", room.List)
 		rr.GET("/info", room.Show)
+		rr.GET("/types", room.Types)
 		rr.POST("/", room.Create)
 		rr.POST("/follow", room.Follow)
-		rr.POST("/unfollow", room.UnFollow)
+		rr.POST("/unfollow", room.Unfollow)
 	}
 
 	if err := r.Run(getPort()); err != nil {

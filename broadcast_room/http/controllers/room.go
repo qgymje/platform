@@ -94,9 +94,13 @@ func (r *Room) Show(c *gin.Context) {
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
-
+	roomID := r.getRoomID(c)
 	rc := roomClient.NewRoom(r.getRoomRPCAddress())
-	info, err := rc.Info(&pbroom.User{UserID: r.userInfo.UserID})
+	userRoom := &pbroom.UserRoom{
+		UserID: r.userInfo.UserID,
+		RoomID: roomID,
+	}
+	info, err := rc.Info(userRoom)
 	if err != nil {
 		respformat := r.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
@@ -110,5 +114,82 @@ func (r *Room) Show(c *gin.Context) {
 
 // Follow follow the room
 func (r *Room) Follow(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	r.userInfo, errorCode = r.validUserInfo(c)
+	if r.userInfo == nil {
+		respformat := r.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
 
+	rc := roomClient.NewRoom(r.getRoomRPCAddress())
+	userRoom := &pbroom.UserRoom{
+		UserID: r.userInfo.UserID,
+		RoomID: r.getRoomID(c),
+	}
+	reply, err := rc.Follow(userRoom)
+	if err != nil {
+		respformat := r.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := r.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
+
+}
+
+// Unfollow unfollow the room
+func (r *Room) Unfollow(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	r.userInfo, errorCode = r.validUserInfo(c)
+	if r.userInfo == nil {
+		respformat := r.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	rc := roomClient.NewRoom(r.getRoomRPCAddress())
+	userRoom := &pbroom.UserRoom{
+		UserID: r.userInfo.UserID,
+		RoomID: r.getRoomID(c),
+	}
+	reply, err := rc.Unfollow(userRoom)
+	if err != nil {
+		respformat := r.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := r.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
+}
+
+type roomType struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+var roomTypes []roomType
+
+func init() {
+	roomTypes = []roomType{
+		{1, "英雄联盟"},
+		{2, "守望先锋"},
+		{3, "炉石传说"},
+		{4, "DOTA2"},
+		{5, "魔兽世界"},
+	}
+}
+
+// Types game types
+func (r *Room) Types(c *gin.Context) {
+	data := map[string]interface{}{
+		"list": roomTypes,
+	}
+	respformat := r.Response(c, codes.ErrorCodeSuccess, data)
+	c.JSON(http.StatusOK, respformat)
+	return
 }

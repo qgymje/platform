@@ -113,6 +113,19 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
+func (b *Base) getRoomID(c *gin.Context) string {
+	key := "room_id"
+	roomid := c.PostForm(key)
+	if roomid == "" {
+		roomid = c.Param(key)
+	}
+	return roomid
+}
+
+func (b *Base) getBroadcastID(c *gin.Context) string {
+	return c.PostForm("broadcast_id")
+}
+
 func (b *Base) getSearch(c *gin.Context) string {
 	return c.Query("search")
 }

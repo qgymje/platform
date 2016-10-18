@@ -47,7 +47,7 @@ func (r *Room) List(in *pb.ListRequest) (*pb.Rooms, error) {
 }
 
 // Info user's room info
-func (r *Room) Info(in *pb.User) (*pb.RoomInfo, error) {
+func (r *Room) Info(in *pb.UserRoom) (*pb.RoomInfo, error) {
 	defer r.Close()
 	return r.client.Info(context.Background(), in)
 }
@@ -63,4 +63,16 @@ func (r *Room) Start(in *pb.User) (*pb.BroadcastInfo, error) {
 func (r *Room) End(in *pb.User) (*pb.BroadcastInfo, error) {
 	defer r.Close()
 	return r.client.End(context.Background(), in)
+}
+
+// Follow follow action
+func (r *Room) Follow(in *pb.UserRoom) (*pb.Status, error) {
+	defer r.Close()
+	return r.client.Follow(context.Background(), in)
+}
+
+// Unfollow unfollow action
+func (r *Room) Unfollow(in *pb.UserRoom) (*pb.Status, error) {
+	defer r.Close()
+	return r.client.Unfollow(context.Background(), in)
 }
