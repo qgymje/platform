@@ -7,12 +7,13 @@ import (
 
 // Room  service level room info
 type Room struct {
-	RoomID    string
-	UserName  string
-	Name      string
-	Cover     string
-	IsPlaying bool
-	FollowNum int64
+	RoomID      string
+	UserName    string
+	Name        string
+	Cover       string
+	IsPlaying   bool
+	FollowNum   int64
+	AudienceNum int64
 
 	errorCode codes.ErrorCode
 }
@@ -37,6 +38,18 @@ func modelRoomToSrvRoom(r *models.Room) *Room {
 		FollowNum: r.FollowNum,
 	}
 	return srvRoom
+}
+
+// GetByID get by room id
+func (r *Room) GetByID(roomID string) (*Room, error) {
+	mRoom, err := models.FindRoomByID(roomID)
+	if err != nil {
+		r.errorCode = codes.ErrorCodeRoomNotFound
+		return nil, err
+	}
+	srvRoom := modelRoomToSrvRoom(mRoom)
+	return srvRoom, nil
+
 }
 
 // GetByUserID room by  user_id

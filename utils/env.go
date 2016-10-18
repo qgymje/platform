@@ -1,7 +1,5 @@
 package utils
 
-import "os"
-
 type Env int
 
 const (
@@ -35,7 +33,6 @@ func SetEnv(k string) {
 
 	if !found {
 		panic("env mode error")
-		os.Exit(2)
 	}
 
 }

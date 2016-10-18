@@ -83,7 +83,10 @@ func (r *RoomFinder) Do() (err error) {
 
 // One get only one result
 func (r *RoomFinder) One() *Room {
-	return r.rooms[0]
+	if len(r.rooms) > 0 {
+		return r.rooms[0]
+	}
+	return nil
 }
 
 // Result return the games that found

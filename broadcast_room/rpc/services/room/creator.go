@@ -51,7 +51,7 @@ func (c *Creator) ErrorCode() codes.ErrorCode {
 func (c *Creator) Do() (err error) {
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("rooms.Creator.Do error: %_v", err)
+			utils.GetLog().Error("rooms.Creator.Do error: %+v", err)
 		}
 	}()
 

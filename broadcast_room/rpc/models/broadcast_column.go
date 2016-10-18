@@ -1,7 +1,7 @@
 package models
 
 type _BroadcastColumn struct {
-	BroadCastID   string
+	BroadcastID   string
 	EndTime       string
 	RoomID        string
 	StartTime     string
@@ -12,7 +12,7 @@ type _BroadcastColumn struct {
 var BroadcastColumns _BroadcastColumn
 
 func init() {
-	BroadcastColumns.BroadCastID = "_id"
+	BroadcastColumns.BroadcastID = "_id"
 	BroadcastColumns.EndTime = "end_time"
 	BroadcastColumns.RoomID = "room_id"
 	BroadcastColumns.StartTime = "start_time"

@@ -5,6 +5,7 @@ import (
 
 	"golang.org/x/net/context"
 
+	"platform/broadcast_room/rpc/services/broadcast"
 	"platform/broadcast_room/rpc/services/room"
 	pb "platform/commons/protos/room"
 	"platform/utils"
@@ -43,12 +44,13 @@ func (s *Server) Create(ctx context.Context, in *pb.CreateRequest) (*pb.Status, 
 
 func srvRoomToPbRoom(r *rooms.Room) *pb.RoomInfo {
 	return &pb.RoomInfo{
-		RoomID:    r.RoomID,
-		Name:      r.Name,
-		UserName:  r.UserName,
-		Cover:     r.Cover,
-		IsPlaying: r.IsPlaying,
-		FollowNum: r.FollowNum,
+		RoomID:      r.RoomID,
+		Name:        r.Name,
+		UserName:    r.UserName,
+		Cover:       r.Cover,
+		IsPlaying:   r.IsPlaying,
+		FollowNum:   r.FollowNum,
+		AudienceNum: r.AudienceNum,
 	}
 }
 
@@ -84,7 +86,7 @@ func (s *Server) List(ctx context.Context, in *pb.ListRequest) (*pb.Rooms, error
 }
 
 // Info user's room
-func (s *Server) Info(ctx context.Context, in *pb.User) (*pb.RoomInfo, error) {
+func (s *Server) Info(ctx context.Context, in *pb.UserRoom) (*pb.RoomInfo, error) {
 	var err error
 	defer func() {
 		if err != nil {
@@ -93,7 +95,13 @@ func (s *Server) Info(ctx context.Context, in *pb.User) (*pb.RoomInfo, error) {
 	}()
 
 	r := rooms.NewRoom()
-	info, err := r.GetByUserID(in.UserID)
+	var info *rooms.Room
+
+	if in.RoomID != "" {
+		info, err = r.GetByID(in.RoomID)
+	} else {
+		info, err = r.GetByUserID(in.UserID)
+	}
 	if err != nil {
 		return nil, errors.New(r.ErrorCode().String())
 	}
@@ -111,7 +119,7 @@ func (s *Server) Start(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, err
 		}
 	}()
 
-	b := rooms.NewStarter(in.UserID)
+	b := broadcasts.NewStarter(in.UserID)
 	if err := b.Do(); err != nil {
 		return nil, errors.New(b.ErrorCode().String())
 	}
@@ -125,7 +133,23 @@ func (s *Server) Start(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, err
 
 // End end broadcastring
 func (s *Server) End(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, error) {
-	return nil, errors.New("not_implement")
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("rpc.rooms.End error: %+v", err)
+		}
+	}()
+
+	b := broadcasts.NewEnder(in.UserID)
+	if err := b.Do(); err != nil {
+		return nil, errors.New(b.ErrorCode().String())
+	}
+
+	broadcastID, _ := b.GetBroadcastID()
+	info := pb.BroadcastInfo{
+		BroadcastID: broadcastID,
+	}
+	return &info, nil
 }
 
 // Enter when a user enter a broadcast
@@ -140,10 +164,40 @@ func (s *Server) Leave(ctx context.Context, in *pb.UserRoom) (*pb.Status, error)
 
 // Follow when a user follow a room
 func (s *Server) Follow(ctx context.Context, in *pb.UserRoom) (*pb.Status, error) {
-	return nil, nil
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("rpc.rooms.Follow error: %+v", err)
+		}
+	}()
+
+	config := &rooms.FollowConfig{
+		UserID: in.UserID,
+		RoomID: in.RoomID,
+	}
+	follow := rooms.NewFollow(config)
+	if err = follow.Do(); err != nil {
+		return nil, errors.New(follow.ErrorCode().String())
+	}
+	return &pb.Status{Success: true, RoomID: in.RoomID}, nil
 }
 
 // Unfollow when a user unfollow a room
 func (s *Server) Unfollow(ctx context.Context, in *pb.UserRoom) (*pb.Status, error) {
-	return nil, nil
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("rpc.rooms.Unfollow error: %+v", err)
+		}
+	}()
+
+	config := &rooms.FollowConfig{
+		UserID: in.UserID,
+		RoomID: in.RoomID,
+	}
+	follow := rooms.NewFollow(config)
+	if err = follow.Undo(); err != nil {
+		return nil, errors.New(follow.ErrorCode().String())
+	}
+	return &pb.Status{Success: true, RoomID: in.RoomID}, nil
 }

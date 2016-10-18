@@ -25,6 +25,15 @@ const ColNameBroadcast = "broadcasts"
 // ColNameAudience audience collection name
 const ColNameAudience = "audiences"
 
+// ColNameRoomFollow room_follows
+const ColNameRoomFollow = "room_follows"
+
+// ASC sort asc
+const ASC = ""
+
+// DESC sort desc
+const DESC = "-"
+
 func ensureIndex() {
 	c := mongoSession.DB(DBName).C(ColNameRoom)
 	index := mgo.Index{

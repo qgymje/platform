@@ -69,6 +69,10 @@ func (l *Live) Join(c *gin.Context) {
 	broadcasts.ServeWS(c)
 }
 
+// Enter enter a broadcast
+func (l *Live) Enter(c *gin.Context) {
+}
+
 // Leave leave live room
 func (l *Live) Leave(c *gin.Context) {
 	// stop ws

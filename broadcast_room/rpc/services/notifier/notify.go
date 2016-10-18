@@ -1,4 +1,4 @@
-package rooms
+package notifier
 
 import (
 	"log"
@@ -12,6 +12,7 @@ import (
 var once sync.Once
 var producer *nsq.Producer
 
+// Notifier notifier object
 type Notifier interface {
 	Topic() string
 	Message() []byte
@@ -27,6 +28,7 @@ func initProducer() {
 	}
 }
 
+// Publish publish a message
 func Publish(notifier Notifier) error {
 	once.Do(func() {
 		initProducer()

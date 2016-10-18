@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 
+	"platform/commons/middlewares"
 	"platform/live_broadcast/http/controllers"
 	"platform/utils"
 
@@ -41,13 +42,18 @@ func main() {
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
+	r.Use(middlewares.APILang())
+	if utils.IsDev() {
+		r.Use(middlewares.FakedLogin())
+	}
 
 	bro := r.Group("/v1/live")
 	{
 		l := new(controllers.Live)
+		bro.GET("/join", l.Join)
 		bro.POST("/start", l.Start)
 		bro.PUT("/end", l.End)
-		bro.POST("/join", l.Join)
+		bro.POST("/enter", l.Leave)
 		bro.POST("/leave", l.Leave)
 	}
 

@@ -56,6 +56,19 @@ func (r *Room) update(m bson.M) error {
 	return session.DB(DBName).C(ColNameRoom).Update(bson.M{RoomColumns.RoomID: r.RoomID}, change)
 }
 
+// AddFollowNum update follow num
+func (r *Room) AddFollowNum(n int) error {
+	session := GetMongo()
+	defer session.Close()
+
+	change := mgo.Change{
+		Update:    bson.M{"$inc": bson.M{RoomColumns.FollowNum: n}},
+		ReturnNew: true,
+	}
+	_, err := session.DB(DBName).C(ColNameRoom).Find(bson.M{RoomColumns.RoomID: r.RoomID}).Apply(change, &r)
+	return err
+}
+
 func (r *Room) playing(flag bool) error {
 	change := bson.M{RoomColumns.IsPlaying: flag}
 	return r.update(change)
