@@ -3,7 +3,6 @@ package models
 import (
 	"math"
 
-	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -29,7 +28,7 @@ func NewRoomFinder() *RoomFinder {
 func (r *RoomFinder) RoomID(roomID string) *RoomFinder {
 	var roomObjID bson.ObjectId
 	roomObjID, r.err = StringToObjectID(roomID)
-	if roomObjID != "" {
+	if r.err != nil {
 		r.where[RoomColumns.RoomID] = roomObjID
 	}
 	return r
@@ -71,14 +70,7 @@ func (r *RoomFinder) Do() (err error) {
 	session := GetMongo()
 	defer session.Close()
 
-	err = session.DB(DBName).C(ColNameRoom).Find(r.where).Skip(r.skip).Limit(r.limit).All(&r.rooms)
-	if err != nil {
-		if err == mgo.ErrNotFound {
-			return ErrNotFound
-		}
-		return err
-	}
-	return nil
+	return session.DB(DBName).C(ColNameRoom).Find(r.where).Skip(r.skip).Limit(r.limit).All(&r.rooms)
 }
 
 // One get only one result

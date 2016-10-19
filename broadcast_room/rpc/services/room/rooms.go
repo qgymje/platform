@@ -15,8 +15,9 @@ type Config struct {
 
 // Rooms rooms finder
 type Rooms struct {
-	config     *Config
-	roomFinder *models.RoomFinder
+	config          *Config
+	roomFinder      *models.RoomFinder
+	broadcastFinder *models.BroadcastFinder
 
 	errorCode codes.ErrorCode
 }
@@ -26,6 +27,7 @@ func NewRooms(c *Config) *Rooms {
 	r := new(Rooms)
 	r.config = c
 	r.roomFinder = models.NewRoomFinder().Limit(c.PageNum, c.PageSize).Search(c.Search)
+	r.broadcastFinder = models.NewBroadcastFinder()
 	return r
 }
 
@@ -54,7 +56,28 @@ func (r *Rooms) Do() (err error) {
 }
 
 func (r *Rooms) find() error {
-	return r.roomFinder.Do()
+	if err := r.roomFinder.Do(); err != nil {
+		return err
+	}
+
+	if err := r.findBroadcasts(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *Rooms) findBroadcasts() error {
+	modelRooms := r.roomFinder.Result()
+	broadcastIDs := []string{}
+	for i := range modelRooms {
+		if modelRooms[i].IsPlaying {
+			broadcastIDs = append(broadcastIDs, modelRooms[i].BroadcastID.Hex())
+		}
+	}
+	if err := r.broadcastFinder.ByIDs(broadcastIDs).Do(); err != nil {
+		return err
+	}
+	return nil
 }
 
 // Rooms fetch the game list object
@@ -69,6 +92,15 @@ func (r *Rooms) Rooms() []*Room {
 			Cover:     mRoom.Cover,
 			IsPlaying: mRoom.IsPlaying,
 			FollowNum: mRoom.FollowNum,
+		}
+		if bro := r.broadcastFinder.FetchByRoomID(mRoom.GetID()); bro != nil {
+			srvBroadcast := &Broadcast{
+				BroadcastID:   bro.GetID(),
+				RoomID:        mRoom.GetID(),
+				TotalAudience: bro.TotalAudience,
+				StartTime:     bro.StartTime,
+			}
+			srvRoom.Broadcast = srvBroadcast
 		}
 		srvRooms = append(srvRooms, srvRoom)
 	}

@@ -43,15 +43,35 @@ func (s *Server) Create(ctx context.Context, in *pb.CreateRequest) (*pb.Status, 
 }
 
 func srvRoomToPbRoom(r *rooms.Room) *pb.RoomInfo {
-	return &pb.RoomInfo{
-		RoomID:      r.RoomID,
-		Name:        r.Name,
-		UserName:    r.UserName,
-		Cover:       r.Cover,
-		IsPlaying:   r.IsPlaying,
-		FollowNum:   r.FollowNum,
-		AudienceNum: r.AudienceNum,
+	room := &pb.RoomInfo{
+		RoomID:    r.RoomID,
+		Name:      r.Name,
+		UserName:  r.UserName,
+		Cover:     r.Cover,
+		IsPlaying: r.IsPlaying,
+		FollowNum: r.FollowNum,
 	}
+	if room.IsPlaying && r.Broadcast != nil {
+		bro := r.Broadcast
+		broadcastInfo := &pb.BroadcastInfo{
+			BroadcastID:   bro.BroadcastID,
+			RoomID:        bro.RoomID,
+			StartTime:     bro.StartTime.Unix(),
+			TotalAudience: bro.TotalAudience,
+		}
+		room.Broadcast = broadcastInfo
+	}
+	return room
+}
+
+func srvBroadcastToPbBroadcast(bro *broadcasts.Broadcast) *pb.BroadcastInfo {
+	b := &pb.BroadcastInfo{
+		BroadcastID:   bro.BroadcastID,
+		RoomID:        bro.RoomID,
+		StartTime:     bro.StartTime.Unix(),
+		TotalAudience: bro.TotalAudience,
+	}
+	return b
 }
 
 // List the rooms
@@ -119,16 +139,13 @@ func (s *Server) Start(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, err
 		}
 	}()
 
-	b := broadcasts.NewStarter(in.UserID)
-	if err := b.Do(); err != nil {
-		return nil, errors.New(b.ErrorCode().String())
+	starter := broadcasts.NewStarter(in.UserID)
+	if err := starter.Do(); err != nil {
+		return nil, errors.New(starter.ErrorCode().String())
 	}
 
-	broadcastID, _ := b.GetBroadcastID()
-	info := pb.BroadcastInfo{
-		BroadcastID: broadcastID,
-	}
-	return &info, nil
+	bro, _ := starter.GetBroadcast()
+	return srvBroadcastToPbBroadcast(bro), nil
 }
 
 // End end broadcastring
@@ -140,16 +157,13 @@ func (s *Server) End(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, error
 		}
 	}()
 
-	b := broadcasts.NewEnder(in.UserID)
-	if err := b.Do(); err != nil {
-		return nil, errors.New(b.ErrorCode().String())
+	ender := broadcasts.NewEnder(in.UserID)
+	if err := ender.Do(); err != nil {
+		return nil, errors.New(ender.ErrorCode().String())
 	}
 
-	broadcastID, _ := b.GetBroadcastID()
-	info := pb.BroadcastInfo{
-		BroadcastID: broadcastID,
-	}
-	return &info, nil
+	broInfo, _ := ender.GetBroadcast()
+	return srvBroadcastToPbBroadcast(broInfo), nil
 }
 
 // Enter when a user enter a broadcast

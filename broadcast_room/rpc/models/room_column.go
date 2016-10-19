@@ -1,22 +1,24 @@
 package models
 
 type _RoomColumn struct {
-	Cover     string
-	CreatedAt string
-	DeletedAt string
-	FollowNum string
-	IsPlaying string
-	Name      string
-	RoomID    string
-	UpdatedAt string
-	UserID    string
-	UserName  string
+	BroadcastID string
+	Cover       string
+	CreatedAt   string
+	DeletedAt   string
+	FollowNum   string
+	IsPlaying   string
+	Name        string
+	RoomID      string
+	UpdatedAt   string
+	UserID      string
+	UserName    string
 }
 
 // RoomColumns room columns name
 var RoomColumns _RoomColumn
 
 func init() {
+	RoomColumns.BroadcastID = "broadcast_id"
 	RoomColumns.Cover = "cover"
 	RoomColumns.CreatedAt = "created_at"
 	RoomColumns.DeletedAt = "deleted_at"

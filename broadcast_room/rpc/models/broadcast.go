@@ -22,6 +22,11 @@ func (b *Broadcast) GetID() string {
 	return b.BroadcastID.Hex()
 }
 
+// GetRoomID get room id
+func (b *Broadcast) GetRoomID() string {
+	return b.RoomID.Hex()
+}
+
 // Create create a room
 func (b *Broadcast) Create() error {
 	session := GetMongo()
@@ -59,6 +64,23 @@ func (b *Broadcast) AddAudience(n int) error {
 func (b *Broadcast) End() error {
 	m := bson.M{BroadcastColumns.EndTime: time.Now()}
 	return b.update(m)
+}
+
+// FindBroadcastByID find by broadcast id
+func FindBroadcastByID(broadcastID string) (*Broadcast, error) {
+	session := GetMongo()
+	defer session.Close()
+
+	finder := NewBroadcastFinder().BroadcastID(broadcastID)
+	if err := finder.Do(); err != nil {
+		return nil, err
+	}
+
+	broadcast := finder.One()
+	if broadcast != nil {
+		return broadcast, nil
+	}
+	return nil, ErrNotFound
 }
 
 // FindBroadcastByRoomID find broadcast by room id
