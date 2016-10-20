@@ -54,22 +54,27 @@ func srvRoomToPbRoom(r *rooms.Room) *pb.RoomInfo {
 	if room.IsPlaying && r.Broadcast != nil {
 		bro := r.Broadcast
 		broadcastInfo := &pb.BroadcastInfo{
-			BroadcastID:   bro.BroadcastID,
-			RoomID:        bro.RoomID,
-			StartTime:     bro.StartTime.Unix(),
-			TotalAudience: bro.TotalAudience,
+			BroadcastID:     bro.BroadcastID,
+			RoomID:          bro.RoomID,
+			StartTime:       bro.StartTime.Unix(),
+			TotalAudience:   bro.TotalAudience,
+			CurrentAudience: bro.CurrentAudience,
+			Duration:        bro.Duration,
 		}
 		room.Broadcast = broadcastInfo
 	}
+
 	return room
 }
 
 func srvBroadcastToPbBroadcast(bro *broadcasts.Broadcast) *pb.BroadcastInfo {
 	b := &pb.BroadcastInfo{
-		BroadcastID:   bro.BroadcastID,
-		RoomID:        bro.RoomID,
-		StartTime:     bro.StartTime.Unix(),
-		TotalAudience: bro.TotalAudience,
+		BroadcastID:     bro.BroadcastID,
+		RoomID:          bro.RoomID,
+		StartTime:       bro.StartTime.Unix(),
+		CurrentAudience: bro.CurrentAudience,
+		TotalAudience:   bro.TotalAudience,
+		Duration:        bro.Duration,
 	}
 	return b
 }
@@ -101,6 +106,7 @@ func (s *Server) List(ctx context.Context, in *pb.ListRequest) (*pb.Rooms, error
 		pbRoom := srvRoomToPbRoom(srvRoom)
 		pbRooms = append(pbRooms, pbRoom)
 	}
+	utils.Dump(pbRooms)
 
 	return &pb.Rooms{Rooms: pbRooms, TotalNum: count}, nil
 }
@@ -116,7 +122,6 @@ func (s *Server) Info(ctx context.Context, in *pb.UserRoom) (*pb.RoomInfo, error
 
 	r := rooms.NewRoom()
 	var info *rooms.Room
-
 	if in.RoomID != "" {
 		info, err = r.GetByID(in.RoomID)
 	} else {
@@ -168,12 +173,42 @@ func (s *Server) End(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, error
 
 // Enter when a user enter a broadcast
 func (s *Server) Enter(ctx context.Context, in *pb.UserRoom) (*pb.Status, error) {
-	return nil, nil
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("rpc.rooms.Enter error: %+v", err)
+		}
+	}()
+
+	enterConfig := &broadcasts.EnterConfig{
+		BroadcastID: in.BroadcastID,
+		UserID:      in.UserID,
+	}
+	enter := broadcasts.NewEnter(enterConfig)
+	if err := enter.Do(); err != nil {
+		return nil, errors.New(enter.ErrorCode().String())
+	}
+	return &pb.Status{Success: true, BroadcastID: in.BroadcastID}, nil
 }
 
 // Leave when a user leave a broadcast
 func (s *Server) Leave(ctx context.Context, in *pb.UserRoom) (*pb.Status, error) {
-	return nil, nil
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("rpc.rooms.Leave error: %+v", err)
+		}
+	}()
+
+	leaverConfig := &broadcasts.LeaverConfig{
+		BroadcastID: in.BroadcastID,
+		UserID:      in.UserID,
+	}
+	leaver := broadcasts.NewLeaver(leaverConfig)
+	if err := leaver.Do(); err != nil {
+		return nil, errors.New(leaver.ErrorCode().String())
+	}
+	return &pb.Status{Success: true, BroadcastID: in.BroadcastID}, nil
 }
 
 // Follow when a user follow a room

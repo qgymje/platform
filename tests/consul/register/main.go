@@ -12,6 +12,7 @@ type Client interface {
 	Register(string, int) error
 	DeRegister(string) error
 }
+
 type client struct {
 	consul *consul.Client
 }

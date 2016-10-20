@@ -95,10 +95,12 @@ func (r *Rooms) Rooms() []*Room {
 		}
 		if bro := r.broadcastFinder.FetchByRoomID(mRoom.GetID()); bro != nil {
 			srvBroadcast := &Broadcast{
-				BroadcastID:   bro.GetID(),
-				RoomID:        mRoom.GetID(),
-				TotalAudience: bro.TotalAudience,
-				StartTime:     bro.StartTime,
+				BroadcastID:     bro.GetID(),
+				RoomID:          mRoom.GetID(),
+				CurrentAudience: bro.CurrentAudience,
+				TotalAudience:   bro.TotalAudience,
+				StartTime:       bro.StartTime,
+				Duration:        bro.Duration(),
 			}
 			srvRoom.Broadcast = srvBroadcast
 		}

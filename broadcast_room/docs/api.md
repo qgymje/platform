@@ -21,6 +21,12 @@
     1. 2016.10.19
     2. add start/end APIs
 
+5. v0.0.6
+    1. 2016.10.20
+    2. add enter/leave APIs
+    3. update list/info/start/end API
+
+
 ## list
 
 name|desc|dev status
@@ -31,10 +37,11 @@ name|desc|dev status
 /room/ | [create/update room](#create_room) | [YES]
 /room/follow | [room_follow](#room_follow) | [YES]
 /room/unfollow | [room_unfollow](#room_unfollow) | [YES]
-/live/start | [start to broadcast](#broadcast_start) | [NO]
-/live/end | [end broadcast](#broadcast_end) | [NO]
-/live/enter | [enter a room](#broadcast_enter) | [NO]
-/live/leave | [leave a room](#broadcast_leave) | [NO]
+/live/start | [start to broadcast](#broadcast_start) | [YES]
+/live/end | [end broadcast](#broadcast_end) | [YES]
+/live/enter | [enter a room](#broadcast_enter) | [YES]
+/live/leave | [leave a room](#broadcast_leave) | [YES]
+/live/join | [join](#broadcast_join) | [NO]
 
 ---
 
@@ -73,7 +80,9 @@ RETURN:
           "broadcastID": "58070070c86ab4a8e2fd23eb",
           "roomID": "5806feb1c86ab4a4ad50ec5b",
           "startTime": 1476853872,
-          "totalAudience": 12
+          "duration": 1880,
+          "totalAudience": 1,
+          "currentAudience": 1
         }
       }
     ],
@@ -147,7 +156,9 @@ RETURN:
       "broadcastID": "58070070c86ab4a8e2fd23eb",
       "roomID": "5806feb1c86ab4a4ad50ec5b",
       "startTime": 1476853872,
-      "totalAudience": 12
+      "duration": 1880,
+      "totalAudience": 1,
+      "currentAudience": 1
     }
   },
   "msg": "success"
@@ -299,7 +310,7 @@ URL: /live/end
 
 AUTH: YES
 
-METHOD: POST
+METHOD: PUT
 
 PARAMETERS:
 
@@ -315,6 +326,65 @@ RETURN:
     "roomID": "5806feb1c86ab4a4ad50ec5b",
     "totalAudience:" 20,
     "startTime": 1476859322
+  },
+  "msg": "success"
+}
+```
+---
+
+<div id="enter"></div>
+
+## enter
+
+URL: /live/enter
+
+AUTH: YES
+
+METHOD: POST
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true,
+    "broadcastID": "58086b43c86ab49358b8c265"
+  },
+  "msg": "success"
+}
+```
+---
+
+
+<div id="leave"></div>
+
+## leave
+
+URL: /live/leave
+
+AUTH: YES
+
+METHOD: PUT
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true,
+    "broadcastID": "58086b43c86ab49358b8c265"
   },
   "msg": "success"
 }

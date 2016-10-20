@@ -28,7 +28,7 @@ func NewBroadcastFinder() *BroadcastFinder {
 func (b *BroadcastFinder) BroadcastID(broadcastID string) *BroadcastFinder {
 	var broadcastObjID bson.ObjectId
 	broadcastObjID, b.err = StringToObjectID(broadcastID)
-	if b.err != nil {
+	if b.err == nil {
 		b.where[BroadcastColumns.BroadcastID] = broadcastObjID
 	}
 	return b
@@ -44,7 +44,7 @@ func (b *BroadcastFinder) Limit(offset, limit int) *BroadcastFinder {
 // ByIDs by user ids
 func (b *BroadcastFinder) ByIDs(ids []string) *BroadcastFinder {
 	b.ids, b.err = StringsToObjectIDs(ids)
-	if b.err != nil {
+	if b.err == nil {
 		b.skip = 0
 		b.limit = len(b.ids)
 		b.where[BroadcastColumns.BroadcastID] = bson.M{"$in": b.ids}

@@ -65,6 +65,18 @@ func (r *Room) End(in *pb.User) (*pb.BroadcastInfo, error) {
 	return r.client.End(context.Background(), in)
 }
 
+// Enter enter the broadcast
+func (r *Room) Enter(in *pb.UserRoom) (*pb.Status, error) {
+	defer r.Close()
+	return r.client.Enter(context.Background(), in)
+}
+
+// Leave leave the broadcast
+func (r *Room) Leave(in *pb.UserRoom) (*pb.Status, error) {
+	defer r.Close()
+	return r.client.Leave(context.Background(), in)
+}
+
 // Follow follow action
 func (r *Room) Follow(in *pb.UserRoom) (*pb.Status, error) {
 	defer r.Close()

@@ -50,11 +50,11 @@ func main() {
 	bro := r.Group("/v1/live")
 	{
 		l := new(controllers.Live)
-		bro.GET("/join", l.Join)
+		bro.GET("/join/:broadcast_id", l.Join)
 		bro.POST("/start", l.Start)
 		bro.PUT("/end", l.End)
-		bro.POST("/enter", l.Leave)
-		bro.POST("/leave", l.Leave)
+		bro.POST("/enter", l.Enter)
+		bro.PUT("/leave", l.Leave)
 	}
 
 	if err := r.Run(getPort()); err != nil {

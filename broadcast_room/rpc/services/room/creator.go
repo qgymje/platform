@@ -102,7 +102,6 @@ func (c *Creator) save() (err error) {
 		return err
 	}
 	if err = c.roomModel.Create(); err != nil {
-		utils.Dump(err)
 		return
 	}
 	return

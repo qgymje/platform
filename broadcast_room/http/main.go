@@ -52,10 +52,10 @@ func main() {
 	{
 		room := new(controllers.Room)
 		rr.GET("/", room.List)
-		rr.GET("/info/", room.Info)
+		rr.POST("/", room.Create)
+		rr.GET("/info", room.Info)
 		rr.GET("/info/:room_id", room.Info)
 		rr.GET("/types", room.Types)
-		rr.POST("/", room.Create)
 		rr.POST("/follow", room.Follow)
 		rr.POST("/unfollow", room.Unfollow)
 	}

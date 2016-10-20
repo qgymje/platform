@@ -54,6 +54,7 @@ func init() {
 		ErrorCodeBroadcastNotFound:        "broadcast not found",
 		ErrorCodeAgreement:                "agreement false",
 		ErrorCodeBroadcastIsOn:            "broadcast is already playing",
+		ErrorCodeBroadcastClosed:          "broadcast is closed",
 
 		// room errors
 		ErrorCodeRoomAlreadyCreated: "room already created",

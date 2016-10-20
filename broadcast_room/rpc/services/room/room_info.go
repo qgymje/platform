@@ -21,10 +21,12 @@ type Room struct {
 
 // Broadcast service level broadcast
 type Broadcast struct {
-	BroadcastID   string
-	RoomID        string
-	TotalAudience int64
-	StartTime     time.Time
+	BroadcastID     string
+	RoomID          string
+	TotalAudience   int64
+	CurrentAudience int64
+	StartTime       time.Time
+	Duration        int64
 }
 
 // NewRoom create a new room
@@ -48,10 +50,12 @@ func modelRoomToSrvRoom(r *models.Room, b *models.Broadcast) *Room {
 	}
 	if b != nil {
 		srvBro := &Broadcast{
-			BroadcastID:   b.GetID(),
-			RoomID:        r.GetID(),
-			TotalAudience: b.TotalAudience,
-			StartTime:     b.StartTime,
+			BroadcastID:     b.GetID(),
+			RoomID:          r.GetID(),
+			TotalAudience:   b.TotalAudience,
+			CurrentAudience: b.CurrentAudience,
+			StartTime:       b.StartTime,
+			Duration:        b.Duration(),
 		}
 		srvRoom.Broadcast = srvBro
 	}

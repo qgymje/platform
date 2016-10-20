@@ -28,7 +28,7 @@ func NewRoomFinder() *RoomFinder {
 func (r *RoomFinder) RoomID(roomID string) *RoomFinder {
 	var roomObjID bson.ObjectId
 	roomObjID, r.err = StringToObjectID(roomID)
-	if r.err != nil {
+	if r.err == nil {
 		r.where[RoomColumns.RoomID] = roomObjID
 	}
 	return r
@@ -38,7 +38,7 @@ func (r *RoomFinder) RoomID(roomID string) *RoomFinder {
 func (r *RoomFinder) UserID(userID string) *RoomFinder {
 	var userObjID bson.ObjectId
 	userObjID, r.err = StringToObjectID(userID)
-	if userObjID != "" {
+	if userObjID == "" {
 		r.where[RoomColumns.UserID] = userObjID
 	}
 	return r
