@@ -5,13 +5,26 @@
     1. 2016.10.13
     2. mock api data
 
-1. v0.0.2 
+2. v0.0.2 
     1. 2016.10.18
     2. add types API
 
-1. v0.0.3 
+3. v0.0.3 
     1. 2016.10.18
     2. add fullow/unfollw APIs
+
+4. v0.0.4
+    1. 2016.10.19
+    2. update list/info return struct, add broadcast info if is playing
+
+5. v0.0.5
+    1. 2016.10.19
+    2. add start/end APIs
+
+5. v0.0.6
+    1. 2016.10.20
+    2. add enter/leave APIs
+    3. update list/info/start/end API
 
 
 ## list
@@ -24,10 +37,11 @@ name|desc|dev status
 /room/ | [create/update room](#create_room) | [YES]
 /room/follow | [room_follow](#room_follow) | [YES]
 /room/unfollow | [room_unfollow](#room_unfollow) | [YES]
-/live/start | [start to broadcast](#broadcast_start) | [NO]
-/live/end | [end broadcast](#broadcast_end) | [NO]
-/live/enter | [enter a room](#broadcast_enter) | [NO]
-/live/leave | [leave a room](#broadcast_leave) | [NO]
+/live/start | [start to broadcast](#broadcast_start) | [YES]
+/live/end | [end broadcast](#broadcast_end) | [YES]
+/live/enter | [enter a room](#broadcast_enter) | [YES]
+/live/leave | [leave a room](#broadcast_leave) | [YES]
+/live/join | [join](#broadcast_join) | [NO]
 
 ---
 
@@ -53,22 +67,30 @@ RETURN:
 ```json
 {
   "code": "200",
-  "msg": "success",
   "data": {
-      "list": [
-            { 
-             "roomID": "58043dc4c86ab47026f6e04c",
-             "name": "hello world",
-             "userName": "hello world",
-             "cover": "http://oaa75dzf2.bkt.clouddn.com/hellscreen.jpg",
-             "isPlaying": true,
-             "followNum": 17
-            }
-        ],
-       "page":1,
-       "pageSize":20,
-       "totalPage":5,
-  }
+    "list": [
+      {
+        "roomID": "5806feb1c86ab4a4ad50ec5b",
+        "name": "这是一个很爽的直播哟123",
+        "userName": "hello",
+        "cover": "http://oaa75dzf2.bkt.clouddn.com/hellscreen.jpg",
+        "isPlaying": true,
+        "followNum": 88,
+        "broadcast": {
+          "broadcastID": "58070070c86ab4a8e2fd23eb",
+          "roomID": "5806feb1c86ab4a4ad50ec5b",
+          "startTime": 1476853872,
+          "duration": 1880,
+          "totalAudience": 1,
+          "currentAudience": 1
+        }
+      }
+    ],
+    "page": 0,
+    "pageSize": 20,
+    "totalPage": 0
+  },
+  "msg": "success"
 }
 ```
 ---
@@ -123,15 +145,23 @@ RETURN:
 ```json
 {
   "code": "200",
-  "msg": "success",
   "data": {
-        "roomID": "58043d36c86ab46e7557177c",
-        "name": "hello world",
-        "userName": "hello world",
-        "cover": "http://oaa75dzf2.bkt.clouddn.com/hellscreen.jpg",
-        "isPlaying": true,
-        "followNum": 12
-  }
+    "roomID": "5806feb1c86ab4a4ad50ec5b",
+    "name": "这是一个很爽的直播哟123",
+    "userName": "hello",
+    "cover": "http://oaa75dzf2.bkt.clouddn.com/hellscreen.jpg",
+    "isPlaying": true,
+    "followNum": 88,
+    "broadcast": {
+      "broadcastID": "58070070c86ab4a8e2fd23eb",
+      "roomID": "5806feb1c86ab4a4ad50ec5b",
+      "startTime": 1476853872,
+      "duration": 1880,
+      "totalAudience": 1,
+      "currentAudience": 1
+    }
+  },
+  "msg": "success"
 }
 ```
 ---
@@ -213,7 +243,6 @@ RETURN:
 ```
 ---
 
-
 <div id="unfollow"></div>
 
 ## unfollow
@@ -237,6 +266,125 @@ RETURN:
   "data": {
     "success": true,
     "roomID": "58043d36c86ab46e7557177c"
+  },
+  "msg": "success"
+}
+```
+---
+
+<div id="start"></div>
+
+## start
+
+URL: /live/start
+
+AUTH: YES
+
+METHOD: POST
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "broadcastID": "580715bac86ab4e1a9ed1c25",
+    "roomID": "5806feb1c86ab4a4ad50ec5b",
+    "startTime": 1476859322
+  },
+  "msg": "success"
+}
+```
+---
+
+
+<div id="end"></div>
+
+## end
+
+URL: /live/end
+
+AUTH: YES
+
+METHOD: PUT
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "broadcastID": "580715bac86ab4e1a9ed1c25",
+    "roomID": "5806feb1c86ab4a4ad50ec5b",
+    "totalAudience:" 20,
+    "startTime": 1476859322
+  },
+  "msg": "success"
+}
+```
+---
+
+<div id="enter"></div>
+
+## enter
+
+URL: /live/enter
+
+AUTH: YES
+
+METHOD: POST
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true,
+    "broadcastID": "58086b43c86ab49358b8c265"
+  },
+  "msg": "success"
+}
+```
+---
+
+
+<div id="leave"></div>
+
+## leave
+
+URL: /live/leave
+
+AUTH: YES
+
+METHOD: PUT
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true,
+    "broadcastID": "58086b43c86ab49358b8c265"
   },
   "msg": "success"
 }

@@ -17,21 +17,30 @@ var (
 // Room room model object
 //go:generate gen_columns -tag=bson -path=./room.go
 type Room struct {
-	RoomID    bson.ObjectId `bson:"_id"`
-	UserID    bson.ObjectId `bson:"user_id"`
-	UserName  string        `bson:"user_name"`
-	Name      string        `bson:"name"`
-	Cover     string        `bson:"cover"`
-	IsPlaying bool          `bson:"is_playing"`
-	FollowNum int64         `bson:"follow_num"`
-	CreatedAt time.Time     `bson:"created_at"`
-	UpdatedAt time.Time     `bson:"updated_at"`
-	DeletedAt time.Time     `bson:"deleted_at"`
+	RoomID      bson.ObjectId  `bson:"_id"`
+	UserID      bson.ObjectId  `bson:"user_id"`
+	UserName    string         `bson:"user_name"`
+	Name        string         `bson:"name"`
+	Cover       string         `bson:"cover"`
+	IsPlaying   bool           `bson:"is_playing"`
+	FollowNum   int64          `bson:"follow_num"`
+	BroadcastID *bson.ObjectId `bson:"broadcast_id"`
+	CreatedAt   time.Time      `bson:"created_at"`
+	UpdatedAt   time.Time      `bson:"updated_at"`
+	DeletedAt   time.Time      `bson:"deleted_at"`
 }
 
 // GetID get room id
 func (r *Room) GetID() string {
 	return r.RoomID.Hex()
+}
+
+// GetBroadcastID get room id
+func (r *Room) GetBroadcastID() string {
+	if r.BroadcastID != nil {
+		return r.BroadcastID.Hex()
+	}
+	return ""
 }
 
 // Create create a room
@@ -43,7 +52,6 @@ func (r *Room) Create() error {
 	r.FollowNum = int64(utils.RandomInt(1, 100))
 	r.CreatedAt = time.Now()
 	r.UpdatedAt = time.Now()
-
 	return session.DB(DBName).C(ColNameRoom).Insert(&r)
 }
 
@@ -69,19 +77,16 @@ func (r *Room) AddFollowNum(n int) error {
 	return err
 }
 
-func (r *Room) playing(flag bool) error {
-	change := bson.M{RoomColumns.IsPlaying: flag}
+// StartPlaying update IsPlaying to true
+func (r *Room) StartPlaying(broadcast *Broadcast) error {
+	change := bson.M{RoomColumns.BroadcastID: broadcast.BroadcastID, RoomColumns.IsPlaying: true}
 	return r.update(change)
 }
 
-// StartPlaying update IsPlaying to true
-func (r *Room) StartPlaying() error {
-	return r.playing(true)
-}
-
 // EndPlaying update IsPlaying to false
-func (r *Room) EndPlaying() error {
-	return r.playing(false)
+func (r *Room) EndPlaying(broadcast *Broadcast) error {
+	change := bson.M{RoomColumns.BroadcastID: nil, RoomColumns.IsPlaying: false}
+	return r.update(change)
 }
 
 // Update udpate a room info
@@ -94,12 +99,13 @@ func (r *Room) Update(name string, cover string) error {
 func FindRoomByUserID(userID string) (*Room, error) {
 	finder := NewRoomFinder().UserID(userID)
 	if err := finder.Do(); err != nil {
-		if err == mgo.ErrNotFound {
-			return nil, ErrNotFound
-		}
 		return nil, err
 	}
-	return finder.One(), nil
+	room := finder.One()
+	if room != nil {
+		return room, nil
+	}
+	return nil, ErrNotFound
 }
 
 // FindRoomByID find room by room_id

@@ -32,12 +32,9 @@ type Creator struct {
 // NewCreator create a Creator object
 func NewCreator(c *CreatorConfig) *Creator {
 	return &Creator{
-		config: c,
-		roomModel: &models.Room{
-			UserName: c.UserName,
-			Name:     c.Name,
-			Cover:    c.Cover,
-		},
+		config:    c,
+		roomModel: &models.Room{},
+
 		userID: c.UserID,
 	}
 }
@@ -57,8 +54,11 @@ func (c *Creator) Do() (err error) {
 
 	foundRoom := false
 	if err = c.findRoomByUser(); err != nil {
-		c.errorCode = codes.ErrorCodeRoomAlreadyCreated
-		foundRoom = true
+		if err == ErrAlreadyCreated {
+			foundRoom = true
+		} else {
+			return err
+		}
 	}
 
 	if foundRoom {
@@ -83,13 +83,20 @@ func (c *Creator) GetRoomID() string {
 
 func (c *Creator) findRoomByUser() (err error) {
 	c.roomModel, err = models.FindRoomByUserID(c.userID)
-	if err != models.ErrNotFound {
-		return ErrAlreadyCreated
+	if err != nil {
+		if err == models.ErrNotFound {
+			return nil
+		}
 	}
-	return nil
+	return ErrAlreadyCreated
 }
 
 func (c *Creator) save() (err error) {
+	c.roomModel = &models.Room{
+		UserName: c.config.UserName,
+		Name:     c.config.Name,
+		Cover:    c.config.Cover,
+	}
 	c.roomModel.UserID, err = models.StringToObjectID(c.userID)
 	if err != nil {
 		return err

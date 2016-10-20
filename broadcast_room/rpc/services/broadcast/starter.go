@@ -49,13 +49,18 @@ func (s *Starter) Do() (err error) {
 		return
 	}
 
-	if err = s.startPlay(); err != nil {
-		s.errorCode = codes.ErrorCodeRoomUpdate
-		return
+	if yes := s.isPlaying(); yes {
+		s.errorCode = codes.ErrorCodeBroadcastIsOn
+		return errors.New("boradcast is on")
 	}
 
 	if err = s.save(); err != nil {
 		s.errorCode = codes.ErrorCodeBroadcastCreate
+	}
+
+	if err = s.startPlay(); err != nil {
+		s.errorCode = codes.ErrorCodeRoomUpdate
+		return
 	}
 
 	if err = s.notify(); err != nil {
@@ -66,12 +71,18 @@ func (s *Starter) Do() (err error) {
 	return
 }
 
-// GetBroadcastID get broadcast id
-func (s *Starter) GetBroadcastID() (string, error) {
-	if s.valid {
-		return s.broadcastModel.GetID(), nil
+// GetBroadcast get broadcast info
+func (s *Starter) GetBroadcast() (*Broadcast, error) {
+	if !s.valid {
+		return nil, errors.New("starter: unvalid process")
 	}
-	return "", errors.New("starter: unvalid process")
+	srvBro := &Broadcast{
+		BroadcastID:   s.broadcastModel.GetID(),
+		RoomID:        s.broadcastModel.GetRoomID(),
+		TotalAudience: s.broadcastModel.TotalAudience,
+		StartTime:     s.broadcastModel.StartTime,
+	}
+	return srvBro, nil
 }
 
 func (s *Starter) validUser() error {
@@ -84,13 +95,20 @@ func (s *Starter) validUser() error {
 	return nil
 }
 
+func (s *Starter) isPlaying() bool {
+	return s.roomModel.IsPlaying && s.roomModel.BroadcastID != nil
+}
+
 func (s *Starter) save() error {
 	s.broadcastModel.RoomID = s.roomModel.RoomID
 	return s.broadcastModel.Create()
 }
 
 func (s *Starter) startPlay() error {
-	return s.roomModel.StartPlaying()
+	if err := s.roomModel.StartPlaying(s.broadcastModel); err != nil {
+		return err
+	}
+	return nil
 }
 
 // Topic topic
@@ -107,7 +125,6 @@ func (s *Starter) Message() []byte {
 		StartTime:   time.Now(),
 	}
 	data, _ = json.Marshal(msg)
-	utils.Dump("start msg:", data)
 	return data
 }
 

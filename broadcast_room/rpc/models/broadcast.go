@@ -1,6 +1,7 @@
 package models
 
 import (
+	"math"
 	"time"
 
 	mgo "gopkg.in/mgo.v2"
@@ -10,16 +11,22 @@ import (
 // Broadcast represent
 //go:generate gen_columns -tag=bson -path=./broadcast.go
 type Broadcast struct {
-	BroadcastID   bson.ObjectId `bson:"_id"`
-	RoomID        bson.ObjectId `bson:"room_id"`
-	TotalAudience int64         `bson:"total_audience"` // update by user entering the room
-	StartTime     time.Time     `bson:"start_time"`
-	EndTime       time.Time     `bson:"end_time"`
+	BroadcastID     bson.ObjectId `bson:"_id"`
+	RoomID          bson.ObjectId `bson:"room_id"`
+	TotalAudience   int64         `bson:"total_audience"` // update by user entering the room
+	CurrentAudience int64         `bson:"current_audience"`
+	StartTime       time.Time     `bson:"start_time"`
+	EndTime         time.Time     `bson:"end_time"`
 }
 
 // GetID get room id
 func (b *Broadcast) GetID() string {
 	return b.BroadcastID.Hex()
+}
+
+// GetRoomID get room id
+func (b *Broadcast) GetRoomID() string {
+	return b.RoomID.Hex()
 }
 
 // Create create a room
@@ -33,6 +40,19 @@ func (b *Broadcast) Create() error {
 	return session.DB(DBName).C(ColNameBroadcast).Insert(&b)
 }
 
+// IsPlaying is broadcast playing
+func (b *Broadcast) IsPlaying() bool {
+	return b.EndTime.IsZero()
+}
+
+// Duration duration
+func (b *Broadcast) Duration() int64 {
+	if b.EndTime.IsZero() {
+		return int64(time.Since(b.StartTime).Seconds())
+	}
+	return int64(b.EndTime.Sub(b.StartTime).Seconds())
+}
+
 func (b *Broadcast) update(m bson.M) error {
 	session := GetMongo()
 	defer session.Close()
@@ -41,24 +61,41 @@ func (b *Broadcast) update(m bson.M) error {
 	return session.DB(DBName).C(ColNameBroadcast).Update(bson.M{BroadcastColumns.BroadcastID: b.BroadcastID}, change)
 }
 
-// AddAudience add total audience number
-func (b *Broadcast) AddAudience(n int) error {
+// AddAudience add total/current audience number
+func (b *Broadcast) AddAudience(total, current int) error {
 	session := GetMongo()
 	defer session.Close()
 
+	currentNum := int64(math.Max(0, float64(current)))
 	change := mgo.Change{
-		Update:    bson.M{"$inc": bson.M{BroadcastColumns.TotalAudience: n}},
+		Update:    bson.M{"$inc": bson.M{BroadcastColumns.TotalAudience: total, BroadcastColumns.CurrentAudience: currentNum}},
 		ReturnNew: true,
 	}
-	_, err := session.DB(DBName).C(ColNameRoom).Find(bson.M{BroadcastColumns.BroadcastID: b.BroadcastID}).Apply(change, &b)
+	_, err := session.DB(DBName).C(ColNameBroadcast).Find(bson.M{BroadcastColumns.BroadcastID: b.BroadcastID}).Apply(change, &b)
 	return err
-
 }
 
 // End end the broadcast
 func (b *Broadcast) End() error {
 	m := bson.M{BroadcastColumns.EndTime: time.Now()}
 	return b.update(m)
+}
+
+// FindBroadcastByID find by broadcast id
+func FindBroadcastByID(broadcastID string) (*Broadcast, error) {
+	session := GetMongo()
+	defer session.Close()
+
+	finder := NewBroadcastFinder().BroadcastID(broadcastID)
+	if err := finder.Do(); err != nil {
+		return nil, err
+	}
+
+	broadcast := finder.One()
+	if broadcast != nil {
+		return broadcast, nil
+	}
+	return nil, ErrNotFound
 }
 
 // FindBroadcastByRoomID find broadcast by room id

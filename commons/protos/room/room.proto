@@ -43,7 +43,7 @@ message RoomInfo {
     string cover = 4;
     bool isPlaying = 5;
     int64 followNum = 6; 
-    int64 audienceNum = 7;
+    BroadcastInfo broadcast = 7;
 }
 
 message Rooms {
@@ -69,7 +69,9 @@ message Status {
 
 message BroadcastInfo {
     string broadcastID = 1;
-    string startTime = 2;
-    int64 audienceNum = 3;
+    string roomID = 2;
+    int64 startTime = 3;
     int64 duration = 4;
+    int64 totalAudience = 5;
+    int64 currentAudience = 6;
 }

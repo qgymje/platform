@@ -67,7 +67,10 @@ const (
 	ErrorCodeBroadcastUpdate          ErrorCode = "BRO500102"
 	ErrorCodeBroadcastCreate          ErrorCode = "BRO500103"
 	ErrorCodeInvalidBroadcastringUser ErrorCode = "BRO400202"
+	ErrorCodeBroadcastNotFound        ErrorCode = "BRO400203"
 	ErrorCodeAgreement                ErrorCode = "BRO400301"
+	ErrorCodeBroadcastIsOn            ErrorCode = "BRO400302"
+	ErrorCodeBroadcastClosed          ErrorCode = "BRO400303"
 
 	// Room errror
 	ErrorCodeRoomAlreadyCreated ErrorCode = "ROM400302"

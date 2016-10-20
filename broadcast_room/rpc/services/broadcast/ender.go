@@ -12,7 +12,7 @@ import (
 	"platform/utils"
 )
 
-const broadcastAtLeastTime = 2 * time.Second
+const broadcastAtLeastTime = 2 * time.Minute
 
 // Ender end a broadcast
 type Ender struct {
@@ -57,7 +57,7 @@ func (e *Ender) Do() (err error) {
 
 	if yes := e.isPlayedLognerThanLeastTime(); !yes {
 		e.errorCode = codes.ErrorCodeBroadcastTooShort
-		return
+		return errors.New("broadcast too short")
 	}
 
 	if err = e.stopPlay(); err != nil {
@@ -77,12 +77,18 @@ func (e *Ender) Do() (err error) {
 	return
 }
 
-// GetBroadcastID get broadcast id
-func (e *Ender) GetBroadcastID() (string, error) {
-	if e.valid {
-		return e.broadcastModel.GetID(), nil
+// GetBroadcast get broadcast info
+func (e *Ender) GetBroadcast() (*Broadcast, error) {
+	if !e.valid {
+		return nil, errors.New("ender: unvalid process")
 	}
-	return "", errors.New("ender: unvalid process")
+	srvBro := &Broadcast{
+		BroadcastID:   e.broadcastModel.GetID(),
+		RoomID:        e.broadcastModel.GetRoomID(),
+		TotalAudience: e.broadcastModel.TotalAudience,
+		StartTime:     e.broadcastModel.StartTime,
+	}
+	return srvBro, nil
 }
 
 func (e *Ender) validUser() error {
@@ -100,6 +106,7 @@ func (e *Ender) validBroadcast() error {
 	if err != nil {
 		return err
 	}
+	e.valid = true
 	return nil
 }
 
@@ -108,7 +115,10 @@ func (e *Ender) isPlayedLognerThanLeastTime() bool {
 }
 
 func (e *Ender) stopPlay() error {
-	return e.roomModel.EndPlaying()
+	if err := e.roomModel.EndPlaying(e.broadcastModel); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *Ender) update() error {
@@ -129,7 +139,6 @@ func (e *Ender) Message() []byte {
 		EndTime:     time.Now(),
 	}
 	data, _ = json.Marshal(msg)
-	utils.Dump("start msg:", data)
 	return data
 }
 
