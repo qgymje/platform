@@ -1,0 +1,11 @@
+app:
+    base_url: http://localhost
+    http_port: :3005
+
+log:
+    filename: ./logs/barrage_center.log
+    enable_func_call_depth: true
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 127.0.0.1:4161
