@@ -41,22 +41,23 @@ type MessageBroadcastEnd struct {
 	EndTime     time.Time `json:"end_time"`
 }
 
-// MessageBarrage  nsq message for barrage
-type MessageBarrage struct {
-	UserID   string    `json:"user_id"`
-	UserName string    `json:"nickname"`
-	Message  string    `json:"message"`
-	PubTime  time.Time `json:"pub_time"`
+// MessageBroadcastInfo nsq message for broadcast info
+type MessageBroadcastInfo struct {
+	BroadcastID     string    `json:"broadcast_id"`
+	RoomID          string    `json:"room_id"`
+	TotalAudience   int64     `json:"total_audience"`
+	CurrentAudience int64     `json:"current_audience"`
+	StartTime       time.Time `json:"start_time"`
+	Duration        int64     `json:"duration"`
 }
 
-// MessageGift nsq message for gift
-type MessageGift struct {
-	GiftID     string    `json:"gift_id"`
-	GiftName   string    `json:"gift_name"`
-	GifImage   string    `json:"gift_image"`
-	GiftAmount int       `json:"git_amount"`
-	UserID     string    `json:"user_id"`
-	Nickname   string    `json:"nickname"`
-	RoomID     string    `json:"room_id"`
-	PubTime    time.Time `json:"pub_time"`
+// MessageBarrage  nsq message for barrage
+type MessageBarrage struct {
+	TypeID      int32     `json:"type_id"`
+	BroadcastID string    `json:"broadcast_id"`
+	UserID      string    `json:"user_id"`
+	Username    string    `json:"username"`
+	Level       int64     `json:"level"`
+	Text        string    `json:"text"`
+	CreatedAt   time.Time `json:"created_at"`
 }

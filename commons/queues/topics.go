@@ -16,10 +16,16 @@ const (
 	TopicUserRegister Topic = "user_register"
 	// TopicUserLogin user login topic name
 	TopicUserLogin Topic = "user_login"
+
+	// TopicGamePublish game publish
+	TopicGamePublish Topic = "game_publish"
+	// TopicGameUpdate game update
+	TopicGameUpdate Topic = "game_update"
+
 	// TopicBroadcastStart broadcast start topic name
 	TopicBroadcastStart Topic = "broadcast_start"
 	// TopicBroadcastEnd broadcast end topic name
 	TopicBroadcastEnd Topic = "broadcast_end"
-	// TopicBroadcastRoomFormat broadcast room format
-	TopicBroadcastRoomFormat Topic = "room_%s"
+	// TopicBroadcastFormat broadcast format
+	TopicBroadcastFormat Topic = "broadcast_%s"
 )
