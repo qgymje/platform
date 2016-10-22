@@ -1,3 +1,4 @@
+PROJECT_NAME=barrage_center_rpc
 pack: clean
 	godep save
 
@@ -11,4 +12,4 @@ rpc:
 	fswatch
 
 build:
-	env GOOS=linux GOARCH=amd64 go build -o barrage_center_rpc
+	env GOOS=linux GOARCH=amd64 go build -o $(PROJECT_NAME)
