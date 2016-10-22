@@ -3,13 +3,12 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
-	"time"
-
 	"platform/account_center/rpc/services/notifier"
 	"platform/broadcast_room/rpc/models"
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"
+	"time"
 )
 
 // Starter start a broadcast process wrapper
@@ -77,10 +76,11 @@ func (s *Starter) GetBroadcast() (*Broadcast, error) {
 		return nil, errors.New("starter: unvalid process")
 	}
 	srvBro := &Broadcast{
-		BroadcastID:   s.broadcastModel.GetID(),
-		RoomID:        s.broadcastModel.GetRoomID(),
-		TotalAudience: s.broadcastModel.TotalAudience,
-		StartTime:     s.broadcastModel.StartTime,
+		BroadcastID:     s.broadcastModel.GetID(),
+		RoomID:          s.broadcastModel.GetRoomID(),
+		TotalAudience:   s.broadcastModel.TotalAudience,
+		CurrentAudience: s.broadcastModel.CurrentAudience,
+		StartTime:       s.broadcastModel.StartTime,
 	}
 	return srvBro, nil
 }

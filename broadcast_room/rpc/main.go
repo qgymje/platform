@@ -47,6 +47,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+	go broadcasts.Sync()
 	s := grpc.NewServer()
 	pb.RegisterRoomServer(s, &services.Server{})
 	s.Serve(lis)

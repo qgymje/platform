@@ -13,6 +13,7 @@ type Room struct {
 	Name      string
 	Cover     string
 	IsPlaying bool
+	IsFollow  bool
 	FollowNum int64
 	Broadcast *Broadcast
 

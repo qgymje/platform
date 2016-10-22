@@ -106,7 +106,6 @@ func (s *Server) List(ctx context.Context, in *pb.ListRequest) (*pb.Rooms, error
 		pbRoom := srvRoomToPbRoom(srvRoom)
 		pbRooms = append(pbRooms, pbRoom)
 	}
-	utils.Dump(pbRooms)
 
 	return &pb.Rooms{Rooms: pbRooms, TotalNum: count}, nil
 }

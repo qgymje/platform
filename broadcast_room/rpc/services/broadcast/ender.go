@@ -83,10 +83,12 @@ func (e *Ender) GetBroadcast() (*Broadcast, error) {
 		return nil, errors.New("ender: unvalid process")
 	}
 	srvBro := &Broadcast{
-		BroadcastID:   e.broadcastModel.GetID(),
-		RoomID:        e.broadcastModel.GetRoomID(),
-		TotalAudience: e.broadcastModel.TotalAudience,
-		StartTime:     e.broadcastModel.StartTime,
+		BroadcastID:     e.broadcastModel.GetID(),
+		RoomID:          e.broadcastModel.GetRoomID(),
+		TotalAudience:   e.broadcastModel.TotalAudience,
+		CurrentAudience: e.broadcastModel.CurrentAudience,
+		StartTime:       e.broadcastModel.StartTime,
+		Duration:        e.broadcastModel.Duration(),
 	}
 	return srvBro, nil
 }
