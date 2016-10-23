@@ -134,10 +134,10 @@ func ServeWS(c *gin.Context) {
 	}
 	log.Println("new client:", conn.RemoteAddr())
 
-	roomID := c.Param("id")
-	userID := c.Param("uid")
-	topic := "room_" + roomID
-	channel := GenChannelName(userID) // id需要为user_id
+	broadcastID := c.Param("broadcast_id")
+	userID, _ := c.Get("user_id")
+	topic := "broadcast_" + broadcastID
+	channel := userID.(string) // id需要为user_id
 
 	nsqConfig := utils.GetConf().GetStringMapString("nsq")
 	client := NewClient(conn, nsqConfig["nsqlookupd"], nsqConfig["nsqd"], topic, channel)

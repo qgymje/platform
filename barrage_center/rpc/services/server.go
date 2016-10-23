@@ -13,8 +13,16 @@ import (
 type Server struct {
 }
 
-func srvBarrageToBarrage(b *barrages.Barrage) *pb.Content {
-	return &pb.Content{}
+func srvBarrageToPbBarrage(b *barrages.Barrage) *pb.Content {
+	return &pb.Content{
+		TypeID:      int32(b.TypeID),
+		BroadcastID: b.BroadcastID,
+		UserID:      b.UserID,
+		Text:        b.Text,
+		CreatedAt:   b.CreatedAt.Unix(),
+		Username:    b.Username,
+		Level:       b.Level,
+	}
 }
 
 // Send send a barrage
@@ -51,7 +59,7 @@ func (s *Server) List(ctx context.Context, in *pb.Broadcast) (*pb.Barrages, erro
 			utils.GetLog().Error("rpc.barrages.Listerror: %+v", err)
 		}
 	}()
-	utils.Dump(in)
+
 	config := &barrages.Config{
 		BroadcastID: in.BroadcastID,
 		StartTime:   in.StartTime,
@@ -66,7 +74,11 @@ func (s *Server) List(ctx context.Context, in *pb.Broadcast) (*pb.Barrages, erro
 	}
 
 	list := barrageList.Barrages()
-	utils.Dump(list)
+	pbContents := []*pb.Content{}
+	for i := range list {
+		pbContent := srvBarrageToPbBarrage(list[i])
+		pbContents = append(pbContents, pbContent)
+	}
 
-	return nil, nil
+	return &pb.Barrages{List: pbContents}, nil
 }

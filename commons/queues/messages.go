@@ -43,12 +43,12 @@ type MessageBroadcastEnd struct {
 
 // MessageBroadcastInfo nsq message for broadcast info
 type MessageBroadcastInfo struct {
-	BroadcastID     string    `json:"broadcast_id"`
-	RoomID          string    `json:"room_id"`
-	TotalAudience   int64     `json:"total_audience"`
-	CurrentAudience int64     `json:"current_audience"`
-	StartTime       time.Time `json:"start_time"`
-	Duration        int64     `json:"duration"`
+	BroadcastID     string `json:"broadcast_id"`
+	RoomID          string `json:"room_id"`
+	TotalAudience   int64  `json:"total_audience"`
+	CurrentAudience int64  `json:"current_audience"`
+	StartTime       int64  `json:"start_time"`
+	Duration        int64  `json:"duration"`
 }
 
 // MessageBarrage  nsq message for barrage

@@ -14,7 +14,7 @@ import (
 // will be called by the main
 // must be caaaed as go Sync()
 func Sync() {
-	ticker := time.NewTicker(time.Second * 15)
+	ticker := time.NewTicker(time.Second * 30)
 	defer ticker.Stop()
 
 	for {
@@ -92,7 +92,7 @@ func (b *BroadcastSync) Message() []byte {
 		RoomID:          b.broadcast.RoomID,
 		TotalAudience:   b.broadcast.TotalAudience,
 		CurrentAudience: b.broadcast.CurrentAudience,
-		StartTime:       b.broadcast.StartTime,
+		StartTime:       b.broadcast.StartTime.Unix(),
 		Duration:        b.broadcast.Duration,
 	}
 	msg, _ = json.Marshal(&broadcastMsg)

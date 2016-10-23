@@ -70,5 +70,14 @@ func (b *Barrage) List(c *gin.Context) {
 	}
 	utils.Dump(broadcast)
 	reply, err := bc.List(broadcast)
-	utils.Dump(reply, err)
+	if err != nil {
+		respformat := b.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := b.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
+
 }
