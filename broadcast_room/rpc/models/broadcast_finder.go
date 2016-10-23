@@ -2,6 +2,7 @@ package models
 
 import (
 	"math"
+	"time"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -52,6 +53,12 @@ func (b *BroadcastFinder) ByIDs(ids []string) *BroadcastFinder {
 	return b
 }
 
+// IsPlaying fetch by the playing broadcast
+func (b *BroadcastFinder) IsPlaying() *BroadcastFinder {
+	b.where[BroadcastColumns.EndTime] = bson.M{"$eq": time.Time{}}
+	return b
+}
+
 // Do do the search job
 func (b *BroadcastFinder) Do() (err error) {
 	session := GetMongo()
@@ -76,7 +83,7 @@ func (b *BroadcastFinder) Result() []*Broadcast {
 // FetchByID fetch by broadcast id
 func (b *BroadcastFinder) FetchByID(id string) *Broadcast {
 	for i := range b.broadcasts {
-		if b.broadcasts[i].BroadcastID.Hex() == id {
+		if b.broadcasts[i].GetID() == id {
 			return b.broadcasts[i]
 		}
 	}
@@ -86,7 +93,7 @@ func (b *BroadcastFinder) FetchByID(id string) *Broadcast {
 // FetchByRoomID fetch broadcast by room id
 func (b *BroadcastFinder) FetchByRoomID(id string) *Broadcast {
 	for i := range b.broadcasts {
-		if b.broadcasts[i].RoomID.Hex() == id {
+		if b.broadcasts[i].GetRoomID() == id {
 			return b.broadcasts[i]
 		}
 	}

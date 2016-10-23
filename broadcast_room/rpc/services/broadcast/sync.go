@@ -3,7 +3,8 @@ package broadcasts
 import (
 	"encoding/json"
 	"fmt"
-	"platform/account_center/rpc/services/notifier"
+	"platform/broadcast_room/rpc/models"
+	"platform/broadcast_room/rpc/services/notifier"
 	"platform/commons/queues"
 	"platform/utils"
 	"time"
@@ -13,23 +14,39 @@ import (
 // will be called by the main
 // must be caaaed as go Sync()
 func Sync() {
-	ticker := time.NewTicker(time.Second * 30)
+	ticker := time.NewTicker(time.Second * 15)
 	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ticker.C:
-			allBroadcasts := fetchAllPlayingBroadcasts()
+			allBroadcasts, err := fetchAllPlayingBroadcasts()
+			if err != nil {
+				utils.GetLog().Error("broadcasts.Sync.fetchAllPlayingBroadcasts error: %+v", err)
+			}
 			for _, bro := range allBroadcasts {
 				broSync := NewBroadcastSync(bro)
-				broSync.Do()
+				if err := broSync.Do(); err != nil {
+					utils.GetLog().Error("broadcasts.Sync.Do error: %+v", err)
+				}
 			}
 		}
 	}
 }
 
-func fetchAllPlayingBroadcasts() []*Broadcast {
-	return nil
+// notice: the number of broadcast will cause a lot of memory
+func fetchAllPlayingBroadcasts() ([]*Broadcast, error) {
+	broadcastFinder := models.NewBroadcastFinder().IsPlaying()
+	if err := broadcastFinder.Do(); err != nil {
+		return nil, err
+	}
+	mBroadcasts := broadcastFinder.Result()
+	srvBroadcasts := []*Broadcast{}
+	for i := range mBroadcasts {
+		srvBroadcast := modelBroadcastToSrvBroadcast(mBroadcasts[i])
+		srvBroadcasts = append(srvBroadcasts, srvBroadcast)
+	}
+	return srvBroadcasts, nil
 }
 
 // BroadcastSync sync broadcast

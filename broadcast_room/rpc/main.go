@@ -7,6 +7,7 @@ import (
 
 	"platform/broadcast_room/rpc/models"
 	"platform/broadcast_room/rpc/services"
+	"platform/broadcast_room/rpc/services/broadcast"
 	pb "platform/commons/protos/room"
 	"platform/utils"
 

@@ -3,8 +3,8 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
-	"platform/account_center/rpc/services/notifier"
 	"platform/broadcast_room/rpc/models"
+	"platform/broadcast_room/rpc/services/notifier"
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"
@@ -75,13 +75,7 @@ func (s *Starter) GetBroadcast() (*Broadcast, error) {
 	if !s.valid {
 		return nil, errors.New("starter: unvalid process")
 	}
-	srvBro := &Broadcast{
-		BroadcastID:     s.broadcastModel.GetID(),
-		RoomID:          s.broadcastModel.GetRoomID(),
-		TotalAudience:   s.broadcastModel.TotalAudience,
-		CurrentAudience: s.broadcastModel.CurrentAudience,
-		StartTime:       s.broadcastModel.StartTime,
-	}
+	srvBro := modelBroadcastToSrvBroadcast(s.broadcastModel)
 	return srvBro, nil
 }
 
