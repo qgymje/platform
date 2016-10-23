@@ -3,8 +3,8 @@ package barrages
 import (
 	"encoding/json"
 	"fmt"
-	"platform/account_center/rpc/services/notifier"
 	"platform/barrage_center/rpc/models"
+	"platform/barrage_center/rpc/services/notifier"
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"

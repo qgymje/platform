@@ -40,7 +40,7 @@ func Publish(notifier Notifier) error {
 	if err != nil {
 		utils.GetLog().Error("publish error: %v", err)
 	} else {
-		log.Println("publish message success: ", string(msg))
+		log.Printf("[publish]: topic: %s, message: %s\n", notifier.Topic(), string(msg))
 	}
 	return err
 }
