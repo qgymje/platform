@@ -43,7 +43,6 @@ func main() {
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
-	r.Use(middlewares.APIVersion())
 	r.Use(middlewares.APILang())
 	r.Use(middlewares.RecordRequestBegin())
 
@@ -75,6 +74,10 @@ func main() {
 		c.PUT("/", coupon.Update)
 
 		// mobile api
+		c.GET("/my", coupon.List)
+		c.POST("/broadcast/send", coupon.Broadcast)
+		c.GET("/broadcast/status/:send_id", coupon.Status)
+		c.POST("/broadcast/take", coupon.Take)
 	}
 
 	if err := r.Run(getPort()); err != nil {

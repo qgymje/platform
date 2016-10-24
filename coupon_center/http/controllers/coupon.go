@@ -8,31 +8,46 @@ type Coupon struct {
 }
 
 // List list stores
-func (s *Coupon) List(c *gin.Context) {
+func (p *Coupon) List(c *gin.Context) {
 
 }
 
 // ListByStore list by store
-func (s *Coupon) ListByStore(c *gin.Context) {
+func (p *Coupon) ListByStore(c *gin.Context) {
 
 }
 
 // Show show a store
-func (s *Coupon) Show(c *gin.Context) {
+func (p *Coupon) Show(c *gin.Context) {
 
 }
 
 // Create create a store
-func (s *Coupon) Create(c *gin.Context) {
+func (p *Coupon) Create(c *gin.Context) {
 
 }
 
 // Update update a store
-func (s *Coupon) Update(c *gin.Context) {
+func (p *Coupon) Update(c *gin.Context) {
 
 }
 
 // Delete delete a store
-func (s *Coupon) Delete(c *gin.Context) {
+func (p *Coupon) Delete(c *gin.Context) {
+
+}
+
+// Broadcast send to broadcast
+func (p *Coupon) Broadcast(c *gin.Context) {
+
+}
+
+// Status broadcast status
+func (p *Coupon) Status(c *gin.Context) {
+
+}
+
+// Take take a broadacst coupon
+func (p *Coupon) Take(c *gin.Context) {
 
 }
