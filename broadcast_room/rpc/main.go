@@ -7,6 +7,7 @@ import (
 
 	"platform/broadcast_room/rpc/models"
 	"platform/broadcast_room/rpc/services"
+	"platform/broadcast_room/rpc/services/broadcast"
 	pb "platform/commons/protos/room"
 	"platform/utils"
 
@@ -47,6 +48,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+	go broadcasts.Sync()
 	s := grpc.NewServer()
 	pb.RegisterRoomServer(s, &services.Server{})
 	s.Serve(lis)

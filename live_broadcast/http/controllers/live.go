@@ -115,6 +115,14 @@ func (l *Live) Leave(c *gin.Context) {
 
 // Join 表示一个用户进入了直播间
 func (l *Live) Join(c *gin.Context) {
-	utils.Dump(c.Request)
+	var errorCode codes.ErrorCode
+	l.userInfo, errorCode = l.validUserInfo(c)
+	if l.userInfo == nil {
+		respformat := l.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+	utils.Dump(l.userInfo)
+	c.Set("user_id", l.userInfo.UserID)
 	broadcasts.ServeWS(c)
 }

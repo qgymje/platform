@@ -1,0 +1,380 @@
+2016/11/22 15:14:36 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:45
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:51
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:34
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 15:14:36 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:21
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:35
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 15:15:10 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:45
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:51
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:34
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 15:15:10 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:21
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:35
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 15:16:01 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:45
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:51
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:36
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 15:16:01 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:21
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:37
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:20:53 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:39
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:20:53 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:21:14 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:39
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:21:14 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:23:30 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:39
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:23:30 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:24:01 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:39
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:24:01 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:24:44 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:39
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:24:44 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:25:03 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:25:03 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:41
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:25:29 [log.go:63][E] rpc.Sender.Do error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services/barrages.(*Sender).Do.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:50
+platform/barrage_center/rpc/services/barrages.(*Sender).Do
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/barrages/sender.go:56
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:39
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086
+2016/11/22 23:25:29 [log.go:63][E] rpc.barrages.Send error: ObjectIDs must be exactly 12 bytes long (got 0)
+
+platform/utils.(*Logger).Error
+	/Users/jimmychain/Workspace/Go/src/platform/utils/log.go:62
+platform/barrage_center/rpc/services.(*Server).Send.func1
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:25
+platform/barrage_center/rpc/services.(*Server).Send
+	/Users/jimmychain/Workspace/Go/src/platform/barrage_center/rpc/services/server.go:40
+platform/commons/protos/barrage._Barrage_Send_Handler
+	/Users/jimmychain/Workspace/Go/src/platform/commons/protos/barrage/barrage.pb.go:157
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:611
+google.golang.org/grpc.(*Server).handleStream
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:769
+google.golang.org/grpc.(*Server).serveStreams.func1.1
+	/Users/jimmychain/Workspace/Go/src/google.golang.org/grpc/server.go:422
+runtime.goexit
+	/usr/local/Cellar/go/1.7.1/libexec/src/runtime/asm_amd64.s:2086

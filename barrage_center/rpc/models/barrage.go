@@ -3,46 +3,34 @@ package models
 import (
 	"time"
 
-	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
 // Barrage message
 //go:generate gen_columns -tag=bson -path=./barrage.go
 type Barrage struct {
-	RoomID    bson.ObjectId `bson:"roomID"`
-	UserID    bson.ObjectId `bson:"userID"`
-	UserName  string        `bson:"userName"`
-	Message   string        `bson:"message"`
-	CreatedAt time.Time     `bson:"createdAt"`
+	BroadcastID bson.ObjectId `bson:"broadcast_id"`
+	UserID      bson.ObjectId `bson:"user_id"`
+	Text        string        `bson:"text"`
+	Username    string        `bson:"username"`
+	Level       int64         `bson:"level"`
+	CreatedAt   time.Time     `bson:"created_at"`
+}
+
+// GetBroadcastID broadcast id
+func (b *Barrage) GetBroadcastID() string {
+	return b.BroadcastID.Hex()
+}
+
+// GetUserID get user id
+func (b *Barrage) GetUserID() string {
+	return b.UserID.Hex()
 }
 
 // Create new barrages
-func Create(barrages []*Barrage) (err error) {
+func (b *Barrage) Create() (err error) {
 	session := GetMongo()
 	defer session.Clone()
 
-	return session.DB(DBName).C(ColNameBarrage).Insert(&barrages)
-}
-
-func findBarrages(m bson.M) ([]*Barrage, error) {
-	session := GetMongo()
-	defer session.Close()
-
-	var barrages []*Barrage
-
-	err := session.DB(DBName).C(ColNameBarrage).Find(m).All(&barrages)
-	if err != nil {
-		if err == mgo.ErrNotFound {
-			return nil, ErrNotFound
-		}
-		return nil, err
-	}
-	return barrages, nil
-}
-
-// FindBarragesByRoom find barrages by room
-func FindBarragesByRoom(roomID string) ([]*Barrage, error) {
-	m := bson.M{BarrageColumns.RoomID: bson.ObjectIdHex(roomID)}
-	return findBarrages(m)
+	return session.DB(DBName).C(ColNameBarrage).Insert(&b)
 }

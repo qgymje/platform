@@ -33,7 +33,7 @@ func init() {
 
 func getPort() string {
 	if *port == "" {
-		return utils.GetConf().GetString("app.rpc_port")
+		return utils.GetConf().GetString("app.http_port")
 	}
 	return *port
 }

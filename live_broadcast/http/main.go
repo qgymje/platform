@@ -50,7 +50,7 @@ func main() {
 	bro := r.Group("/v1/live")
 	{
 		l := new(controllers.Live)
-		bro.GET("/join/:broadcast_id", l.Join)
+		bro.GET("/join/:broadcast_id/:token", l.Join)
 		bro.POST("/start", l.Start)
 		bro.PUT("/end", l.End)
 		bro.POST("/enter", l.Enter)

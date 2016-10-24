@@ -75,6 +75,10 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return c.Param("token"), codes.ErrorCodeSuccess
 	}
 
+	if c.Query("token") != "" {
+		return c.Param("token"), codes.ErrorCodeSuccess
+	}
+
 	token := c.Request.Header.Get(headerTokenKey)
 	if token == "" {
 		return "", codes.ErrorCodeTokenNotFound
@@ -108,5 +112,10 @@ func (b *Base) getRoomID(c *gin.Context) string {
 }
 
 func (b *Base) getBroadcastID(c *gin.Context) string {
-	return c.PostForm("broadcast_id")
+	key := "broadcast_id"
+	id := c.Param(key)
+	if id == "" {
+		id = c.PostForm(key)
+	}
+	return id
 }

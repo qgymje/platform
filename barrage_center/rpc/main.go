@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	pb "platform/commons/protos/game"
-	"platform/game_center/rpc/models"
-	"platform/game_center/rpc/services/games"
+	"platform/barrage_center/rpc/models"
+	"platform/barrage_center/rpc/services"
+	pb "platform/commons/protos/barrage"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -16,11 +16,11 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
-	port       = flag.String("port", ":4002", "service port")
+	port       = flag.String("port", ":4007", "service port")
 )
 
 func initEnv() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	flag.Parse()
 	log.Println("current env is: ", *env)
 	utils.SetEnv(*env)
@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGameServer(s, &games.GameServer{})
+	pb.RegisterBarrageServer(s, &services.Server{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)

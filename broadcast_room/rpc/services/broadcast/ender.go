@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"platform/account_center/rpc/services/notifier"
 	"platform/broadcast_room/rpc/models"
+	"platform/broadcast_room/rpc/services/notifier"
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"
@@ -82,12 +82,8 @@ func (e *Ender) GetBroadcast() (*Broadcast, error) {
 	if !e.valid {
 		return nil, errors.New("ender: unvalid process")
 	}
-	srvBro := &Broadcast{
-		BroadcastID:   e.broadcastModel.GetID(),
-		RoomID:        e.broadcastModel.GetRoomID(),
-		TotalAudience: e.broadcastModel.TotalAudience,
-		StartTime:     e.broadcastModel.StartTime,
-	}
+
+	srvBro := modelBroadcastToSrvBroadcast(e.broadcastModel)
 	return srvBro, nil
 }
 

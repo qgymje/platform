@@ -56,6 +56,10 @@ func init() {
 		ErrorCodeBroadcastIsOn:            "broadcast is already playing",
 		ErrorCodeBroadcastClosed:          "broadcast is closed",
 
+		ErrorCodeBarrageCreate: "barrage create failed",
+		ErrorCodeBarrageNotify: " barrage notify failed",
+		ErrorCodeBarrageFind:   "barrage find error",
+
 		// room errors
 		ErrorCodeRoomAlreadyCreated: "room already created",
 		ErrorCodeRoomCreate:         "room create failed",

@@ -72,6 +72,11 @@ const (
 	ErrorCodeBroadcastIsOn            ErrorCode = "BRO400302"
 	ErrorCodeBroadcastClosed          ErrorCode = "BRO400303"
 
+	// Barrage error
+	ErrorCodeBarrageCreate ErrorCode = "BAR500101"
+	ErrorCodeBarrageNotify ErrorCode = "BAR500102"
+	ErrorCodeBarrageFind   ErrorCode = "BAR400101"
+
 	// Room errror
 	ErrorCodeRoomAlreadyCreated ErrorCode = "ROM400302"
 	ErrorCodeRoomCreate         ErrorCode = "ROM500303"

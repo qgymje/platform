@@ -42,8 +42,9 @@ message RoomInfo {
     string userName = 3; 
     string cover = 4;
     bool isPlaying = 5;
-    int64 followNum = 6; 
-    BroadcastInfo broadcast = 7;
+    bool isFollow = 6;
+    int64 followNum = 7; 
+    BroadcastInfo broadcast = 8;
 }
 
 message Rooms {

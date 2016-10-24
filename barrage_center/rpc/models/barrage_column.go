@@ -1,21 +1,23 @@
 package models
 
 type _BarrageColumn struct {
-	CreatedAt string
-	Message   string
-	RoomID    string
-	UserID    string
-	UserName  string
+	BroadcastID string
+	CreatedAt   string
+	Level       string
+	Text        string
+	UserID      string
+	UserName    string
 }
 
 // BarrageColumns barrage columns name
 var BarrageColumns _BarrageColumn
 
 func init() {
-	BarrageColumns.CreatedAt = "createdAt"
-	BarrageColumns.Message = "message"
-	BarrageColumns.RoomID = "roomID"
-	BarrageColumns.UserID = "userID"
-	BarrageColumns.UserName = "userName"
+	BarrageColumns.BroadcastID = "broadcast_id"
+	BarrageColumns.CreatedAt = "created_at"
+	BarrageColumns.Level = "level"
+	BarrageColumns.Text = "text"
+	BarrageColumns.UserID = "user_id"
+	BarrageColumns.UserName = "username"
 
 }

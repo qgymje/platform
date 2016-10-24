@@ -1,14 +1,3 @@
-pack: clean
-	godep save
+include ../../.Makefile
 
-clean:
-	@echo "removing pkgs.." && go clean
-
-http:
-	fswatch
-
-rpc:
-	fswatch
-
-build:
-	env GOOS=linux GOARCH=amd64 go build -o barrage_center_rpc
+PROJECT_NAME=barrage_center_rpc
