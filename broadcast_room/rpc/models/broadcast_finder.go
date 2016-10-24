@@ -55,7 +55,7 @@ func (b *BroadcastFinder) ByIDs(ids []string) *BroadcastFinder {
 
 // IsPlaying fetch by the playing broadcast
 func (b *BroadcastFinder) IsPlaying() *BroadcastFinder {
-	b.where[BroadcastColumns.EndTime] = bson.M{"$eq": time.Time{}}
+	b.where[BroadcastColumns.EndTime] = time.Time{}
 	return b
 }
 

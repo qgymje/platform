@@ -21,10 +21,14 @@
     1. 2016.10.19
     2. add start/end APIs
 
-5. v0.0.6
+6. v0.0.6
     1. 2016.10.20
     2. add enter/leave APIs
     3. update list/info/start/end API
+
+7. v0.0.7
+    1. 2016.10.23
+    2. add barrage send/list APIs
 
 
 ## list
@@ -41,7 +45,9 @@ name|desc|dev status
 /live/end | [end broadcast](#broadcast_end) | [YES]
 /live/enter | [enter a room](#broadcast_enter) | [YES]
 /live/leave | [leave a room](#broadcast_leave) | [YES]
-/live/join | [join](#broadcast_join) | [NO]
+/live/join | [join](#broadcast_join) | [YES]
+/barrage/| [send](#barrage_send) | [YES]
+/barrage/| [list](#barrage_list) | [YES]
 
 ---
 
@@ -390,3 +396,114 @@ RETURN:
 }
 ```
 ---
+
+
+<div id="broadcast_join"></div>
+
+## join
+
+URL: /live/join/:broadcast_id/:token
+
+AUTH: YES
+
+METHOD: GET
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+token | string | no| token
+
+RETURN:
+
+> a websocket connection
+
+---
+
+<div id="barrage_send"></div>
+
+## send
+
+URL: /barrage/
+
+AUTH: YES
+
+METHOD: POST
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+text | string | yes | can not be empty
+type_id| int | yes | type_id
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "success": true
+  },
+  "msg": "success"
+}
+```
+
+---
+
+<div id="barrage_list"></div>
+
+## list
+
+URL: /barrage/
+
+AUTH: YES
+
+METHOD: GET
+
+PARAMETERS:
+
+name|type|required|description
+---|---|---|---
+broadcast_id | string | yes | broadcast id
+start_time| string | yes | 2016-10-22T15:00:00
+end_time| string | yes | 2016-10-22T15:30:00
+page_size| int | no | default 50
+page | int | no | default 1
+
+RETURN:
+```json
+{
+  "code": "200",
+  "data": {
+    "list": [
+      {
+        "broadcastID": "580b1254c86ab4ded0c401b3",
+        "userID": "57e2267ec86ab45af3d14806",
+        "createdAt": 1477120606,
+        "username": "hello",
+        "level": 108
+      },
+      {
+        "broadcastID": "580b1254c86ab4ded0c401b3",
+        "userID": "57e2267ec86ab45af3d14806",
+        "createdAt": 1477120675,
+        "username": "hello",
+        "level": 108
+      },
+      {
+        "broadcastID": "580b1254c86ab4ded0c401b3",
+        "userID": "57e2267ec86ab45af3d14806",
+        "text": "hello there",
+        "createdAt": 1477120713,
+        "username": "hello",
+        "level": 108
+      }
+    ]
+  },
+  "msg": "success"
+}
+```
+
+----

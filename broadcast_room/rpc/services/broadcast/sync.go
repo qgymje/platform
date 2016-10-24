@@ -95,6 +95,14 @@ func (b *BroadcastSync) Message() []byte {
 		StartTime:       b.broadcast.StartTime.Unix(),
 		Duration:        b.broadcast.Duration,
 	}
-	msg, _ = json.Marshal(&broadcastMsg)
+
+	data := struct {
+		Type int         `json:"type"`
+		Data interface{} `json:"data"`
+	}{
+		10000,
+		broadcastMsg,
+	}
+	msg, _ = json.Marshal(&data)
 	return msg
 }

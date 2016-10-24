@@ -2,7 +2,6 @@ package models
 
 import (
 	"math"
-	"platform/utils"
 	"time"
 
 	"gopkg.in/mgo.v2/bson"
@@ -60,7 +59,7 @@ func (b *BarrageFinder) Limit(offset, limit int) *BarrageFinder {
 func (b *BarrageFinder) Do() (err error) {
 	session := GetMongo()
 	defer session.Close()
-	utils.Dump(b.where)
+
 	return session.DB(DBName).C(ColNameBarrage).Find(b.where).Limit(b.limit).All(&b.barrages)
 }
 
