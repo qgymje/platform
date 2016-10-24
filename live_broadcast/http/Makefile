@@ -1,19 +1,3 @@
-pack: clean
-	godep save
+include ../../.Makefile
 
-clean:
-	@echo "removing pkgs.." && go clean
-
-http:
-	fswatch
-
-rpc:
-	fswatch
-
-build:
-	env GOOS=linux GOARCH=amd64 go build -o live_broadcast_http
-
-sync:
-	scp live_broadcast_http root@node1:~/platform/live_broadcast_http
-	scp ./configs/* root@node1:~/platform/live_broadcast_http/configs/
-
+PROJECT_NAME=live_broadcast_http
