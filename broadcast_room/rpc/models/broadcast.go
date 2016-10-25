@@ -1,7 +1,6 @@
 package models
 
 import (
-	"math"
 	"time"
 
 	mgo "gopkg.in/mgo.v2"
@@ -66,11 +65,11 @@ func (b *Broadcast) AddAudience(total, current int) error {
 	session := GetMongo()
 	defer session.Close()
 
-	currentNum := int64(math.Max(0, float64(current)))
 	change := mgo.Change{
-		Update:    bson.M{"$inc": bson.M{BroadcastColumns.TotalAudience: total, BroadcastColumns.CurrentAudience: currentNum}},
+		Update:    bson.M{"$inc": bson.M{BroadcastColumns.TotalAudience: total, BroadcastColumns.CurrentAudience: current}},
 		ReturnNew: true,
 	}
+
 	_, err := session.DB(DBName).C(ColNameBroadcast).Find(bson.M{BroadcastColumns.BroadcastID: b.BroadcastID}).Apply(change, &b)
 	return err
 }

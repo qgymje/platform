@@ -99,13 +99,11 @@ func (r *Room) Update(name string, cover string) error {
 func FindRoomByUserID(userID string) (*Room, error) {
 	finder := NewRoomFinder().UserID(userID)
 	if err := finder.Do(); err != nil {
-		return nil, err
+		if err == mgo.ErrNotFound {
+			return nil, err
+		}
 	}
-	room := finder.One()
-	if room != nil {
-		return room, nil
-	}
-	return nil, ErrNotFound
+	return finder.One(), nil
 }
 
 // FindRoomByID find room by room_id

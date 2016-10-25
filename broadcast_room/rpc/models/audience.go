@@ -1,7 +1,6 @@
 package models
 
 import (
-	"platform/utils"
 	"time"
 
 	mgo "gopkg.in/mgo.v2"
@@ -73,7 +72,6 @@ func (a *Audience) Leave() error {
 		AudienceColumns.BroadcastID: a.BroadcastID,
 		AudienceColumns.UserID:      a.UserID,
 	}
-	info, err := session.DB(DBName).C(ColNameAudience).Find(where).Sort("$natural").Apply(change, &a)
-	utils.Dump(info)
+	_, err := session.DB(DBName).C(ColNameAudience).Find(where).Sort("$natural").Apply(change, &a)
 	return err
 }

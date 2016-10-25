@@ -96,7 +96,7 @@ func (r *Room) getBroadcast(mRoom *models.Room) (mBroadcast *models.Broadcast, e
 func (r *Room) GetByUserID(userID string) (*Room, error) {
 	mRoom, err := models.FindRoomByUserID(userID)
 	if err != nil {
-		return &Room{}, nil
+		return nil, err
 	}
 
 	mBroadcast, err := r.getBroadcast(mRoom)
