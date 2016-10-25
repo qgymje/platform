@@ -143,7 +143,10 @@ func (s *Server) Start(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, err
 		}
 	}()
 
-	starter := broadcasts.NewStarter(in.UserID)
+	starterConfig := &broadcasts.StarterConfig{
+		UserID: in.UserID,
+	}
+	starter := broadcasts.NewStarter(starterConfig)
 	if err := starter.Do(); err != nil {
 		return nil, errors.New(starter.ErrorCode().String())
 	}
@@ -161,7 +164,11 @@ func (s *Server) End(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, error
 		}
 	}()
 
-	ender := broadcasts.NewEnder(in.UserID)
+	enderConfig := &broadcasts.EnderConfig{
+		UserID: in.UserID,
+		TypeID: int(in.TypeID),
+	}
+	ender := broadcasts.NewEnder(enderConfig)
 	if err := ender.Do(); err != nil {
 		return nil, errors.New(ender.ErrorCode().String())
 	}

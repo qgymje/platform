@@ -52,7 +52,10 @@ func (l *Live) End(c *gin.Context) {
 	}
 
 	roomClient := roomClient.NewRoom(l.getRoomRPCAddress())
-	userInfo := pbroom.User{UserID: l.userInfo.UserID}
+	userInfo := pbroom.User{
+		UserID: l.userInfo.UserID,
+		TypeID: int32(l.getTypeID(c)),
+	}
 	reply, err := roomClient.End(&userInfo)
 	if err != nil {
 		respformat := l.Response(c, rpcErrorFormat(err.Error()), nil)

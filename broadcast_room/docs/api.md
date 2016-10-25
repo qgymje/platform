@@ -11,7 +11,7 @@
 
 3. v0.0.3 
     1. 2016.10.18
-    2. add fullow/unfollw APIs
+    2. add fullow/unfollw APIs 
 
 4. v0.0.4
     1. 2016.10.19
@@ -322,6 +322,7 @@ PARAMETERS:
 
 name|type|required|description
 ---|---|---|---
+type_id | int | yes | type id
 
 RETURN:
 ```json

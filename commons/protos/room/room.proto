@@ -6,12 +6,13 @@ service Room {
     rpc Create(CreateRequest) returns (Status){}
     rpc List(ListRequest) returns (Rooms){}
     rpc Info(UserRoom) returns (RoomInfo){}
+    rpc Follow(UserRoom) returns (Status) {}
+    rpc Unfollow(UserRoom) returns (Status) {}
+
     rpc Start(User) returns (BroadcastInfo){}
     rpc End(User) returns (BroadcastInfo){}
     rpc Enter(UserRoom) returns  (Status) {}
     rpc Leave(UserRoom) returns  (Status) {}
-    rpc Follow(UserRoom) returns (Status) {}
-    rpc Unfollow(UserRoom) returns (Status) {}
 }
 
 message Broadcast {
@@ -54,6 +55,7 @@ message Rooms {
 
 message User {
     string userID  = 1;
+    int32 typeID = 2;
 }
 
 message UserRoom {

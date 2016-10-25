@@ -14,9 +14,15 @@ import (
 
 const broadcastAtLeastTime = 2 * time.Minute
 
+// EnderConfig ender config
+type EnderConfig struct {
+	UserID string
+	TypeID int
+}
+
 // Ender end a broadcast
 type Ender struct {
-	userID         string
+	config         *EnderConfig
 	roomModel      *models.Room
 	broadcastModel *models.Broadcast
 	valid          bool
@@ -25,9 +31,9 @@ type Ender struct {
 }
 
 // NewEnder end a new broadcast
-func NewEnder(userID string) *Ender {
+func NewEnder(c *EnderConfig) *Ender {
 	return &Ender{
-		userID:         userID,
+		config:         c,
 		roomModel:      &models.Room{},
 		broadcastModel: &models.Broadcast{},
 	}
@@ -89,7 +95,7 @@ func (e *Ender) GetBroadcast() (*Broadcast, error) {
 
 func (e *Ender) validUser() error {
 	var err error
-	e.roomModel, err = models.FindRoomByUserID(e.userID)
+	e.roomModel, err = models.FindRoomByUserID(e.config.UserID)
 	if err != nil {
 		return err
 	}
@@ -103,6 +109,11 @@ func (e *Ender) validBroadcast() error {
 		return err
 	}
 	e.valid = true
+	return nil
+}
+
+func (e *Ender) removeBroadcast() error {
+	// delete broadcast topic
 	return nil
 }
 
@@ -128,14 +139,23 @@ func (e *Ender) Topic() string {
 
 // Message implement Notifier interface
 func (e *Ender) Message() []byte {
-	var data []byte
-	msg := queues.MessageBroadcastEnd{
+	var msg []byte
+	broadcastEndMsg := queues.MessageBroadcastEnd{
 		RoomID:      e.roomModel.GetID(),
 		BroadcastID: e.broadcastModel.GetID(),
 		EndTime:     time.Now(),
 	}
-	data, _ = json.Marshal(msg)
-	return data
+
+	data := struct {
+		Type int         `json:"type"`
+		Data interface{} `json:"data"`
+	}{
+		e.config.TypeID,
+		broadcastEndMsg,
+	}
+
+	msg, _ = json.Marshal(data)
+	return msg
 }
 
 func (e *Ender) notify() error {

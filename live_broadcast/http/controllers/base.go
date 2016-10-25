@@ -4,6 +4,7 @@ import (
 	"log"
 	"platform/commons/codes"
 	pbuser "platform/commons/protos/user"
+	"strconv"
 
 	"platform/commons/grpc_clients/user"
 	"platform/utils"
@@ -117,5 +118,10 @@ func (b *Base) getBroadcastID(c *gin.Context) string {
 	if id == "" {
 		id = c.PostForm(key)
 	}
+	return id
+}
+
+func (b *Base) getTypeID(c *gin.Context) int {
+	id, _ := strconv.Atoi(c.PostForm("type_id"))
 	return id
 }
