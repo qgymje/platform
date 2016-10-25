@@ -3,7 +3,6 @@ package models
 import (
 	"math"
 
-	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -78,12 +77,19 @@ func (g *GameFinder) Do() (err error) {
 
 	err = session.DB(DBName).C(ColNameGame).Find(g.condition()).Skip(g.skip).Limit(g.limit).All(&g.games)
 	if err != nil {
-		if err == mgo.ErrNotFound {
-			return ErrNotFound
-		}
 		return err
 	}
+
+	if len(g.games) == 0 {
+		return ErrNotFound
+	}
+
 	return nil
+}
+
+// One find one
+func (g *GameFinder) One() *Game {
+	return g.games[0]
 }
 
 // Result return the games that found
