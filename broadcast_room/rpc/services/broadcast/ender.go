@@ -61,6 +61,11 @@ func (e *Ender) Do() (err error) {
 		return
 	}
 
+	if yes := e.isEnded(); yes {
+		e.errorCode = codes.ErrorCodeBroadcastClosed
+		return
+	}
+
 	if yes := e.isPlayedLognerThanLeastTime(); !yes {
 		e.errorCode = codes.ErrorCodeBroadcastTooShort
 		return errors.New("broadcast too short")
@@ -110,6 +115,13 @@ func (e *Ender) validBroadcast() error {
 	}
 	e.valid = true
 	return nil
+}
+
+func (e *Ender) isEnded() bool {
+	if e.broadcastModel.IsPlaying() {
+		return false
+	}
+	return true
 }
 
 func (e *Ender) removeBroadcast() error {
