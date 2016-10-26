@@ -143,7 +143,10 @@ func (s *Server) Start(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, err
 		}
 	}()
 
-	starter := broadcasts.NewStarter(in.UserID)
+	starterConfig := &broadcasts.StarterConfig{
+		UserID: in.UserID,
+	}
+	starter := broadcasts.NewStarter(starterConfig)
 	if err := starter.Do(); err != nil {
 		return nil, errors.New(starter.ErrorCode().String())
 	}
@@ -161,7 +164,11 @@ func (s *Server) End(ctx context.Context, in *pb.User) (*pb.BroadcastInfo, error
 		}
 	}()
 
-	ender := broadcasts.NewEnder(in.UserID)
+	enderConfig := &broadcasts.EnderConfig{
+		UserID: in.UserID,
+		TypeID: int(in.TypeID),
+	}
+	ender := broadcasts.NewEnder(enderConfig)
 	if err := ender.Do(); err != nil {
 		return nil, errors.New(ender.ErrorCode().String())
 	}
@@ -182,6 +189,9 @@ func (s *Server) Enter(ctx context.Context, in *pb.UserRoom) (*pb.Status, error)
 	enterConfig := &broadcasts.EnterConfig{
 		BroadcastID: in.BroadcastID,
 		UserID:      in.UserID,
+		TypeID:      int(in.TypeID),
+		Level:       in.Level,
+		Username:    in.Username,
 	}
 	enter := broadcasts.NewEnter(enterConfig)
 	if err := enter.Do(); err != nil {
@@ -202,6 +212,9 @@ func (s *Server) Leave(ctx context.Context, in *pb.UserRoom) (*pb.Status, error)
 	leaverConfig := &broadcasts.LeaverConfig{
 		BroadcastID: in.BroadcastID,
 		UserID:      in.UserID,
+		TypeID:      int(in.TypeID),
+		Level:       in.Level,
+		Username:    in.Username,
 	}
 	leaver := broadcasts.NewLeaver(leaverConfig)
 	if err := leaver.Do(); err != nil {

@@ -70,15 +70,19 @@ func (r *RoomFinder) Do() (err error) {
 	session := GetMongo()
 	defer session.Close()
 
-	return session.DB(DBName).C(ColNameRoom).Find(r.where).Skip(r.skip).Limit(r.limit).All(&r.rooms)
+	err = session.DB(DBName).C(ColNameRoom).Find(r.where).Skip(r.skip).Limit(r.limit).All(&r.rooms)
+	if err != nil {
+		return err
+	}
+	if len(r.rooms) == 0 {
+		return ErrNotFound
+	}
+	return nil
 }
 
 // One get only one result
 func (r *RoomFinder) One() *Room {
-	if len(r.rooms) > 0 {
-		return r.rooms[0]
-	}
-	return nil
+	return r.rooms[0]
 }
 
 // Result return the games that found

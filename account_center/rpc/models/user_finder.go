@@ -3,7 +3,6 @@ package models
 import (
 	"math"
 
-	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -64,12 +63,19 @@ func (u *UserFinder) Do() (err error) {
 
 	err = session.DB(DBName).C(ColNameUser).Find(u.condition()).Skip(u.skip).Limit(u.limit).All(&u.users)
 	if err != nil {
-		if err == mgo.ErrNotFound {
-			return ErrNotFound
-		}
 		return err
 	}
+
+	if len(u.users) == 0 {
+		return ErrNotFound
+	}
+
 	return nil
+}
+
+// One find one
+func (u *UserFinder) One() *User {
+	return u.users[0]
 }
 
 // Result return the users that found

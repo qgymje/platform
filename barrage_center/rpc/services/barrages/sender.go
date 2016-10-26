@@ -93,7 +93,6 @@ func (s *Sender) Topic() string {
 func (s *Sender) Message() []byte {
 	var msg []byte
 	barrageMsg := queues.MessageBarrage{
-		TypeID:      s.config.TypeID,
 		BroadcastID: s.config.BroadcastID,
 		UserID:      s.config.UserID,
 		Username:    s.config.Username,
@@ -101,6 +100,14 @@ func (s *Sender) Message() []byte {
 		Text:        s.config.Text,
 		CreatedAt:   s.barrageModel.CreatedAt,
 	}
-	msg, _ = json.Marshal(barrageMsg)
+
+	data := struct {
+		Type int         `json:"type"`
+		Data interface{} `json:"data"`
+	}{
+		int(s.config.TypeID),
+		barrageMsg,
+	}
+	msg, _ = json.Marshal(data)
 	return msg
 }

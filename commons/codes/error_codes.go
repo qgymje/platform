@@ -19,9 +19,11 @@ const (
 	ErrorCodeSuccess ErrorCode = "200"
 
 	ErrorCodeMissParameters ErrorCode = "USR400101"
-	ErrorCodeUpload         ErrorCode = "UPL400101"
-	ErrorCodeUploadCreate   ErrorCode = "UPL500101"
-	ErrorCodeUploadSend     ErrorCode = "UPL500102"
+
+	// upload
+	ErrorCodeUpload       ErrorCode = "UPL400101"
+	ErrorCodeUploadCreate ErrorCode = "UPL500101"
+	ErrorCodeUploadSend   ErrorCode = "UPL500102"
 
 	// token 错误系列以1xx开始
 	ErrorCodeTokenNotFound ErrorCode = "TOK403101"
@@ -71,6 +73,9 @@ const (
 	ErrorCodeAgreement                ErrorCode = "BRO400301"
 	ErrorCodeBroadcastIsOn            ErrorCode = "BRO400302"
 	ErrorCodeBroadcastClosed          ErrorCode = "BRO400303"
+
+	// Audience error
+	ErrorCodeAudienceUpdate ErrorCode = "AUD500101"
 
 	// Barrage error
 	ErrorCodeBarrageCreate ErrorCode = "BAR500101"

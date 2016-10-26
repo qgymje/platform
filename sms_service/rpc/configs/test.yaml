@@ -1,6 +1,6 @@
 app:
     rpc_host: localhost
-    rpc_port: :4004
+    rpc_port: :4008
 
 mongodb:
     hosts: 127.0.0.1

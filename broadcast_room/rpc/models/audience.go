@@ -1,7 +1,6 @@
 package models
 
 import (
-	"platform/utils"
 	"time"
 
 	mgo "gopkg.in/mgo.v2"
@@ -32,6 +31,11 @@ func NewAudience(broadcastID, userID string) (*Audience, error) {
 		BroadcastID: broadcastObjID,
 		UserID:      userObjID,
 	}, nil
+}
+
+// GetUserID get user id
+func (a *Audience) GetUserID() string {
+	return a.UserID.Hex()
 }
 
 // HasEntered did audience entere the broadcast room before?
@@ -73,7 +77,6 @@ func (a *Audience) Leave() error {
 		AudienceColumns.BroadcastID: a.BroadcastID,
 		AudienceColumns.UserID:      a.UserID,
 	}
-	info, err := session.DB(DBName).C(ColNameAudience).Find(where).Sort("$natural").Apply(change, &a)
-	utils.Dump(info)
+	_, err := session.DB(DBName).C(ColNameAudience).Find(where).Sort("$natural").Apply(change, &a)
 	return err
 }

@@ -1,15 +1,22 @@
 package broadcasts
 
 import (
+	"encoding/json"
 	"errors"
 	"platform/broadcast_room/rpc/models"
 	"platform/commons/codes"
+	"platform/commons/queues"
+	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
 )
 
 // LeaverConfig leaver config
 type LeaverConfig struct {
-	UserID, BroadcastID string
+	TypeID      int
+	BroadcastID string
+	UserID      string
+	Username    string
+	Level       int64
 }
 
 // Leaver when a user enter a broadcast
@@ -50,6 +57,11 @@ func (l *Leaver) Do() (err error) {
 	if err = l.update(); err != nil {
 		return
 	}
+
+	if err = l.notify(); err != nil {
+		l.errorCode = codes.ErrorCodeBroadcastNotify
+		return
+	}
 	return nil
 }
 
@@ -68,11 +80,13 @@ func (l *Leaver) update() (err error) {
 	}
 
 	if err = l.audiecntModel.Leave(); err != nil {
+		l.errorCode = codes.ErrorCodeAudienceUpdate
 		return err
 	}
 
 	total, current := 0, -1
 	if err = l.updateBroadcast(total, current); err != nil {
+		l.errorCode = codes.ErrorCodeBroadcastUpdate
 		return err
 	}
 
@@ -81,4 +95,36 @@ func (l *Leaver) update() (err error) {
 
 func (l *Leaver) updateBroadcast(total, current int) (err error) {
 	return l.broadcastModel.AddAudience(total, current)
+}
+
+func (l *Leaver) notify() (err error) {
+	return notifier.Publish(l)
+}
+
+// Topic topic
+func (l *Leaver) Topic() string {
+	return queues.TopicBroadcastLeave.String()
+}
+
+// Message message
+func (l *Leaver) Message() []byte {
+	var msg []byte
+	broadcastLeaveMsg := queues.MessageBroadcastLeave{
+		BroadcastID: l.broadcastModel.GetID(),
+		UserID:      l.config.UserID,
+		Username:    l.config.Username,
+		Level:       l.config.Level,
+		LeaveTime:   l.audiecntModel.LeaveTime.Unix(),
+	}
+
+	data := struct {
+		Type int         `json:"type"`
+		Data interface{} `json:"data"`
+	}{
+		l.config.TypeID,
+		broadcastLeaveMsg,
+	}
+
+	msg, _ = json.Marshal(data)
+	return msg
 }

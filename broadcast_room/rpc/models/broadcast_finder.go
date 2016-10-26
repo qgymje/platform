@@ -55,7 +55,7 @@ func (b *BroadcastFinder) ByIDs(ids []string) *BroadcastFinder {
 
 // IsPlaying fetch by the playing broadcast
 func (b *BroadcastFinder) IsPlaying() *BroadcastFinder {
-	b.where[BroadcastColumns.EndTime] = bson.M{"$eq": time.Time{}}
+	b.where[BroadcastColumns.EndTime] = time.Time{}
 	return b
 }
 
@@ -64,15 +64,20 @@ func (b *BroadcastFinder) Do() (err error) {
 	session := GetMongo()
 	defer session.Close()
 
-	return session.DB(DBName).C(ColNameBroadcast).Find(b.where).Skip(b.skip).Limit(b.limit).All(&b.broadcasts)
+	err = session.DB(DBName).C(ColNameBroadcast).Find(b.where).Skip(b.skip).Limit(b.limit).All(&b.broadcasts)
+	if err != nil {
+		return err
+	}
+
+	if len(b.broadcasts) == 0 {
+		return ErrNotFound
+	}
+	return nil
 }
 
 // One get only one result
 func (b *BroadcastFinder) One() *Broadcast {
-	if len(b.broadcasts) > 0 {
-		return b.broadcasts[0]
-	}
-	return nil
+	return b.broadcasts[0]
 }
 
 // Result return the games that found

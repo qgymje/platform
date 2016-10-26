@@ -26,6 +26,12 @@ const (
 	TopicBroadcastStart Topic = "broadcast_start"
 	// TopicBroadcastEnd broadcast end topic name
 	TopicBroadcastEnd Topic = "broadcast_end"
+	// TopicBroadcastEnter broadcast enter
+	TopicBroadcastEnter Topic = "broadcast_enter"
+	// TopicBroadcastLeave broadcast leave
+	TopicBroadcastLeave Topic = "broadcast_leave"
 	// TopicBroadcastFormat broadcast format
 	TopicBroadcastFormat Topic = "broadcast_%s"
+	// TopicSendCouponUpdate send coupon update
+	TopicSendCouponUpdate Topic = "sendcoupon_update"
 )
