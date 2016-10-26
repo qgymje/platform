@@ -27,7 +27,7 @@ func Sync() {
 			for _, bro := range allBroadcasts {
 				broSync := NewBroadcastSync(bro)
 				if err := broSync.Do(); err != nil {
-					utils.GetLog().Error("broadcasts.Sync.Do error: %+v", err)
+					utils.GetLog().Error("broadcasts.BroadcastSync.Do error: %+v", err)
 				}
 			}
 		}

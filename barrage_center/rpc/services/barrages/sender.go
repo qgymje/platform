@@ -107,7 +107,7 @@ func (s *Sender) Message() []byte {
 		Username:    s.config.Username,
 		Level:       s.config.Level,
 		Text:        s.config.Text,
-		CreatedAt:   s.barrageModel.CreatedAt,
+		CreatedAt:   s.barrageModel.CreatedAt.Unix(),
 	}
 
 	data := struct {
