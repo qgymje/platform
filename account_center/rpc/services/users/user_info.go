@@ -52,7 +52,7 @@ func (u *UserInfo) formatUserInfo(user *models.User) {
 func (u *UserInfo) GetByToken(token string) error {
 	user, err := models.FindUserByToken(token)
 	if err != nil {
-		u.errorCode = codes.ErrorCodeUserNotFound
+		u.errorCode = codes.ErrorCodeInvalidToken
 		return err
 	}
 	u.formatUserInfo(user)

@@ -74,6 +74,9 @@ const (
 	ErrorCodeBroadcastIsOn            ErrorCode = "BRO400302"
 	ErrorCodeBroadcastClosed          ErrorCode = "BRO400303"
 
+	// Audience error
+	ErrorCodeAudienceUpdate ErrorCode = "AUD500101"
+
 	// Barrage error
 	ErrorCodeBarrageCreate ErrorCode = "BAR500101"
 	ErrorCodeBarrageNotify ErrorCode = "BAR500102"

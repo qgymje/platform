@@ -189,6 +189,9 @@ func (s *Server) Enter(ctx context.Context, in *pb.UserRoom) (*pb.Status, error)
 	enterConfig := &broadcasts.EnterConfig{
 		BroadcastID: in.BroadcastID,
 		UserID:      in.UserID,
+		TypeID:      int(in.TypeID),
+		Level:       in.Level,
+		Username:    in.Username,
 	}
 	enter := broadcasts.NewEnter(enterConfig)
 	if err := enter.Do(); err != nil {
@@ -209,6 +212,9 @@ func (s *Server) Leave(ctx context.Context, in *pb.UserRoom) (*pb.Status, error)
 	leaverConfig := &broadcasts.LeaverConfig{
 		BroadcastID: in.BroadcastID,
 		UserID:      in.UserID,
+		TypeID:      int(in.TypeID),
+		Level:       in.Level,
+		Username:    in.Username,
 	}
 	leaver := broadcasts.NewLeaver(leaverConfig)
 	if err := leaver.Do(); err != nil {

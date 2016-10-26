@@ -33,6 +33,11 @@ func NewAudience(broadcastID, userID string) (*Audience, error) {
 	}, nil
 }
 
+// GetUserID get user id
+func (a *Audience) GetUserID() string {
+	return a.UserID.Hex()
+}
+
 // HasEntered did audience entere the broadcast room before?
 func (a *Audience) HasEntered() bool {
 	session := GetMongo()

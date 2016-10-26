@@ -93,7 +93,6 @@ func (s *Sender) Topic() string {
 func (s *Sender) Message() []byte {
 	var msg []byte
 	barrageMsg := queues.MessageBarrage{
-		TypeID:      s.config.TypeID,
 		BroadcastID: s.config.BroadcastID,
 		UserID:      s.config.UserID,
 		Username:    s.config.Username,

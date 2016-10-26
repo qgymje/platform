@@ -56,6 +56,8 @@ func init() {
 		ErrorCodeBroadcastIsOn:            "broadcast is already playing",
 		ErrorCodeBroadcastClosed:          "broadcast is closed",
 
+		ErrorCodeAudienceUpdate: "audience update failed",
+
 		ErrorCodeBarrageCreate: "barrage create failed",
 		ErrorCodeBarrageNotify: " barrage notify failed",
 		ErrorCodeBarrageFind:   "barrage find error",

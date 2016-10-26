@@ -79,7 +79,13 @@ func (l *Live) Enter(c *gin.Context) {
 	}
 
 	roomClient := roomClient.NewRoom(l.getRoomRPCAddress())
-	userRoom := &pbroom.UserRoom{UserID: l.userInfo.UserID, BroadcastID: l.getBroadcastID(c)}
+	userRoom := &pbroom.UserRoom{
+		UserID:      l.userInfo.UserID,
+		BroadcastID: l.getBroadcastID(c),
+		TypeID:      int32(l.getTypeID(c)),
+		Username:    l.userInfo.Nickname,
+		Level:       l.userInfo.Level,
+	}
 	reply, err := roomClient.Enter(userRoom)
 	if err != nil {
 		respformat := l.Response(c, rpcErrorFormat(err.Error()), nil)
@@ -103,7 +109,13 @@ func (l *Live) Leave(c *gin.Context) {
 	}
 
 	roomClient := roomClient.NewRoom(l.getRoomRPCAddress())
-	userRoom := &pbroom.UserRoom{UserID: l.userInfo.UserID, BroadcastID: l.getBroadcastID(c)}
+	userRoom := &pbroom.UserRoom{
+		UserID:      l.userInfo.UserID,
+		BroadcastID: l.getBroadcastID(c),
+		TypeID:      int32(l.getTypeID(c)),
+		Username:    l.userInfo.Nickname,
+		Level:       l.userInfo.Level,
+	}
 	reply, err := roomClient.Leave(userRoom)
 	if err != nil {
 		respformat := l.Response(c, rpcErrorFormat(err.Error()), nil)

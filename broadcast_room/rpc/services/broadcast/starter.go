@@ -8,12 +8,12 @@ import (
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/utils"
-	"time"
 )
 
 // StarterConfig starter config
 type StarterConfig struct {
 	UserID string
+	TypeID int
 }
 
 // Starter start a broadcast process wrapper
@@ -121,7 +121,7 @@ func (s *Starter) Message() []byte {
 	msg := queues.MessageBroadcastStart{
 		RoomID:      s.roomModel.GetID(),
 		BroadcastID: s.broadcastModel.GetID(),
-		StartTime:   time.Now(),
+		StartTime:   s.broadcastModel.StartTime.Unix(),
 	}
 	data, _ = json.Marshal(msg)
 	return data

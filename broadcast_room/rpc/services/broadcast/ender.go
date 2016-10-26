@@ -143,7 +143,7 @@ func (e *Ender) Message() []byte {
 	broadcastEndMsg := queues.MessageBroadcastEnd{
 		RoomID:      e.roomModel.GetID(),
 		BroadcastID: e.broadcastModel.GetID(),
-		EndTime:     time.Now(),
+		EndTime:     time.Now().Unix(),
 	}
 
 	data := struct {

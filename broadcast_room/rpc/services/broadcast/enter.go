@@ -1,15 +1,21 @@
 package broadcasts
 
 import (
+	"encoding/json"
 	"errors"
 	"platform/broadcast_room/rpc/models"
 	"platform/commons/codes"
+	"platform/commons/queues"
+	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
 )
 
 // EnterConfig enter config
 type EnterConfig struct {
 	UserID, BroadcastID string
+	Username            string
+	Level               int64
+	TypeID              int
 }
 
 // Enter when a user enter a broadcast
@@ -51,6 +57,11 @@ func (e *Enter) Do() (err error) {
 		return err
 	}
 
+	if err = e.notify(); err != nil {
+		e.errorCode = codes.ErrorCodeBroadcastNotify
+		return
+	}
+
 	return
 }
 
@@ -74,10 +85,12 @@ func (e *Enter) save() (err error) {
 	}
 
 	if err = e.audiecntModel.Enter(); err != nil {
+		e.errorCode = codes.ErrorCodeAudienceUpdate
 		return err
 	}
 
 	if err = e.updateBroadcast(total, current); err != nil {
+		e.errorCode = codes.ErrorCodeBroadcastCreate
 		return err
 	}
 
@@ -86,4 +99,37 @@ func (e *Enter) save() (err error) {
 
 func (e *Enter) updateBroadcast(total, current int) (err error) {
 	return e.broadcastModel.AddAudience(total, current)
+}
+
+func (e *Enter) notify() (err error) {
+	return notifier.Publish(e)
+}
+
+// Topic topic
+func (e *Enter) Topic() string {
+	return queues.TopicBroadcastEnter.String()
+}
+
+// Message message
+func (e *Enter) Message() []byte {
+	var msg []byte
+	broadcastEnterMsg := queues.MessageBroadcastEnter{
+		BroadcastID: e.broadcastModel.GetID(),
+		UserID:      e.config.UserID,
+		Username:    e.config.Username,
+		Level:       e.config.Level,
+		EnterTime:   e.audiecntModel.EnterTime.Unix(),
+	}
+
+	data := struct {
+		Type int         `json:"type"`
+		Data interface{} `json:"data"`
+	}{
+		e.config.TypeID,
+		broadcastEnterMsg,
+	}
+
+	msg, _ = json.Marshal(data)
+	return msg
+
 }

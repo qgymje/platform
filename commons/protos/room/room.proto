@@ -59,9 +59,12 @@ message User {
 }
 
 message UserRoom {
-    string userID = 1;
-    string roomID = 2;
-    string broadcastID = 3;
+    int32 typeID = 1;
+    string userID = 2;
+    string roomID = 3;
+    string broadcastID = 4;
+    string username= 5;
+    int64 level = 6;
 }
 
 message Status {

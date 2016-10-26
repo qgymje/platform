@@ -30,6 +30,9 @@
     1. 2016.10.23
     2. add barrage send/list APIs
 
+8. v0.0.8
+    1. 2016.10.26
+    2. start/end/enter/leave add type_id
 
 ## list
 
@@ -292,6 +295,7 @@ PARAMETERS:
 
 name|type|required|description
 ---|---|---|---
+type_id | int | yes | type id
 
 RETURN:
 ```json
@@ -354,6 +358,7 @@ PARAMETERS:
 name|type|required|description
 ---|---|---|---
 broadcast_id | string | yes | broadcast id
+type_id| int | yes | type_id
 
 RETURN:
 ```json
@@ -384,6 +389,7 @@ PARAMETERS:
 name|type|required|description
 ---|---|---|---
 broadcast_id | string | yes | broadcast id
+type_id| int | yes | type_id
 
 RETURN:
 ```json
