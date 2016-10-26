@@ -9,6 +9,12 @@ It is generated from these files:
 	coupon/coupon.proto
 
 It has these top-level messages:
+	SendCoupon
+	TakeCoupon
+	Status
+	Page
+	CouponInfo
+	Coupons
 */
 package coupon
 
@@ -32,6 +38,93 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
+type SendCoupon struct {
+	CouponID    string `protobuf:"bytes,1,opt,name=CouponID,json=couponID" json:"CouponID,omitempty"`
+	BroadcastID string `protobuf:"bytes,2,opt,name=BroadcastID,json=broadcastID" json:"BroadcastID,omitempty"`
+	UserID      string `protobuf:"bytes,3,opt,name=UserID,json=userID" json:"UserID,omitempty"`
+	Number      int32  `protobuf:"varint,4,opt,name=Number,json=number" json:"Number,omitempty"`
+	Duration    int64  `protobuf:"varint,5,opt,name=Duration,json=duration" json:"Duration,omitempty"`
+	TypeID      int32  `protobuf:"varint,6,opt,name=TypeID,json=typeID" json:"TypeID,omitempty"`
+}
+
+func (m *SendCoupon) Reset()                    { *m = SendCoupon{} }
+func (m *SendCoupon) String() string            { return proto.CompactTextString(m) }
+func (*SendCoupon) ProtoMessage()               {}
+func (*SendCoupon) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+type TakeCoupon struct {
+	SendCouponID string `protobuf:"bytes,1,opt,name=SendCouponID,json=sendCouponID" json:"SendCouponID,omitempty"`
+	UserID       string `protobuf:"bytes,2,opt,name=UserID,json=userID" json:"UserID,omitempty"`
+}
+
+func (m *TakeCoupon) Reset()                    { *m = TakeCoupon{} }
+func (m *TakeCoupon) String() string            { return proto.CompactTextString(m) }
+func (*TakeCoupon) ProtoMessage()               {}
+func (*TakeCoupon) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+type Status struct {
+	Success      bool   `protobuf:"varint,1,opt,name=Success,json=success" json:"Success,omitempty"`
+	SendCouponID string `protobuf:"bytes,2,opt,name=SendCouponID,json=sendCouponID" json:"SendCouponID,omitempty"`
+}
+
+func (m *Status) Reset()                    { *m = Status{} }
+func (m *Status) String() string            { return proto.CompactTextString(m) }
+func (*Status) ProtoMessage()               {}
+func (*Status) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+type Page struct {
+	Num    int32  `protobuf:"varint,1,opt,name=num" json:"num,omitempty"`
+	Size   int32  `protobuf:"varint,2,opt,name=size" json:"size,omitempty"`
+	UserID string `protobuf:"bytes,3,opt,name=userID" json:"userID,omitempty"`
+}
+
+func (m *Page) Reset()                    { *m = Page{} }
+func (m *Page) String() string            { return proto.CompactTextString(m) }
+func (*Page) ProtoMessage()               {}
+func (*Page) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+type CouponInfo struct {
+	CouponID    string  `protobuf:"bytes,1,opt,name=couponID" json:"couponID,omitempty"`
+	Name        string  `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
+	Image       string  `protobuf:"bytes,3,opt,name=image" json:"image,omitempty"`
+	Number      int64   `protobuf:"varint,4,opt,name=number" json:"number,omitempty"`
+	Description string  `protobuf:"bytes,5,opt,name=description" json:"description,omitempty"`
+	Price       float32 `protobuf:"fixed32,6,opt,name=price" json:"price,omitempty"`
+	StartTime   int64   `protobuf:"varint,7,opt,name=StartTime,json=startTime" json:"StartTime,omitempty"`
+	EndTime     int64   `protobuf:"varint,8,opt,name=EndTime,json=endTime" json:"EndTime,omitempty"`
+}
+
+func (m *CouponInfo) Reset()                    { *m = CouponInfo{} }
+func (m *CouponInfo) String() string            { return proto.CompactTextString(m) }
+func (*CouponInfo) ProtoMessage()               {}
+func (*CouponInfo) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+type Coupons struct {
+	List     []*Coupons `protobuf:"bytes,1,rep,name=list" json:"list,omitempty"`
+	TotalNum int64      `protobuf:"varint,2,opt,name=totalNum" json:"totalNum,omitempty"`
+}
+
+func (m *Coupons) Reset()                    { *m = Coupons{} }
+func (m *Coupons) String() string            { return proto.CompactTextString(m) }
+func (*Coupons) ProtoMessage()               {}
+func (*Coupons) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *Coupons) GetList() []*Coupons {
+	if m != nil {
+		return m.List
+	}
+	return nil
+}
+
+func init() {
+	proto.RegisterType((*SendCoupon)(nil), "coupon.SendCoupon")
+	proto.RegisterType((*TakeCoupon)(nil), "coupon.TakeCoupon")
+	proto.RegisterType((*Status)(nil), "coupon.Status")
+	proto.RegisterType((*Page)(nil), "coupon.Page")
+	proto.RegisterType((*CouponInfo)(nil), "coupon.CouponInfo")
+	proto.RegisterType((*Coupons)(nil), "coupon.Coupons")
+}
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
 var _ grpc.ClientConn
@@ -43,6 +136,9 @@ const _ = grpc.SupportPackageIsVersion3
 // Client API for Coupon service
 
 type CouponClient interface {
+	List(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Coupons, error)
+	Send(ctx context.Context, in *SendCoupon, opts ...grpc.CallOption) (*Status, error)
+	Take(ctx context.Context, in *TakeCoupon, opts ...grpc.CallOption) (*Status, error)
 }
 
 type couponClient struct {
@@ -53,29 +149,150 @@ func NewCouponClient(cc *grpc.ClientConn) CouponClient {
 	return &couponClient{cc}
 }
 
+func (c *couponClient) List(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Coupons, error) {
+	out := new(Coupons)
+	err := grpc.Invoke(ctx, "/coupon.Coupon/List", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *couponClient) Send(ctx context.Context, in *SendCoupon, opts ...grpc.CallOption) (*Status, error) {
+	out := new(Status)
+	err := grpc.Invoke(ctx, "/coupon.Coupon/Send", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *couponClient) Take(ctx context.Context, in *TakeCoupon, opts ...grpc.CallOption) (*Status, error) {
+	out := new(Status)
+	err := grpc.Invoke(ctx, "/coupon.Coupon/Take", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Coupon service
 
 type CouponServer interface {
+	List(context.Context, *Page) (*Coupons, error)
+	Send(context.Context, *SendCoupon) (*Status, error)
+	Take(context.Context, *TakeCoupon) (*Status, error)
 }
 
 func RegisterCouponServer(s *grpc.Server, srv CouponServer) {
 	s.RegisterService(&_Coupon_serviceDesc, srv)
 }
 
+func _Coupon_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Page)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CouponServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/coupon.Coupon/List",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CouponServer).List(ctx, req.(*Page))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Coupon_Send_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendCoupon)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CouponServer).Send(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/coupon.Coupon/Send",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CouponServer).Send(ctx, req.(*SendCoupon))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Coupon_Take_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TakeCoupon)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CouponServer).Take(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/coupon.Coupon/Take",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CouponServer).Take(ctx, req.(*TakeCoupon))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Coupon_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "coupon.Coupon",
 	HandlerType: (*CouponServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    fileDescriptor0,
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "List",
+			Handler:    _Coupon_List_Handler,
+		},
+		{
+			MethodName: "Send",
+			Handler:    _Coupon_Send_Handler,
+		},
+		{
+			MethodName: "Take",
+			Handler:    _Coupon_Take_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: fileDescriptor0,
 }
 
 func init() { proto.RegisterFile("coupon/coupon.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 56 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0x12, 0x4e, 0xce, 0x2f, 0x2d,
-	0xc8, 0xcf, 0xd3, 0x87, 0x50, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0x6c, 0x10, 0x9e, 0x11,
-	0x07, 0x17, 0x9b, 0x33, 0x98, 0x95, 0xc4, 0x06, 0x96, 0x30, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff,
-	0xc0, 0x76, 0x6f, 0x44, 0x2f, 0x00, 0x00, 0x00,
+	// 448 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x74, 0x53, 0x5d, 0x8e, 0xd3, 0x30,
+	0x10, 0x26, 0xcd, 0x6f, 0xa7, 0x15, 0x20, 0x83, 0x90, 0x55, 0xf1, 0x10, 0x85, 0x07, 0xfa, 0x80,
+	0x16, 0x69, 0xb9, 0x01, 0x04, 0x44, 0x11, 0x5a, 0x21, 0xb7, 0x1c, 0xc0, 0x4d, 0xcc, 0x2a, 0x62,
+	0xe3, 0x44, 0xfe, 0x79, 0x80, 0x3b, 0x70, 0x15, 0x0e, 0xc4, 0x69, 0x90, 0xc7, 0x6e, 0x52, 0x51,
+	0xf6, 0x29, 0xf3, 0xcd, 0x8c, 0x3f, 0x7f, 0xfe, 0x66, 0x02, 0x4f, 0x9a, 0xc1, 0x8e, 0x83, 0x7c,
+	0xed, 0x3f, 0x57, 0xa3, 0x1a, 0xcc, 0x40, 0x32, 0x8f, 0xaa, 0xdf, 0x11, 0xc0, 0x5e, 0xc8, 0xf6,
+	0x1d, 0x42, 0xb2, 0x81, 0xc2, 0x47, 0xbb, 0x9a, 0x46, 0x65, 0xb4, 0x5d, 0xb2, 0xa2, 0x09, 0x98,
+	0x94, 0xb0, 0x7a, 0xab, 0x06, 0xde, 0x36, 0x5c, 0x9b, 0x5d, 0x4d, 0x17, 0x58, 0x5e, 0x1d, 0xe7,
+	0x14, 0x79, 0x06, 0xd9, 0x57, 0x2d, 0xd4, 0xae, 0xa6, 0x31, 0x16, 0x33, 0x8b, 0xc8, 0xe5, 0x6f,
+	0x6c, 0x7f, 0x14, 0x8a, 0x26, 0x65, 0xb4, 0x4d, 0x59, 0x26, 0x11, 0xb9, 0xdb, 0x6a, 0xab, 0xb8,
+	0xe9, 0x06, 0x49, 0xd3, 0x32, 0xda, 0xc6, 0xac, 0x68, 0x03, 0x76, 0x67, 0x0e, 0x3f, 0x46, 0xb1,
+	0xab, 0x69, 0xe6, 0xcf, 0x18, 0x44, 0xd5, 0x47, 0x80, 0x03, 0xff, 0x2e, 0x82, 0xde, 0x0a, 0xd6,
+	0xb3, 0xfa, 0x49, 0xf3, 0x5a, 0x9f, 0xe5, 0xce, 0x54, 0x2d, 0xce, 0x55, 0x55, 0x1f, 0x20, 0xdb,
+	0x1b, 0x6e, 0xac, 0x26, 0x14, 0xf2, 0xbd, 0x6d, 0x1a, 0xa1, 0x35, 0x12, 0x14, 0x2c, 0xd7, 0x1e,
+	0x5e, 0xf0, 0x2f, 0x2e, 0xf9, 0xab, 0x1a, 0x92, 0x2f, 0xfc, 0x56, 0x90, 0xc7, 0x10, 0x4b, 0xdb,
+	0x23, 0x43, 0xca, 0x5c, 0x48, 0x08, 0x24, 0xba, 0xfb, 0x29, 0xf0, 0x54, 0xca, 0x30, 0x76, 0x6a,
+	0xec, 0x7f, 0x3c, 0xaa, 0xfe, 0x44, 0x00, 0x81, 0x52, 0x7e, 0x1b, 0x9c, 0x35, 0xcd, 0x7d, 0x83,
+	0x20, 0x90, 0x48, 0xde, 0x8b, 0x20, 0x06, 0x63, 0xf2, 0x14, 0xd2, 0xae, 0xe7, 0xb7, 0x22, 0xb0,
+	0x7a, 0xe0, 0x2e, 0x93, 0xb3, 0xf1, 0xf1, 0x64, 0x7c, 0x09, 0xab, 0x56, 0xe8, 0x46, 0x75, 0xe3,
+	0xe4, 0xfd, 0x92, 0x9d, 0xa7, 0x1c, 0xdf, 0xa8, 0xba, 0x46, 0xa0, 0xfb, 0x0b, 0xe6, 0x01, 0x79,
+	0x0e, 0xcb, 0xbd, 0xe1, 0xca, 0x1c, 0xba, 0x5e, 0xd0, 0x1c, 0x29, 0x97, 0xfa, 0x94, 0x70, 0x36,
+	0xbe, 0x97, 0x2d, 0xd6, 0x0a, 0xac, 0xe5, 0xc2, 0xc3, 0xea, 0x13, 0xe4, 0xfe, 0x6d, 0x9a, 0xbc,
+	0x80, 0xe4, 0xae, 0xd3, 0x86, 0x46, 0x65, 0xbc, 0x5d, 0x5d, 0x3f, 0xba, 0x0a, 0x5b, 0x19, 0xca,
+	0x0c, 0x8b, 0xee, 0xf5, 0x66, 0x30, 0xfc, 0xee, 0xc6, 0xf6, 0xf8, 0xca, 0x98, 0x4d, 0xf8, 0xfa,
+	0x57, 0x04, 0x59, 0x98, 0xfe, 0x4b, 0x48, 0x3e, 0xbb, 0xf6, 0xf5, 0x89, 0xc5, 0xcd, 0x61, 0xf3,
+	0x2f, 0x67, 0xf5, 0x80, 0xbc, 0x82, 0xc4, 0x8d, 0x91, 0x90, 0x53, 0x69, 0x1e, 0xea, 0xe6, 0xe1,
+	0x94, 0xc3, 0x65, 0xf0, 0xdd, 0x6e, 0xc5, 0xe6, 0xee, 0x79, 0xe1, 0x2e, 0xbb, 0x8f, 0x19, 0xfe,
+	0x50, 0x6f, 0xfe, 0x06, 0x00, 0x00, 0xff, 0xff, 0xfb, 0x57, 0xfc, 0x25, 0x67, 0x03, 0x00, 0x00,
 }
