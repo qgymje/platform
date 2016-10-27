@@ -3,6 +3,7 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"time"
 
 	"platform/broadcast_room/rpc/models"
@@ -146,7 +147,7 @@ func (e *Ender) update() error {
 
 // Topic implement Notifier interface
 func (e *Ender) Topic() string {
-	return queues.TopicBroadcastEnd.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), e.broadcastModel.GetID())
 }
 
 // Message implement Notifier interface

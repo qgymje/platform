@@ -3,6 +3,7 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"platform/broadcast_room/rpc/models"
 	"platform/commons/codes"
 	"platform/commons/queues"
@@ -107,7 +108,7 @@ func (e *Enter) notify() (err error) {
 
 // Topic topic
 func (e *Enter) Topic() string {
-	return queues.TopicBroadcastEnter.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), e.config.BroadcastID)
 }
 
 // Message message

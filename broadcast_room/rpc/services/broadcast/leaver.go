@@ -3,6 +3,7 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"platform/broadcast_room/rpc/models"
 	"platform/commons/codes"
 	"platform/commons/queues"
@@ -103,7 +104,7 @@ func (l *Leaver) notify() (err error) {
 
 // Topic topic
 func (l *Leaver) Topic() string {
-	return queues.TopicBroadcastLeave.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), l.config.BroadcastID)
 }
 
 // Message message
