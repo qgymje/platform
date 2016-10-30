@@ -3,12 +3,8 @@ package broadcasts
 import (
 	"bytes"
 	"log"
-	"net/http"
 	"time"
 
-	"platform/utils"
-
-	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
 
@@ -24,11 +20,6 @@ var (
 	space   = []byte{' '}
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-}
-
 // Client represent a broadcast client
 type Client struct {
 	conn     *websocket.Conn
@@ -38,7 +29,7 @@ type Client struct {
 }
 
 // NewClient create a new client
-func NewClient(conn *websocket.Conn, nsqlookupdAddr, nsqdAddr, topic, channel string) *Client {
+func NewClient(conn *websocket.Conn, nsqlookupdAddr []string, nsqdAddr, topic, channel string) *Client {
 	producer := NewNSQSession(nsqlookupdAddr, nsqdAddr, topic, channel)
 	consumer := NewNSQSession(nsqlookupdAddr, nsqdAddr, topic, channel)
 
@@ -50,7 +41,8 @@ func NewClient(conn *websocket.Conn, nsqlookupdAddr, nsqdAddr, topic, channel st
 	}
 }
 
-func (c *Client) readPump() {
+// ReadPump read from client
+func (c *Client) ReadPump() {
 	defer func() {
 		c.producer.Close()
 		c.consumer.Close()
@@ -85,7 +77,8 @@ func (c *Client) write(mt int, payload []byte) error {
 	return c.conn.WriteMessage(mt, payload)
 }
 
-func (c *Client) writePump() {
+// WritePump  write to client
+func (c *Client) WritePump() {
 	ticker := time.NewTicker(pingPeriod)
 	defer func() {
 		ticker.Stop()
@@ -118,29 +111,4 @@ func (c *Client) writePump() {
 			}
 		}
 	}
-}
-
-// ServeWS upgrade websocket
-func ServeWS(c *gin.Context) {
-	upgrader.CheckOrigin = func(r *http.Request) bool {
-		// 正式环境下需根据配置文件读取url来做判断
-		return true
-	}
-
-	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	log.Println("new client:", conn.RemoteAddr())
-
-	broadcastID := c.Param("broadcast_id")
-	userID, _ := c.Get("user_id")
-	topic := "broadcast_" + broadcastID
-	channel := userID.(string) // id需要为user_id
-
-	nsqConfig := utils.GetConf().GetStringMapString("nsq")
-	client := NewClient(conn, nsqConfig["nsqlookupd"], nsqConfig["nsqd"], topic, channel)
-	go client.writePump()
-	client.readPump()
 }
