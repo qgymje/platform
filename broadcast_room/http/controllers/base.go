@@ -134,14 +134,6 @@ func (b *Base) getName(c *gin.Context) string {
 	return c.PostForm("name")
 }
 
-func (b *Base) getChannel(c *gin.Context) string {
-	return c.PostForm("channel")
-}
-
-func (b *Base) getSubChannel(c *gin.Context) string {
-	return c.PostForm("sub_channel")
-}
-
 func (b *Base) getCover(c *gin.Context) string {
 	return c.PostForm("cover")
 }

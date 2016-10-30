@@ -5,7 +5,6 @@ import (
 	"platform/commons/codes"
 	"platform/commons/grpc_clients/barrage"
 	pb "platform/commons/protos/barrage"
-	"platform/utils"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -68,7 +67,7 @@ func (b *Barrage) List(c *gin.Context) {
 		Num:         int32(b.getPageNum(c)),
 		Size:        int32(b.getPageSize(c)),
 	}
-	utils.Dump(broadcast)
+
 	reply, err := bc.List(broadcast)
 	if err != nil {
 		respformat := b.Response(c, rpcErrorFormat(err.Error()), nil)
