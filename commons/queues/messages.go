@@ -90,3 +90,9 @@ type MessageSendCouponUpdate struct {
 	Image        string `json:"image"`
 	Description  string `json:"description"`
 }
+
+// MessageSendCouponStop stop send coupon broadcast
+type MessageSendCouponStop struct {
+	SendCouponID string `json:"send_coupon_id"`
+	BroadcastID  string `json:"broadcast_id"`
+}

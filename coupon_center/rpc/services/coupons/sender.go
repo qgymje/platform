@@ -10,6 +10,7 @@ import (
 	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
 	"strconv"
+	"time"
 )
 
 // SenderConfig sender config
@@ -134,6 +135,24 @@ func (s *Sender) save() (err error) {
 
 func (s *Sender) notify() (err error) {
 	return notifier.Publish(s)
+}
+
+func (s *Sender) autoStop() {
+	timeout := time.After(s.config.Duration * time.Second)
+	for {
+		select {
+		case <-timeout:
+			config := &StoperConfig{
+				SendCouponID: s.sendCouponModel.GetID(),
+				BroadcastID:  s.config.BroadcastID,
+				TypeID:       10003,
+			}
+			stoper := NewStoper(config)
+			if err := stoper.Do(); err != nil {
+				utils.GetLog().Error("coupons.Sender.autoStop error: %+v", err)
+			}
+		}
+	}
 }
 
 // Topic NSQ topic

@@ -66,6 +66,14 @@ func (s *SendCoupon) RemainTime() int64 {
 	return s.Duration - int64(time.Since(s.CreatedAt).Seconds())
 }
 
+// IsClosed is closed?
+func (s *SendCoupon) IsClosed() bool {
+	if s.ClosedAt.IsZero() {
+		return false
+	}
+	return true
+}
+
 // TryClose try to close
 func (s *SendCoupon) TryClose() error {
 	if s.RemainTime() > 0 {

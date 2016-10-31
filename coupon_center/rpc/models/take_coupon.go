@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -24,6 +25,16 @@ func (t *TakeCoupon) Create() (err error) {
 	err = GetDB().Begin()
 
 	sc := &SendCoupon{ID: t.SendCouponID}
+	if err = sc.Find(); err != nil {
+		GetDB().Rollback()
+		return
+	}
+
+	if sc.IsClosed() || sc.Number <= 0 {
+		GetDB().Rollback()
+		return errors.New("sendCoupon is closed")
+	}
+
 	if err = sc.UpdateNumber(-1); err != nil {
 		GetDB().Rollback()
 		return

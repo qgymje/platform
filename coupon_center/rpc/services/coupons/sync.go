@@ -73,6 +73,7 @@ func (s *SendCouponSync) notify() error {
 
 func (s *SendCouponSync) tryClose() error {
 	return s.sendCoupon.TryClose()
+	// how to auto end and send broadcast?
 }
 
 // Topic publish topic
