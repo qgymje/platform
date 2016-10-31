@@ -152,7 +152,7 @@ func (b *Base) getSendCouponID(c *gin.Context) string {
 }
 
 func (b *Base) getBroadcastID(c *gin.Context) string {
-	return c.PostForm("broadcastID")
+	return c.PostForm("broadcast_id")
 }
 
 func (b *Base) getNumber(c *gin.Context) int {

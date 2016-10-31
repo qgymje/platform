@@ -117,6 +117,7 @@ func (s *Sender) reduceNumber() (err error) {
 }
 
 func (s *Sender) save() (err error) {
+	s.sendCouponModel.Coupon = &models.Coupon{}
 	s.sendCouponModel.UserID = s.config.UserID
 	id, _ := strconv.Atoi(s.config.CouponID)
 	s.sendCouponModel.Coupon.ID = int64(id)
@@ -124,7 +125,11 @@ func (s *Sender) save() (err error) {
 	s.sendCouponModel.Number = s.config.Number
 	s.sendCouponModel.Duration = s.config.Duration
 
-	return s.sendCouponModel.Create()
+	if err = s.sendCouponModel.Create(); err != nil {
+		return
+	}
+
+	return s.sendCouponModel.Find()
 }
 
 func (s *Sender) notify() (err error) {
@@ -144,6 +149,11 @@ func (s *Sender) Message() []byte {
 		BroadcastID:  s.sendCouponModel.GetBroadcastID(),
 		RemainAmount: s.sendCouponModel.Number,
 		RemainTime:   s.sendCouponModel.RemainTime(),
+
+		CouponID:    s.sendCouponModel.Coupon.GetID(),
+		Description: s.sendCouponModel.Coupon.Description,
+		Image:       s.sendCouponModel.Coupon.Image,
+		Name:        s.sendCouponModel.Coupon.Name,
 	}
 
 	data := struct {

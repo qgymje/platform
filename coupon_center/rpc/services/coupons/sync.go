@@ -10,23 +10,22 @@ import (
 	"time"
 )
 
-// Sync sync the sendcoupon
+// Sync sync the sendCoupon
 func Sync() {
-	ticker := time.NewTicker(time.Second * 10)
+	ticker := time.NewTicker(time.Second * 5)
 	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ticker.C:
-			allSendCoupons, err := fetchAllSendCoupons()
-			utils.Dump(allSendCoupons)
+			allsendCoupons, err := fetchAllSendCoupons()
 			if err != nil {
-				utils.GetLog().Error("coupons.Sync.fetchAllSendCoupons error: %+v", err)
+				utils.GetLog().Error("coupons.Sync.fetchAllsendCoupons error: %+v", err)
 			}
-			for _, sc := range allSendCoupons {
+			for _, sc := range allsendCoupons {
 				copSync := NewSendCouponSync(sc)
 				if err := copSync.Do(); err != nil {
-					utils.GetLog().Error("coupons.SendCouponSync.Do error: %+v", err)
+					utils.GetLog().Error("coupons.sendCouponSync.Do error: %+v", err)
 				}
 			}
 		}
@@ -39,13 +38,13 @@ func fetchAllSendCoupons() ([]*models.SendCoupon, error) {
 
 // SendCouponSync send cuopon sync
 type SendCouponSync struct {
-	sendcoupon *models.SendCoupon
+	sendCoupon *models.SendCoupon
 }
 
 // NewSendCouponSync new send coupon sync
 func NewSendCouponSync(sc *models.SendCoupon) *SendCouponSync {
 	s := new(SendCouponSync)
-	s.sendcoupon = sc
+	s.sendCoupon = sc
 	return s
 }
 
@@ -53,12 +52,18 @@ func NewSendCouponSync(sc *models.SendCoupon) *SendCouponSync {
 func (s *SendCouponSync) Do() (err error) {
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("coupons.SendCouponSync.Do error: %+v", err)
+			utils.GetLog().Error("coupons.sendCouponSync.Do error: %+v", err)
 		}
 	}()
+
+	if err = s.tryClose(); err != nil {
+		return err
+	}
+
 	if err = s.notify(); err != nil {
 		return err
 	}
+
 	return
 }
 
@@ -66,23 +71,27 @@ func (s *SendCouponSync) notify() error {
 	return notifier.Publish(s)
 }
 
+func (s *SendCouponSync) tryClose() error {
+	return s.sendCoupon.TryClose()
+}
+
 // Topic publish topic
 func (s *SendCouponSync) Topic() string {
-	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), s.sendcoupon.GetCouponID())
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), s.sendCoupon.BroadcastID)
 }
 
 // Message publish message
 func (s *SendCouponSync) Message() []byte {
 	var msg []byte
 	sendCouponMsg := queues.MessageSendCouponUpdate{
-		SendCouponID: s.sendcoupon.GetCouponID(),
-		BroadcastID:  s.sendcoupon.BroadcastID,
-		RemainAmount: s.sendcoupon.Number,
-		RemainTime:   s.sendcoupon.RemainTime(),
+		SendCouponID: s.sendCoupon.GetID(),
+		BroadcastID:  s.sendCoupon.BroadcastID,
+		RemainAmount: s.sendCoupon.Number,
+		RemainTime:   s.sendCoupon.RemainTime(),
 		CouponID:     s.sendCoupon.Coupon.GetID(),
-		Description:  s.sendcoupon.Coupon.Description,
-		Image:        s.sendcoupon.Coupon.Image,
-		Name:         s.sendcoupon.Coupon.Name,
+		Description:  s.sendCoupon.Coupon.Description,
+		Image:        s.sendCoupon.Coupon.Image,
+		Name:         s.sendCoupon.Coupon.Name,
 	}
 
 	data := struct {

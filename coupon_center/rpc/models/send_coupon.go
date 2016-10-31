@@ -36,6 +36,11 @@ func (s *SendCoupon) Create() (err error) {
 	return
 }
 
+// Find find with coupon object
+func (s *SendCoupon) Find() (err error) {
+	return GetDB().QueryTable(TableNameSendCoupon).RelatedSel("Coupon").One(s)
+}
+
 // GetID get id
 func (s *SendCoupon) GetID() string {
 	return strconv.FormatInt(s.ID, 10)
@@ -58,7 +63,20 @@ func (s *SendCoupon) GetUserID() string {
 
 // RemainTime remain time
 func (s *SendCoupon) RemainTime() int64 {
-	return int64(time.Since(s.CreatedAt).Seconds())
+	return s.Duration - int64(time.Since(s.CreatedAt).Seconds())
+}
+
+// TryClose try to close
+func (s *SendCoupon) TryClose() error {
+	if s.RemainTime() > 0 {
+		return nil
+	}
+
+	s.ClosedAt = time.Now()
+	if _, err := GetDB().Update(s, "closed_at"); err != nil {
+		return err
+	}
+	return nil
 }
 
 // UpdateNumber update number
