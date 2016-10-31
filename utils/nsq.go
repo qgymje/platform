@@ -33,8 +33,10 @@ func DeleteTopic(topic string) (err error) {
 
 // DeleteChannel delete channel
 func DeleteChannel(topic, channel string) (err error) {
+	Dump(topic, channel)
 	addr := "127.0.0.1:4161"
 	url := fmt.Sprintf("http://%s/channel/delete?topic=%s&channel=%s", addr, topic, channel)
+	log.Println("url:", url)
 	req, err := http.NewRequest("POST", url, nil)
 
 	client := &http.Client{}

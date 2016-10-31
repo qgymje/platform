@@ -9,7 +9,8 @@ import (
 	"time"
 
 	"platform/commons/codes"
-	pb "platform/commons/protos/user"
+	"platform/commons/grpc_clients/user"
+	pbuser "platform/commons/protos/user"
 
 	"platform/utils"
 
@@ -23,10 +24,7 @@ const versionKey = "version"
 
 // Base controller do common things
 type Base struct {
-	userRPCAddress   string
-	smsRPCAddress    string
-	emailRPCAddress  string
-	uploadRPCAddress string
+	userInfo *pbuser.UserInfo
 }
 
 var uploadPath string
@@ -44,23 +42,6 @@ func (b *Base) apiVersion(c *gin.Context) int {
 	v, _ := c.Get(versionKey)
 	vi, _ := strconv.Atoi(v.(string))
 	return vi
-}
-
-func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
-	if c.Param("token") != "" {
-		return c.Param("token"), codes.ErrorCodeSuccess
-	}
-
-	token := c.Request.Header.Get(headerTokenKey)
-	if token == "" {
-		return "", codes.ErrorCodeTokenNotFound
-	}
-
-	authHeaderParts := strings.Split(token, " ")
-	if len(authHeaderParts) != 2 || strings.ToLower(authHeaderParts[0]) != "bearer" {
-		return "", codes.ErrorCodeInvalidToken
-	}
-	return authHeaderParts[1], codes.ErrorCodeSuccess
 }
 
 // ResponseFormat  response format object
@@ -112,6 +93,39 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 	return meta
 }
 
+func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
+	if c.Param("token") != "" {
+		return c.Param("token"), codes.ErrorCodeSuccess
+	}
+
+	token := c.Request.Header.Get(headerTokenKey)
+	if token == "" {
+		return "", codes.ErrorCodeTokenNotFound
+	}
+
+	authHeaderParts := strings.Split(token, " ")
+	if len(authHeaderParts) != 2 || strings.ToLower(authHeaderParts[0]) != "bearer" {
+		return "", codes.ErrorCodeInvalidToken
+	}
+	return authHeaderParts[1], codes.ErrorCodeSuccess
+}
+
+func (b *Base) validUserInfo(c *gin.Context) (*pbuser.UserInfo, codes.ErrorCode) {
+	token, errorCode := b.getToken(c)
+	if errorCode != codes.ErrorCodeSuccess {
+		return nil, errorCode
+	}
+	pbToken := pbuser.Token{Token: token}
+	auth := userClient.NewUser(b.getUserRPCAddress())
+
+	var err error
+	var userInfo *pbuser.UserInfo
+	if userInfo, err = auth.Auth(&pbToken); err != nil {
+		return nil, rpcErrorFormat(err.Error())
+	}
+	return userInfo, codes.ErrorCodeSuccess
+}
+
 func (b *Base) getUserID(c *gin.Context) string {
 	return c.Param("user_id")
 }
@@ -129,62 +143,37 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
-func (b *Base) getEmail(c *gin.Context) string {
-	return c.PostForm("email")
+func (b *Base) getCouponID(c *gin.Context) string {
+	return c.PostForm("coupon_id")
 }
 
-func (b *Base) getPhone(c *gin.Context) string {
-	return c.PostForm("phone")
+func (b *Base) getSendCouponID(c *gin.Context) string {
+	return c.PostForm("sendcoupon_id")
 }
 
-func (b *Base) getCountry(c *gin.Context) string {
-	return c.PostForm("country")
+func (b *Base) getBroadcastID(c *gin.Context) string {
+	return c.PostForm("broadcastID")
 }
 
-func (b *Base) getCode(c *gin.Context) string {
-	return c.PostForm("code")
+func (b *Base) getNumber(c *gin.Context) int {
+	num, _ := strconv.Atoi(c.PostForm("number"))
+	return num
 }
 
-func (b *Base) getAccount(c *gin.Context) string {
-	return c.PostForm("account")
+func (b *Base) getDuration(c *gin.Context) int {
+	dur, _ := strconv.Atoi(c.PostForm("duration"))
+	return dur
 }
 
-func (b *Base) getNickname(c *gin.Context) string {
-	return c.PostForm("nickname")
-}
-
-func (b *Base) getPassword(c *gin.Context) string {
-	return c.PostForm("password")
-}
-
-func (b *Base) getPasswordConfirm(c *gin.Context) string {
-	return c.PostForm("password_confirm")
-}
-
-func (b *Base) removePBUserInfoToken(u *pb.UserInfo) {
-	u.Token = ""
-}
-
-func (b *Base) removePBUserInfoPhone(u *pb.UserInfo) {
-	u.Phone = ""
-}
-
-func (b *Base) removePBUserInfoEmail(u *pb.UserInfo) {
-	u.Email = ""
+func (b *Base) getTypeID(c *gin.Context) int {
+	id, _ := strconv.Atoi(c.PostForm("type_id"))
+	return id
 }
 
 func (b *Base) getUserRPCAddress() string {
 	return "127.0.0.1:4000"
 }
 
-func (b *Base) getSMSRPCAddress() string {
+func (b *Base) getCouponRPCAddress() string {
 	return "127.0.0.1:4004"
-}
-
-func (b *Base) getEmailRPCAddress() string {
-	return "127.0.0.1:4005"
-}
-
-func (b *Base) getUploadRPCAddress() string {
-	return "127.0.0.1:4006"
 }

@@ -13,7 +13,7 @@ import (
 	"platform/utils"
 )
 
-const broadcastAtLeastTime = 2 * time.Minute
+const broadcastAtLeastTime = 1 * time.Minute
 
 // EnderConfig ender config
 type EnderConfig struct {
@@ -86,6 +86,11 @@ func (e *Ender) Do() (err error) {
 		return
 	}
 
+	if err = e.removeTopic(); err != nil {
+		e.errorCode = codes.ErrorCodeDeleteTopic
+		return
+	}
+
 	return
 }
 
@@ -123,11 +128,6 @@ func (e *Ender) isEnded() bool {
 		return false
 	}
 	return true
-}
-
-func (e *Ender) removeBroadcast() error {
-	// delete broadcast topic
-	return nil
 }
 
 func (e *Ender) isPlayedLognerThanLeastTime() bool {
@@ -173,4 +173,8 @@ func (e *Ender) Message() []byte {
 
 func (e *Ender) notify() error {
 	return notifier.Publish(e)
+}
+
+func (e *Ender) removeTopic() (err error) {
+	return utils.DeleteTopic(e.Topic())
 }

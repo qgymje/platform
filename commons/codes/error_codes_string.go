@@ -56,6 +56,9 @@ func init() {
 		ErrorCodeBroadcastIsOn:            "broadcast is already playing",
 		ErrorCodeBroadcastClosed:          "broadcast is closed",
 
+		ErrorCodeDeleteChannel: "delete channel failed",
+		ErrorCodeDeleteTopic:   "delte topic failed",
+
 		ErrorCodeAudienceUpdate: "audience update failed",
 
 		ErrorCodeBarrageCreate: "barrage create failed",
@@ -76,5 +79,12 @@ func init() {
 		ErrorCodeGameCreate:   "game create failed",
 		ErrorCodeGameNotFound: "game not found",
 		ErrorCodeGameFinder:   "game find error",
+
+		ErrorCodeUserCouponNotFound:        "user coupon not found",
+		ErrorCodeUserCouponFind:            "user coupon find failed",
+		ErrorCodeSendCouponNumberNotEnough: "send coupon number not enought",
+
+		ErrorCodeUserCouponUpdate: "user coupon update failed",
+		ErrorCodeTakeCouponCreate: "take coupon create failed",
 	}
 }

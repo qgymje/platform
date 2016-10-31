@@ -1,42 +1,59 @@
 package models
 
 import (
+	"platform/game_center/rpc/models"
+	"strconv"
 	"time"
 
-	"gopkg.in/mgo.v2/bson"
+	"github.com/astaxie/beego/orm"
 )
 
 // SendCoupon a send coupon object
-//go:generate gen_columns -tag=bson -path=./send_coupon.go
 type SendCoupon struct {
-	SendCouponID bson.ObjectId `bson:"_id"`
-	CouponID     bson.ObjectId `bson:"coupon_id"`
-	BroadcastID  bson.ObjectId `bson:"broadcast_id"`
-	UserID       bson.ObjectId `bson:"user_id"`
-	Number       int           `bson:"number"`
-	Duration     int           `bson:"duration"`
-	CreatedAt    time.Time     `bson:"created_at"`
-	ClosedAt     time.Time     `bson:"closed_at"`
+	ID          int64   `orm:"column(id)"`
+	Coupon      *Coupon `orm:"rel(fk)"`
+	BroadcastID string  `orm:"column(broadcast_id)"`
+	UserID      string  `orm:"column(user_id)"`
+	Number      int
+	Duration    int64
+	CreatedAt   time.Time
+	ClosedAt    time.Time `orm:"null"`
+}
+
+// TableName table name
+func (SendCoupon) TableName() string {
+	return TableNameSendCoupon
+}
+
+// Create a sendcoupon
+func (s *SendCoupon) Create() (err error) {
+	s.CreatedAt = time.Now()
+	n, err := GetDB().Insert(s)
+	if err != nil {
+		return err
+	}
+	s.ID = n
+	return
 }
 
 // GetID get id
 func (s *SendCoupon) GetID() string {
-	return s.SendCouponID.Hex()
+	return strconv.FormatInt(s.ID, 10)
 }
 
 // GetCouponID get coupon id
 func (s *SendCoupon) GetCouponID() string {
-	return s.CouponID.Hex()
+	return strconv.FormatInt(s.Coupon.ID, 10)
 }
 
 // GetBroadcastID get broadcast id
 func (s *SendCoupon) GetBroadcastID() string {
-	return s.BroadcastID.Hex()
+	return s.BroadcastID
 }
 
 // GetUserID get user id
 func (s *SendCoupon) GetUserID() string {
-	return s.UserID.Hex()
+	return s.UserID
 }
 
 // RemainTime remain time
@@ -44,12 +61,20 @@ func (s *SendCoupon) RemainTime() int64 {
 	return int64(time.Since(s.CreatedAt).Seconds())
 }
 
-// Create create a send coupon
-func (s *SendCoupon) Create() error {
-	session := GetMongo()
-	defer session.Close()
+// UpdateNumber update number
+func (s *SendCoupon) UpdateNumber(num int) (err error) {
+	s.Number += num
+	if _, err := GetDB().Update(s, "number"); err != nil {
+		return err
+	}
+	return
+}
 
-	s.CreatedAt = time.Now()
-
-	return session.DB(DBName).C(ColNameSendCoupon).Insert(&s)
+// FindRunningSendCoupons find running sendCoupons
+func FindRunningSendCoupons() (sc []*SendCoupon, err error) {
+	_, err = GetDB().QueryTable(TableNameSendCoupon).RelatedSel("Coupon").Filter("closed_at__isnull", true).All(&sc)
+	if err == orm.ErrNoRows {
+		return nil, models.ErrNotFound
+	}
+	return
 }

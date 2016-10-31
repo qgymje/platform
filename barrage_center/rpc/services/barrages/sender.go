@@ -56,15 +56,16 @@ func (s *Sender) Do() (err error) {
 		return
 	}
 
+	if err = s.save(); err != nil {
+		s.errorCode = codes.ErrorCodeBarrageCreate
+		return
+	}
+
 	if err = s.notify(); err != nil {
 		s.errorCode = codes.ErrorCodeBarrageNotify
 		return
 	}
 
-	if err = s.save(); err != nil {
-		s.errorCode = codes.ErrorCodeBarrageCreate
-		return
-	}
 	return
 }
 
@@ -90,7 +91,7 @@ func (s *Sender) save() (err error) {
 }
 
 func (s *Sender) notify() (err error) {
-	return notifier.Publish(s)
+	return notifier.DeferredPublish(s, 50*time.Microsecond)
 }
 
 // Topic publish topic

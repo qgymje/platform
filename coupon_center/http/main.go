@@ -45,6 +45,9 @@ func main() {
 	r.Use(gin.Recovery())
 	r.Use(middlewares.APILang())
 	r.Use(middlewares.RecordRequestBegin())
+	if utils.IsDev() {
+		r.Use(middlewares.FakedLogin())
+	}
 
 	uploadPath := "./uploads"
 	utils.EnsurePath(uploadPath)
@@ -75,7 +78,7 @@ func main() {
 
 		// mobile api
 		c.GET("/my", coupon.List)
-		c.POST("/broadcast/send", coupon.Broadcast)
+		c.POST("/broadcast/send", coupon.Send)
 		c.POST("/broadcast/take", coupon.Take)
 	}
 

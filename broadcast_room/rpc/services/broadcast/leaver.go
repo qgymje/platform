@@ -63,6 +63,11 @@ func (l *Leaver) Do() (err error) {
 		l.errorCode = codes.ErrorCodeBroadcastNotify
 		return
 	}
+
+	if err = l.removeChannel(); err != nil {
+		l.errorCode = codes.ErrorCodeDeleteChannel
+		return
+	}
 	return nil
 }
 
@@ -128,4 +133,10 @@ func (l *Leaver) Message() []byte {
 
 	msg, _ = json.Marshal(data)
 	return msg
+}
+
+// RemoveChannel remove channel
+func (l *Leaver) removeChannel() (err error) {
+	channel := l.config.UserID
+	return utils.DeleteChannel(l.Topic(), channel)
 }

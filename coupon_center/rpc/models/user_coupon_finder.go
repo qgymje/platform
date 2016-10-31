@@ -1,80 +1,99 @@
 package models
 
 import (
-	"math"
+	"platform/utils"
+	"strconv"
+	"time"
 
-	"gopkg.in/mgo.v2/bson"
+	"github.com/astaxie/beego/orm"
 )
 
 // UserCouponFinder user coupon finder
 type UserCouponFinder struct {
-	skip, limit int
-	userID      bson.ObjectId
-	err         error
-	where       bson.M
+	offset, limit      int
+	userID, couponID   string
+	startTime, endTime time.Time
+
 	userCoupons []*UserCoupon
+
+	query orm.QuerySeter
 }
 
-// NewUserCouponFinder new user coupon finder
+// NewUserCouponFinder create a user coupon finder
 func NewUserCouponFinder() *UserCouponFinder {
 	f := new(UserCouponFinder)
-	f.where = bson.M{}
 	f.userCoupons = []*UserCoupon{}
+	f.query = GetDB().QueryTable(TableNameUserCoupon)
 	return f
 }
 
 // Limit limit
-func (c *UserCouponFinder) Limit(offset, limit int) *UserCouponFinder {
-	c.skip = int(math.Max(0, float64(offset-1))) * limit
-	c.limit = limit
-	return c
+func (f *UserCouponFinder) Limit(offset, limit int) *UserCouponFinder {
+	f.offset = offset
+	f.limit = limit
 
+	f.query = f.query.Offset(int64(f.offset))
+	f.query = f.query.Limit(f.limit)
+
+	return f
 }
 
-// ByUserID by user id
-func (c *UserCouponFinder) ByUserID(userID string) *UserCouponFinder {
-	c.userID, c.err = StringToObjectID(userID)
-	if c.err == nil {
-		c.where[UserCouponColumns.UserID] = c.userID
-	}
-	return c
+// Duration duration
+func (f *UserCouponFinder) Duration(st, et int64) *UserCouponFinder {
+	f.startTime = time.Unix(st, 0)
+	f.endTime = time.Unix(et, 0)
+	return f
 }
 
-// Do do the query work
-func (c *UserCouponFinder) Do() (err error) {
-	session := GetMongo()
-	defer session.Close()
+// UserID user_id
+func (f *UserCouponFinder) UserID(userID string) *UserCouponFinder {
+	f.userID = userID
 
-	err = session.DB(DBName).C(ColNameUserCoupon).Find(c.where).Skip(c.skip).Limit(c.limit).All(&c.userCoupons)
+	f.query = f.query.Filter("user_id", userID)
+
+	return f
+}
+
+// CouponID find by coupon id
+func (f *UserCouponFinder) CouponID(couponID string) *UserCouponFinder {
+	f.couponID = couponID
+
+	id, _ := strconv.Atoi(couponID)
+	f.query = f.query.Filter("coupon_id", id)
+
+	return f
+}
+
+// Do the query
+func (f *UserCouponFinder) Do() (err error) {
+	defer func() {
+		if err != nil {
+			utils.Dump("models.UserCouponFinder.Do error: %+v", err)
+		}
+	}()
+
+	n, err := f.query.RelatedSel("Coupon").All(&f.userCoupons)
 	if err != nil {
-		return err
+		return
 	}
-
-	if len(c.userCoupons) == 0 {
+	if n == 0 {
 		return ErrNotFound
 	}
-
 	return nil
 }
 
 // Result result
-func (c *UserCouponFinder) Result() []*UserCoupon {
-	return c.userCoupons
+func (f *UserCouponFinder) Result() []*UserCoupon {
+	return f.userCoupons
 }
 
-// One one record
-func (c *UserCouponFinder) One() *UserCoupon {
-	return c.userCoupons[0]
+// One one
+func (f *UserCouponFinder) One() *UserCoupon {
+	return f.userCoupons[0]
 }
 
-// Count returns the total number of query
-func (c *UserCouponFinder) Count() int64 {
-	session := GetMongo()
-	defer session.Close()
-
-	n, err := session.DB(DBName).C(ColNameUserCoupon).Find(c.where).Count()
-	if err != nil {
-		return 0
-	}
-	return int64(n)
+// Count count
+func (f *UserCouponFinder) Count() int64 {
+	n, _ := f.query.Limit(-1).Count()
+	return n
 }

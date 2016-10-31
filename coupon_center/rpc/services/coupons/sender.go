@@ -2,12 +2,25 @@ package coupons
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"platform/commons/codes"
 	"platform/commons/queues"
 	"platform/coupon_center/rpc/models"
 	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
+	"strconv"
 )
+
+// SenderConfig sender config
+type SenderConfig struct {
+	TypeID      int
+	UserID      string
+	CouponID    string
+	BroadcastID string
+	Number      int
+	Duration    int64
+}
 
 // SendCoupon service level send coupon
 type SendCoupon struct {
@@ -15,22 +28,17 @@ type SendCoupon struct {
 	BroadcastID  string `json:"broadcast_id"`
 	RemainAmount int    `json:"remain_amount"`
 	RemainTime   int64  `json:"remain_time"`
-	Coupon       struct {
-		CouponID string `json:"coupon_id"`
-		Name     string `json:"name"`
-		Image    string `json:"image"`
-	}
-}
 
-// SenderConfig sender config
-type SenderConfig struct {
-	TypeID int
+	Coupon
 }
 
 // Sender sender
 type Sender struct {
 	config          *SenderConfig
 	sendCouponModel *models.SendCoupon
+	userCouponModel *models.UserCoupon
+
+	userCouponFinder *models.UserCouponFinder
 
 	errorCode codes.ErrorCode
 }
@@ -39,6 +47,9 @@ type Sender struct {
 func NewSender(c *SenderConfig) *Sender {
 	s := new(Sender)
 	s.config = c
+	s.sendCouponModel = &models.SendCoupon{}
+	s.userCouponModel = &models.UserCoupon{}
+	s.userCouponFinder = models.NewUserCouponFinder()
 	return s
 }
 
@@ -55,19 +66,65 @@ func (s *Sender) Do() (err error) {
 		}
 	}()
 
+	if err = s.validSendCoupon(); err != nil {
+		return
+	}
+
+	if err = s.reduceNumber(); err != nil {
+		s.errorCode = codes.ErrorCodeUserCouponUpdate
+		return
+	}
+
+	if err = s.save(); err != nil {
+		return
+	}
+
+	if err = s.notify(); err != nil {
+		return
+	}
+
 	return
 }
 
-func (s *Sender) findCoupon() (err error) {
+// GetSendCouponID get sendCoupon id
+func (s *Sender) GetSendCouponID() string {
+	return s.sendCouponModel.GetID()
+}
+
+func (s *Sender) validSendCoupon() (err error) {
+	s.userCouponFinder.UserID(s.config.UserID).CouponID(s.config.CouponID)
+	if err = s.userCouponFinder.Do(); err != nil {
+		if err == models.ErrNotFound {
+			s.errorCode = codes.ErrorCodeUserCouponNotFound
+		} else {
+			s.errorCode = codes.ErrorCodeUserCouponFind
+		}
+		return
+	}
+
+	s.userCouponModel = s.userCouponFinder.One()
+
+	if s.userCouponModel.Number < s.config.Number {
+		s.errorCode = codes.ErrorCodeSendCouponNumberNotEnough
+		return errors.New("number not enough")
+	}
+
 	return
 }
 
-func (s *Sender) findSendCoupon() (err error) {
-	return
+func (s *Sender) reduceNumber() (err error) {
+	return s.userCouponModel.UpdateNumber(-s.config.Number)
 }
 
 func (s *Sender) save() (err error) {
-	return
+	s.sendCouponModel.UserID = s.config.UserID
+	id, _ := strconv.Atoi(s.config.CouponID)
+	s.sendCouponModel.Coupon.ID = int64(id)
+	s.sendCouponModel.BroadcastID = s.config.BroadcastID
+	s.sendCouponModel.Number = s.config.Number
+	s.sendCouponModel.Duration = s.config.Duration
+
+	return s.sendCouponModel.Create()
 }
 
 func (s *Sender) notify() (err error) {
@@ -76,18 +133,16 @@ func (s *Sender) notify() (err error) {
 
 // Topic NSQ topic
 func (s *Sender) Topic() string {
-	return queues.TopicSendCouponUpdate.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), s.config.BroadcastID)
 }
 
 // Message publish message
 func (s *Sender) Message() []byte {
-	_ = s.findSendCoupon()
-
 	var msg []byte
 	sendCouponMsg := queues.MessageSendCouponUpdate{
 		SendCouponID: s.sendCouponModel.GetID(),
 		BroadcastID:  s.sendCouponModel.GetBroadcastID(),
-		Number:       s.sendCouponModel.Number,
+		RemainAmount: s.sendCouponModel.Number,
 		RemainTime:   s.sendCouponModel.RemainTime(),
 	}
 
@@ -96,7 +151,7 @@ func (s *Sender) Message() []byte {
 		Data interface{} `json:"data"`
 	}{
 		int(s.config.TypeID),
-		barrageMsg,
+		sendCouponMsg,
 	}
 	msg, _ = json.Marshal(data)
 	return msg

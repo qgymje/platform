@@ -74,6 +74,9 @@ const (
 	ErrorCodeBroadcastIsOn            ErrorCode = "BRO400302"
 	ErrorCodeBroadcastClosed          ErrorCode = "BRO400303"
 
+	ErrorCodeDeleteChannel ErrorCode = "CHN500101"
+	ErrorCodeDeleteTopic   ErrorCode = "CHN500102"
+
 	// Audience error
 	ErrorCodeAudienceUpdate ErrorCode = "AUD500101"
 
@@ -96,4 +99,13 @@ const (
 	ErrorCodeGameCreate   ErrorCode = "GAM500101"
 	ErrorCodeGameNotFound ErrorCode = "GAM400101"
 	ErrorCodeGameFinder   ErrorCode = "GAM500102"
+
+	// Coupon
+	ErrorCodeUserCouponNotFound        ErrorCode = "COP404101"
+	ErrorCodeUserCouponFind            ErrorCode = "COP500101"
+	ErrorCodeSendCouponNumberNotEnough ErrorCode = "COP400102"
+
+	ErrorCodeUserCouponUpdate ErrorCode = "COP500102"
+
+	ErrorCodeTakeCouponCreate ErrorCode = "COP500103"
 )

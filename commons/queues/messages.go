@@ -85,9 +85,8 @@ type MessageSendCouponUpdate struct {
 	BroadcastID  string `json:"broadcast_id"`
 	RemainAmount int    `json:"remain_amount"`
 	RemainTime   int64  `json:"remain_time"`
-	Coupon       struct {
-		CouponID string `json:"coupon_id"`
-		Name     string `json:"name"`
-		Image    string `json:"image"`
-	}
+	CouponID     string `json:"coupon_id"`
+	Name         string `json:"name"`
+	Image        string `json:"image"`
+	Description  string `json:"description"`
 }

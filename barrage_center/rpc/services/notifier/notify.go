@@ -3,6 +3,7 @@ package notifier
 import (
 	"log"
 	"sync"
+	"time"
 
 	"platform/utils"
 
@@ -26,6 +27,26 @@ func initProducer() {
 	if err != nil {
 		log.Fatalf("connect producer error: %v", err)
 	}
+}
+
+// DeferredPublish delayed publish
+func DeferredPublish(notifier Notifier, delay time.Duration) error {
+	once.Do(func() {
+		initProducer()
+	})
+
+	msg := notifier.Message()
+	if len(msg) > 0 {
+		err := producer.DeferredPublish(notifier.Topic(), delay, msg)
+		if err != nil {
+			utils.GetLog().Error("publish error: %v", err)
+		} else {
+			log.Printf("[publish]: topic: %s, message: %s\n", notifier.Topic(), string(msg))
+		}
+		return err
+	}
+	return nil
+
 }
 
 // Publish publish a message

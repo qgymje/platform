@@ -3,8 +3,11 @@ package models
 
 import (
 	"errors"
+	"fmt"
+	"log"
+	"platform/utils"
 
-	mgo "gopkg.in/mgo.v2"
+	"github.com/astaxie/beego/orm"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -13,47 +16,41 @@ var (
 	ErrObjectID = errors.New("not a valid objectID")
 )
 
-var mongoSession *mgo.Session
-
 // ErrNotFound not found error
-var ErrNotFound = mgo.ErrNotFound
+var ErrNotFound = orm.ErrNoRows
 
 // DBName db name
 const DBName = "coupon_center"
 
-// ColNameMerchant collection name
-const ColNameMerchant = "merchants"
+// TableNameMerchant collection name
+const TableNameMerchant = "merchants"
 
-// ColNameAccount collection name
-const ColNameAccount = "accounts"
+// TableNameAccount collection name
+const TableNameAccount = "accounts"
 
-// ColNameStore collection name
-const ColNameStore = "stores"
+// TableNamePermission permissions
+const TableNamePermission = "permissions"
 
-// ColNameCampaign collection name
-const ColNameCampaign = "compaigns"
+// TableNameStore collection name
+const TableNameStore = "stores"
 
-// ColNameCoupon collection name
-const ColNameCoupon = "coupons"
+// TableNameCampaign collection name
+const TableNameCampaign = "campaigns"
 
-// ColNameUserCoupon user_coupons
-const ColNameUserCoupon = "user_coupons"
+// TableNameCoupon collection name
+const TableNameCoupon = "coupons"
 
-// ColNameSendCoupon send_coupons
-const ColNameSendCoupon = "send_coupons"
+// TableNameUserCoupon user_coupons
+const TableNameUserCoupon = "user_coupons"
 
-// ColNameTakeCoupon take_coupons
-const ColNameTakeCoupon = "take_coupons"
+// TableNameSendCoupon send_coupons
+const TableNameSendCoupon = "send_coupons"
 
-// InitMongodb init mongodb
-func InitMongodb(sess *mgo.Session) {
-	mongoSession = sess
-}
+// TableNameTakeCoupon take_coupons
+const TableNameTakeCoupon = "take_coupons"
 
-// GetMongo generate  a session copy
-func GetMongo() *mgo.Session {
-	return mongoSession.Copy()
-}
+// TableNameUseCoupon use_coupons
+const TableNameUseCoupon = "use_coupons"
 
 // StringToObjectID string to bson objectId
 func StringToObjectID(id string) (bson.ObjectId, error) {
@@ -73,4 +70,45 @@ func StringsToObjectIDs(ids []string) ([]bson.ObjectId, error) {
 		IDHexs = append(IDHexs, bson.ObjectIdHex(string(id)))
 	}
 	return IDHexs, nil
+}
+
+var db orm.Ormer
+
+// InitModels init models
+func InitModels() (err error) {
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+
+	c := utils.GetConf().GetStringMapString("mysql")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset-utf8&parseTime=True&loc=Local", c["username"], c["password"], c["host"], c["port"], c["dbname"])
+
+	err = orm.RegisterDataBase("default", "mysql", dsn)
+	if err != nil {
+		log.Fatalf("InitModels error: %v\n", err)
+	}
+
+	if utils.IsDev() {
+		if err = createTables(); err != nil {
+			log.Fatalf("create tables error: %v\n", err)
+		}
+	}
+
+	db = orm.NewOrm()
+
+	return
+}
+
+func createTables() (err error) {
+	orm.Debug = true
+	orm.RegisterModel(new(Campaign), new(Coupon), new(UserCoupon), new(SendCoupon), new(TakeCoupon), new(UseCoupon))
+	orm.RegisterModel(new(Account), new(Merchant), new(Store), new(Permission))
+
+	if err = orm.RunSyncdb("default", false, true); err != nil {
+		return
+	}
+	return
+}
+
+// GetDB get *sqlx.DB
+func GetDB() orm.Ormer {
+	return db
 }

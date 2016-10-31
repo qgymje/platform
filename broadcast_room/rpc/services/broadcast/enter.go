@@ -5,10 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"platform/broadcast_room/rpc/models"
+	"platform/broadcast_room/rpc/services/notifier"
 	"platform/commons/codes"
 	"platform/commons/queues"
-	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
+	"time"
 )
 
 // EnterConfig enter config
@@ -103,7 +104,7 @@ func (e *Enter) updateBroadcast(total, current int) (err error) {
 }
 
 func (e *Enter) notify() (err error) {
-	return notifier.Publish(e)
+	return notifier.DeferredPublish(e, 1*time.Second)
 }
 
 // Topic topic

@@ -1,10 +1,6 @@
 package models
 
-import (
-	"time"
-
-	"gopkg.in/mgo.v2/bson"
-)
+import "time"
 
 // CampaignStatus status of campaign
 type CampaignStatus int
@@ -16,14 +12,19 @@ const (
 
 // Campaign  advertising campaign
 type Campaign struct {
-	CampaignID  bson.ObjectId `bson:"_id"`
-	MerchantID  bson.ObjectId `bson:"merchant_id"`
-	Name        string        `bson:"name"`
-	Description string        `bson:"description"`
-	StartTime   time.Time     `bson:"start_time"`
-	EndTime     time.Time     `bson:"end_time"`
-	Status      int           `bson:"status"`
-	CreatedAt   time.Time     `bson:"created_at"`
-	UpdatedAt   time.Time     `bson:"updated_at"`
-	DeletedAt   time.Time     `bson:"deleted_at"`
+	ID          int64 `orm:"column(id)"`
+	MerchantID  int64 `orm:"column(merchant_id)"`
+	Name        string
+	Description string
+	StartTime   time.Time
+	EndTime     time.Time
+	Status      int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   time.Time
+}
+
+// TableName table name
+func (Campaign) TableName() string {
+	return TableNameCampaign
 }

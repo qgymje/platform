@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"platform/commons/queues"
+	"platform/coupon_center/rpc/models"
 	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
 	"time"
@@ -18,6 +19,7 @@ func Sync() {
 		select {
 		case <-ticker.C:
 			allSendCoupons, err := fetchAllSendCoupons()
+			utils.Dump(allSendCoupons)
 			if err != nil {
 				utils.GetLog().Error("coupons.Sync.fetchAllSendCoupons error: %+v", err)
 			}
@@ -31,18 +33,19 @@ func Sync() {
 	}
 }
 
-func fetchAllSendCoupons() []*SendCoupon {
-	return nil
+func fetchAllSendCoupons() ([]*models.SendCoupon, error) {
+	return models.FindRunningSendCoupons()
 }
 
 // SendCouponSync send cuopon sync
 type SendCouponSync struct {
-	sendcoupon *SendCoupon
+	sendcoupon *models.SendCoupon
 }
 
 // NewSendCouponSync new send coupon sync
-func NewSendCouponSync(sc) *SendCouponSync {
+func NewSendCouponSync(sc *models.SendCoupon) *SendCouponSync {
 	s := new(SendCouponSync)
+	s.sendcoupon = sc
 	return s
 }
 
@@ -53,30 +56,33 @@ func (s *SendCouponSync) Do() (err error) {
 			utils.GetLog().Error("coupons.SendCouponSync.Do error: %+v", err)
 		}
 	}()
-
-	if err = b.notify(); err != nil {
+	if err = s.notify(); err != nil {
 		return err
 	}
 	return
 }
 
 func (s *SendCouponSync) notify() error {
-	return notifier.Publish(b)
+	return notifier.Publish(s)
 }
 
 // Topic publish topic
 func (s *SendCouponSync) Topic() string {
-	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), s.sendcoupon.GetID())
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), s.sendcoupon.GetCouponID())
 }
 
 // Message publish message
 func (s *SendCouponSync) Message() []byte {
 	var msg []byte
 	sendCouponMsg := queues.MessageSendCouponUpdate{
-		SendCouponID: b.sendcoupon.GetID(),
-		BroadcastID:  b.sendcoupon.GetBroadcastID(),
-		RemainAmount: b.sendcoupon.Number,
-		RemainTime:   b.sendcoupon.RemainTime(),
+		SendCouponID: s.sendcoupon.GetCouponID(),
+		BroadcastID:  s.sendcoupon.BroadcastID,
+		RemainAmount: s.sendcoupon.Number,
+		RemainTime:   s.sendcoupon.RemainTime(),
+		CouponID:     s.sendCoupon.Coupon.GetID(),
+		Description:  s.sendcoupon.Coupon.Description,
+		Image:        s.sendcoupon.Coupon.Image,
+		Name:         s.sendcoupon.Coupon.Name,
 	}
 
 	data := struct {
