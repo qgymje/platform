@@ -84,6 +84,8 @@ func (s *Sender) Do() (err error) {
 		return
 	}
 
+	go s.autoStop()
+
 	return
 }
 
@@ -139,6 +141,7 @@ func (s *Sender) notify() (err error) {
 
 func (s *Sender) autoStop() {
 	timeout := time.After(time.Duration(s.config.Duration) * time.Second)
+
 	for {
 		select {
 		case <-timeout:
@@ -150,8 +153,12 @@ func (s *Sender) autoStop() {
 			if err := stoper.Do(); err != nil {
 				utils.GetLog().Error("coupons.Sender.autoStop error: %+v", err)
 			}
+			goto BRAKE
 		}
 	}
+
+BRAKE:
+	return
 }
 
 // Topic NSQ topic

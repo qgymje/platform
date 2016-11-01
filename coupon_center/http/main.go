@@ -80,7 +80,7 @@ func main() {
 		c.GET("/my", coupon.List)
 		c.POST("/broadcast/send", coupon.Send)
 		c.POST("/broadcast/take", coupon.Take)
-		c.POST("/broadcast/stop", coupon.Stop)
+		c.PUT("/broadcast/stop", coupon.Stop)
 	}
 
 	if err := r.Run(getPort()); err != nil {

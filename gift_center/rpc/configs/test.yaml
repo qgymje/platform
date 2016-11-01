@@ -1,0 +1,20 @@
+app:
+    rpc_host: localhost
+    rpc_port: :4009
+
+
+mysql:
+    host: 127.0.0.1
+    port: 3306
+    username: gift
+    password: gift
+    dbname: gift_center 
+
+log:
+    filename: ./logs/gift_center.log
+    enable_func_call_depth: true
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 
+        - 127.0.0.1:4161
