@@ -5,6 +5,11 @@
     1. 2016.11.01
     2. initial API
 
+2. v1.0.1
+    1. 2016.11.01
+    2. change stop api request method from POST to PUT
+
+
 ## list
 
 name|desc|dev status
@@ -68,7 +73,7 @@ RETURN:
 
 <div id="my_coupon_list"></div>
 
-## send coupon
+## my coupon list
 
 URL: /coupon/broadcast/send
 
@@ -149,7 +154,7 @@ URL: /coupon/broadcast/stop
 
 AUTH: YES
 
-METHOD: POST
+METHOD: PUT
 
 PARAMETERS:
 
