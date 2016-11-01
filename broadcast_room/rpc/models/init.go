@@ -2,10 +2,16 @@
 package models
 
 import (
+	"errors"
 	"platform/utils"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+)
+
+var (
+	// ErrObjectID error object id
+	ErrObjectID = errors.New("not a valid objectID")
 )
 
 var mongoSession *mgo.Session

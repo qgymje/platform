@@ -1,23 +1,24 @@
 package models
 
-import (
-	"time"
-
-	"gopkg.in/mgo.v2/bson"
-)
+import "time"
 
 // Store store infomation
 type Store struct {
-	StoreID    bson.ObjectId `bson:"_id"`
-	MerchantID bson.ObjectId `bson:"merchant_id"`
-	Name       string        `bson:"name"`
-	Country    string        `bson:"country"`
-	Province   string        `bson:"province"`
-	City       string        `bson:"city"`
-	Address    string        `bson:"address"`
-	Longitude  float64       `bson:"longitude"`
-	Latitude   float64       `bson:"latitude"`
-	CreatedAt  time.Time     `bson:"created_at"`
-	UpdatedAt  time.Time     `bson:"updated_at"`
-	DeletedAt  time.Time     `bson:"deleted_at"`
+	ID         int64 `orm:"column(id)"`
+	MerchantID int64 `orm:"column(merchant_id)"`
+	Name       string
+	Country    string
+	Province   string
+	City       string
+	Address    string
+	Longitude  float64
+	Latitude   float64
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	DeletedAt  time.Time
+}
+
+// TableName table name
+func (Store) TableName() string {
+	return TableNameStore
 }

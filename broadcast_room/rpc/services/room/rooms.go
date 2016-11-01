@@ -63,6 +63,7 @@ func (r *Rooms) find() error {
 	if err := r.findBroadcasts(); err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -75,6 +76,9 @@ func (r *Rooms) findBroadcasts() error {
 		}
 	}
 	if err := r.broadcastFinder.ByIDs(broadcastIDs).Do(); err != nil {
+		if err == models.ErrNotFound {
+			return nil
+		}
 		return err
 	}
 	return nil

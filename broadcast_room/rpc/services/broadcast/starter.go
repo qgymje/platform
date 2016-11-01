@@ -3,6 +3,7 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"platform/broadcast_room/rpc/models"
 	"platform/broadcast_room/rpc/services/notifier"
 	"platform/commons/codes"
@@ -112,7 +113,7 @@ func (s *Starter) startPlay() error {
 
 // Topic topic
 func (s *Starter) Topic() string {
-	return queues.TopicBroadcastStart.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), s.broadcastModel.GetID())
 }
 
 // Message publish message

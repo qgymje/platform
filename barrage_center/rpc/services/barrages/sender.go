@@ -51,6 +51,11 @@ func (s *Sender) Do() (err error) {
 		}
 	}()
 
+	if err = s.preSave(); err != nil {
+		s.errorCode = codes.ErrorCodeBarrageCreate
+		return
+	}
+
 	if err = s.save(); err != nil {
 		s.errorCode = codes.ErrorCodeBarrageCreate
 		return
@@ -60,10 +65,11 @@ func (s *Sender) Do() (err error) {
 		s.errorCode = codes.ErrorCodeBarrageNotify
 		return
 	}
+
 	return
 }
 
-func (s *Sender) save() (err error) {
+func (s *Sender) preSave() error {
 	broadcastObjID, err := models.StringToObjectID(s.config.BroadcastID)
 	userObjID, err := models.StringToObjectID(s.config.UserID)
 	if err != nil {
@@ -77,11 +83,15 @@ func (s *Sender) save() (err error) {
 	s.barrageModel.Level = s.config.Level
 	s.barrageModel.CreatedAt = time.Unix(s.config.CreatedAt, 0)
 
+	return nil
+}
+
+func (s *Sender) save() (err error) {
 	return s.barrageModel.Create()
 }
 
 func (s *Sender) notify() (err error) {
-	return notifier.Publish(s)
+	return notifier.DeferredPublish(s, 50*time.Microsecond)
 }
 
 // Topic publish topic
@@ -98,7 +108,7 @@ func (s *Sender) Message() []byte {
 		Username:    s.config.Username,
 		Level:       s.config.Level,
 		Text:        s.config.Text,
-		CreatedAt:   s.barrageModel.CreatedAt,
+		CreatedAt:   s.barrageModel.CreatedAt.Unix(),
 	}
 
 	data := struct {

@@ -3,6 +3,7 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"platform/broadcast_room/rpc/models"
 	"platform/commons/codes"
 	"platform/commons/queues"
@@ -62,6 +63,11 @@ func (l *Leaver) Do() (err error) {
 		l.errorCode = codes.ErrorCodeBroadcastNotify
 		return
 	}
+
+	if err = l.removeChannel(); err != nil {
+		l.errorCode = codes.ErrorCodeDeleteChannel
+		return
+	}
 	return nil
 }
 
@@ -103,7 +109,7 @@ func (l *Leaver) notify() (err error) {
 
 // Topic topic
 func (l *Leaver) Topic() string {
-	return queues.TopicBroadcastLeave.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), l.config.BroadcastID)
 }
 
 // Message message
@@ -127,4 +133,10 @@ func (l *Leaver) Message() []byte {
 
 	msg, _ = json.Marshal(data)
 	return msg
+}
+
+// RemoveChannel remove channel
+func (l *Leaver) removeChannel() (err error) {
+	channel := l.config.UserID
+	return utils.DeleteChannel(l.Topic(), channel)
 }

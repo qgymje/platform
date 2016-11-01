@@ -25,8 +25,8 @@ type NSQSession struct {
 }
 
 // NewNSQSession 创建一个基于NSQ的pubsub对象
-func NewNSQSession(nsqlookupdAddr string, nsqdAddr string, topic, channel string) *NSQSession {
-	log.Println(nsqlookupdAddr, nsqdAddr, topic, channel)
+func NewNSQSession(nsqlookupdAddrs []string, nsqdAddr string, topic, channel string) *NSQSession {
+	log.Println(nsqlookupdAddrs, nsqdAddr, topic, channel)
 	session := NSQSession{
 		producer: &nsq.Producer{},
 		consumer: &nsq.Consumer{},
@@ -47,7 +47,7 @@ func NewNSQSession(nsqlookupdAddr string, nsqdAddr string, topic, channel string
 		log.Fatalf("create consumer error: %v", err)
 	}
 	session.addHanler()
-	err = session.consumer.ConnectToNSQLookupd(nsqlookupdAddr)
+	err = session.consumer.ConnectToNSQLookupds(nsqlookupdAddrs)
 	if err != nil {
 		log.Panic("Could not connect nsqlookupd")
 	}

@@ -71,18 +71,29 @@ type MessageBroadcastInfo struct {
 
 // MessageBarrage  nsq message for barrage
 type MessageBarrage struct {
-	BroadcastID string    `json:"broadcast_id"`
-	UserID      string    `json:"user_id"`
-	Username    string    `json:"username"`
-	Level       int64     `json:"level"`
-	Text        string    `json:"text"`
-	CreatedAt   time.Time `json:"created_at"`
+	BroadcastID string `json:"broadcast_id"`
+	UserID      string `json:"user_id"`
+	Username    string `json:"username"`
+	Level       int64  `json:"level"`
+	Text        string `json:"text"`
+	CreatedAt   int64  `json:"created_at"`
 }
 
 // MessageSendCouponUpdate message send coupon update
 type MessageSendCouponUpdate struct {
 	SendCouponID string `json:"send_coupon_id"`
 	BroadcastID  string `json:"broadcast_id"`
-	Number       int    `json:"number"`
-	Duration     int64  `json:"duration"`
+	RemainAmount int    `json:"remain_amount"`
+	RemainTime   int64  `json:"remain_time"`
+	CouponID     string `json:"coupon_id"`
+	Name         string `json:"name"`
+	Image        string `json:"image"`
+	Description  string `json:"description"`
+}
+
+// MessageSendCouponStop stop send coupon broadcast
+type MessageSendCouponStop struct {
+	SendCouponID string `json:"send_coupon_id"`
+	BroadcastID  string `json:"broadcast_id"`
+	StopTime     int64  `json:"stop_time"`
 }

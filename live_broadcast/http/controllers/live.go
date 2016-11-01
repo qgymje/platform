@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 	"platform/commons/codes"
 	"platform/live_broadcast/http/services/broadcasts"
@@ -10,6 +11,7 @@ import (
 	pbroom "platform/commons/protos/room"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 )
 
 // Live broadcasting controller
@@ -128,6 +130,11 @@ func (l *Live) Leave(c *gin.Context) {
 	return
 }
 
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+}
+
 // Join 表示一个用户进入了直播间
 func (l *Live) Join(c *gin.Context) {
 	var errorCode codes.ErrorCode
@@ -138,6 +145,26 @@ func (l *Live) Join(c *gin.Context) {
 		return
 	}
 	utils.Dump(l.userInfo)
-	c.Set("user_id", l.userInfo.UserID)
-	broadcasts.ServeWS(c)
+
+	upgrader.CheckOrigin = func(r *http.Request) bool {
+		// 正式环境下需根据配置文件读取url来做判断
+		return true
+	}
+
+	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	log.Println("new client:", conn.RemoteAddr())
+
+	broadcastID := c.Param("broadcast_id")
+	topic := "broadcast_" + broadcastID
+	channel := l.userInfo.UserID
+
+	nsqd := utils.GetConf().GetString("nsq.nsqd")
+	nsqlookupds := utils.GetConf().GetStringSlice("nsq.nsqlookupd")
+	client := broadcasts.NewClient(conn, nsqlookupds, nsqd, topic, channel)
+	go client.WritePump()
+	client.ReadPump()
 }

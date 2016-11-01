@@ -3,6 +3,7 @@ package broadcasts
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"time"
 
 	"platform/broadcast_room/rpc/models"
@@ -12,7 +13,7 @@ import (
 	"platform/utils"
 )
 
-const broadcastAtLeastTime = 2 * time.Minute
+const broadcastAtLeastTime = 1 * time.Minute
 
 // EnderConfig ender config
 type EnderConfig struct {
@@ -61,6 +62,11 @@ func (e *Ender) Do() (err error) {
 		return
 	}
 
+	if yes := e.isEnded(); yes {
+		e.errorCode = codes.ErrorCodeBroadcastClosed
+		return
+	}
+
 	if yes := e.isPlayedLognerThanLeastTime(); !yes {
 		e.errorCode = codes.ErrorCodeBroadcastTooShort
 		return errors.New("broadcast too short")
@@ -77,6 +83,11 @@ func (e *Ender) Do() (err error) {
 
 	if err = e.notify(); err != nil {
 		e.errorCode = codes.ErrorCodeBroadcastNotify
+		return
+	}
+
+	if err = e.removeTopic(); err != nil {
+		e.errorCode = codes.ErrorCodeDeleteTopic
 		return
 	}
 
@@ -112,9 +123,11 @@ func (e *Ender) validBroadcast() error {
 	return nil
 }
 
-func (e *Ender) removeBroadcast() error {
-	// delete broadcast topic
-	return nil
+func (e *Ender) isEnded() bool {
+	if e.broadcastModel.IsPlaying() {
+		return false
+	}
+	return true
 }
 
 func (e *Ender) isPlayedLognerThanLeastTime() bool {
@@ -134,7 +147,7 @@ func (e *Ender) update() error {
 
 // Topic implement Notifier interface
 func (e *Ender) Topic() string {
-	return queues.TopicBroadcastEnd.String()
+	return fmt.Sprintf(queues.TopicBroadcastFormat.String(), e.broadcastModel.GetID())
 }
 
 // Message implement Notifier interface
@@ -160,4 +173,8 @@ func (e *Ender) Message() []byte {
 
 func (e *Ender) notify() error {
 	return notifier.Publish(e)
+}
+
+func (e *Ender) removeTopic() (err error) {
+	return utils.DeleteTopic(e.Topic())
 }

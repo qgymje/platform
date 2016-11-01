@@ -6,6 +6,7 @@ import (
 	"platform/broadcast_room/rpc/models"
 	"platform/broadcast_room/rpc/services/notifier"
 	"platform/commons/queues"
+	"platform/commons/typeids"
 	"platform/utils"
 	"time"
 )
@@ -27,7 +28,7 @@ func Sync() {
 			for _, bro := range allBroadcasts {
 				broSync := NewBroadcastSync(bro)
 				if err := broSync.Do(); err != nil {
-					utils.GetLog().Error("broadcasts.Sync.Do error: %+v", err)
+					utils.GetLog().Error("broadcasts.BroadcastSync.Do error: %+v", err)
 				}
 			}
 		}
@@ -100,7 +101,7 @@ func (b *BroadcastSync) Message() []byte {
 		Type int         `json:"type"`
 		Data interface{} `json:"data"`
 	}{
-		10000,
+		int(typeids.BroadcastInfo),
 		broadcastMsg,
 	}
 	msg, _ = json.Marshal(&data)

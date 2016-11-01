@@ -3,7 +3,48 @@ syntax="proto3";
 package coupon;
 
 service Coupon{
+    rpc List(Page) returns (Coupons) {};
+    rpc Send(SendCoupon)  returns (Status) {};
+    rpc Take(TakeCoupon) returns (Status) {};
+    rpc Stop(TakeCoupon) returns (Status) {};
 }
 
+message SendCoupon {
+    string couponID  = 1;
+    string broadcastID  = 2;
+    string userID = 3;
+    int32 number  = 4;
+    int64 duration  = 5;
+    int32 typeID = 6;
+}
 
+message TakeCoupon {
+    string sendCouponID  = 1;
+    string userID = 2;
+}
+
+message Status {
+    bool success = 1;
+    string sendCouponID  = 2;
+}
+
+message Page {
+    int32 num  = 1;
+    int32 size  = 2;
+    string userID = 3;
+}
+
+message CouponInfo {
+    string couponID  = 1;
+    string name = 2;
+    string image = 3;
+    int64 number = 4;
+    string description = 5;
+    float price = 6;
+}
+
+message Coupons {
+    repeated CouponInfo coupons = 1;
+    int64 totalNum = 2;
+}
 
