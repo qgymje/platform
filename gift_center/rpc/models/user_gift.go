@@ -1,16 +1,13 @@
 package models
 
-import (
-	"time"
-
-	"gopkg.in/mgo.v2/bson"
-)
+import "time"
 
 // UserGift user gift
 type UserGift struct {
-	UserID    bson.ObjectId `bson:"user_id"`
-	GiftID    bson.ObjectId `bson:"gift_id"`
-	Number    int           `bson:"number"`
-	Price     float64       `bson:"price"`
-	CreatedAt time.Time     `bson:"created_at"`
+	ID        int64  `orm:"column(id)"`
+	UserID    string `orm:"column(user_id)"`
+	Gift      *Gift
+	Number    int
+	Price     float64
+	CreatedAt time.Time
 }
