@@ -20,6 +20,9 @@ func (TakeCoupon) TableName() string {
 	return TableNameTakeCoupon
 }
 
+// ErrSendCouponClosed send coupon is closed
+var ErrSendCouponClosed = errors.New("sendCoupon is closed")
+
 // Create create a take coupon
 func (t *TakeCoupon) Create() (err error) {
 	err = GetDB().Begin()
@@ -27,12 +30,15 @@ func (t *TakeCoupon) Create() (err error) {
 	sc := &SendCoupon{ID: t.SendCouponID}
 	if err = sc.Find(); err != nil {
 		GetDB().Rollback()
+		if err == orm.ErrNoRows {
+			return ErrNotFound
+		}
 		return
 	}
 
 	if sc.IsClosed() || sc.Number <= 0 {
 		GetDB().Rollback()
-		return errors.New("sendCoupon is closed")
+		return ErrSendCouponClosed
 	}
 
 	if err = sc.UpdateNumber(-1); err != nil {

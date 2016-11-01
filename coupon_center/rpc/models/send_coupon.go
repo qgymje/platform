@@ -28,17 +28,16 @@ func (SendCoupon) TableName() string {
 // Create a sendcoupon
 func (s *SendCoupon) Create() (err error) {
 	s.CreatedAt = time.Now()
-	n, err := GetDB().Insert(s)
+	_, err = GetDB().Insert(s)
 	if err != nil {
 		return err
 	}
-	s.ID = n
 	return
 }
 
 // Find find with coupon object
 func (s *SendCoupon) Find() (err error) {
-	return GetDB().QueryTable(TableNameSendCoupon).RelatedSel("Coupon").One(s)
+	return GetDB().QueryTable(TableNameSendCoupon).RelatedSel("Coupon").Filter("id", s.ID).One(s)
 }
 
 // GetID get id
@@ -72,6 +71,15 @@ func (s *SendCoupon) IsClosed() bool {
 		return false
 	}
 	return true
+}
+
+// Close by stoper
+func (s *SendCoupon) Close() error {
+	s.ClosedAt = time.Now()
+	if _, err := GetDB().Update(s, "closed_at"); err != nil {
+		return err
+	}
+	return nil
 }
 
 // TryClose try to close

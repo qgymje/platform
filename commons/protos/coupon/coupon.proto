@@ -6,25 +6,26 @@ service Coupon{
     rpc List(Page) returns (Coupons) {};
     rpc Send(SendCoupon)  returns (Status) {};
     rpc Take(TakeCoupon) returns (Status) {};
+    rpc Stop(TakeCoupon) returns (Status) {};
 }
 
 message SendCoupon {
-    string CouponID  = 1;
-    string BroadcastID  = 2;
-    string UserID = 3;
-    int32 Number  = 4;
-    int64 Duration  = 5;
-    int32 TypeID = 6;
+    string couponID  = 1;
+    string broadcastID  = 2;
+    string userID = 3;
+    int32 number  = 4;
+    int64 duration  = 5;
+    int32 typeID = 6;
 }
 
 message TakeCoupon {
-    string SendCouponID  = 1;
-    string UserID = 2;
+    string sendCouponID  = 1;
+    string userID = 2;
 }
 
 message Status {
-    bool Success = 1;
-    string SendCouponID  = 2;
+    bool success = 1;
+    string sendCouponID  = 2;
 }
 
 message Page {

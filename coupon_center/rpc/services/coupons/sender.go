@@ -129,8 +129,8 @@ func (s *Sender) save() (err error) {
 	if err = s.sendCouponModel.Create(); err != nil {
 		return
 	}
-
-	return s.sendCouponModel.Find()
+	err = s.sendCouponModel.Find()
+	return err
 }
 
 func (s *Sender) notify() (err error) {
@@ -138,16 +138,15 @@ func (s *Sender) notify() (err error) {
 }
 
 func (s *Sender) autoStop() {
-	timeout := time.After(s.config.Duration * time.Second)
+	timeout := time.After(time.Duration(s.config.Duration) * time.Second)
 	for {
 		select {
 		case <-timeout:
-			config := &StoperConfig{
+			config := &StopperConfig{
 				SendCouponID: s.sendCouponModel.GetID(),
-				BroadcastID:  s.config.BroadcastID,
-				TypeID:       10003,
+				UserID:       s.config.UserID,
 			}
-			stoper := NewStoper(config)
+			stoper := NewStopper(config)
 			if err := stoper.Do(); err != nil {
 				utils.GetLog().Error("coupons.Sender.autoStop error: %+v", err)
 			}

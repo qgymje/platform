@@ -24,6 +24,11 @@ func (uc *UserCoupon) Create() (err error) {
 	return nil
 }
 
+// Find find with coupon object
+func (uc *UserCoupon) Find() (err error) {
+	return GetDB().QueryTable(TableNameUserCoupon).RelatedSel("Coupon").Filter("user_id", uc.UserID).Filter("coupon_id", uc.Coupon.ID).One(uc)
+}
+
 // UpdateNumber update number
 func (uc *UserCoupon) UpdateNumber(num int) (err error) {
 	uc.Number += num

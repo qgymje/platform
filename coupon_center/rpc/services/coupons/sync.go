@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"platform/commons/queues"
+	"platform/commons/typeids"
 	"platform/coupon_center/rpc/models"
 	"platform/coupon_center/rpc/services/notifier"
 	"platform/utils"
@@ -99,7 +100,7 @@ func (s *SendCouponSync) Message() []byte {
 		Type int         `json:"type"`
 		Data interface{} `json:"data"`
 	}{
-		10001,
+		int(typeids.CouponSender),
 		sendCouponMsg,
 	}
 	msg, _ = json.Marshal(&data)

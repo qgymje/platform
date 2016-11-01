@@ -9,7 +9,9 @@ import (
 	"time"
 
 	"platform/commons/codes"
+	"platform/commons/grpc_clients/room"
 	"platform/commons/grpc_clients/user"
+	pbroom "platform/commons/protos/room"
 	pbuser "platform/commons/protos/user"
 
 	"platform/utils"
@@ -25,6 +27,7 @@ const versionKey = "version"
 // Base controller do common things
 type Base struct {
 	userInfo *pbuser.UserInfo
+	roomInfo *pbroom.RoomInfo
 }
 
 var uploadPath string
@@ -126,8 +129,27 @@ func (b *Base) validUserInfo(c *gin.Context) (*pbuser.UserInfo, codes.ErrorCode)
 	return userInfo, codes.ErrorCodeSuccess
 }
 
-func (b *Base) getUserID(c *gin.Context) string {
-	return c.Param("user_id")
+func (b *Base) validRoomInfo(c *gin.Context) (*pbroom.RoomInfo, codes.ErrorCode) {
+	rc := roomClient.NewRoom(b.getRoomRPCAddress())
+	userRoom := &pbroom.UserRoom{
+		UserID: b.userInfo.UserID,
+	}
+	info, err := rc.Info(userRoom)
+	if err != nil {
+		return nil, rpcErrorFormat(err.Error())
+	}
+
+	return info, codes.ErrorCodeSuccess
+}
+
+func (b *Base) isValidRoom() bool {
+	if b.roomInfo == nil {
+		return false
+	}
+	if !b.roomInfo.IsPlaying || b.roomInfo.Broadcast == nil {
+		return false
+	}
+	return true
 }
 
 func (b *Base) getPageNum(c *gin.Context) (page int) {
@@ -151,10 +173,6 @@ func (b *Base) getSendCouponID(c *gin.Context) string {
 	return c.PostForm("sendcoupon_id")
 }
 
-func (b *Base) getBroadcastID(c *gin.Context) string {
-	return c.PostForm("broadcast_id")
-}
-
 func (b *Base) getNumber(c *gin.Context) int {
 	num, _ := strconv.Atoi(c.PostForm("number"))
 	return num
@@ -172,6 +190,10 @@ func (b *Base) getTypeID(c *gin.Context) int {
 
 func (b *Base) getUserRPCAddress() string {
 	return "127.0.0.1:4000"
+}
+
+func (b *Base) getRoomRPCAddress() string {
+	return "127.0.0.1:4001"
 }
 
 func (b *Base) getCouponRPCAddress() string {

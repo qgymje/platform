@@ -50,3 +50,9 @@ func (c *Coupon) Take(in *pb.TakeCoupon) (*pb.Status, error) {
 	defer c.Close()
 	return c.client.Take(context.Background(), in)
 }
+
+// Stop stop
+func (c *Coupon) Stop(in *pb.TakeCoupon) (*pb.Status, error) {
+	defer c.Close()
+	return c.client.Stop(context.Background(), in)
+}

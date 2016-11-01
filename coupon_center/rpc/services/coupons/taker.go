@@ -43,7 +43,13 @@ func (t *Taker) Do() (err error) {
 	}()
 
 	if err = t.save(); err != nil {
-		t.errorCode = codes.ErrorCodeTakeCouponCreate
+		if err == models.ErrNotFound {
+			t.errorCode = codes.ErrorCodeSendCouponNotFound
+		} else if err == models.ErrSendCouponClosed {
+			t.errorCode = codes.ErrorCodeSendCouponClosed
+		} else {
+			t.errorCode = codes.ErrorCodeTakeCouponCreate
+		}
 		return err
 	}
 	return

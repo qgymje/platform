@@ -66,9 +66,16 @@ func (p *Coupon) Send(c *gin.Context) {
 		return
 	}
 
+	p.roomInfo, errorCode = p.validRoomInfo(c)
+	if !p.isValidRoom() {
+		respformat := p.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
 	sendCoupon := &pbcoupon.SendCoupon{
 		CouponID:    p.getCouponID(c),
-		BroadcastID: p.getBroadcastID(c),
+		BroadcastID: p.roomInfo.Broadcast.BroadcastID,
 		UserID:      p.userInfo.UserID,
 		Number:      int32(p.getNumber(c)),
 		Duration:    int64(p.getDuration(c)),
@@ -105,6 +112,41 @@ func (p *Coupon) Take(c *gin.Context) {
 
 	cc := couponClient.NewCoupon(p.getCouponRPCAddress())
 	reply, err := cc.Take(takeCoupon)
+	if err != nil {
+		respformat := p.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := p.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
+}
+
+// Stop stop sendcoupon
+func (p *Coupon) Stop(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	p.userInfo, errorCode = p.validUserInfo(c)
+	if p.userInfo == nil {
+		respformat := p.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	p.roomInfo, errorCode = p.validRoomInfo(c)
+	if !p.isValidRoom() {
+		respformat := p.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	takeCoupon := &pbcoupon.TakeCoupon{
+		SendCouponID: p.getSendCouponID(c),
+		UserID:       p.userInfo.UserID,
+	}
+
+	cc := couponClient.NewCoupon(p.getCouponRPCAddress())
+	reply, err := cc.Stop(takeCoupon)
 	if err != nil {
 		respformat := p.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)

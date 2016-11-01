@@ -82,6 +82,43 @@ func (s *Server) Send(ctx context.Context, in *pb.SendCoupon) (*pb.Status, error
 }
 
 // Take take
-func (s *Server) Take(context.Context, *pb.TakeCoupon) (*pb.Status, error) {
-	return &pb.Status{Success: true}, nil
+func (s *Server) Take(ctx context.Context, in *pb.TakeCoupon) (*pb.Status, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("coupons.Server.Take error: %+v", err)
+		}
+	}()
+
+	config := &coupons.TakerConfig{
+		SendCouponID: in.SendCouponID,
+		UserID:       in.UserID,
+	}
+	taker := coupons.NewTaker(config)
+	if err = taker.Do(); err != nil {
+		return nil, errors.New(taker.ErrorCode().String())
+	}
+
+	return &pb.Status{Success: true, SendCouponID: in.SendCouponID}, nil
+}
+
+// Stop stop
+func (s *Server) Stop(ctx context.Context, in *pb.TakeCoupon) (*pb.Status, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("coupons.Server.Stoperror: %+v", err)
+		}
+	}()
+
+	config := &coupons.StopperConfig{
+		SendCouponID: in.SendCouponID,
+		UserID:       in.UserID,
+	}
+	stopper := coupons.NewStopper(config)
+	if err = stopper.Do(); err != nil {
+		return nil, errors.New(stopper.ErrorCode().String())
+	}
+
+	return &pb.Status{Success: true, SendCouponID: in.SendCouponID}, nil
 }

@@ -95,4 +95,5 @@ type MessageSendCouponUpdate struct {
 type MessageSendCouponStop struct {
 	SendCouponID string `json:"send_coupon_id"`
 	BroadcastID  string `json:"broadcast_id"`
+	StopTime     int64  `json:"stop_time"`
 }
