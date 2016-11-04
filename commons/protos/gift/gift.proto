@@ -1,0 +1,37 @@
+syntax="proto3";
+
+package gift;
+
+service Gift {
+    rpc List(Page) returns (Gifts) {};
+    rpc Send(SendGift)  returns (Status) {};
+}
+
+message Page {
+    int32 num = 1;
+    int32 size = 2;
+}
+
+message SendGift {
+    string giftID = 1;
+    string userID = 2;
+    string toUserID = 3;
+    string broadcastID = 4;
+    int32 number = 5;
+}
+
+message Status {
+    bool success = 1;
+}
+
+message GiftInfo {
+    string giftID = 1;
+    string name = 2;
+    string image = 3;
+    string diamond = 4;
+    string coin = 5;
+}
+
+message Gifts {
+    repeated GiftInfo list = 1;
+}

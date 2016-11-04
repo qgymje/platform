@@ -28,9 +28,6 @@ const TableNameGift = "gifts"
 // TableNameSendGift collection name
 const TableNameSendGift = "send_gifts"
 
-// TableNameUserGift collection name
-const TableNameUserGift = "user_gifts"
-
 // StringToObjectID string to bson objectId
 func StringToObjectID(id string) (bson.ObjectId, error) {
 	if !bson.IsObjectIdHex(string(id)) {
@@ -78,7 +75,7 @@ func InitModels() (err error) {
 
 func createTables() (err error) {
 	orm.Debug = true
-	orm.RegisterModel(new(Gift), new(UserGift), new(SendGift))
+	orm.RegisterModel(new(Gift), new(SendGift))
 
 	if err = orm.RunSyncdb("default", false, true); err != nil {
 		return

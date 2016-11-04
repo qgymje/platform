@@ -8,7 +8,6 @@ type SendGift struct {
 	UserID      string `orm:"column(user_id)"`
 	ToUserID    string `orm:"column(to_user_id)"`
 	BroadcastID string `orm:"column(broadcast_id)"`
-	Gift        *Gift
-	Number      int
+	Gift        *Gift  `orm:"rel(fk)"`
 	CreatedAt   time.Time
 }

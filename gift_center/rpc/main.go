@@ -5,10 +5,11 @@ import (
 	"log"
 	"net"
 
-	"platform/coupon_center/rpc/services"
-	"platform/coupon_center/rpc/services/coupons"
 	"platform/gift_center/rpc/models"
+	"platform/gift_center/rpc/servers"
 	"platform/utils"
+
+	pb "platform/commons/protos/gift"
 
 	"google.golang.org/grpc"
 )
@@ -48,8 +49,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGiftServer(s, &services.Server{})
-	go coupons.Sync()
+	pb.RegisterGiftServer(s, &servers.Gift{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
