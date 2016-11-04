@@ -74,6 +74,7 @@ func (s *SendCouponSync) notify() error {
 
 func (s *SendCouponSync) tryClose() error {
 	return s.sendCoupon.TryClose()
+	// when numbre is 0?
 	// how to auto end and send broadcast?
 }
 

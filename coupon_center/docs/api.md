@@ -73,7 +73,7 @@ RETURN:
 
 <div id="my_coupon_list"></div>
 
-## my coupon list
+## send coupon
 
 URL: /coupon/broadcast/send
 
@@ -112,6 +112,7 @@ ATTENTION:
 > type is defined by the server
 
 * also, it will be stopped autimatically when the duration is drained and send a broadcast info just like the `stop` API
+* bwt: if the remain_acmount is down to zero, also cause a `stop` broadcast
 
 ---
 
@@ -183,6 +184,7 @@ ATTENTION:
 ```
 
 > type is defined by the server
+
 ---
 
 

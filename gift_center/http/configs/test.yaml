@@ -1,0 +1,7 @@
+app:
+    rpc_host: localhost
+    rpc_port: :3009
+
+log:
+    filename: ./logs/gift_center.log
+    enable_func_call_depth: true

@@ -21,7 +21,7 @@ type User struct {
 	Salt       string        `bson:"salt" json:"-"`
 	Token      string        `bson:"token" json:"-"`
 	Avatar     string        `bson:"avatar"`
-	Experience int64         `bson:"experience"`
+	Experience int64         `bson:"experience"` // 经验
 	Level      int64         `bson:"level"`      // 等级
 	FollowNum  int64         `bson:"follow_num"` // 关注数
 	Popularity int64         `bson:"popularity"` // 人气
