@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"platform/utils"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -58,8 +59,18 @@ func (t *TakeCoupon) Create() (err error) {
 	return
 }
 
+// Find find a take coupon
+func (t *TakeCoupon) Find() (err error) {
+	err = GetDB().QueryTable(TableNameTakeCoupon).Filter("user_id", t.UserID).Filter("sendcoupon_id", t.SendCouponID).One(t)
+	if err == orm.ErrNoRows {
+		return ErrNotFound
+	}
+	return err
+}
+
 // HasTaken has taken?
 func (t *TakeCoupon) HasTaken() bool {
+	utils.Dump(t)
 	err := GetDB().QueryTable(TableNameTakeCoupon).Filter("sendcoupon_id", t.SendCouponID).Filter("user_id", t.UserID).One(t)
 	if err == orm.ErrNoRows {
 		return false

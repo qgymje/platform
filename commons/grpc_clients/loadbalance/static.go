@@ -12,7 +12,7 @@ type StaticResolver struct {
 func NewStaticResolver(addr ...string) *StaticResolver {
 	r := &StaticResolver{}
 	for _, a := range addr {
-		r.addr = append(r.addr, &naming.Update{Op: naming.Addr, Addr: a})
+		r.addr = append(r.addr, &naming.Update{Op: naming.Add, Addr: a})
 	}
 	return r
 }

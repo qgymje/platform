@@ -1,6 +1,7 @@
 package coupons
 
 import (
+	"errors"
 	"platform/commons/codes"
 	"platform/coupon_center/rpc/models"
 	"platform/utils"
@@ -42,6 +43,13 @@ func (t *Taker) Do() (err error) {
 		}
 	}()
 
+	t.preSave()
+
+	if yes := t.hasTaken(); yes {
+		t.errorCode = codes.ErrorCodeSendCouponAlreadyTaken
+		return errors.New("coupon has taken")
+	}
+
 	if err = t.save(); err != nil {
 		if err == models.ErrNotFound {
 			t.errorCode = codes.ErrorCodeSendCouponNotFound
@@ -55,10 +63,21 @@ func (t *Taker) Do() (err error) {
 	return
 }
 
-func (t *Taker) save() (err error) {
+func (t *Taker) hasTaken() bool {
+	if err := t.takeCouponModel.Find(); err != nil {
+		if err == models.ErrNotFound {
+			return false
+		}
+	}
+	return t.takeCouponModel.HasTaken()
+}
+
+func (t *Taker) preSave() {
 	scID, _ := strconv.ParseInt(t.config.SendCouponID, 10, 0)
 	t.takeCouponModel.SendCouponID = scID
 	t.takeCouponModel.UserID = t.config.UserID
+}
 
+func (t *Taker) save() (err error) {
 	return t.takeCouponModel.Create()
 }
