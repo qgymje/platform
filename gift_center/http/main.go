@@ -48,6 +48,11 @@ func main() {
 		r.Use(middlewares.FakedLogin())
 	}
 
+	uploadPath := "./uploads"
+	utils.EnsurePath(uploadPath)
+	controllers.SetUploadPath(uploadPath)
+	r.Static("/v1/gift/uploads", uploadPath)
+
 	rr := r.Group("/v1/gift")
 	{
 		gift := new(controllers.Gift)

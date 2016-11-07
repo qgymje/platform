@@ -26,6 +26,17 @@ type Base struct {
 	userInfo *pbuser.UserInfo
 }
 
+var uploadPath string
+
+// SetUploadPath upload path
+func SetUploadPath(p string) {
+	uploadPath = strings.TrimRight(p, "/") + "/"
+}
+
+func getUploadPath() string {
+	return uploadPath
+}
+
 // ResponseFormat  response format object
 type ResponseFormat struct {
 	Code codes.ErrorCode        `json:"code"`
@@ -67,6 +78,7 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 		"timestamp": time.Now(),
 	}
 }
+
 func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 	if c.Param("token") != "" {
 		return c.Param("token"), codes.ErrorCodeSuccess

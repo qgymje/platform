@@ -49,7 +49,7 @@ func main() {
 	uploadPath := "./uploads"
 	utils.EnsurePath(uploadPath)
 	controllers.SetUploadPath(uploadPath)
-	r.Static("/uploads", uploadPath)
+	r.Static("/v1/user/uploads", uploadPath)
 
 	u := r.Group("/v1/user")
 	{

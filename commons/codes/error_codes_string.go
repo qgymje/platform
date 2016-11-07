@@ -90,5 +90,7 @@ func init() {
 		ErrorCodeSendCouponNotFound:     "send coupon not found",
 		ErrorCodeSendCouponClosed:       "send coupon is closed",
 		ErrorCodeSendCouponAlreadyTaken: "send coupon already taken",
+
+		ErrorCodeGiftNotFound: "gift not found",
 	}
 }

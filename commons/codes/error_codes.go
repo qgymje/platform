@@ -113,4 +113,7 @@ const (
 	ErrorCodeSendCouponClosed   = "COP400104"
 
 	ErrorCodeSendCouponAlreadyTaken = "COP400105"
+
+	// Gift
+	ErrorCodeGiftNotFound = "GIF400101"
 )

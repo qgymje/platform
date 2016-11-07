@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"strconv"
+	"time"
+)
 
 // Gift gift model
 type Gift struct {
@@ -14,6 +17,11 @@ type Gift struct {
 	DeletedAt time.Time
 }
 
+// TableName tablename
+func (Gift) TableName() string {
+	return TableNameGift
+}
+
 // TableUnique unique
 func (g *Gift) TableUnique() [][]string {
 	return [][]string{
@@ -21,14 +29,28 @@ func (g *Gift) TableUnique() [][]string {
 	}
 }
 
+// GetID wrapper id
+func (g *Gift) GetID() string {
+	return strconv.FormatInt(g.ID, 10)
+}
+
 // Create create a gift record
 func (g *Gift) Create() (err error) {
-	result, err := GetDB().Raw(`replace into gifts("name", "image", "snow_flake", "snow_ball", "updated_at") values(?,?,?,?,?)`).Exec()
+	result, err := GetDB().Raw(`replace into gifts("name", "image", "snow_flake", "snow_ball", "updated_at") values(?,?,?,?,?)`, g.Name, g.Image, g.SnowFlake, g.SnowBall, g.UpdatedAt).Exec()
 	if err != nil {
 		return
 	}
 	if _, err = result.RowsAffected(); err != nil {
 		return err
+	}
+	return
+}
+
+// FindGifts find gifts
+func FindGifts() (gs []*Gift, err error) {
+	_, err = GetDB().QueryTable(TableNameGift).Filter("deleted_at__isnull", true).All(&gs)
+	if err != nil {
+		return nil, err
 	}
 	return
 }

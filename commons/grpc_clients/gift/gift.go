@@ -35,7 +35,7 @@ func (g *Gift) Close() error {
 }
 
 // List gift list
-func (g *Gift) List(in *pb.Page) (*pb.Status, error) {
+func (g *Gift) List(in *pb.Page) (*pb.Gifts, error) {
 	defer g.Close()
 	return g.client.List(context.Background(), in)
 }

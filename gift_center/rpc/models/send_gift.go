@@ -11,3 +11,16 @@ type SendGift struct {
 	Gift        *Gift  `orm:"rel(fk)"`
 	CreatedAt   time.Time
 }
+
+// TableName tablename
+func (SendGift) TableName() string {
+	return TableNameSendGift
+}
+
+// Create create a record
+// TODO: it's just a simple implement
+func (sg *SendGift) Create() (err error) {
+	sg.CreatedAt = time.Now()
+	_, err = GetDB().Insert(sg)
+	return
+}
