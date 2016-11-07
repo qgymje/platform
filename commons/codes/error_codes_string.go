@@ -87,7 +87,8 @@ func init() {
 		ErrorCodeUserCouponUpdate: "user coupon update failed",
 		ErrorCodeTakeCouponCreate: "take coupon create failed",
 
-		ErrorCodeSendCouponNotFound: "send coupon not found",
-		ErrorCodeSendCouponClosed:   "send coupon is closed",
+		ErrorCodeSendCouponNotFound:     "send coupon not found",
+		ErrorCodeSendCouponClosed:       "send coupon is closed",
+		ErrorCodeSendCouponAlreadyTaken: "send coupon already taken",
 	}
 }

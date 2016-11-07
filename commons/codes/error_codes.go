@@ -111,4 +111,6 @@ const (
 
 	ErrorCodeSendCouponNotFound = "COP400103"
 	ErrorCodeSendCouponClosed   = "COP400104"
+
+	ErrorCodeSendCouponAlreadyTaken = "COP400105"
 )
