@@ -20,16 +20,13 @@ var (
 var ErrNotFound = orm.ErrNoRows
 
 // DBName db name
-const DBName = "gift_center"
+const DBName = "profile_center"
 
-// TableNameGift collection name
-const TableNameGift = "gifts"
+// TableNameProfile collection name
+const TableNameProfile = "profiles"
 
-// TableNameSendGift collection name
-const TableNameSendGift = "send_gifts"
-
-// TableNameMessageApply collection name
-const TableNameMessageApply = "message_applies"
+// TableNameMessage message
+const TableNameMessage = "messages"
 
 // StringToObjectID string to bson objectId
 func StringToObjectID(id string) (bson.ObjectId, error) {
@@ -78,7 +75,7 @@ func InitModels() (err error) {
 
 func createTables() (err error) {
 	orm.Debug = true
-	orm.RegisterModel(new(Gift), new(SendGift), new(MessageApply))
+	orm.RegisterModel(new(Message), new(Profile))
 
 	if err = orm.RunSyncdb("default", false, true); err != nil {
 		return

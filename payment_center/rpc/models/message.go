@@ -12,5 +12,5 @@ type Message struct {
 	CreatedAt   time.Time
 	ConfirmedAt time.Time
 	NotifiedAt  time.Time
-	AckAt       time.Time
+	AckedAt     time.Time
 }

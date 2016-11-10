@@ -10,10 +10,17 @@ func (c Channel) String() string {
 const (
 	// ChannelDefault default channel
 	ChannelDefault Channel = "default"
+
 	// ChannelBroadcastStart broadcast start
 	ChannelBroadcastStart Channel = "broadcast_start"
 	// ChannelBroadcastEnd broadcast end
 	ChannelBroadcastEnd Channel = "broadcast_end"
+
 	// ChannelBroadcastBarrage barrage channel name
 	ChannelBroadcastBarrage Channel = "default"
+
+	// ChannelSendGiftReceiveGift  receive gift
+	ChannelSendGiftReceiveGift Channel = "receive_gift"
+	// ChannelSendGiftIncresePoint increse point
+	ChannelSendGiftIncresePoint Channel = "increse_point"
 )

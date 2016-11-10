@@ -4,6 +4,6 @@ package typeids
 type PaymentTypeID int
 
 const (
-	// GiftPayment gift payment type
-	GiftPayment PaymentTypeID = iota
+	// PaymentSendGift send gift payment type
+	PaymentSendGift PaymentTypeID = iota + 1
 )

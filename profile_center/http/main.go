@@ -5,20 +5,20 @@ import (
 	"log"
 
 	"platform/commons/middlewares"
-	"platform/gift_center/http/controllers"
+	"platform/coupon_center/http/controllers"
 	"platform/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	env        = flag.String("env", "dev", "set env: dev, test, prod")
 	configPath = flag.String("conf", "./configs/", "set config path")
-	port       = flag.String("port", ":3009", "service port")
+	env        = flag.String("env", "dev", "set env: dev, test, prod")
+	port       = flag.String("port", ":3004", "service port")
 )
 
 func initEnv() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
 	flag.Parse()
 	log.Println("current env is: ", *env)
 	utils.SetEnv(*env)
@@ -44,6 +44,7 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middlewares.APILang())
+	r.Use(middlewares.RecordRequestBegin())
 	if utils.IsDev() {
 		r.Use(middlewares.FakedLogin())
 	}
@@ -51,14 +52,10 @@ func main() {
 	uploadPath := "./uploads"
 	utils.EnsurePath(uploadPath)
 	controllers.SetUploadPath(uploadPath)
-	r.Static("/v1/gift/uploads", uploadPath)
+	r.Static("/uploads", uploadPath)
 
-	rr := r.Group("/v1/gift")
+	c := r.Group("/v1/profile")
 	{
-		gift := new(controllers.Gift)
-		rr.GET("/", gift.List)
-		rr.POST("/", gift.Send)
-		rr.GET("/info/:gift_id", gift.Info)
 	}
 
 	if err := r.Run(getPort()); err != nil {

@@ -34,6 +34,12 @@ func (g *Gift) Close() error {
 	return g.conn.Close()
 }
 
+// Info query one gift info
+func (g *Gift) Info(in *pb.GiftID) (*pb.GiftInfo, error) {
+	defer g.Close()
+	return g.client.Info(context.Background(), in)
+}
+
 // List gift list
 func (g *Gift) List(in *pb.Page) (*pb.Gifts, error) {
 	defer g.Close()
@@ -44,4 +50,10 @@ func (g *Gift) List(in *pb.Page) (*pb.Gifts, error) {
 func (g *Gift) Send(in *pb.SendGift) (*pb.Status, error) {
 	defer g.Close()
 	return g.client.Send(context.Background(), in)
+}
+
+// Broadcast broadcast
+func (g *Gift) Broadcast(in *pb.SendGift) (*pb.Status, error) {
+	defer g.Close()
+	return g.client.Broadcast(context.Background(), in)
 }

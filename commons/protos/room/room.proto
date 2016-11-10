@@ -40,12 +40,13 @@ message ListRequest {
 message RoomInfo {
     string roomID = 1;
     string name = 2;
-    string userName = 3; 
-    string cover = 4;
-    bool isPlaying = 5;
-    bool isFollow = 6;
-    int64 followNum = 7; 
-    BroadcastInfo broadcast = 8;
+    string userID = 3; 
+    string userName = 4; 
+    string cover = 5;
+    bool isPlaying = 6;
+    bool isFollow = 7;
+    int64 followNum = 8; 
+    BroadcastInfo broadcast = 9;
 }
 
 message Rooms {

@@ -9,6 +9,7 @@ import (
 // Gifts gifts list
 type Gifts struct {
 	giftModels []*models.Gift
+	giftID     string
 
 	errorCode codes.ErrorCode
 }
@@ -41,17 +42,36 @@ func (g *Gifts) Do() (err error) {
 	return
 }
 
+// SetGiftID set a single gift id
+func (g *Gifts) SetGiftID(id string) *Gifts {
+	g.giftID = id
+	return g
+}
+
 func (g *Gifts) findGifts() (err error) {
-	g.giftModels, err = models.FindGifts()
+	if g.giftID != "" {
+		giftModel, err := models.FindGiftByID(g.giftID)
+		if err != nil {
+			return err
+		}
+		g.giftModels = append(g.giftModels, giftModel)
+	} else {
+		g.giftModels, err = models.FindGifts()
+	}
 	return
 }
 
-// Gifts get the gifts
-func (g *Gifts) Gifts() []*Gift {
+// Result get the gifts
+func (g *Gifts) Result() []*Gift {
 	gs := []*Gift{}
 	for i := range g.giftModels {
 		gift := modelGiftToSrvGift(g.giftModels[i])
 		gs = append(gs, gift)
 	}
 	return gs
+}
+
+// One returns single gift entity
+func (g *Gifts) One() *Gift {
+	return modelGiftToSrvGift(g.giftModels[0])
 }

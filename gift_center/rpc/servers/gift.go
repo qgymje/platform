@@ -24,6 +24,24 @@ func srvGiftToPbGift(s *gifts.Gift) *pb.GiftInfo {
 	}
 }
 
+// Info gift info
+func (g *Gift) Info(ctx context.Context, in *pb.GiftID) (*pb.GiftInfo, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("servers.Gift.Info error: %+v", err)
+		}
+	}()
+
+	gs := gifts.NewGifts().SetGiftID(in.GiftID)
+	if err = gs.Do(); err != nil {
+		return nil, errors.New(gs.ErrorCode().String())
+	}
+
+	pbGift := srvGiftToPbGift(gs.One())
+	return pbGift, nil
+}
+
 // List gift list
 func (g *Gift) List(ctx context.Context, in *pb.Page) (*pb.Gifts, error) {
 	var err error
@@ -39,7 +57,7 @@ func (g *Gift) List(ctx context.Context, in *pb.Page) (*pb.Gifts, error) {
 	}
 
 	pbGifts := []*pb.GiftInfo{}
-	srvGifts := gs.Gifts()
+	srvGifts := gs.Result()
 	for i := range srvGifts {
 		pbGift := srvGiftToPbGift(srvGifts[i])
 		pbGifts = append(pbGifts, pbGift)
@@ -57,5 +75,30 @@ func (g *Gift) Send(ctx context.Context, in *pb.SendGift) (*pb.Status, error) {
 		}
 	}()
 
+	senderConfig := &gifts.SenderConfig{
+		UserID:      in.UserID,
+		GiftID:      in.GiftID,
+		ToUserID:    in.ToUserID,
+		MsgID:       in.MsgID,
+		BroadcastID: in.BroadcastID,
+	}
+
+	sender := gifts.NewSender(senderConfig)
+	if err = sender.Do(); err != nil {
+		return nil, errors.New(sender.ErrorCode().String())
+	}
+	return &pb.Status{Success: true, MsgID: in.MsgID}, nil
+}
+
+// Broadcast broadcast by send gift
+func (g *Gift) Broadcast(ctx context.Context, in *pb.SendGift) (*pb.Status, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("servers.Gift.Broadcast error: %+v", err)
+		}
+	}()
+	utils.Dump(in)
 	return nil, nil
+
 }
