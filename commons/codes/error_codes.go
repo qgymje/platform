@@ -18,99 +18,111 @@ func GetErrorMsgByCode(code ErrorCode) string {
 const (
 	ErrorCodeSuccess ErrorCode = "200"
 
-	ErrorCodeMissParameters = "USR400101"
+	ErrorCodeMissParameters ErrorCode = "USR400101"
 
 	// upload
-	ErrorCodeUpload       = "UPL400101"
-	ErrorCodeUploadCreate = "UPL500101"
-	ErrorCodeUploadSend   = "UPL500102"
+	ErrorCodeUpload       ErrorCode = "UPL400101"
+	ErrorCodeUploadCreate ErrorCode = "UPL500101"
+	ErrorCodeUploadSend   ErrorCode = "UPL500102"
 
 	// token 错误系列以1xx开始
-	ErrorCodeTokenNotFound = "TOK403101"
-	ErrorCodeInvalidToken  = "TOK403102"
-	ErrorCodeUnauthorized  = "TOK403103"
-	ErrorCodeAuthFormat    = "TOK403104"
-	ErrorCodeGenerateToekn = "TOK500101"
+	ErrorCodeTokenNotFound ErrorCode = "TOK403101"
+	ErrorCodeInvalidToken  ErrorCode = "TOK403102"
+	ErrorCodeUnauthorized  ErrorCode = "TOK403103"
+	ErrorCodeAuthFormat    ErrorCode = "TOK403104"
+	ErrorCodeGenerateToekn ErrorCode = "TOK500101"
 
 	// register 注册系统以2xx开始
-	ErrorCodePhoneAlreadyExist    = "REG400200"
-	ErrorCodeEmailAlreadyExist    = "REG400201"
-	ErrorCodePasswordTooShort     = "REG400202"
-	ErrorCodeNickNameAlreadyExist = "REG400203"
-	ErrorCodeInvalidPhone         = "REG400204"
-	ErrorCodeInvalidEmail         = "REG400205"
-	ErrorCodeCreateUserFail       = "REG500201"
-	ErrorCodeRegisterNotify       = "REG500202"
+	ErrorCodePhoneAlreadyExist    ErrorCode = "REG400200"
+	ErrorCodeEmailAlreadyExist    ErrorCode = "REG400201"
+	ErrorCodePasswordTooShort     ErrorCode = "REG400202"
+	ErrorCodeNickNameAlreadyExist ErrorCode = "REG400203"
+	ErrorCodeInvalidPhone         ErrorCode = "REG400204"
+	ErrorCodeInvalidEmail         ErrorCode = "REG400205"
+	ErrorCodeCreateUserFail       ErrorCode = "REG500201"
+	ErrorCodeRegisterNotify       ErrorCode = "REG500202"
 
 	// SMS  errorcode
-	ErrorCodeSMSCodeNotify = "SMS500302"
-	ErrorCodeSMSCreate     = "SMS500303"
+	ErrorCodeSMSCodeNotify ErrorCode = "SMS500302"
+	ErrorCodeSMSCreate     ErrorCode = "SMS500303"
 
 	// Email errorcode
-	ErrorCodeEmailCodeNotify = "SMS500402"
-	ErrorCodeEmailCreate     = "SMS500403"
+	ErrorCodeEmailCodeNotify ErrorCode = "SMS500402"
+	ErrorCodeEmailCreate     ErrorCode = "SMS500403"
 
 	// login 登录系列以3xx开始
-	ErrorCodeLoginFailed     = "LGN400301"
-	ErrorCodeUserNotFound    = "LGN400302"
-	ErrorCodeUpdateTokenFail = "LGN500303"
-	ErrorCodeLoginNotify     = "LGN500304"
+	ErrorCodeLoginFailed     ErrorCode = "LGN400301"
+	ErrorCodeUserNotFound    ErrorCode = "LGN400302"
+	ErrorCodeUpdateTokenFail ErrorCode = "LGN500303"
+	ErrorCodeLoginNotify     ErrorCode = "LGN500304"
 
 	// info 系列错误
-	ErrorCodeInvalidUserID = "INF400402"
+	ErrorCodeInvalidUserID ErrorCode = "INF400402"
 
 	// user list errors
-	ErrorCodeUsersNotFound = "USL400101"
-	ErrorCodeUserFinder    = "USL400102"
+	ErrorCodeUsersNotFound ErrorCode = "USL400101"
+	ErrorCodeUserFinder    ErrorCode = "USL400102"
 
 	// broadcasting 系列错误
-	ErrorCodeBroadcastTooShort        = "BRO200101"
-	ErrorCodeBroadcastNotify          = "BRO500101"
-	ErrorCodeBroadcastUpdate          = "BRO500102"
-	ErrorCodeBroadcastCreate          = "BRO500103"
-	ErrorCodeInvalidBroadcastringUser = "BRO400202"
-	ErrorCodeBroadcastNotFound        = "BRO400203"
-	ErrorCodeAgreement                = "BRO400301"
-	ErrorCodeBroadcastIsOn            = "BRO400302"
-	ErrorCodeBroadcastClosed          = "BRO400303"
+	ErrorCodeBroadcastTooShort        ErrorCode = "BRO200101"
+	ErrorCodeBroadcastNotify          ErrorCode = "BRO500101"
+	ErrorCodeBroadcastUpdate          ErrorCode = "BRO500102"
+	ErrorCodeBroadcastCreate          ErrorCode = "BRO500103"
+	ErrorCodeInvalidBroadcastringUser ErrorCode = "BRO400202"
+	ErrorCodeBroadcastNotFound        ErrorCode = "BRO400203"
+	ErrorCodeAgreement                ErrorCode = "BRO400301"
+	ErrorCodeBroadcastIsOn            ErrorCode = "BRO400302"
+	ErrorCodeBroadcastClosed          ErrorCode = "BRO400303"
 
-	ErrorCodeDeleteChannel = "CHN500101"
-	ErrorCodeDeleteTopic   = "CHN500102"
+	ErrorCodeDeleteChannel ErrorCode = "CHN500101"
+	ErrorCodeDeleteTopic   ErrorCode = "CHN500102"
 
 	// Audience error
-	ErrorCodeAudienceUpdate = "AUD500101"
+	ErrorCodeAudienceUpdate ErrorCode = "AUD500101"
 
 	// Barrage error
-	ErrorCodeBarrageCreate = "BAR500101"
-	ErrorCodeBarrageNotify = "BAR500102"
-	ErrorCodeBarrageFind   = "BAR400101"
+	ErrorCodeBarrageCreate ErrorCode = "BAR500101"
+	ErrorCodeBarrageNotify ErrorCode = "BAR500102"
+	ErrorCodeBarrageFind   ErrorCode = "BAR400101"
 
 	// Room errror
-	ErrorCodeRoomAlreadyCreated = "ROM400302"
-	ErrorCodeRoomCreate         = "ROM500303"
-	ErrorCodeRoomUpdate         = "ROM500304"
-	ErrorCodeRoomNotFound       = "ROM400101"
-	ErrorCodeRoomFinder         = "ROM400102"
+	ErrorCodeRoomAlreadyCreated ErrorCode = "ROM400302"
+	ErrorCodeRoomCreate         ErrorCode = "ROM500303"
+	ErrorCodeRoomUpdate         ErrorCode = "ROM500304"
+	ErrorCodeRoomNotFound       ErrorCode = "ROM400101"
+	ErrorCodeRoomFinder         ErrorCode = "ROM400102"
 
-	ErrorCodeFollow   = "ROM500401"
-	ErrorCodeUnfollow = "ROM500402"
+	ErrorCodeFollow   ErrorCode = "ROM500401"
+	ErrorCodeUnfollow ErrorCode = "ROM500402"
 
 	// game errors
-	ErrorCodeGameCreate   = "GAM500101"
-	ErrorCodeGameNotFound = "GAM400101"
-	ErrorCodeGameFinder   = "GAM500102"
+	ErrorCodeGameCreate   ErrorCode = "GAM500101"
+	ErrorCodeGameNotFound ErrorCode = "GAM400101"
+	ErrorCodeGameFinder   ErrorCode = "GAM500102"
 
 	// Coupon
-	ErrorCodeUserCouponNotFound        = "COP404101"
-	ErrorCodeUserCouponFind            = "COP500101"
-	ErrorCodeSendCouponNumberNotEnough = "COP400102"
+	ErrorCodeUserCouponNotFound        ErrorCode = "COP404101"
+	ErrorCodeUserCouponFind            ErrorCode = "COP500101"
+	ErrorCodeSendCouponNumberNotEnough ErrorCode = "COP400102"
 
 	ErrorCodeUserCouponUpdate ErrorCode = "COP500102"
 
 	ErrorCodeTakeCouponCreate ErrorCode = "COP500103"
 
-	ErrorCodeSendCouponNotFound = "COP400103"
-	ErrorCodeSendCouponClosed   = "COP400104"
+	ErrorCodeSendCouponNotFound ErrorCode = "COP400103"
+	ErrorCodeSendCouponClosed   ErrorCode = "COP400104"
 
-	ErrorCodeSendCouponAlreadyTaken = "COP400105"
+	ErrorCodeSendCouponAlreadyTaken ErrorCode = "COP400105"
+
+	// Gift
+	ErrorCodeGiftNotFound     ErrorCode = "GIF400101"
+	ErrorCodeSendGiftMsgApply ErrorCode = "GIF400102"
+
+	// Profile
+	ErrorCodeProfileNotFound    ErrorCode = "PRO400101"
+	ErrorCodeNotEnoughSnowBall  ErrorCode = "PRO400102"
+	ErrorCodeNotEnoughSnowFlake ErrorCode = "PRO400103"
+	ErrorCodeWithdraw           ErrorCode = "PRO500101"
+	ErrorCodeWithdrawRollback   ErrorCode = "PRO500102"
+	ErrorCodeWithdrawCommit     ErrorCode = "PRO500103"
 )

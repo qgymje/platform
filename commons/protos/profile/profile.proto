@@ -1,0 +1,29 @@
+syntax="proto3";
+
+package profile;
+
+service Profile {
+    rpc Withdraw(Ammount) returns (Status) {};
+    rpc WithdrawRollback(Message) returns (Status) {};
+    rpc WithdrawCommit(Message) returns (Status) {};
+}
+
+message Ammount {
+    string userID = 1;
+    uint32 snowFlake = 2;
+    uint32 snowBall = 3;
+    uint32 typeID = 4;
+    string targetID = 5;
+}
+
+message Message {
+    string msgID = 1;
+    string userID = 2;
+}
+
+message Status {
+    bool success = 1;
+    string msgID = 2;
+}
+
+

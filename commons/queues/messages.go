@@ -97,3 +97,13 @@ type MessageSendCouponStop struct {
 	BroadcastID  string `json:"broadcast_id"`
 	StopTime     int64  `json:"stop_time"`
 }
+
+// MessageSendGiftSuccess send gift success
+type MessageSendGiftSuccess struct {
+	UserID      string `json:"user_id"`
+	ToUserID    string `json:"to_user_id"`
+	GiftID      string `json:"gift_id"`
+	SnowBall    uint   `json:"snow_ball"`
+	SnowFlake   uint   `json:"snow_flake"`
+	SuccessTime int64  `json:"success_time"`
+}

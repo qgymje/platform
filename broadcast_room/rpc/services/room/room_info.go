@@ -9,6 +9,7 @@ import (
 // Room  service level room info
 type Room struct {
 	RoomID    string
+	UserID    string
 	UserName  string
 	Name      string
 	Cover     string
@@ -43,6 +44,7 @@ func (r *Room) ErrorCode() codes.ErrorCode {
 func modelRoomToSrvRoom(r *models.Room, b *models.Broadcast) *Room {
 	srvRoom := &Room{
 		RoomID:    r.GetID(),
+		UserID:    r.GetUserID(),
 		UserName:  r.UserName,
 		Name:      r.Name,
 		Cover:     r.Cover,

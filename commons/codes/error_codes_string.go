@@ -90,5 +90,15 @@ func init() {
 		ErrorCodeSendCouponNotFound:     "send coupon not found",
 		ErrorCodeSendCouponClosed:       "send coupon is closed",
 		ErrorCodeSendCouponAlreadyTaken: "send coupon already taken",
+
+		ErrorCodeGiftNotFound:     "gift not found",
+		ErrorCodeSendGiftMsgApply: "send gift message appply error",
+
+		ErrorCodeProfileNotFound:    "profile not found",
+		ErrorCodeNotEnoughSnowBall:  "not enough snow ball",
+		ErrorCodeNotEnoughSnowFlake: "not enough  snow falke",
+		ErrorCodeWithdraw:           "withdraw failed",
+		ErrorCodeWithdrawRollback:   "withdraw rollback failed",
+		ErrorCodeWithdrawCommit:     "withdraw commit failed",
 	}
 }

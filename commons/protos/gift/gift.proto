@@ -3,8 +3,14 @@ syntax="proto3";
 package gift;
 
 service Gift {
+    rpc Info(GiftID) returns (GiftInfo) {};
     rpc List(Page) returns (Gifts) {};
     rpc Send(SendGift)  returns (Status) {};
+    rpc Broadcast(SendGift) returns (Status) {};
+}
+
+message GiftID {
+    string giftID = 1;
 }
 
 message Page {
@@ -17,19 +23,22 @@ message SendGift {
     string userID = 2;
     string toUserID = 3;
     string broadcastID = 4;
-    int32 number = 5;
+    string msgID = 5;
+    int32 number = 6;
 }
 
 message Status {
     bool success = 1;
+    string msgID = 2;
 }
 
 message GiftInfo {
     string giftID = 1;
     string name = 2;
     string image = 3;
-    string diamond = 4;
-    string coin = 5;
+    uint32 snowBall = 4;
+    uint32 snowFlake = 5;
+    int32 combo = 6;
 }
 
 message Gifts {

@@ -1,0 +1,21 @@
+app:
+    rpc_host: localhost
+    rpc_port: :4010
+
+mysql:
+    host: 127.0.0.1
+    port: 3306
+    username: profile
+    password: profile
+    dbname: profile_center
+
+log:
+    filename: ./logs/profile_center.log
+    enable_func_call_depth: true
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 127.0.0.1:4161
+
+redis:
+    address: 127.0.0.1:6379

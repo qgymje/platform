@@ -26,6 +26,17 @@ type Base struct {
 	userInfo *pbuser.UserInfo
 }
 
+var uploadPath string
+
+// SetUploadPath upload path
+func SetUploadPath(p string) {
+	uploadPath = strings.TrimRight(p, "/") + "/"
+}
+
+func getUploadPath() string {
+	return uploadPath
+}
+
 // ResponseFormat  response format object
 type ResponseFormat struct {
 	Code codes.ErrorCode        `json:"code"`
@@ -67,6 +78,7 @@ func (b *Base) Meta(c *gin.Context) map[string]interface{} {
 		"timestamp": time.Now(),
 	}
 }
+
 func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 	if c.Param("token") != "" {
 		return c.Param("token"), codes.ErrorCodeSuccess
@@ -113,10 +125,31 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
+func (b *Base) getGiftID(c *gin.Context) string {
+	key := "gift_id"
+	id := c.Param(key)
+	if id == "" {
+		id = c.PostForm(key)
+	}
+	return id
+}
+
+func (b *Base) getRoomID(c *gin.Context) string {
+	return c.PostForm("room_id")
+}
+
 func (b *Base) getGiftPCAddress() string {
 	return "localhost:4009"
 }
 
 func (b *Base) getUserRPCAddress() string {
 	return "localhost:4000"
+}
+
+func (b *Base) getRoomRPCAddress() string {
+	return "localhost:4001"
+}
+
+func (b *Base) getProfileRPCAddress() string {
+	return "localhost:4010"
 }

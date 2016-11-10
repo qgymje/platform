@@ -91,6 +91,7 @@ func (r *Rooms) Rooms() []*Room {
 	for _, mRoom := range modelRooms {
 		srvRoom := &Room{
 			RoomID:    mRoom.GetID(),
+			UserID:    mRoom.GetUserID(),
 			UserName:  mRoom.UserName,
 			Name:      mRoom.Name,
 			Cover:     mRoom.Cover,
