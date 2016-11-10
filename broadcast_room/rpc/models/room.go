@@ -29,6 +29,11 @@ func (r *Room) GetID() string {
 	return r.RoomID.Hex()
 }
 
+// GetUserID get user id
+func (r *Room) GetUserID() string {
+	return r.UserID.Hex()
+}
+
 // GetBroadcastID get room id
 func (r *Room) GetBroadcastID() string {
 	if r.BroadcastID != nil {

@@ -46,6 +46,7 @@ func srvRoomToPbRoom(r *rooms.Room) *pb.RoomInfo {
 	room := &pb.RoomInfo{
 		RoomID:    r.RoomID,
 		Name:      r.Name,
+		UserID:    r.UserID,
 		UserName:  r.UserName,
 		Cover:     r.Cover,
 		IsPlaying: r.IsPlaying,
