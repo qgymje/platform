@@ -87,18 +87,23 @@ func (g *Gift) Send(ctx context.Context, in *pb.SendGift) (*pb.Status, error) {
 	if err = sender.Do(); err != nil {
 		return nil, errors.New(sender.ErrorCode().String())
 	}
-	return &pb.Status{Success: true, MsgID: in.MsgID}, nil
+	sendGiftID := sender.GetSendGiftID()
+	return &pb.Status{Success: true, MsgID: in.MsgID, SendGiftID: sendGiftID}, nil
 }
 
 // Broadcast broadcast by send gift
-func (g *Gift) Broadcast(ctx context.Context, in *pb.SendGift) (*pb.Status, error) {
+func (g *Gift) Broadcast(ctx context.Context, in *pb.SendGiftID) (*pb.Status, error) {
 	var err error
 	defer func() {
 		if err != nil {
 			utils.GetLog().Error("servers.Gift.Broadcast error: %+v", err)
 		}
 	}()
-	utils.Dump(in)
-	return nil, nil
 
+	broadcasterConfig := &gifts.BroadcasterConfig{SendGiftID: in.SendGiftID, Username: in.Username}
+	broadcaster := gifts.NewBroadcaster(broadcasterConfig)
+	if err = broadcaster.Do(); err != nil {
+		return nil, errors.New(broadcaster.ErrorCode().String())
+	}
+	return &pb.Status{Success: true, SendGiftID: in.SendGiftID}, nil
 }

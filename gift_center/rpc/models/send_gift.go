@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"strconv"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -23,6 +24,21 @@ type SendGift struct {
 // TableName tablename
 func (SendGift) TableName() string {
 	return TableNameSendGift
+}
+
+// GetID wrapper id
+func (sg *SendGift) GetID() string {
+	return strconv.FormatInt(sg.ID, 10)
+}
+
+// GetGiftID get gift id
+func (sg *SendGift) GetGiftID() string {
+	return strconv.FormatInt(sg.Gift.ID, 10)
+}
+
+// Find find by send gift id
+func (sg *SendGift) Find() (err error) {
+	return GetDB().QueryTable(TableNameSendGift).RelatedSel("Gift").Filter("id", sg.ID).One(sg)
 }
 
 // Create create a record

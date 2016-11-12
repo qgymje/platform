@@ -7,6 +7,7 @@ import (
 
 	"platform/gift_center/rpc/models"
 	"platform/gift_center/rpc/servers"
+	"platform/gift_center/rpc/services/gifts"
 	"platform/utils"
 
 	pb "platform/commons/protos/gift"
@@ -48,6 +49,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	gifts.InitRedis()
+
 	s := grpc.NewServer()
 	pb.RegisterGiftServer(s, &servers.Gift{})
 	err = s.Serve(lis)

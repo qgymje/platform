@@ -34,6 +34,11 @@ func (g *Gift) GetID() string {
 	return strconv.FormatInt(g.ID, 10)
 }
 
+// TotalSnowFlake total snow falke
+func (g *Gift) TotalSnowFlake() uint {
+	return g.SnowBall*1000 + g.SnowFlake
+}
+
 // Create create a gift record
 func (g *Gift) Create() (err error) {
 	result, err := GetDB().Raw(`replace into gifts("name", "image", "snow_flake", "snow_ball", "updated_at") values(?,?,?,?,?)`, g.Name, g.Image, g.SnowFlake, g.SnowBall, g.UpdatedAt).Exec()
