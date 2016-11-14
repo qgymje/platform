@@ -31,7 +31,7 @@ func InitRedis() {
 	})
 }
 
-const comboDuration = 5 * time.Second
+const comboDuration = 30 * time.Second
 
 // BroadcasterConfig broadcast config
 type BroadcasterConfig struct {
@@ -43,7 +43,9 @@ type BroadcasterConfig struct {
 type Broadcaster struct {
 	config        *BroadcasterConfig
 	sendGiftModel *models.SendGift
-	giftList      map[string]*queues.MessageSendGiftBroadcast
+	sendGiftMsg   *queues.MessageSendGiftBroadcast
+	userID        string
+	hasSentBefore bool
 	errorCode     codes.ErrorCode
 }
 
@@ -52,7 +54,7 @@ func NewBroadcaster(c *BroadcasterConfig) *Broadcaster {
 	b := new(Broadcaster)
 	b.config = c
 	b.sendGiftModel = &models.SendGift{}
-	b.giftList = make(map[string]*queues.MessageSendGiftBroadcast)
+	b.sendGiftMsg = &queues.MessageSendGiftBroadcast{}
 	return b
 }
 
@@ -79,22 +81,29 @@ func (b *Broadcaster) Do() (err error) {
 		return
 	}
 
-	if err = b.notify(); err != nil {
-		b.errorCode = codes.ErrorCodeSendGiftNotify
+	if err = b.updateRank(); err != nil {
+		b.errorCode = codes.ErrorCodeSendGiftRank
 		return
 	}
 
-	if err = b.rank(); err != nil {
-		b.errorCode = codes.ErrorCodeSendGiftRank
+	if err = b.notify(); err != nil {
+		b.errorCode = codes.ErrorCodeSendGiftNotify
 		return
 	}
 
 	return
 }
 
-func (b *Broadcaster) getRedisKey() string {
-	// not allowed by the redis client
-	return b.sendGiftModel.BroadcastID[8:]
+func (b *Broadcaster) getRedisScoreKey() string {
+	key := "gift_rank_" + b.sendGiftModel.BroadcastID[8:]
+	utils.Dump(key)
+	return key
+}
+
+func (b *Broadcaster) getRedisHashKey() string {
+	key := "gift_live_" + b.sendGiftModel.BroadcastID[8:]
+	utils.Dump(key)
+	return key
 }
 
 func (b *Broadcaster) getSendGiftID() int64 {
@@ -104,24 +113,26 @@ func (b *Broadcaster) getSendGiftID() int64 {
 
 func (b *Broadcaster) findSendGift() error {
 	b.sendGiftModel.ID = b.getSendGiftID()
-	return b.sendGiftModel.Find()
+	if err := b.sendGiftModel.Find(); err != nil {
+		return err
+	}
+	b.userID = b.sendGiftModel.UserID
+	return nil
 }
 
 func (b *Broadcaster) fetchGiftList() error {
-	values, err := redis.Bytes(redisConn.Do("GET", b.getRedisKey()))
+	value, err := redis.Bytes(redisConn.Do("HGET", b.getRedisHashKey(), b.userID))
 	if err != nil {
 		if err == redis.ErrNil {
-			b.giftList[b.sendGiftModel.UserID] = b.sendGiftModelToMessage()
-			jsonMsg, _ := json.Marshal(b.giftList)
-			if _, err := redisConn.Do("SET", b.getRedisKey(), string(jsonMsg[:])); err != nil {
-				return err
+			if err2 := b.initalRedisSendGiftMessage(); err2 != nil {
+				return err2
 			}
-			return nil
 		}
 		return err
 	}
 
-	err = json.Unmarshal(values, &b.giftList)
+	b.hasSentBefore = true
+	err = json.Unmarshal(value, &b.sendGiftMsg)
 	if err != nil {
 		return err
 	}
@@ -140,8 +151,60 @@ func (b *Broadcaster) sendGiftModelToMessage() *queues.MessageSendGiftBroadcast 
 	}
 }
 
-func (b *Broadcaster) rank() error {
+func (b *Broadcaster) isSameGift() bool {
+	return b.sendGiftModel.Gift.GetID() == b.sendGiftMsg.GiftID
+}
+
+func (b *Broadcaster) isMissingCombo() bool {
+	return time.Since(time.Unix(b.sendGiftMsg.LastSendTime, 0)) >= comboDuration
+}
+
+func (b *Broadcaster) initalRedisSendGiftMessage() error {
+	return b.resetRedisSendGiftMessage()
+}
+
+func (b *Broadcaster) resetRedisSendGiftMessage() (err error) {
+	b.sendGiftMsg = b.sendGiftModelToMessage()
+	jsonMsg, _ := json.Marshal(b.sendGiftMsg)
+	if _, err := redisConn.Do("HSET", b.getRedisHashKey(), b.userID, string(jsonMsg[:])); err != nil {
+		return err
+	}
 	return nil
+}
+
+func (b *Broadcaster) updateReidsGiftMessage() (err error) {
+	jsonMsg, _ := json.Marshal(b.sendGiftMsg)
+	if _, err := redisConn.Do("HSET", b.getRedisHashKey(), b.userID, string(jsonMsg[:])); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *Broadcaster) updateRedisScore() (err error) {
+	if _, err = redisConn.Do("ZADD", b.getRedisScoreKey(), b.sendGiftMsg.TotalPrice, b.userID); err != nil {
+		return
+	}
+	return
+}
+
+func (b *Broadcaster) updateRank() (err error) {
+	if !b.hasSentBefore {
+		return b.updateRedisScore()
+	}
+
+	if !b.isSameGift() || b.isMissingCombo() {
+		if err = b.resetRedisSendGiftMessage(); err != nil {
+			return
+		}
+		return b.updateRedisScore()
+	}
+
+	b.sendGiftMsg.Ammount++
+	b.sendGiftMsg.TotalPrice += b.sendGiftModel.TotalPrice()
+	if err = b.updateReidsGiftMessage(); err != nil {
+		return err
+	}
+	return b.updateRedisScore()
 }
 
 func (b *Broadcaster) notify() error {
@@ -160,7 +223,7 @@ func (b *Broadcaster) Message() []byte {
 		Data interface{} `json:"data"`
 	}{
 		int(typeids.GiftSenderInfo),
-		b.giftList[b.sendGiftModel.UserID],
+		b.sendGiftMsg,
 	}
 	msg, _ := json.Marshal(data)
 	return msg
