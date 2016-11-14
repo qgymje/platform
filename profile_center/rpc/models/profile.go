@@ -21,11 +21,22 @@ type Profile struct {
 	UserID    string `orm:"column(user_id)"`
 	SnowBall  uint
 	SnowFlake uint
+	CreatedAt time.Time
 }
 
 // TableName table name
 func (Profile) TableName() string {
 	return TableNameProfile
+}
+
+// Create create a profile
+func (p *Profile) Create() (err error) {
+	p.SnowBall = 100
+	p.SnowFlake = 1000
+	p.CreatedAt = time.Now()
+
+	_, err = GetDB().Insert(p)
+	return
 }
 
 // Find find the profile

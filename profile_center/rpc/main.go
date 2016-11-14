@@ -8,6 +8,7 @@ import (
 	pb "platform/commons/protos/profile"
 	"platform/profile_center/rpc/models"
 	"platform/profile_center/rpc/services"
+	"platform/profile_center/rpc/services/profiles"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -47,6 +48,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+	profiles.ListenRegisterUser()
 	s := grpc.NewServer()
 	pb.RegisterProfileServer(s, &services.Server{})
 	err = s.Serve(lis)
