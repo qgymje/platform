@@ -41,6 +41,11 @@ func (sg *SendGift) Find() (err error) {
 	return GetDB().QueryTable(TableNameSendGift).RelatedSel("Gift").Filter("id", sg.ID).One(sg)
 }
 
+// TotalPrice a gift totalPrice
+func (sg *SendGift) TotalPrice() uint {
+	return sg.Gift.SnowBall*1000 + sg.Gift.SnowFlake
+}
+
 // Create create a record
 func (sg *SendGift) Create(msgID int64) (err error) {
 	if err = GetDB().Begin(); err != nil {

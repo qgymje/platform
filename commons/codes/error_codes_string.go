@@ -95,7 +95,8 @@ func init() {
 		ErrorCodeSendGiftMsgApply:     "send gift message appply error",
 		ErrorCodeSendGiftNotFound:     "send gift not found",
 		ErrorCodeSendGiftListNotFound: "send gift list not found",
-		ErrorCodeSendGiftResort:       "send gift list resort error",
+		ErrorCodeSendGiftRank:         "send gift list rank error",
+		ErrorCodeSendGiftNotify:       "send gift notify error",
 
 		ErrorCodeProfileNotFound:    "profile not found",
 		ErrorCodeNotEnoughSnowBall:  "not enough snow ball",

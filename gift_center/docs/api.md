@@ -5,6 +5,10 @@
     1. 2016.11.12
     2. API finished, missing the broadcast info
 
+2. v1.0.1 
+    1. 2016.11.14
+    2. add send gift broadcast info
+
 ## list
 
 name|desc|dev status
@@ -121,8 +125,8 @@ RETURN:
 ATTENTION:
 
 * This request will cause a broadcast to the room
-```
-// still being formulated
+```json
+ {"type":10003,"data":{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello","gift_id":"3","ammount":1,"total_price":10,"last_send_time":1479096780}}
 ```
 
 ALSO ATTENTION:

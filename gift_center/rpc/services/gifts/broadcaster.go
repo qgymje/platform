@@ -6,6 +6,7 @@ import (
 	"log"
 	"platform/commons/codes"
 	"platform/commons/queues"
+	"platform/commons/typeids"
 	"platform/coupon_center/rpc/services/notifier"
 	"platform/gift_center/rpc/models"
 	"platform/utils"
@@ -42,7 +43,7 @@ type BroadcasterConfig struct {
 type Broadcaster struct {
 	config        *BroadcasterConfig
 	sendGiftModel *models.SendGift
-	giftList      []*queues.MessageSendGiftBroadcast
+	giftList      map[string]*queues.MessageSendGiftBroadcast
 	errorCode     codes.ErrorCode
 }
 
@@ -51,7 +52,7 @@ func NewBroadcaster(c *BroadcasterConfig) *Broadcaster {
 	b := new(Broadcaster)
 	b.config = c
 	b.sendGiftModel = &models.SendGift{}
-	b.giftList = []*queues.MessageSendGiftBroadcast{}
+	b.giftList = make(map[string]*queues.MessageSendGiftBroadcast)
 	return b
 }
 
@@ -78,8 +79,13 @@ func (b *Broadcaster) Do() (err error) {
 		return
 	}
 
-	if err = b.reSort(); err != nil {
-		b.errorCode = codes.ErrorCodeSendGiftResort
+	if err = b.notify(); err != nil {
+		b.errorCode = codes.ErrorCodeSendGiftNotify
+		return
+	}
+
+	if err = b.rank(); err != nil {
+		b.errorCode = codes.ErrorCodeSendGiftRank
 		return
 	}
 
@@ -88,7 +94,7 @@ func (b *Broadcaster) Do() (err error) {
 
 func (b *Broadcaster) getRedisKey() string {
 	// not allowed by the redis client
-	return b.sendGiftModel.BroadcastID[12:]
+	return b.sendGiftModel.BroadcastID[8:]
 }
 
 func (b *Broadcaster) getSendGiftID() int64 {
@@ -102,16 +108,22 @@ func (b *Broadcaster) findSendGift() error {
 }
 
 func (b *Broadcaster) fetchGiftList() error {
-	reply, err := redis.ByteSlices(redisConn.Do("SMEMBERS", b.getRedisKey()))
+	values, err := redis.Bytes(redisConn.Do("GET", b.getRedisKey()))
 	if err != nil {
-		utils.Dump(err)
+		if err == redis.ErrNil {
+			b.giftList[b.sendGiftModel.UserID] = b.sendGiftModelToMessage()
+			jsonMsg, _ := json.Marshal(b.giftList)
+			if _, err := redisConn.Do("SET", b.getRedisKey(), string(jsonMsg[:])); err != nil {
+				return err
+			}
+			return nil
+		}
 		return err
 	}
 
-	for i := range reply {
-		var msg queues.MessageSendGiftBroadcast
-		_ = json.Unmarshal(reply[i], &msg)
-		b.giftList = append(b.giftList, &msg)
+	err = json.Unmarshal(values, &b.giftList)
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -123,21 +135,12 @@ func (b *Broadcaster) sendGiftModelToMessage() *queues.MessageSendGiftBroadcast 
 		Username:     b.config.Username,
 		GiftID:       b.sendGiftModel.GetGiftID(),
 		Ammount:      1,
+		TotalPrice:   b.sendGiftModel.TotalPrice(),
 		LastSendTime: b.sendGiftModel.CreatedAt.Unix(),
 	}
 }
 
-func (b *Broadcaster) reSort() error {
-	if len(b.giftList) == 0 {
-		msg := b.sendGiftModelToMessage()
-		jsonMsg, _ := json.Marshal(msg)
-		if _, err := redisConn.Do("SADD", b.getRedisKey(), string(jsonMsg)); err != nil {
-			return err
-		}
-		b.giftList = append(b.giftList, msg)
-		return nil
-	}
-
+func (b *Broadcaster) rank() error {
 	return nil
 }
 
@@ -152,6 +155,13 @@ func (b *Broadcaster) Topic() string {
 
 // Message publish message
 func (b *Broadcaster) Message() []byte {
-	// fetch from redis
-	return nil
+	data := struct {
+		Type int         `json:"type"`
+		Data interface{} `json:"data"`
+	}{
+		int(typeids.GiftSenderInfo),
+		b.giftList[b.sendGiftModel.UserID],
+	}
+	msg, _ := json.Marshal(data)
+	return msg
 }

@@ -10,6 +10,6 @@ const (
 	CouponSender = 10001
 	// CouponSenderStop auto stop if timeout
 	CouponSenderStop = 10002
-	// GiftInfo gift info
-	GiftInfo = 10003
+	// GiftSenderInfo send gift info
+	GiftSenderInfo = 10003
 )
