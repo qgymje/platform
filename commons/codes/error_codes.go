@@ -115,8 +115,12 @@ const (
 	ErrorCodeSendCouponAlreadyTaken ErrorCode = "COP400105"
 
 	// Gift
-	ErrorCodeGiftNotFound     ErrorCode = "GIF400101"
-	ErrorCodeSendGiftMsgApply ErrorCode = "GIF400102"
+	ErrorCodeGiftNotFound         ErrorCode = "GIF400101"
+	ErrorCodeSendGiftMsgApply     ErrorCode = "GIF400102"
+	ErrorCodeSendGiftNotFound     ErrorCode = "GIF400103"
+	ErrorCodeSendGiftListNotFound ErrorCode = "GIF500104"
+	ErrorCodeSendGiftRank         ErrorCode = "GIF500105"
+	ErrorCodeSendGiftNotify       ErrorCode = "GIF500106"
 
 	// Profile
 	ErrorCodeProfileNotFound    ErrorCode = "PRO400101"

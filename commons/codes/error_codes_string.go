@@ -91,8 +91,12 @@ func init() {
 		ErrorCodeSendCouponClosed:       "send coupon is closed",
 		ErrorCodeSendCouponAlreadyTaken: "send coupon already taken",
 
-		ErrorCodeGiftNotFound:     "gift not found",
-		ErrorCodeSendGiftMsgApply: "send gift message appply error",
+		ErrorCodeGiftNotFound:         "gift not found",
+		ErrorCodeSendGiftMsgApply:     "send gift message appply error",
+		ErrorCodeSendGiftNotFound:     "send gift not found",
+		ErrorCodeSendGiftListNotFound: "send gift list not found",
+		ErrorCodeSendGiftRank:         "send gift list rank error",
+		ErrorCodeSendGiftNotify:       "send gift notify error",
 
 		ErrorCodeProfileNotFound:    "profile not found",
 		ErrorCodeNotEnoughSnowBall:  "not enough snow ball",

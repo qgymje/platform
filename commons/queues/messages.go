@@ -107,3 +107,13 @@ type MessageSendGiftSuccess struct {
 	SnowFlake   uint   `json:"snow_flake"`
 	SuccessTime int64  `json:"success_time"`
 }
+
+// MessageSendGiftBroadcast send gift broadcast
+type MessageSendGiftBroadcast struct {
+	BroadcastID  string `json:"broadcast_id"`
+	Username     string `json:"username"`
+	GiftID       string `json:"gift_id"`
+	Ammount      uint   `json:"ammount"`
+	TotalPrice   uint   `json:"total_price"`
+	LastSendTime int64  `json:"last_send_time"`
+}

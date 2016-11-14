@@ -154,7 +154,7 @@ func (g *Gift) Send(c *gin.Context) {
 	}
 	// maybe can use gc
 	gc2 := giftClient.NewGift(g.getGiftPCAddress())
-	status, err := gc2.Send(sendGift)
+	sendReply, err := gc2.Send(sendGift)
 	if err != nil {
 		pc2 := profileClient.NewProfile(g.getProfileRPCAddress())
 		msg := &pbprofile.Message{
@@ -175,11 +175,11 @@ func (g *Gift) Send(c *gin.Context) {
 
 	// profile Withdraw commit
 	msg := &pbprofile.Message{
-		MsgID:  status.MsgID,
+		MsgID:  sendReply.MsgID,
 		UserID: g.userInfo.UserID,
 	}
 	pc3 := profileClient.NewProfile(g.getProfileRPCAddress())
-	commitStatus, err := pc3.WithdrawCommit(msg)
+	_, err = pc3.WithdrawCommit(msg)
 	if err != nil {
 		respformat := g.Response(c, rpcErrorFormat(err.Error()), nil)
 		c.JSON(http.StatusOK, respformat)
@@ -187,17 +187,19 @@ func (g *Gift) Send(c *gin.Context) {
 	}
 
 	// gift broadcast
-	/*
-		gc3 := giftClient.NewGift(g.getGiftPCAddress())
-		status, err = gc3.Broadcast(sendGift)
-		if err != nil {
-			respformat := g.Response(c, rpcErrorFormat(err.Error()), nil)
-			c.JSON(http.StatusOK, respformat)
-			return
-		}
+	gc3 := giftClient.NewGift(g.getGiftPCAddress())
+	sendGiftID := &pbgift.SendGiftID{
+		SendGiftID: sendReply.SendGiftID,
+		Username:   g.userInfo.Nickname,
+	}
+	broadcastReply, err := gc3.Broadcast(sendGiftID)
+	if err != nil {
+		respformat := g.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
 
-	*/
-	respformat := g.Response(c, codes.ErrorCodeSuccess, commitStatus)
+	respformat := g.Response(c, codes.ErrorCodeSuccess, broadcastReply)
 	c.JSON(http.StatusOK, respformat)
 	return
 }

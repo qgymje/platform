@@ -51,7 +51,7 @@ func (w *Withdraw) Create() (msgID int64, err error) {
 		w.errorCode = codes.ErrorCodeProfileNotFound
 		return
 	}
-	utils.Dump(w.config)
+
 	if msgID, err = w.profileModel.Withdraw(w.config.SnowBall, w.config.SnowFlake, w.config.TypeID, w.config.TargetID); err != nil {
 		switch err {
 		case models.ErrNotEnoughSnowBall:

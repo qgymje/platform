@@ -6,11 +6,16 @@ service Gift {
     rpc Info(GiftID) returns (GiftInfo) {};
     rpc List(Page) returns (Gifts) {};
     rpc Send(SendGift)  returns (Status) {};
-    rpc Broadcast(SendGift) returns (Status) {};
+    rpc Broadcast(SendGiftID) returns (Status) {};
 }
 
 message GiftID {
     string giftID = 1;
+}
+
+message SendGiftID {
+    string sendGiftID = 1;
+    string username = 2;
 }
 
 message Page {
@@ -30,6 +35,7 @@ message SendGift {
 message Status {
     bool success = 1;
     string msgID = 2;
+    string sendGiftID = 3;
 }
 
 message GiftInfo {

@@ -59,6 +59,11 @@ func (s *Sender) Do() (err error) {
 	return
 }
 
+// GetSendGiftID only after call Do
+func (s *Sender) GetSendGiftID() string {
+	return strconv.FormatInt(s.sendGiftModel.ID, 10)
+}
+
 func (s *Sender) getGiftID() int64 {
 	id, _ := strconv.ParseInt(s.config.GiftID, 10, 0)
 	return id

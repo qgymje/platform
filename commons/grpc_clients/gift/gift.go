@@ -53,7 +53,7 @@ func (g *Gift) Send(in *pb.SendGift) (*pb.Status, error) {
 }
 
 // Broadcast broadcast
-func (g *Gift) Broadcast(in *pb.SendGift) (*pb.Status, error) {
+func (g *Gift) Broadcast(in *pb.SendGiftID) (*pb.Status, error) {
 	defer g.Close()
 	return g.client.Broadcast(context.Background(), in)
 }
