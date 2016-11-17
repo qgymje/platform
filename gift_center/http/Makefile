@@ -1,3 +1,3 @@
 include ../../.Makefile
 
-PROJECT_NAME=broadcast_room_http
+PROJECT_NAME=gift_center_http

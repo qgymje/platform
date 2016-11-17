@@ -11,6 +11,9 @@ const (
 	// ChannelDefault default channel
 	ChannelDefault Channel = "default"
 
+	// ChannelUserRegisterProfileCreate create profile
+	ChannelUserRegisterProfileCreate Channel = "profile_create"
+
 	// ChannelBroadcastStart broadcast start
 	ChannelBroadcastStart Channel = "broadcast_start"
 	// ChannelBroadcastEnd broadcast end

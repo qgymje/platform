@@ -1,3 +1,3 @@
 include ../../.Makefile
 
-PROJECT_NAME=coupon_center_http
+PROJECT_NAME=profile_center_http
