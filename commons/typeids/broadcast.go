@@ -12,4 +12,6 @@ const (
 	CouponSenderStop = 10002
 	// GiftSenderInfo send gift info
 	GiftSenderInfo = 10003
+	// GiftSenderRank send gift rank
+	GiftSenderRank = 10004
 )
