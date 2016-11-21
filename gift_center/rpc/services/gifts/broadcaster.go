@@ -145,7 +145,10 @@ func (b *Broadcaster) sendGiftModelToMessage() *queues.MessageSendGiftBroadcast 
 		BroadcastID:  b.sendGiftModel.BroadcastID,
 		Username:     b.config.Username,
 		GiftID:       b.sendGiftModel.GetGiftID(),
-		Ammount:      1,
+		GiftName:     b.sendGiftModel.Gift.Name,
+		GiftImage:    b.sendGiftModel.Gift.Image,
+		Combo:        int(b.sendGiftModel.Gift.Combo),
+		Amount:       1,
 		TotalPrice:   b.sendGiftModel.TotalPrice(),
 		LastSendTime: b.sendGiftModel.CreatedAt.Unix(),
 	}
@@ -199,7 +202,7 @@ func (b *Broadcaster) updateRank() (err error) {
 		return b.updateRedisScore()
 	}
 
-	b.sendGiftMsg.Ammount++
+	b.sendGiftMsg.Amount++
 	b.sendGiftMsg.TotalPrice += b.sendGiftModel.TotalPrice()
 	if err = b.updateReidsGiftMessage(); err != nil {
 		return err

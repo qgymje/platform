@@ -113,7 +113,10 @@ type MessageSendGiftBroadcast struct {
 	BroadcastID  string `json:"broadcast_id"`
 	Username     string `json:"username"`
 	GiftID       string `json:"gift_id"`
-	Ammount      uint   `json:"ammount"`
+	GiftName     string `json:"gift_name"`
+	GiftImage    string `json:"gift_image"`
+	Combo        int    `json:"combo"`
+	Amount       uint   `json:"amount"`
 	TotalPrice   uint   `json:"total_price"`
 	LastSendTime int64  `json:"last_send_time"`
 }

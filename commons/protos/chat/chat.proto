@@ -1,0 +1,27 @@
+syntax="proto3";
+
+package chat;
+
+service Chat{
+    rpc Create(Creator) returns (Status) {};
+    rpc Send(SendMessage) returns (Status) {};
+}
+
+message Creator {
+    string userID = 1;
+    repeated string members = 2;
+    string name = 3;
+}
+
+message SendMessage {
+    string chatID = 1;
+    string userID = 2;
+    string content = 3;
+}
+
+message Status {
+    bool success = 1;
+    string chatID = 2;
+    string MessageID = 3;
+}
+

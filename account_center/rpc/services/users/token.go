@@ -55,6 +55,7 @@ func (t *Token) Generate(claims map[string]interface{}) (tokenString string, err
 	return
 }
 
+// Verify verify token
 func (t *Token) Verify(tokenString string) (valid bool, err error) {
 	//自带过期处理
 	t.token, err = jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -64,8 +65,10 @@ func (t *Token) Verify(tokenString string) (valid bool, err error) {
 		}
 		return t.secretKey, nil
 	})
+
 	if err != nil {
 		err = ErrVerify
+		t.errorCode = codes.ErrorCodeInvalidToken
 	}
 	valid = t.token.Valid
 	t.tokenString = tokenString
