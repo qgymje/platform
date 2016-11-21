@@ -9,13 +9,19 @@
     1. 2016.11.14
     2. add send gift broadcast info
 
+3. v1.0.2 
+    1. 2016.11.21
+    2. broadcast info update: add gift info
+    3. update gift image abs path
+    4. remove unused API doc gift/info
+    5. rename ammount to amount
+
 ## list
 
 name|desc|dev status
 ---|---|---
 /gift/ | [gift_list](#gift_list) | [YES]
 /gift/ | [gift_send](#gift_send) | [YES]
-/gift/info/:id | [gift_info](#gift_send) | [YES]
 
 ---
 
@@ -126,7 +132,7 @@ ATTENTION:
 
 * This request will cause a broadcast to the room
 ```json
- {"type":10003,"data":{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello","gift_id":"3","ammount":1,"total_price":10,"last_send_time":1479096780}}
+ {"type":10003,"data":{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello","gift_id":"3","gift_name":"手里剑","gift_image":"http://www.example.com/gifts/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479705458}}
 ```
 
 ALSO ATTENTION:

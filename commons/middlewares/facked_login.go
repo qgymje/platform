@@ -5,7 +5,7 @@ import "github.com/gin-gonic/gin"
 const (
 	authKey     = "Authorization"
 	tokenPrefix = "bearer "
-	token       = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0Nzk0NDU0NTAsImlkIjoiNTdlMjI2N2VjODZhYjQ1YWYzZDE0ODA2In0.7ZAyHqLNP1gH1La3Y0l4Z6ofuABtDSeetLbYTym_gnQ"
+	token       = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODIyOTczNTksImlkIjoiNTdlMjI2N2VjODZhYjQ1YWYzZDE0ODA2In0.6kMaMGPYSlGG0kBkWtmK6uGEuTk5EMr7qZiYIXipuKs"
 )
 
 // FakedLogin add a facked user token to the header

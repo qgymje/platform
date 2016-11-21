@@ -183,7 +183,7 @@ func (b *Base) getUserRPCAddress() string {
 }
 
 func (b *Base) getSMSRPCAddress() string {
-	return "127.0.0.1:4004"
+	return "127.0.0.1:4008"
 }
 
 func (b *Base) getEmailRPCAddress() string {

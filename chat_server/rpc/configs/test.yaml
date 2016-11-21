@@ -1,0 +1,19 @@
+app:
+    rpc_host: localhost
+    rpc_port: :4004
+
+
+mysql:
+    host: 127.0.0.1
+    port: 3306
+    username: coupon
+    password: coupon
+    dbname: coupon_center 
+
+log:
+    filename: ./logs/coupon_center.log
+    enable_func_call_depth: true
+
+nsq:
+    nsqd: 127.0.0.1:4150
+    nsqlookupd: 127.0.0.1:4161

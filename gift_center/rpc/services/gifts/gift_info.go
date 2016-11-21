@@ -13,11 +13,10 @@ type Gift struct {
 }
 
 func modelGiftToSrvGift(m *models.Gift) *Gift {
-	imagePath := "/v1/gift/uploads/"
 	return &Gift{
 		GiftID:    m.GetID(),
 		Name:      m.Name,
-		Image:     imagePath + m.Image,
+		Image:     m.Image,
 		SnowFlake: m.SnowFlake,
 		SnowBall:  m.SnowBall,
 		Combo:     m.Combo,

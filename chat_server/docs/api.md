@@ -10,7 +10,9 @@
 接口名称|接口描述|开发情况
 ---|---|---
 /user/ | [user_list](#user_list) | [NO]
+/profile/friend/ | [friend_list](#friend_list)| [NO]
 /profile/friend/ | [add_friend](#add_friend)| [NO]
+/chat/| [chat_list](#chat_list) | [NO]
 /chat/| [create_chat](#create_chat) | [NO]
 /chat/send| [send_message](#send_message) | [NO]
 /notify/:token | [notify](#notify) | [NO]

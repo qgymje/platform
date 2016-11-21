@@ -25,4 +25,8 @@ const (
 	TopicSendCouponUpdate Topic = "sendcoupon_update"
 
 	TopicSendGiftSuccess Topic = "sendgift_success"
+
+	TopicChatFormat Topic = "chat_%s"
+
+	TopicNotificationFormat Topic = "notify_%s"
 )

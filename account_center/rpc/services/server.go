@@ -63,7 +63,6 @@ func (s *UserServer) Auth(ctx context.Context, token *pb.Token) (*pb.UserInfo, e
 			utils.GetLog().Error("rpc.user.Auth error: %+v", err)
 		}
 	}()
-
 	t := users.NewToken()
 	if ok, err := t.Verify(token.Token); !ok && err != nil {
 		return nil, errors.New(t.ErrorCode().String())

@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 // RequestFriend request friend
 type RequestFriend struct {
 	ID         int64  `orm:"column(id)"`
@@ -7,5 +9,5 @@ type RequestFriend struct {
 	ToUserID   string `orm:"column(to_user_id)"`
 	Message    string
 	Status     int8 // 0 unprocessed 1 success 2 deny
-	CreatedAt  Time.Time
+	CreatedAt  time.Time
 }

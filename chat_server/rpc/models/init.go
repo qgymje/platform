@@ -22,8 +22,11 @@ var ErrNotFound = orm.ErrNoRows
 // DBName db name
 const DBName = "chat_server"
 
-// TableNameMerchant collection name
-const TableNameMerchant = "chats"
+// TableNameChat collection name
+const TableNameChat = "chats"
+
+// TableNameChatMember member
+const TableNameChatMember = "chat_members"
 
 // TableNameAccount collection name
 const TableNameAccount = "messages"

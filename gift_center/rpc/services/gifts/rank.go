@@ -17,7 +17,9 @@ type Rank struct {
 
 // NewRank new rank
 func NewRank(c *RankConfig) *Rank {
-
+	r := new(Rank)
+	r.config = c
+	return r
 }
 
 // Topic topic
