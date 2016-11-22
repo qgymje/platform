@@ -1,4 +1,4 @@
-package providers
+package senders
 
 // Provider provider interface
 type Provider interface {
