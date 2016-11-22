@@ -3,7 +3,7 @@ package sms
 import (
 	"platform/commons/codes"
 	"platform/sms_service/rpc/models"
-	"platform/sms_service/rpc/services/sms/providers"
+	"platform/sms_service/rpc/services/sms/senders"
 	"platform/utils"
 	"time"
 )
@@ -72,8 +72,8 @@ func (r *RegisterCode) Verify(country, phone, code string) (err error) {
 }
 
 func (r *RegisterCode) send() error {
-	sender := providers.NewSendCloudEmailSender()
-	return sender.Send(r)
+	sender := senders.NewSendCloudEmailSender(r)
+	return sender.Send()
 }
 
 // Phone implement the Provider interface

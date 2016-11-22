@@ -17,6 +17,8 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
+const comboDuration = 5 * time.Second
+
 var redisConn redis.Conn
 var once sync.Once
 
@@ -30,8 +32,6 @@ func InitRedis() {
 		}
 	})
 }
-
-const comboDuration = 30 * time.Second
 
 // BroadcasterConfig broadcast config
 type BroadcasterConfig struct {
@@ -47,6 +47,8 @@ type Broadcaster struct {
 	userID        string
 	hasSentBefore bool
 	errorCode     codes.ErrorCode
+
+	rankUserIDs []string
 }
 
 // NewBroadcaster new broadcast
@@ -55,6 +57,7 @@ func NewBroadcaster(c *BroadcasterConfig) *Broadcaster {
 	b.config = c
 	b.sendGiftModel = &models.SendGift{}
 	b.sendGiftMsg = &queues.MessageSendGiftBroadcast{}
+	b.rankUserIDs = []string{}
 	return b
 }
 
@@ -91,17 +94,22 @@ func (b *Broadcaster) Do() (err error) {
 		return
 	}
 
+	if err = b.broadcastRank(); err != nil {
+		b.errorCode = codes.ErrorCodeSendGiftBroadcastRank
+		return
+	}
+
 	return
 }
 
 func (b *Broadcaster) getRedisScoreKey() string {
-	key := "gift_rank_" + b.sendGiftModel.BroadcastID[8:]
+	key := "grank_" + b.sendGiftModel.BroadcastID[8:]
 	utils.Dump(key)
 	return key
 }
 
 func (b *Broadcaster) getRedisHashKey() string {
-	key := "gift_live_" + b.sendGiftModel.BroadcastID[8:]
+	key := "glive_" + b.sendGiftModel.BroadcastID[8:]
 	utils.Dump(key)
 	return key
 }
@@ -127,16 +135,15 @@ func (b *Broadcaster) fetchGiftList() error {
 			if err2 := b.initalRedisSendGiftMessage(); err2 != nil {
 				return err2
 			}
+		} else {
+			return err
 		}
-		return err
+	} else {
+		b.hasSentBefore = true
+		if err = json.Unmarshal(value, &b.sendGiftMsg); err != nil {
+			return err
+		}
 	}
-
-	b.hasSentBefore = true
-	err = json.Unmarshal(value, &b.sendGiftMsg)
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -175,6 +182,43 @@ func (b *Broadcaster) resetRedisSendGiftMessage() (err error) {
 	return nil
 }
 
+func reverseStrings(s []string) []string {
+	for i := 0; i < len(s)/2; i++ {
+		j := len(s) - i - 1
+		s[i], s[j] = s[j], s[i]
+	}
+	return s
+}
+
+func (b *Broadcaster) fetchGiftListByUserIDs(userids []string) (list []*queues.MessageSendGiftBroadcast, err error) {
+	reversedUserids := reverseStrings(userids)
+	for _, userid := range reversedUserids {
+		if err = redisConn.Send("HGET", b.getRedisHashKey(), userid); err != nil {
+			return
+		}
+	}
+
+	if err = redisConn.Flush(); err != nil {
+		return
+	}
+
+	for i := 0; i < len(userids); i++ {
+		var msg []byte
+		msg, err = redis.Bytes(redisConn.Receive())
+		if err != nil {
+			return
+		}
+
+		var sendGiftMsg queues.MessageSendGiftBroadcast
+		if err = json.Unmarshal(msg, &sendGiftMsg); err != nil {
+			return
+		}
+		list = append(list, &sendGiftMsg)
+	}
+
+	return
+}
+
 func (b *Broadcaster) updateReidsGiftMessage() (err error) {
 	jsonMsg, _ := json.Marshal(b.sendGiftMsg)
 	if _, err := redisConn.Do("HSET", b.getRedisHashKey(), b.userID, string(jsonMsg[:])); err != nil {
@@ -185,6 +229,13 @@ func (b *Broadcaster) updateReidsGiftMessage() (err error) {
 
 func (b *Broadcaster) updateRedisScore() (err error) {
 	if _, err = redisConn.Do("ZADD", b.getRedisScoreKey(), b.sendGiftMsg.TotalPrice, b.userID); err != nil {
+		return
+	}
+	return
+}
+
+func (b *Broadcaster) fetchRank() (err error) {
+	if b.rankUserIDs, err = redis.Strings(redisConn.Do("ZRANGE", b.getRedisScoreKey(), 0, 3)); err != nil {
 		return
 	}
 	return
@@ -201,13 +252,48 @@ func (b *Broadcaster) updateRank() (err error) {
 		}
 		return b.updateRedisScore()
 	}
-
 	b.sendGiftMsg.Amount++
 	b.sendGiftMsg.TotalPrice += b.sendGiftModel.TotalPrice()
 	if err = b.updateReidsGiftMessage(); err != nil {
 		return err
 	}
 	return b.updateRedisScore()
+}
+
+func (b *Broadcaster) isInRank() bool {
+	for _, userid := range b.rankUserIDs {
+		if userid == b.sendGiftModel.UserID {
+			return true
+		}
+	}
+	return false
+}
+
+func (b *Broadcaster) broadcastRank() (err error) {
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("gifts.Broadcaster.broadcastRank error:%+v", err)
+		}
+	}()
+
+	if err = b.fetchRank(); err != nil {
+		return
+	}
+
+	if b.isInRank() {
+		rankList, err := b.fetchGiftListByUserIDs(b.rankUserIDs)
+		if err != nil {
+			return err
+		}
+		rankConfig := &RankConfig{
+			BroadcastID: b.sendGiftModel.BroadcastID,
+			RankList:    rankList,
+		}
+		rank := NewRank(rankConfig)
+		return rank.Do()
+	}
+
+	return
 }
 
 func (b *Broadcaster) notify() error {

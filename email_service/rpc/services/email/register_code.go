@@ -1,7 +1,6 @@
 package email
 
 import (
-	"fmt"
 	"platform/commons/codes"
 	"platform/email_service/rpc/models"
 	"platform/utils"
@@ -60,6 +59,5 @@ func (r *RegisterCode) Verify() (err error) {
 }
 
 func (r *RegisterCode) save() error {
-	fmt.Println(r.emailModel)
 	return r.emailModel.Create()
 }
