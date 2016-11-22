@@ -16,6 +16,10 @@
     4. remove unused API doc gift/info
     5. rename ammount to amount
 
+4. v1.1.0 
+    1. 2016.11.22
+    2. add gift rank broadcast msg
+
 ## list
 
 name|desc|dev status
@@ -135,14 +139,16 @@ ATTENTION:
  {"type":10003,"data":{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello","gift_id":"3","gift_name":"手里剑","gift_image":"http://www.example.com/gifts/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479705458}}
 ```
 
+> type is defined by the server, in this case, type id is 10003
+
 ALSO ATTENTION:
 
-* send gift action will cause the gift rand update, gift rand message will broadcast every 5 second
+* send gift action will cause the gift rand update
 ```
-// still being formulated
+{"type":10004,"data":[{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello2","gift_id":"3","gift_name":"手里剑","gift_image":"http://localhost:8000/v1/gift/uploads/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479790882}]}
 ```
 
-> type is defined by the server, in this case, type id is 10003
+> type is defined by the server, in this case, type id is 10004
 
 ---
 
