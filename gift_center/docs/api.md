@@ -20,6 +20,10 @@
     1. 2016.11.22
     2. add gift rank broadcast msg
 
+5. v1.1.1 
+    1. 2016.11.22
+    2. add user_id field to broadcast msg
+
 ## list
 
 name|desc|dev status
@@ -136,16 +140,15 @@ ATTENTION:
 
 * This request will cause a broadcast to the room
 ```json
- {"type":10003,"data":{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello","gift_id":"3","gift_name":"手里剑","gift_image":"http://www.example.com/gifts/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479705458}}
+{"type":10003,"data":{"broadcast_id":"5816fb65c86ab4a629fa5a20","user_id":"57e2267ec86ab45af3d14806","username":"hello0","gift_id":"3","gift_name":"手里剑","gift_image":"http://localhost:8000/v1/gift/uploads/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479875822}}
 ```
 
 > type is defined by the server, in this case, type id is 10003
 
 ALSO ATTENTION:
 
-* send gift action will cause the gift rand update
 ```
-{"type":10004,"data":[{"broadcast_id":"5816fb65c86ab4a629fa5a20","username":"hello2","gift_id":"3","gift_name":"手里剑","gift_image":"http://localhost:8000/v1/gift/uploads/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479790882}]}
+{"type":10004,"data":[{"broadcast_id":"5816fb65c86ab4a629fa5a20","user_id":"57e2267ec86ab45af3d14806","username":"hello0","gift_id":"3","gift_name":"手里剑","gift_image":"http://localhost:8000/v1/gift/uploads/shoulijian.png","combo":1,"amount":1,"total_price":10,"last_send_time":1479875822}]}
 ```
 
 > type is defined by the server, in this case, type id is 10004
