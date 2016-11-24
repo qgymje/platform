@@ -130,4 +130,11 @@ const (
 	ErrorCodeWithdraw           ErrorCode = "PRO500101"
 	ErrorCodeWithdrawRollback   ErrorCode = "PRO500102"
 	ErrorCodeWithdrawCommit     ErrorCode = "PRO500103"
+
+	// Friend
+	ErrorCodeRequestFriendAlreadySend ErrorCode = "FRI400101"
+	ErrorCodeRequestFriendInvalidID   ErrorCode = "FRI400102"
+	ErrorCodeRequestFriendSave        ErrorCode = "FRI500101"
+	ErrorCodeFriendSave               ErrorCode = "FRI500102"
+	ErrorCodeRequestFriendRefuse      ErrorCode = "FRI500103"
 )
