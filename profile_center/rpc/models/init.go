@@ -28,6 +28,12 @@ const TableNameProfile = "profiles"
 // TableNameMessage message
 const TableNameMessage = "messages"
 
+// TableNameFriend friends
+const TableNameFriend = "friends"
+
+// TableNameRequestFriend request friend
+const TableNameRequestFriend = "request_friends"
+
 // StringToObjectID string to bson objectId
 func StringToObjectID(id string) (bson.ObjectId, error) {
 	if !bson.IsObjectIdHex(string(id)) {
@@ -75,7 +81,7 @@ func InitModels() (err error) {
 
 func createTables() (err error) {
 	orm.Debug = true
-	orm.RegisterModel(new(Message), new(Profile))
+	orm.RegisterModel(new(Message), new(Profile), new(Friend), new(RequestFriend))
 
 	if err = orm.RunSyncdb("default", false, true); err != nil {
 		return

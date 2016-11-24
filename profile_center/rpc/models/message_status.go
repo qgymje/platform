@@ -1,6 +1,7 @@
 package models
 
 // MessageStatus message status
+//go:generate stringer -type MessageStatus
 type MessageStatus int
 
 const (
