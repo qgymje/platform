@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"platform/commons/codes"
+	"platform/commons/grpc_clients/user"
 	pb "platform/commons/protos/user"
 
 	"platform/utils"
@@ -23,10 +24,7 @@ const versionKey = "version"
 
 // Base controller do common things
 type Base struct {
-	userRPCAddress   string
-	smsRPCAddress    string
-	emailRPCAddress  string
-	uploadRPCAddress string
+	userInfo *pb.UserInfo
 }
 
 var uploadPath string
@@ -61,6 +59,22 @@ func (b *Base) getToken(c *gin.Context) (string, codes.ErrorCode) {
 		return "", codes.ErrorCodeInvalidToken
 	}
 	return authHeaderParts[1], codes.ErrorCodeSuccess
+}
+
+func (b *Base) validUserInfo(c *gin.Context) (*pb.UserInfo, codes.ErrorCode) {
+	token, errorCode := b.getToken(c)
+	if errorCode != codes.ErrorCodeSuccess {
+		return nil, errorCode
+	}
+	pbToken := pb.Token{Token: token}
+	auth := userClient.NewUser(b.getUserRPCAddress())
+
+	var err error
+	var userInfo *pb.UserInfo
+	if userInfo, err = auth.Auth(&pbToken); err != nil {
+		return nil, rpcErrorFormat(err.Error())
+	}
+	return userInfo, codes.ErrorCodeSuccess
 }
 
 // ResponseFormat  response format object

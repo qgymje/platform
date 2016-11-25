@@ -104,6 +104,14 @@ func (u *User) Logout(c *gin.Context) {
 
 // Info user info
 func (u *User) Info(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	u.userInfo, errorCode = u.validUserInfo(c)
+	if u.userInfo == nil {
+		respformat := u.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
 	userID := u.getUserID(c)
 	info := userClient.NewUser(u.getUserRPCAddress())
 
@@ -124,6 +132,14 @@ func (u *User) Info(c *gin.Context) {
 
 // List user list
 func (u *User) List(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	u.userInfo, errorCode = u.validUserInfo(c)
+	if u.userInfo == nil {
+		respformat := u.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
 	client := userClient.NewUser(u.getUserRPCAddress())
 	query := &pb.UserQuery{
 		IDs: u.getIDs(c),
@@ -137,6 +153,8 @@ func (u *User) List(c *gin.Context) {
 
 	for i := range reply.Users {
 		u.removePBUserInfoToken(reply.Users[i])
+		u.removePBUserInfoPhone(reply.Users[i])
+		u.removePBUserInfoEmail(reply.Users[i])
 	}
 
 	data := map[string]interface{}{
