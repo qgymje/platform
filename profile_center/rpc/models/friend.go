@@ -22,8 +22,19 @@ func (Friend) TableName() string {
 
 // Create a friend record
 func (f *Friend) Create() (err error) {
+	GetDB().Begin()
+	if err = f.RequestFriend.Agree(); err != nil {
+		GetDB().Rollback()
+		return
+	}
+
 	f.CreatedAt = time.Now()
-	_, err = GetDB().Insert(f)
+	if _, err = GetDB().Insert(f); err != nil {
+		GetDB().Rollback()
+		return
+	}
+
+	GetDB().Commit()
 	return
 }
 

@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"platform/commons/middlewares"
-	"platform/coupon_center/http/controllers"
+	"platform/profile_center/http/controllers"
 	"platform/utils"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +14,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
-	port       = flag.String("port", ":3004", "service port")
+	port       = flag.String("port", ":3010", "service port")
 )
 
 func initEnv() {
@@ -54,8 +54,13 @@ func main() {
 	controllers.SetUploadPath(uploadPath)
 	r.Static("/uploads", uploadPath)
 
-	c := r.Group("/v1/profile")
+	c := r.Group("/v1/friend")
 	{
+		friend := new(controllers.Friend)
+		c.GET("/", friend.List)
+		c.POST("/", friend.Request)
+		c.PUT("/agree", friend.Agree)
+		c.PUT("/refuse", friend.Refuse)
 	}
 
 	if err := r.Run(getPort()); err != nil {

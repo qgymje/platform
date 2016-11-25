@@ -1,8 +1,8 @@
 app:
     base_url: http://localhost
-    http_port: :3006
+    http_port: :3010
 
 log:
-    filename: ./logs/account_center.log
+    filename: ./logs/profile_center.log
     enable_func_call_depth: true
 
