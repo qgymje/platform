@@ -2,16 +2,13 @@ package controllers
 
 import (
 	"fmt"
-	"log"
 	"math"
 	"strconv"
 	"strings"
 	"time"
 
 	"platform/commons/codes"
-	"platform/commons/grpc_clients/room"
 	"platform/commons/grpc_clients/user"
-	pbroom "platform/commons/protos/room"
 	pbuser "platform/commons/protos/user"
 
 	"platform/utils"
@@ -56,7 +53,6 @@ type ResponseFormat struct {
 }
 
 func rpcErrorFormat(code string) codes.ErrorCode {
-	log.Println("rpc error: ", code)
 	codePart := strings.Split(code, " ")
 	return codes.ErrorCode(codePart[len(codePart)-1])
 }
@@ -129,29 +125,6 @@ func (b *Base) validUserInfo(c *gin.Context) (*pbuser.UserInfo, codes.ErrorCode)
 	return userInfo, codes.ErrorCodeSuccess
 }
 
-func (b *Base) validRoomInfo(c *gin.Context) (*pbroom.RoomInfo, codes.ErrorCode) {
-	rc := roomClient.NewRoom(b.getRoomRPCAddress())
-	userRoom := &pbroom.UserRoom{
-		UserID: b.userInfo.UserID,
-	}
-	info, err := rc.Info(userRoom)
-	if err != nil {
-		return nil, rpcErrorFormat(err.Error())
-	}
-
-	return info, codes.ErrorCodeSuccess
-}
-
-func (b *Base) isValidRoom() bool {
-	if b.roomInfo == nil {
-		return false
-	}
-	if !b.roomInfo.IsPlaying || b.roomInfo.Broadcast == nil {
-		return false
-	}
-	return true
-}
-
 func (b *Base) getPageNum(c *gin.Context) (page int) {
 	page, _ = strconv.Atoi(c.Param("page"))
 	return int(math.Max(float64(page-1), 0.0))
@@ -165,37 +138,6 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
-func (b *Base) getCouponID(c *gin.Context) string {
-	return c.PostForm("coupon_id")
-}
-
-func (b *Base) getSendCouponID(c *gin.Context) string {
-	return c.PostForm("sendcoupon_id")
-}
-
-func (b *Base) getNumber(c *gin.Context) int {
-	num, _ := strconv.Atoi(c.PostForm("number"))
-	return num
-}
-
-func (b *Base) getDuration(c *gin.Context) int {
-	dur, _ := strconv.Atoi(c.PostForm("duration"))
-	return dur
-}
-
-func (b *Base) getTypeID(c *gin.Context) int {
-	id, _ := strconv.Atoi(c.PostForm("type_id"))
-	return id
-}
-
 func (b *Base) getUserRPCAddress() string {
 	return "127.0.0.1:4000"
-}
-
-func (b *Base) getRoomRPCAddress() string {
-	return "127.0.0.1:4001"
-}
-
-func (b *Base) getCouponRPCAddress() string {
-	return "127.0.0.1:4004"
 }
