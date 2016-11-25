@@ -11,3 +11,15 @@ type Message struct {
 	CreatedAt time.Time
 	DeletedAt time.Time `rom:"null"` // revocation
 }
+
+// TableName table name
+func (Message) TableName() string {
+	return TableNameMessage
+}
+
+// Create create a message
+func (m *Message) Create() (err error) {
+	m.CreatedAt = time.Now()
+	_, err = GetDB().Insert(m)
+	return err
+}

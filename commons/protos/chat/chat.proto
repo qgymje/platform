@@ -5,12 +5,30 @@ package chat;
 service Chat{
     rpc Create(Creator) returns (Status) {};
     rpc Send(SendMessage) returns (Status) {};
+    rpc List(Page) returns (ChatList) {};
 }
 
 message Creator {
     string userID = 1;
     repeated string members = 2;
     string name = 3;
+}
+
+message ChatInfo {
+    string userID = 1;
+    string name = 2;
+    repeated string members = 3;
+}
+
+message ChatList {
+    repeated ChatInfo list = 1;
+}
+
+message Page {
+    int32 num  = 1;
+    int32 size  = 2;
+    string userID = 3;
+
 }
 
 message SendMessage {

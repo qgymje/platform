@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	pb "platform/commons/protos/coupon"
-	"platform/coupon_center/rpc/models"
-	"platform/coupon_center/rpc/services"
+	"platform/chat_center/rpc/models"
+	"platform/chat_center/rpc/servers"
+	pb "platform/commons/protos/chat"
 	"platform/utils"
 
 	"google.golang.org/grpc"
@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterCouponServer(s, &services.Server{})
+	pb.RegisterChatServer(s, &servers.ChatServer{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)
