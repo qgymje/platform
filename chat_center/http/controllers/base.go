@@ -125,20 +125,26 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
+func (b *Base) getName(c *gin.Context) string {
+	return c.PostForm("name")
+}
+
+func (b *Base) getMembers(c *gin.Context) []string {
+	m := c.Request.PostForm["members"]
+	utils.Dump(m)
+	return []string{"57e226dac86ab45af3d14807", "57e3a9eec86ab40cf7f5247c"}
+}
+
 func (b *Base) getRoomID(c *gin.Context) string {
 	return c.PostForm("room_id")
 }
 
-func (b *Base) getGiftPCAddress() string {
-	return "localhost:4009"
+func (b *Base) getChatPCAddress() string {
+	return "localhost:4011"
 }
 
 func (b *Base) getUserRPCAddress() string {
 	return "localhost:4000"
-}
-
-func (b *Base) getRoomRPCAddress() string {
-	return "localhost:4001"
 }
 
 func (b *Base) getProfileRPCAddress() string {

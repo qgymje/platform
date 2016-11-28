@@ -54,33 +54,11 @@ func main() {
 	controllers.SetUploadPath(uploadPath)
 	r.Static("/uploads", uploadPath)
 
-	c := r.Group("/v1/coupon")
+	c := r.Group("/v1/notify")
 	{
 		// web api
-		account := new(controllers.Account)
-		c.POST("/account", account.Create)
-		c.GET("/account", account.List)
-		c.PUT("/account/perm", account.UpdatePermission)
-		c.DELETE("/account", account.Delete)
-
-		store := new(controllers.Store)
-		c.GET("/store", store.List)
-		c.GET("/store/:store_id", store.Show)
-		c.POST("/store", store.Create)
-		c.PUT("/store", store.Update)
-
-		coupon := new(controllers.Coupon)
-		c.GET("/", coupon.List)
-		c.GET("/bystore/:store_id", coupon.ListByStore)
-		c.GET("/show/:coupon_id", coupon.Show)
-		c.POST("/", coupon.Create)
-		c.PUT("/", coupon.Update)
-
-		// mobile api
-		c.GET("/my", coupon.List)
-		c.POST("/broadcast/send", coupon.Send)
-		c.POST("/broadcast/take", coupon.Take)
-		c.PUT("/broadcast/stop", coupon.Stop)
+		notification := new(controllers.Notification)
+		c.GET("/:token", notification.Notify)
 	}
 
 	if err := r.Run(getPort()); err != nil {

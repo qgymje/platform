@@ -11,14 +11,21 @@ type Member struct {
 	DeletedAt time.Time `orm:"null"`
 }
 
+// CreateMembers insert members
+func CreateMembers(members []*Member) error {
+	l := len(members)
+	_, err := GetDB().InsertMulti(l, members)
+	return err
+}
+
 // TableName table name
 func (Member) TableName() string {
 	return TableNameMember
 }
 
-// Create join the chat
-func (m *Member) Create() (err error) {
-	return
+// GetUserID get user id
+func (m *Member) GetUserID() string {
+	return m.UserID
 }
 
 // Update update

@@ -1,7 +1,10 @@
 package chats
 
 import (
+	"fmt"
+	"platform/chat_center/rpc/models"
 	"platform/commons/codes"
+	"platform/commons/queues"
 	"platform/utils"
 )
 
@@ -14,7 +17,11 @@ type SenderConfig struct {
 
 // Sender sender
 type Sender struct {
-	config    *SenderConfig
+	config *SenderConfig
+
+	chatModel    *models.Chat
+	messageModel *models.Message
+
 	errorCode codes.ErrorCode
 }
 
@@ -22,6 +29,8 @@ type Sender struct {
 func NewSender(c *SenderConfig) *Sender {
 	s := new(Sender)
 	s.config = c
+	s.chatModel = &models.Chat{}
+	s.messageModel = &models.Message{}
 	return s
 }
 
@@ -38,4 +47,22 @@ func (s *Sender) Do() (err error) {
 		}
 	}()
 	return
+}
+
+func (s *Sender) save() (err error) {
+	return
+}
+
+func (s *Sender) notify() error {
+	return nil
+}
+
+// Topic topic
+func (s *Sender) Topic() string {
+	return fmt.Sprintf(queues.TopicChatFormat.String(), s.config.ChatID)
+}
+
+// Message message send to the nsq
+func (s *Sender) Message() []byte {
+	return nil
 }

@@ -115,6 +115,7 @@ PARAMETERS:
 name|type|must|desc
 ---|---|---|---
 members[]| array| yes | friend's user_id, at least one id
+name| string| yes | chat name, default is target's username
 
 RETURN:
 ```json
