@@ -1,8 +1,8 @@
 app:
     base_url: http://localhost
-    http_port: :3010
+    http_port: :3012
 
 log:
-    filename: ./logs/chat_server.log
+    filename: ./logs/notification_center.log
     enable_func_call_depth: true
 

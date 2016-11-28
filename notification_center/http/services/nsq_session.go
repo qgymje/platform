@@ -46,6 +46,6 @@ func (s *NSQSession) combineConsume() {
 
 // Consume combine the messages
 func (s *NSQSession) Consume() <-chan Message {
-	s.combineConsume()
+	go s.combineConsume()
 	return s.receive
 }

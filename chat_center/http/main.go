@@ -4,21 +4,21 @@ import (
 	"flag"
 	"log"
 
+	"platform/chat_center/http/controllers"
 	"platform/commons/middlewares"
-	"platform/profile_center/http/controllers"
 	"platform/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
-	port       = flag.String("port", ":3010", "service port")
+	configPath = flag.String("conf", "./configs/", "set config path")
+	port       = flag.String("port", ":3011", "service port")
 )
 
 func initEnv() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	flag.Parse()
 	log.Println("current env is: ", *env)
 	utils.SetEnv(*env)
@@ -44,7 +44,6 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middlewares.APILang())
-	r.Use(middlewares.RecordRequestBegin())
 	if utils.IsDev() {
 		r.Use(middlewares.FakedLogin())
 	}
@@ -52,15 +51,14 @@ func main() {
 	uploadPath := "./uploads"
 	utils.EnsurePath(uploadPath)
 	controllers.SetUploadPath(uploadPath)
-	r.Static("/uploads", uploadPath)
+	r.Static("/v1/chat/uploads", uploadPath)
 
-	c := r.Group("/v1/friend")
+	rr := r.Group("/v1/chat")
 	{
-		friend := new(controllers.Friend)
-		c.GET("/", friend.List)
-		c.POST("/", friend.Request)
-		c.PUT("/agree", friend.Agree)
-		c.PUT("/refuse", friend.Refuse)
+		chat := new(controllers.Chat)
+		rr.GET("/", chat.List)
+		rr.POST("/", chat.Create)
+		rr.POST("/send", chat.Send)
 	}
 
 	if err := r.Run(getPort()); err != nil {

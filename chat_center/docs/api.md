@@ -5,13 +5,20 @@
     1. 2016.11.17
     2. initial API design
 
-## 接口列表：
 
-接口名称|接口描述|开发情况
+2. v0.0.2
+    1. 2016.11.25
+    2. update API design
+
+## list:
+
+name|desc|dev status
 ---|---|---
-/user/ | [user_list](#user_list) | [NO]
-/profile/friend/ | [friend_list](#friend_list)| [NO]
-/profile/friend/ | [add_friend](#add_friend)| [NO]
+/user/recommend | [user_recommend](#user_recommend) | [NO]
+/friend/ | [friend_list](#friend_list)| [NO]
+/friend/| [add_friend](#add_friend)| [NO]
+/friend/agree | [agree](#agree)| [NO]
+/friend/refuse| [refuse](#refuse)| [NO]
 /chat/| [chat_list](#chat_list) | [NO]
 /chat/| [create_chat](#create_chat) | [NO]
 /chat/send| [send_message](#send_message) | [NO]
@@ -23,7 +30,7 @@
 
 ## user list
 
-URL: /user/
+URL: /user/recommend
 
 AUTH: YES
 
@@ -69,7 +76,7 @@ RETURN:
 
 ## add friend
 
-URL: /profile/friend
+URL: /friend
 
 AUTH: YES
 
@@ -107,7 +114,7 @@ PARAMETERS:
 
 name|type|must|desc
 ---|---|---|---
-user_id| string| yes | friend's user_id
+members[]| array| yes | friend's user_id, at least one id
 
 RETURN:
 ```json
@@ -176,5 +183,9 @@ RECEIVER:
 {"type": 11000, "data": {"chat_id": "123, "from_user_id":"57e226dac86ab45af3d1480","nickname":"somebody", "avatar":"http://www.example.com/avatar_of_somebody", content":"say hi", "created_at":147443887}}
 ```
 
-> type id: 11000 means normal textual message in chat server
+> in this case: type id: 11000 means normal textual message in chat server
+
+
+ATTENTION:
+> this link should be connected when APP start, it's a global connection that used to send notifications and chats.
 ---

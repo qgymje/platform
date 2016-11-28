@@ -20,16 +20,16 @@ var (
 var ErrNotFound = orm.ErrNoRows
 
 // DBName db name
-const DBName = "chat_server"
+const DBName = "chat_center"
 
 // TableNameChat collection name
 const TableNameChat = "chats"
 
-// TableNameChatMember member
-const TableNameChatMember = "chat_members"
+// TableNameMember member
+const TableNameMember = "members"
 
-// TableNameAccount collection name
-const TableNameAccount = "messages"
+// TableNameMessage collection name
+const TableNameMessage = "messages"
 
 // StringToObjectID string to bson objectId
 func StringToObjectID(id string) (bson.ObjectId, error) {
@@ -78,7 +78,7 @@ func InitModels() (err error) {
 
 func createTables() (err error) {
 	orm.Debug = true
-	orm.RegisterModel(new(Chat), new(ChatMember), new(Message))
+	orm.RegisterModel(new(Chat), new(Member), new(Message))
 
 	if err = orm.RunSyncdb("default", false, true); err != nil {
 		return

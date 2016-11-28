@@ -14,7 +14,7 @@ import (
 var (
 	configPath = flag.String("conf", "./configs/", "set config path")
 	env        = flag.String("env", "dev", "set env: dev, test, prod")
-	port       = flag.String("port", ":3004", "service port")
+	port       = flag.String("port", ":3012", "service port")
 )
 
 func initEnv() {

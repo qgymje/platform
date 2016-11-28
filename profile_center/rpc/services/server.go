@@ -79,3 +79,27 @@ func (s *Server) WithdrawCommit(ctx context.Context, in *pb.Message) (*pb.Status
 
 	return &pb.Status{Success: true, MsgID: in.MsgID}, nil
 }
+
+// FriendRequest friend request
+func (s *Server) FriendRequest(ctx context.Context, in *pb.Request) (*pb.RequestID, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("profiles.Server.WithdrawCommit error: %+v", err)
+		}
+	}()
+
+	return &pb.RequestID{}, nil
+}
+
+// FriendAgree agree
+func (s *Server) FriendAgree(ctx context.Context, in *pb.RequestID) (*pb.Status, error) {
+
+	return &pb.Status{}, nil
+}
+
+// FriendRefuse refuse
+func (s *Server) FriendRefuse(ctx context.Context, in *pb.RequestID) (*pb.Status, error) {
+
+	return &pb.Status{}, nil
+}

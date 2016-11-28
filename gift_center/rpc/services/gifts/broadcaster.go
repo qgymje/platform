@@ -150,6 +150,7 @@ func (b *Broadcaster) fetchGiftList() error {
 func (b *Broadcaster) sendGiftModelToMessage() *queues.MessageSendGiftBroadcast {
 	return &queues.MessageSendGiftBroadcast{
 		BroadcastID:  b.sendGiftModel.BroadcastID,
+		UserID:       b.sendGiftModel.UserID,
 		Username:     b.config.Username,
 		GiftID:       b.sendGiftModel.GetGiftID(),
 		GiftName:     b.sendGiftModel.Gift.Name,

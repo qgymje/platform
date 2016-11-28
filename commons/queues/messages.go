@@ -111,6 +111,7 @@ type MessageSendGiftSuccess struct {
 // MessageSendGiftBroadcast send gift broadcast
 type MessageSendGiftBroadcast struct {
 	BroadcastID  string `json:"broadcast_id"`
+	UserID       string `json:"user_id"`
 	Username     string `json:"username"`
 	GiftID       string `json:"gift_id"`
 	GiftName     string `json:"gift_name"`

@@ -6,6 +6,9 @@ service Profile {
     rpc Withdraw(Ammount) returns (Status) {};
     rpc WithdrawRollback(Message) returns (Status) {};
     rpc WithdrawCommit(Message) returns (Status) {};
+    rpc FriendRequest(Request) returns (RequestID) {};
+    rpc FriendAgree(RequestID) returns (Status) {};
+    rpc FriendRefuse(RequestID) returns (Status) {};
 }
 
 message Ammount {
@@ -24,6 +27,16 @@ message Message {
 message Status {
     bool success = 1;
     string msgID = 2;
+}
+
+message Request {
+    string fromUserID = 1;
+    string toUserID = 2;
+    string message = 3;
+}
+
+message RequestID {
+    string requestID = 1;
 }
 
 

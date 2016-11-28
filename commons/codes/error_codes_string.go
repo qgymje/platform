@@ -105,5 +105,11 @@ func init() {
 		ErrorCodeWithdraw:           "withdraw failed",
 		ErrorCodeWithdrawRollback:   "withdraw rollback failed",
 		ErrorCodeWithdrawCommit:     "withdraw commit failed",
+
+		ErrorCodeRequestFriendAlreadySend: "request friend is already sent",
+		ErrorCodeRequestFriendInvalidID:   "request friend invalid id",
+		ErrorCodeRequestFriendSave:        "request friend save failed",
+		ErrorCodeFriendSave:               "friend save failed",
+		ErrorCodeRequestFriendRefuse:      "friend refuse failed",
 	}
 }
