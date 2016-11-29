@@ -135,6 +135,14 @@ func (b *Base) getMembers(c *gin.Context) []string {
 	return []string{"57e226dac86ab45af3d14807", "57e3a9eec86ab40cf7f5247c"}
 }
 
+func (b *Base) getChatID(c *gin.Context) string {
+	return c.PostForm("chat_id")
+}
+
+func (b *Base) getContent(c *gin.Context) string {
+	return c.PostForm("content")
+}
+
 func (b *Base) getRoomID(c *gin.Context) string {
 	return c.PostForm("room_id")
 }

@@ -15,9 +15,10 @@ message Creator {
 }
 
 message ChatInfo {
-    string userID = 1;
-    string name = 2;
-    repeated string members = 3;
+    string chatID = 1;
+    string userID = 2;
+    string name = 3;
+    repeated string members = 4;
 }
 
 message ChatList {
@@ -40,6 +41,6 @@ message SendMessage {
 message Status {
     bool success = 1;
     string chatID = 2;
-    string MessageID = 3;
+    string messageID = 3;
 }
 

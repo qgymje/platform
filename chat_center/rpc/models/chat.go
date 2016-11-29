@@ -64,7 +64,8 @@ func (c *Chat) genMembers(userIDs []string) (members []*Member) {
 	return
 }
 
-func (c *Chat) membersToStrings() []string {
+// MembersToStrings members to string
+func (c *Chat) MembersToStrings() []string {
 	s := []string{}
 	for _, m := range c.Members {
 		s = append(s, m.GetUserID())
@@ -81,7 +82,7 @@ func (c *Chat) GenSign(ss []string) string {
 
 // GetSign get sing
 func (c *Chat) GetSign() string {
-	ss := c.membersToStrings()
+	ss := c.MembersToStrings()
 	return c.GenSign(ss)
 }
 
@@ -120,5 +121,11 @@ func (c *Chat) FindBySign() (err error) {
 
 func (c *Chat) withMembers() (err error) {
 	_, err = GetDB().QueryTable(TableNameMember).Filter("Chat__id", c.ID).RelatedSel().All(&c.Members)
+	return
+}
+
+// FindChatsByUserID find chats by user_id
+func FindChatsByUserID(userID string) (chats []*Chat, err error) {
+	_, err = GetDB().QueryTable(TableNameChat).Filter("user_id", userID).RelatedSel().All(&chats)
 	return
 }

@@ -141,4 +141,7 @@ const (
 	// Chat
 	ErrorCodeChatAlreadyExists ErrorCode = "CHT400101"
 	ErrorCodeChatCreate        ErrorCode = "CHT500101"
+	ErrorCodeChatNotExists     ErrorCode = "CHT400102"
+	ErrorCodeChatMessageCreate ErrorCode = "CHT500103"
+	ErrorCodeChatMessageNotify ErrorCode = "CHT500104"
 )

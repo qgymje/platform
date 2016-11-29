@@ -4,6 +4,6 @@ package typeids
 type ChatTypeID int
 
 const (
-	// Message normal text message
-	Message ChatTypeID = 11000
+	// ChatMessage normal text message
+	ChatMessage ChatTypeID = 11000
 )

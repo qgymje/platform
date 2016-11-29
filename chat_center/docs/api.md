@@ -17,11 +17,9 @@ name|desc|dev status
 /user/recommend | [user_recommend](#user_recommend) | [NO]
 /friend/ | [friend_list](#friend_list)| [NO]
 /friend/| [add_friend](#add_friend)| [NO]
-/friend/agree | [agree](#agree)| [NO]
-/friend/refuse| [refuse](#refuse)| [NO]
 /chat/| [chat_list](#chat_list) | [NO]
-/chat/| [create_chat](#create_chat) | [NO]
-/chat/send| [send_message](#send_message) | [NO]
+/chat/| [create_chat](#create_chat) | [YES]
+/chat/send| [send_message](#send_message) | [YES]
 /notify/:token | [notify](#notify) | [NO]
 
 ---

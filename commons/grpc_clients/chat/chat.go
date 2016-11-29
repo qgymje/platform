@@ -33,8 +33,20 @@ func (c *Chat) Close() error {
 	return c.conn.Close()
 }
 
+// List list
+func (c *Chat) List(in *pb.Page) (*pb.ChatList, error) {
+	defer c.Close()
+	return c.client.List(context.Background(), in)
+}
+
 // Create create
 func (c *Chat) Create(in *pb.Creator) (*pb.Status, error) {
 	defer c.Close()
 	return c.client.Create(context.Background(), in)
+}
+
+// Send send message
+func (c *Chat) Send(in *pb.SendMessage) (*pb.Status, error) {
+	defer c.Close()
+	return c.client.Send(context.Background(), in)
 }

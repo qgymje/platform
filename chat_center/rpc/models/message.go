@@ -1,20 +1,28 @@
 package models
 
-import "time"
+import (
+	"strconv"
+	"time"
+)
 
 // Message messages
 type Message struct {
 	ID        int64  `orm:"column(id)"`
-	ChatID    int64  `orm:"column(chat_id)"`
+	Chat      *Chat  `orm:"rel(fk)"`
 	UserID    string `orm:"column(user_id)"` // sender
 	Content   string
 	CreatedAt time.Time
-	DeletedAt time.Time `rom:"null"` // revocation
+	DeletedAt time.Time `orm:"null"` // revocation
 }
 
 // TableName table name
 func (Message) TableName() string {
 	return TableNameMessage
+}
+
+// GetID get message id
+func (m *Message) GetID() string {
+	return strconv.FormatInt(m.ID, 10)
 }
 
 // Create create a message
