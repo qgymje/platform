@@ -121,3 +121,12 @@ type MessageSendGiftBroadcast struct {
 	TotalPrice   uint   `json:"total_price"`
 	LastSendTime int64  `json:"last_send_time"`
 }
+
+// MessageChatMessage chat message
+type MessageChatMessage struct {
+	MessageID string `json:"message_id"`
+	ChatID    string `json:"chat_id"`
+	UserID    string `json:"user_id"`
+	Content   string `json:"content"`
+	SendTime  int64  `json:"send_time"`
+}

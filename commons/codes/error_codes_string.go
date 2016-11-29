@@ -111,5 +111,12 @@ func init() {
 		ErrorCodeRequestFriendSave:        "request friend save failed",
 		ErrorCodeFriendSave:               "friend save failed",
 		ErrorCodeRequestFriendRefuse:      "friend refuse failed",
+
+		ErrorCodeChatAlreadyExists: "chat already exists",
+		ErrorCodeChatCreate:        "chat save failed",
+		ErrorCodeChatNotExists:     "chat not exists",
+		ErrorCodeChatMessageCreate: "chat message save failed",
+		ErrorCodeChatMessageNotify: "chat message notfiy failed",
 	}
+
 }
