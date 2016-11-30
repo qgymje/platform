@@ -1,4 +1,4 @@
-package services
+package servers
 
 import (
 	"errors"
@@ -10,11 +10,11 @@ import (
 	"golang.org/x/net/context"
 )
 
-// Server server
-type Server struct{}
+// ProfileServer server
+type ProfileServer struct{}
 
 // Withdraw withdraw
-func (s *Server) Withdraw(ctx context.Context, in *pb.Ammount) (*pb.Status, error) {
+func (s *ProfileServer) Withdraw(ctx context.Context, in *pb.Ammount) (*pb.Status, error) {
 	var err error
 	defer func() {
 		if err != nil {
@@ -39,7 +39,7 @@ func (s *Server) Withdraw(ctx context.Context, in *pb.Ammount) (*pb.Status, erro
 }
 
 // WithdrawRollback withdraw rollback
-func (s *Server) WithdrawRollback(ctx context.Context, in *pb.Message) (*pb.Status, error) {
+func (s *ProfileServer) WithdrawRollback(ctx context.Context, in *pb.Message) (*pb.Status, error) {
 	var err error
 	defer func() {
 		if err != nil {
@@ -60,7 +60,7 @@ func (s *Server) WithdrawRollback(ctx context.Context, in *pb.Message) (*pb.Stat
 }
 
 // WithdrawCommit withdraw commit
-func (s *Server) WithdrawCommit(ctx context.Context, in *pb.Message) (*pb.Status, error) {
+func (s *ProfileServer) WithdrawCommit(ctx context.Context, in *pb.Message) (*pb.Status, error) {
 	var err error
 	defer func() {
 		if err != nil {
@@ -78,28 +78,4 @@ func (s *Server) WithdrawCommit(ctx context.Context, in *pb.Message) (*pb.Status
 	}
 
 	return &pb.Status{Success: true, MsgID: in.MsgID}, nil
-}
-
-// FriendRequest friend request
-func (s *Server) FriendRequest(ctx context.Context, in *pb.Request) (*pb.RequestID, error) {
-	var err error
-	defer func() {
-		if err != nil {
-			utils.GetLog().Error("profiles.Server.WithdrawCommit error: %+v", err)
-		}
-	}()
-
-	return &pb.RequestID{}, nil
-}
-
-// FriendAgree agree
-func (s *Server) FriendAgree(ctx context.Context, in *pb.RequestID) (*pb.Status, error) {
-
-	return &pb.Status{}, nil
-}
-
-// FriendRefuse refuse
-func (s *Server) FriendRefuse(ctx context.Context, in *pb.RequestID) (*pb.Status, error) {
-
-	return &pb.Status{}, nil
 }
