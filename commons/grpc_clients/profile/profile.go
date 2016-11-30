@@ -51,3 +51,9 @@ func (p *Profile) WithdrawCommit(in *pb.Message) (*pb.Status, error) {
 	defer p.Close()
 	return p.client.WithdrawCommit(context.Background(), in)
 }
+
+// FriendRequest friend request
+func (p *Profile) FriendRequest(in *pb.Request) (*pb.RequestID, error) {
+	defer p.Close()
+	return p.client.FriendRequest(context.Background(), in)
+}

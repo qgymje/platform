@@ -1,7 +1,9 @@
 package servers
 
 import (
+	"errors"
 	pb "platform/commons/protos/profile"
+	"platform/profile_center/rpc/services/friends"
 	"platform/utils"
 
 	"golang.org/x/net/context"
@@ -18,8 +20,17 @@ func (s *FriendServer) FriendRequest(ctx context.Context, in *pb.Request) (*pb.R
 			utils.GetLog().Error("profiles.Server.WithdrawCommit error: %+v", err)
 		}
 	}()
-
-	return &pb.RequestID{}, nil
+	config := &friends.RequestConfig{
+		FromUserID: in.FromUserID,
+		ToUserID:   in.ToUserID,
+		Message:    in.Message,
+	}
+	req := friends.NewRequest(config)
+	if err = req.Do(); err != nil {
+		return nil, errors.New(req.ErrorCode().String())
+	}
+	reqID := req.GetRequestID()
+	return &pb.RequestID{RequestID: reqID}, nil
 }
 
 // FriendAgree agree

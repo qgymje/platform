@@ -52,7 +52,27 @@ func (r *Request) Do() (err error) {
 		r.errorCode = codes.ErrorCodeRequestFriendSave
 		return
 	}
+
+	if err = r.autoAgree(); err != nil {
+		return
+	}
+
 	return
+}
+
+// GetRequestID get request id
+func (r *Request) GetRequestID() string {
+	return r.requestFriendModel.GetID()
+}
+
+func (r *Request) autoAgree() error {
+	config := &ResponseConfig{RequestFriendID: r.requestFriendModel.GetID()}
+	resp := NewResponse(config)
+	if err := resp.Agree(); err != nil {
+		r.errorCode = resp.ErrorCode()
+		return err
+	}
+	return nil
 }
 
 func (r *Request) isRequested() bool {

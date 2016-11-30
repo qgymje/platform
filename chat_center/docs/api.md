@@ -10,14 +10,15 @@
     1. 2016.11.25
     2. update API design
 
+
 ## list:
 
 name|desc|dev status
 ---|---|---
 /user/recommend | [user_recommend](#user_recommend) | [NO]
 /friend/ | [friend_list](#friend_list)| [NO]
-/friend/| [add_friend](#add_friend)| [NO]
-/chat/| [chat_list](#chat_list) | [NO]
+/friend/| [add_friend](#add_friend)| [YES]
+/chat/| [chat_list](#chat_list) | [YES]
 /chat/| [create_chat](#create_chat) | [YES]
 /chat/send| [send_message](#send_message) | [YES]
 /notify/:token | [notify](#notify) | [NO]
@@ -85,6 +86,7 @@ PARAMETERS:
 name|type|must|desc
 ---|---|---|---
 user_id| string| yes | friend's user_id
+message| string| no | request message, could be empty
 
 RETURN:
 ```json
