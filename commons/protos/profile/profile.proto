@@ -14,7 +14,7 @@ service Profile {
 }
 
 message Friends {
-    repeated string userID = 1;
+    repeated string friendIDs = 1;
 }
 
 message Ammount {

@@ -16,7 +16,7 @@
 name|desc|dev status
 ---|---|---
 /user/recommend | [user_recommend](#user_recommend) | [NO]
-/friend/ | [friend_list](#friend_list)| [NO]
+/friend/ | [friend_list](#friend_list)| [YES]
 /friend/| [add_friend](#add_friend)| [YES]
 /chat/| [chat_list](#chat_list) | [YES]
 /chat/| [create_chat](#create_chat) | [YES]

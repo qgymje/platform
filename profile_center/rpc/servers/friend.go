@@ -17,7 +17,7 @@ func (s *FriendServer) FriendRequest(ctx context.Context, in *pb.Request) (*pb.R
 	var err error
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("profiles.Server.WithdrawCommit error: %+v", err)
+			utils.GetLog().Error("servers.FriendServer.FriendRequest error: %+v", err)
 		}
 	}()
 	config := &friends.RequestConfig{
@@ -47,5 +47,25 @@ func (s *FriendServer) FriendRefuse(ctx context.Context, in *pb.RequestID) (*pb.
 
 // FriendList friends list
 func (s *FriendServer) FriendList(ctx context.Context, in *pb.Message) (*pb.Friends, error) {
-	return &pb.Friends{}, nil
+	var err error
+	defer func() {
+		if err != nil {
+			utils.GetLog().Error("servers.FriendServer.FriendList error: %+v", err)
+		}
+	}()
+	config := &friends.Config{
+		UserID: in.UserID,
+	}
+	fri := friends.NewFriends(config)
+	if err = fri.Do(); err != nil {
+		return nil, errors.New(fri.ErrorCode().String())
+	}
+
+	var pbFriends []string
+	friendIDs := fri.Result()
+	for _, f := range friendIDs {
+		pbFriends = append(pbFriends, f.UserID)
+	}
+
+	return &pb.Friends{FriendIDs: pbFriends}, nil
 }

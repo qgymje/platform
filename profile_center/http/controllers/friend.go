@@ -16,7 +16,28 @@ type Friend struct {
 
 // List friend list
 func (f *Friend) List(c *gin.Context) {
+	var errorCode codes.ErrorCode
+	f.userInfo, errorCode = f.validUserInfo(c)
+	if f.userInfo == nil {
+		respformat := f.Response(c, errorCode, nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
 
+	p := profileClient.NewProfile(f.getProfileRPCAddress())
+	config := &pb.Message{
+		UserID: f.userInfo.UserID,
+	}
+	reply, err := p.FriendList(config)
+	if err != nil {
+		respformat := f.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
+
+	respformat := f.Response(c, codes.ErrorCodeSuccess, reply)
+	c.JSON(http.StatusOK, respformat)
+	return
 }
 
 // Request add friend
@@ -45,7 +66,6 @@ func (f *Friend) Request(c *gin.Context) {
 	respformat := f.Response(c, codes.ErrorCodeSuccess, reply)
 	c.JSON(http.StatusOK, respformat)
 	return
-
 }
 
 // Agree agree
