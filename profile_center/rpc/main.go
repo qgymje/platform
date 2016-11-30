@@ -7,7 +7,7 @@ import (
 
 	pb "platform/commons/protos/profile"
 	"platform/profile_center/rpc/models"
-	"platform/profile_center/rpc/services"
+	"platform/profile_center/rpc/servers"
 	"platform/profile_center/rpc/services/profiles"
 	"platform/utils"
 
@@ -50,7 +50,7 @@ func main() {
 	}
 	profiles.ListenRegisterUser()
 	s := grpc.NewServer()
-	pb.RegisterProfileServer(s, &services.Server{})
+	pb.RegisterProfileServer(s, &servers.Server{})
 	err = s.Serve(lis)
 	if err != nil {
 		log.Println("server start failed: ", err)

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -19,6 +20,11 @@ type RequestFriend struct {
 // TableName table name
 func (RequestFriend) TableName() string {
 	return TableNameRequestFriend
+}
+
+// GetID get requset id
+func (r *RequestFriend) GetID() string {
+	return strconv.FormatInt(r.ID, 10)
 }
 
 // Create a request

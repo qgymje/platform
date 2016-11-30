@@ -137,6 +137,7 @@ const (
 	ErrorCodeRequestFriendSave        ErrorCode = "FRI500101"
 	ErrorCodeFriendSave               ErrorCode = "FRI500102"
 	ErrorCodeRequestFriendRefuse      ErrorCode = "FRI500103"
+	ErrorCodeFriendsNotFound          ErrorCode = "FRI400103"
 
 	// Chat
 	ErrorCodeChatAlreadyExists ErrorCode = "CHT400101"

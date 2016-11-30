@@ -165,27 +165,12 @@ func (b *Base) getPageSize(c *gin.Context) (num int) {
 	return
 }
 
-func (b *Base) getCouponID(c *gin.Context) string {
-	return c.PostForm("coupon_id")
+func (b *Base) getUserID(c *gin.Context) string {
+	return c.PostForm("user_id")
 }
 
-func (b *Base) getSendCouponID(c *gin.Context) string {
-	return c.PostForm("sendcoupon_id")
-}
-
-func (b *Base) getNumber(c *gin.Context) int {
-	num, _ := strconv.Atoi(c.PostForm("number"))
-	return num
-}
-
-func (b *Base) getDuration(c *gin.Context) int {
-	dur, _ := strconv.Atoi(c.PostForm("duration"))
-	return dur
-}
-
-func (b *Base) getTypeID(c *gin.Context) int {
-	id, _ := strconv.Atoi(c.PostForm("type_id"))
-	return id
+func (b *Base) getMessage(c *gin.Context) string {
+	return c.PostForm("message")
 }
 
 func (b *Base) getUserRPCAddress() string {
@@ -198,4 +183,8 @@ func (b *Base) getRoomRPCAddress() string {
 
 func (b *Base) getCouponRPCAddress() string {
 	return "127.0.0.1:4004"
+}
+
+func (b *Base) getProfileRPCAddress() string {
+	return "127.0.0.1:4010"
 }
