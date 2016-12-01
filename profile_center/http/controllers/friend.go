@@ -4,7 +4,10 @@ import (
 	"net/http"
 	"platform/commons/codes"
 	"platform/commons/grpc_clients/profile"
+	"platform/commons/grpc_clients/user"
 	pb "platform/commons/protos/profile"
+	pbuser "platform/commons/protos/user"
+	"platform/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -34,8 +37,27 @@ func (f *Friend) List(c *gin.Context) {
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
+	utils.Dump(reply)
+	uc := userClient.NewUser(f.getUserRPCAddress())
+	userQuery := &pbuser.UserQuery{
+		Num:  1,
+		Size: int32(len(reply.FriendIDs)),
+		IDs:  reply.FriendIDs,
+	}
+	users, err := uc.List(userQuery)
+	if err != nil {
+		respformat := f.Response(c, rpcErrorFormat(err.Error()), nil)
+		c.JSON(http.StatusOK, respformat)
+		return
+	}
 
-	respformat := f.Response(c, codes.ErrorCodeSuccess, reply)
+	for i := range users.Users {
+		f.removePBUserInfoToken(users.Users[i])
+		f.removePBUserInfoPhone(users.Users[i])
+		f.removePBUserInfoEmail(users.Users[i])
+	}
+
+	respformat := f.Response(c, codes.ErrorCodeSuccess, users)
 	c.JSON(http.StatusOK, respformat)
 	return
 }
