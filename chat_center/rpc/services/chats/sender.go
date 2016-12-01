@@ -1,14 +1,9 @@
 package chats
 
 import (
-	"encoding/json"
 	"errors"
-	"fmt"
 	"platform/chat_center/rpc/models"
-	"platform/chat_center/rpc/services/chats/notifier"
 	"platform/commons/codes"
-	"platform/commons/queues"
-	"platform/commons/typeids"
 	"platform/utils"
 	"strconv"
 )
@@ -105,32 +100,15 @@ func (s *Sender) isChatExists() bool {
 }
 
 func (s *Sender) notify() error {
-	return notifier.Publish(s)
-}
-
-// Topic topic
-func (s *Sender) Topic() string {
-	return fmt.Sprintf(queues.TopicChatFormat.String(), s.config.ChatID)
-}
-
-// Message message send to the nsq
-func (s *Sender) Message() []byte {
-	msg := queues.MessageChatMessage{
-		MessageID: s.messageModel.GetID(),
-		ChatID:    s.messageModel.Chat.GetID(),
-		UserID:    s.config.UserID,
-		Content:   s.messageModel.Content,
-		SendTime:  s.messageModel.CreatedAt.Unix(),
+	for _, member := range s.chatModel.Members {
+		config := &BroadcastConfig{
+			ToUserID: member.UserID,
+			Message:  s.messageModel,
+		}
+		broadcast := NewBroadcast(config)
+		if err := broadcast.Do(); err != nil {
+			return err
+		}
 	}
-
-	data := struct {
-		Type int         `json:"type"`
-		Data interface{} `json:"data"`
-	}{
-		Type: int(typeids.ChatMessage),
-		Data: msg,
-	}
-
-	m, _ := json.Marshal(&data)
-	return m
+	return nil
 }

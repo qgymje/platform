@@ -1,6 +1,8 @@
 package services
 
 import (
+	"bytes"
+	"log"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -20,6 +22,7 @@ var (
 
 // Client represent a broadcast client
 type Client struct {
+	send    chan Message
 	conn    *websocket.Conn
 	session *NSQSession
 }
@@ -45,6 +48,19 @@ func (c *Client) ReadPump() {
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
 		return nil
 	})
+
+	for {
+		_, message, err := c.conn.ReadMessage()
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway) {
+				log.Printf("error: %v", err)
+			}
+			break
+		}
+		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+		c.send <- message
+	}
+	close(c.send)
 }
 
 func (c *Client) write(mt int, payload []byte) error {
@@ -75,6 +91,7 @@ func (c *Client) WritePump() {
 			if err != nil {
 				return
 			}
+			//utils.Dump("[websocket] got a message:", message.String())
 			w.Write(message)
 
 			if err := w.Close(); err != nil {

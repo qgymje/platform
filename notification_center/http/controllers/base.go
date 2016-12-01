@@ -24,7 +24,6 @@ const versionKey = "version"
 // Base controller do common things
 type Base struct {
 	userInfo *pbuser.UserInfo
-	roomInfo *pbroom.RoomInfo
 }
 
 var uploadPath string

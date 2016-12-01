@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"platform/commons/middlewares"
-	"platform/coupon_center/http/controllers"
+	"platform/notification_center/http/controllers"
 	"platform/utils"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +18,7 @@ var (
 )
 
 func initEnv() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	flag.Parse()
 	log.Println("current env is: ", *env)
 	utils.SetEnv(*env)

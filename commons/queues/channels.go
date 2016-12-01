@@ -26,4 +26,9 @@ const (
 	ChannelSendGiftReceiveGift Channel = "receive_gift"
 	// ChannelSendGiftIncresePoint increse point
 	ChannelSendGiftIncresePoint Channel = "increse_point"
+
+	// ChannelUserChat user chat
+	ChannelUserChat Topic = "chat"
+	// ChannelUserNotification  notification
+	ChannelUserNotification Topic = "noticifation"
 )

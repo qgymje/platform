@@ -63,12 +63,12 @@ func (r *Receive) Do() (err error) {
 // Stop stop consume
 func (r *Receive) Stop() {
 	r.consumer.Stop()
-	utils.DeleteChannel(r.receiver.Topic(), r.receiver.Channel())
+	//utils.DeleteChannel(r.receiver.Topic(), r.receiver.Channel())
 }
 
 func (r *Receive) addHanler() {
 	r.consumer.AddHandler(nsq.HandlerFunc(func(message *nsq.Message) error {
-		log.Printf("Got a message: %s", string(message.Body))
+		log.Printf("[receiver] got a message: %s", string(message.Body))
 		r.msg <- message.Body
 		return nil
 	}))
