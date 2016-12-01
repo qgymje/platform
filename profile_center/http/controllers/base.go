@@ -173,6 +173,18 @@ func (b *Base) getMessage(c *gin.Context) string {
 	return c.PostForm("message")
 }
 
+func (b *Base) removePBUserInfoToken(u *pbuser.UserInfo) {
+	u.Token = ""
+}
+
+func (b *Base) removePBUserInfoPhone(u *pbuser.UserInfo) {
+	u.Phone = ""
+}
+
+func (b *Base) removePBUserInfoEmail(u *pbuser.UserInfo) {
+	u.Email = ""
+}
+
 func (b *Base) getUserRPCAddress() string {
 	return "127.0.0.1:4000"
 }

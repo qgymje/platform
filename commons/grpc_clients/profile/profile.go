@@ -57,3 +57,9 @@ func (p *Profile) FriendRequest(in *pb.Request) (*pb.RequestID, error) {
 	defer p.Close()
 	return p.client.FriendRequest(context.Background(), in)
 }
+
+// FriendList friend list
+func (p *Profile) FriendList(in *pb.Message) (*pb.Friends, error) {
+	defer p.Close()
+	return p.client.FriendList(context.Background(), in)
+}

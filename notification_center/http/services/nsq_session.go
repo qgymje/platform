@@ -1,7 +1,5 @@
 package services
 
-import "platform/notification_center/http/services/receiver"
-
 // Message message is b byte slice
 type Message []byte
 
@@ -11,41 +9,44 @@ func (s Message) String() string {
 
 // Consumer a consumer interface
 type Consumer interface {
-	receiver.Receiver
-	Stop() error
+	Consume() <-chan Message
+	Stop()
 }
 
 // NSQSession nsq consummer
 type NSQSession struct {
-	consumers []*Consumer
+	consumers []Consumer
 	receive   chan Message
 }
 
 // NewNSQSession new NSQSession
-func NewNSQSession(consumers []*Consumer) *NSQSession {
+func NewNSQSession(consumers []Consumer) *NSQSession {
 	s := new(NSQSession)
-	s.consumers = consuemrs
+	s.consumers = consumers
 	s.receive = make(chan Message)
 	return s
 }
 
-// Stop stop consumer
-func (s *NSQSession) Stop() {
+// Close stop consumer
+func (s *NSQSession) Close() {
 	for i := range s.consumers {
 		s.consumers[i].Stop()
 	}
 }
 
 func (s *NSQSession) combineConsume() {
-	for {
-		for i := range s.consumers {
-			s.receive <- s.consumers[i].Handler()
-		}
+	for i := range s.consumers {
+		go func(i int) {
+			for msg := range s.consumers[i].Consume() {
+				//utils.Dump("[combineConsume]: got a message: ", msg.String())
+				s.receive <- msg
+			}
+		}(i)
 	}
 }
 
 // Consume combine the messages
 func (s *NSQSession) Consume() <-chan Message {
-	go s.combineConsume()
+	s.combineConsume()
 	return s.receive
 }

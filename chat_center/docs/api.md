@@ -10,18 +10,20 @@
     1. 2016.11.25
     2. update API design
 
+2. v1.0.0
+    1. 2016.12.1
 
 ## list:
 
 name|desc|dev status
 ---|---|---
 /user/recommend | [user_recommend](#user_recommend) | [NO]
-/friend/ | [friend_list](#friend_list)| [NO]
+/friend/ | [friend_list](#friend_list)| [YES]
 /friend/| [add_friend](#add_friend)| [YES]
 /chat/| [chat_list](#chat_list) | [YES]
 /chat/| [create_chat](#create_chat) | [YES]
 /chat/send| [send_message](#send_message) | [YES]
-/notify/:token | [notify](#notify) | [NO]
+/notify/:token | [notify](#notify) | [YES]
 
 ---
 
@@ -181,7 +183,7 @@ RETURN:
 RECEIVER:
 
 ```json
-{"type": 11000, "data": {"chat_id": "123, "from_user_id":"57e226dac86ab45af3d1480","nickname":"somebody", "avatar":"http://www.example.com/avatar_of_somebody", content":"say hi", "created_at":147443887}}
+{"type":11000,"data":{"message_id":"36","chat_id":"1","user_id":"57e2267ec86ab45af3d14806","content":"你好","send_time":1480569427}}
 ```
 
 > in this case: type id: 11000 means normal textual message in chat server

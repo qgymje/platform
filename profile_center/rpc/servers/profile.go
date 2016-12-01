@@ -18,7 +18,7 @@ func (s *ProfileServer) Withdraw(ctx context.Context, in *pb.Ammount) (*pb.Statu
 	var err error
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("profiles.Server.Withdraw error: %+v", err)
+			utils.GetLog().Error("servers.ProfileServer.Withdraw error: %+v", err)
 		}
 	}()
 
@@ -43,7 +43,7 @@ func (s *ProfileServer) WithdrawRollback(ctx context.Context, in *pb.Message) (*
 	var err error
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("profiles.Server.WithdrawRollback error: %+v", err)
+			utils.GetLog().Error("servers.ProfileServer.WithdrawRollback error: %+v", err)
 		}
 	}()
 
@@ -64,7 +64,7 @@ func (s *ProfileServer) WithdrawCommit(ctx context.Context, in *pb.Message) (*pb
 	var err error
 	defer func() {
 		if err != nil {
-			utils.GetLog().Error("profiles.Server.WithdrawCommit error: %+v", err)
+			utils.GetLog().Error("servers.ProfileServer.WithdrawCommit error: %+v", err)
 		}
 	}()
 
