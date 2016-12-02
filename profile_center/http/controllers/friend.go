@@ -7,7 +7,6 @@ import (
 	"platform/commons/grpc_clients/user"
 	pb "platform/commons/protos/profile"
 	pbuser "platform/commons/protos/user"
-	"platform/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +14,11 @@ import (
 // Friend friend controller
 type Friend struct {
 	Base
+}
+
+// Recommend recommend friends
+func (f *Friend) Recommend(c *gin.Context) {
+
 }
 
 // List friend list
@@ -37,7 +41,7 @@ func (f *Friend) List(c *gin.Context) {
 		c.JSON(http.StatusOK, respformat)
 		return
 	}
-	utils.Dump(reply)
+
 	uc := userClient.NewUser(f.getUserRPCAddress())
 	userQuery := &pbuser.UserQuery{
 		Num:  1,

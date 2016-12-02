@@ -39,7 +39,7 @@ func (f *FriendFinder) UserID(userID string) *FriendFinder {
 	f.userID = userID
 	cond1 := orm.NewCondition().And("from_user_id", userID)
 	cond2 := orm.NewCondition().And("to_user_id", userID)
-	f.query.SetCond(cond1.OrCond(cond2))
+	f.query = f.query.SetCond(cond1.OrCond(cond2))
 	return f
 }
 
@@ -47,7 +47,7 @@ func (f *FriendFinder) UserID(userID string) *FriendFinder {
 func (f *FriendFinder) Do() (err error) {
 	defer func() {
 		if err != nil {
-			utils.Dump("models.FriendFinder.Do error: %+v", err)
+			utils.GetLog().Error("models.FriendFinder.Do error: %+v", err)
 		}
 	}()
 
@@ -56,6 +56,7 @@ func (f *FriendFinder) Do() (err error) {
 		return
 	}
 	if n == 0 {
+		utils.Dump("here")
 		return ErrNotFound
 	}
 
