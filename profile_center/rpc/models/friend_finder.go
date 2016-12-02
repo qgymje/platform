@@ -56,7 +56,6 @@ func (f *FriendFinder) Do() (err error) {
 		return
 	}
 	if n == 0 {
-		utils.Dump("here")
 		return ErrNotFound
 	}
 
