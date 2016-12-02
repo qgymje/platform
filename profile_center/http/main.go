@@ -61,6 +61,7 @@ func main() {
 		c.POST("/", friend.Request)
 		c.PUT("/agree", friend.Agree)
 		c.PUT("/refuse", friend.Refuse)
+		c.PUT("/recommend", friend.Recommend)
 	}
 
 	if err := r.Run(getPort()); err != nil {

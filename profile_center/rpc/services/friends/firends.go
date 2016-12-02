@@ -50,7 +50,12 @@ func (f *Friends) Do() (err error) {
 }
 
 func (f *Friends) findFriends() (err error) {
-	return f.friendFinder.Do()
+	f.friendFinder.UserID(f.config.UserID)
+	err = f.friendFinder.Do()
+	if err == models.ErrNotFound {
+		return nil
+	}
+	return err
 }
 
 // Result the friends result
@@ -60,7 +65,15 @@ func (f *Friends) Result() []*FriendInfo {
 		friendInfo := modelFriendToSrvFriend(f.config.UserID, modelFriends[i])
 		f.friendList = append(f.friendList, friendInfo)
 	}
+
+	f.addUserSelf()
+
 	return f.friendList
+}
+
+// friend list at least has one item: user self
+func (f *Friends) addUserSelf() {
+	f.friendList = append(f.friendList, &FriendInfo{UserID: f.config.UserID})
 }
 
 // Count count

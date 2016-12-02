@@ -1,3 +1,3 @@
 include ../../.Makefile
 
-PROJECT_NAME = chat_server_rpc
+PROJECT_NAME = chat_center_rpc
