@@ -75,6 +75,7 @@ func (r *Rooms) findBroadcasts() error {
 			broadcastIDs = append(broadcastIDs, modelRooms[i].BroadcastID.Hex())
 		}
 	}
+
 	if err := r.broadcastFinder.ByIDs(broadcastIDs).Do(); err != nil {
 		if err == models.ErrNotFound {
 			return nil

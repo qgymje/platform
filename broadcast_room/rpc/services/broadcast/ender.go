@@ -67,7 +67,7 @@ func (e *Ender) Do() (err error) {
 		return
 	}
 
-	if yes := e.isPlayedLognerThanLeastTime(); !yes {
+	if yes := e.isPlayedLongerThanLeastTime(); !yes {
 		e.errorCode = codes.ErrorCodeBroadcastTooShort
 		return errors.New("broadcast too short")
 	}
@@ -130,7 +130,7 @@ func (e *Ender) isEnded() bool {
 	return true
 }
 
-func (e *Ender) isPlayedLognerThanLeastTime() bool {
+func (e *Ender) isPlayedLongerThanLeastTime() bool {
 	return time.Since(e.broadcastModel.StartTime) > broadcastAtLeastTime
 }
 
